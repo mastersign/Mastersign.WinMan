@@ -59,8 +59,15 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.xml</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ConfigurationPattern.cs" />
+    <Compile Include="ScreenPattern.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="vendor\VirtualDesktop\ApplicationHelper.cs" />
     <Compile Include="vendor\VirtualDesktop\Internal\Disposable.cs" />
@@ -89,6 +96,7 @@
     <Compile Include="vendor\VirtualDesktop\VirtualDesktopDestroyEventArgs.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktopHelper.cs" />
     <Compile Include="WinApi.cs" />
+    <Compile Include="WindowPattern.cs" />
     <Compile Include="WindowWrapper.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -118,6 +126,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Model.xml">
+      <Generator>Scaleton Code Generator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

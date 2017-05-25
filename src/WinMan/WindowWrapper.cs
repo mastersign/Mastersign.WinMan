@@ -10,7 +10,7 @@ using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
-    class WindowWrapper
+    public class WindowWrapper
     {
         private static readonly Dictionary<IntPtr, WindowWrapper> instances = new Dictionary<IntPtr, WindowWrapper>();
 

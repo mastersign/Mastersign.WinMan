@@ -169,7 +169,7 @@ namespace Mastersign.WinMan
         }
     }
 
-    enum ShowWindowCommands
+    public enum ShowWindowCommands
     {
         /// <summary>
         /// Hides the window and activates another window.

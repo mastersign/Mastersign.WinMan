@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://scaleton.mastersign.de/2014/model"
+       xsi:schemaLocation="http://scaleton.mastersign.de/2014/model http://scaleton.mastersign.de/Scaleton_Model_2014.xsd">
+
+  <ReferencedTypes>
+    <ReferencedType id="rect" name="System.Drawing.Rectangle" kind="Struct" immutable="true" />
+  </ReferencedTypes>
+
+  <Configuration modelType="Plain">
+    <IsXmlSerializable value="true" />
+    <IsEquatable overrideOperators="false" />
+    <OverrideToString value="true" />
+  </Configuration>
+
+  <Types>
+
+    <Class name="WindowPattern">
+      <Property name="Name" type="string" />
+      <Property name="Command" type="string" />
+      <Property name="CommandArgs" type="string" />
+      <Property name="Restore" type="bool" />
+
+      <Property name="TitlePattern" type="string" />
+      <Property name="IsTitleRegex" type="bool" />
+      <Property name="WindowClassPattern" type="string" />
+      <Property name="IsWindowClassRegex" type="bool" />
+      <Property name="ProcessFileName" type="string" />
+    </Class>
+
+    <Class name="ScreenPattern">
+      <Property name="Name" type="string" />
+      <Property name="Bounds" type="rect" />
+      <Property name="DeviceName" type="string" />
+    </Class>
+
+    <Class name="ConfigurationPattern">
+      <Property name="Screens" type="ScreenPattern" isCollection="true" />
+      <Property name="VirtualDesktopCount" type="int">
+        <DefaultValue>1</DefaultValue>
+      </Property>
+      <Property name="RespectVirtualDesktopCount" type="bool">
+        <DefaultValue>false</DefaultValue>
+      </Property>
+    </Class>
+
+    <Enum name="Positioning">
+      <Member name="Free" />
+      <Member name="DockLeft" />
+      <Member name="DockRight" />
+      <Member name="DockTop" />
+      <Member name="DockBottom" />
+      <Member name="DockHeight" />
+      <Member name="DockWidth" />
+      <Member name="DockTopLeft" />
+      <Member name="DockTopRight" />
+      <Member name="DockBottomLeft" />
+      <Member name="DockBottomRight" />
+    </Enum>
+
+    <Class name="WindowTarget">
+      <Property name="ScreenName" type="ScreenPattern" />
+      <Property name="VirtualDesktop" type="int" />
+
+      <Property name="Positioning" type="Positioning">
+        <DefaultValue>Free</DefaultValue>
+      </Property>
+      <Property name="Left" type="float" />
+      <Property name="Top" type="float" />
+      <Property name="Right" type="float" />
+      <Property name="Bottom" type="float" />
+    </Class>
+
+    <Class name="WindowAction">
+      <Property name="Window" type="string" />
+      <Property name="Target" type="WindowTarget" />
+    </Class>
+
+    <Class name="Layout">
+      <Property name="Configurations" type="ConfigurationPattern" isCollection="true" />
+      <Property name="Windows" type="WindowAction" isCollection="true" />
+    </Class>
+
+    <Class name="Workspace">
+      <Property name="WindowPatterns" type="WindowPattern" isCollection="true" />
+      <Property name="Layouts" type="Layout" isCollection="true" />
+    </Class>
+
+  </Types>
+</Model>
