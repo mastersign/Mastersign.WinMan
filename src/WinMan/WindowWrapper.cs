@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
@@ -40,9 +43,21 @@ namespace Mastersign.WinMan
 
         public IntPtr Handle { get; private set; }
 
+        private WINDOWPLACEMENT placement = WINDOWPLACEMENT.Default;
+
         private WindowWrapper(IntPtr hWnd)
         {
             Handle = hWnd;
+        }
+
+        private void ReadPlacement()
+        {
+            WinApi.GetWindowPlacement(Handle, ref placement);
+        }
+
+        private void WritePlacement()
+        {
+            WinApi.SetWindowPlacement(Handle, ref placement);
         }
 
         public string Title
@@ -66,9 +81,61 @@ namespace Mastersign.WinMan
             }
         }
 
+        public string WindowClass
+        {
+            get
+            {
+                var sb = new StringBuilder(256);
+                WinApi.GetClassName(Handle, sb, sb.Capacity);
+                return sb.ToString();
+            }
+        }
+
         public bool IsValid => WinApi.IsWindow(Handle);
 
         public bool IsVisible => WinApi.IsWindowVisible(Handle);
+
+        public RECT NormalPosition
+        {
+            get
+            {
+                ReadPlacement();
+                return placement.NormalPosition;
+            }
+            set
+            {
+                ReadPlacement();
+                placement.NormalPosition = value;
+                WritePlacement();
+            }
+        }
+
+        public ShowWindowCommands ShowCommand
+        {
+            get
+            {
+                ReadPlacement();
+                return placement.ShowCmd;
+            }
+            set
+            {
+                ReadPlacement();
+                placement.ShowCmd = value;
+                WritePlacement();
+            }
+        }
+
+        public void SetPlacement(RECT normalPosition, ShowWindowCommands showCmd)
+        {
+            ReadPlacement();
+            placement.NormalPosition = normalPosition;
+            placement.ShowCmd = showCmd;
+            WritePlacement();
+        }
+
+        public VirtualDesktop VirtualDesktop => VirtualDesktop.FromHwnd(Handle);
+
+        public Screen Screen=> System.Windows.Forms.Screen.FromHandle(Handle);
 
         public Process Process
         {
@@ -92,7 +159,7 @@ namespace Mastersign.WinMan
 
         public override string ToString()
         {
-            return Title;
+            return $"{Title} [{Handle}] {ShowCommand} ({Path.GetFileName(Process.MainModule.FileName)}) ";
         }
     }
 }
