@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Xml.Serialization;
 
 namespace Mastersign.WinMan
 {
     #region Scaleton Model Designer generated code
+    
+    public enum StringPatternType
+    {
+        Exact,
+        Wildcard,
+        Regex,
+    }
     
     public enum Positioning
     {
@@ -22,10 +28,13 @@ namespace Mastersign.WinMan
         DockBottomRight,
     }
     
-    public partial class WindowPattern : IEquatable<WindowPattern>
+    public partial class WindowPattern : IEquatable<WindowPattern>, INotifyPropertyChanged
     {
         public WindowPattern()
         {
+            this._name = DEF_NAME;
+            this._titlePatternType = DEF_TITLEPATTERNTYPE;
+            this._windowClassPatternType = DEF_WINDOWCLASSPATTERNTYPE;
         }
         
         #region Equatability
@@ -36,7 +45,7 @@ namespace Mastersign.WinMan
             {
                 return false;
             }
-            return true;
+            return object.ReferenceEquals(this, o);
         }
         
         public override bool Equals(object o)
@@ -59,10 +68,40 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
         #region Property Name
         
         private string _name;
         
+        public event EventHandler NameChanged;
+        
+        protected virtual void OnNameChanged()
+        {
+            EventHandler handler = NameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Name");
+        }
+        
+        private const string DEF_NAME = @"No Name";
+        
+        [DefaultValue(DEF_NAME)]
         public virtual string Name
         {
             get { return _name; }
@@ -72,6 +111,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _name = value;
+                this.OnNameChanged();
             }
         }
         
@@ -80,6 +121,18 @@ namespace Mastersign.WinMan
         #region Property Command
         
         private string _command;
+        
+        public event EventHandler CommandChanged;
+        
+        protected virtual void OnCommandChanged()
+        {
+            EventHandler handler = CommandChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Command");
+        }
         
         public virtual string Command
         {
@@ -90,6 +143,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _command = value;
+                this.OnCommandChanged();
             }
         }
         
@@ -98,6 +153,18 @@ namespace Mastersign.WinMan
         #region Property CommandArgs
         
         private string _commandArgs;
+        
+        public event EventHandler CommandArgsChanged;
+        
+        protected virtual void OnCommandArgsChanged()
+        {
+            EventHandler handler = CommandArgsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"CommandArgs");
+        }
         
         public virtual string CommandArgs
         {
@@ -108,6 +175,40 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _commandArgs = value;
+                this.OnCommandArgsChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property WorkingDir
+        
+        private string _workingDir;
+        
+        public event EventHandler WorkingDirChanged;
+        
+        protected virtual void OnWorkingDirChanged()
+        {
+            EventHandler handler = WorkingDirChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WorkingDir");
+        }
+        
+        public virtual string WorkingDir
+        {
+            get { return _workingDir; }
+            set
+            {
+                if (string.Equals(value, _workingDir))
+                {
+                    return;
+                }
+                _workingDir = value;
+                this.OnWorkingDirChanged();
             }
         }
         
@@ -116,6 +217,18 @@ namespace Mastersign.WinMan
         #region Property Restore
         
         private bool _restore;
+        
+        public event EventHandler RestoreChanged;
+        
+        protected virtual void OnRestoreChanged()
+        {
+            EventHandler handler = RestoreChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Restore");
+        }
         
         public virtual bool Restore
         {
@@ -126,6 +239,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _restore = value;
+                this.OnRestoreChanged();
             }
         }
         
@@ -134,6 +249,18 @@ namespace Mastersign.WinMan
         #region Property TitlePattern
         
         private string _titlePattern;
+        
+        public event EventHandler TitlePatternChanged;
+        
+        protected virtual void OnTitlePatternChanged()
+        {
+            EventHandler handler = TitlePatternChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"TitlePattern");
+        }
         
         public virtual string TitlePattern
         {
@@ -144,24 +271,75 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _titlePattern = value;
+                this.OnTitlePatternChanged();
             }
         }
         
         #endregion
         
-        #region Property IsTitleRegex
+        #region Property TitlePatternType
         
-        private bool _isTitleRegex;
+        private StringPatternType _titlePatternType;
         
-        public virtual bool IsTitleRegex
+        public event EventHandler TitlePatternTypeChanged;
+        
+        protected virtual void OnTitlePatternTypeChanged()
         {
-            get { return _isTitleRegex; }
+            EventHandler handler = TitlePatternTypeChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"TitlePatternType");
+        }
+        
+        private const StringPatternType DEF_TITLEPATTERNTYPE = StringPatternType.Wildcard;
+        
+        [DefaultValue(DEF_TITLEPATTERNTYPE)]
+        public virtual StringPatternType TitlePatternType
+        {
+            get { return _titlePatternType; }
             set
             {
-                if ((value == _isTitleRegex))
+                if ((value == _titlePatternType))
                 {
                     return;
                 }
+                _titlePatternType = value;
+                this.OnTitlePatternTypeChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property TitleIgnoreCase
+        
+        private bool _titleIgnoreCase;
+        
+        public event EventHandler TitleIgnoreCaseChanged;
+        
+        protected virtual void OnTitleIgnoreCaseChanged()
+        {
+            EventHandler handler = TitleIgnoreCaseChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"TitleIgnoreCase");
+        }
+        
+        public virtual bool TitleIgnoreCase
+        {
+            get { return _titleIgnoreCase; }
+            set
+            {
+                if ((value == _titleIgnoreCase))
+                {
+                    return;
+                }
+                _titleIgnoreCase = value;
+                this.OnTitleIgnoreCaseChanged();
             }
         }
         
@@ -170,6 +348,18 @@ namespace Mastersign.WinMan
         #region Property WindowClassPattern
         
         private string _windowClassPattern;
+        
+        public event EventHandler WindowClassPatternChanged;
+        
+        protected virtual void OnWindowClassPatternChanged()
+        {
+            EventHandler handler = WindowClassPatternChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WindowClassPattern");
+        }
         
         public virtual string WindowClassPattern
         {
@@ -180,24 +370,75 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _windowClassPattern = value;
+                this.OnWindowClassPatternChanged();
             }
         }
         
         #endregion
         
-        #region Property IsWindowClassRegex
+        #region Property WindowClassPatternType
         
-        private bool _isWindowClassRegex;
+        private StringPatternType _windowClassPatternType;
         
-        public virtual bool IsWindowClassRegex
+        public event EventHandler WindowClassPatternTypeChanged;
+        
+        protected virtual void OnWindowClassPatternTypeChanged()
         {
-            get { return _isWindowClassRegex; }
+            EventHandler handler = WindowClassPatternTypeChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WindowClassPatternType");
+        }
+        
+        private const StringPatternType DEF_WINDOWCLASSPATTERNTYPE = StringPatternType.Exact;
+        
+        [DefaultValue(DEF_WINDOWCLASSPATTERNTYPE)]
+        public virtual StringPatternType WindowClassPatternType
+        {
+            get { return _windowClassPatternType; }
             set
             {
-                if ((value == _isWindowClassRegex))
+                if ((value == _windowClassPatternType))
                 {
                     return;
                 }
+                _windowClassPatternType = value;
+                this.OnWindowClassPatternTypeChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property WindowClassIgnoreCase
+        
+        private bool _windowClassIgnoreCase;
+        
+        public event EventHandler WindowClassIgnoreCaseChanged;
+        
+        protected virtual void OnWindowClassIgnoreCaseChanged()
+        {
+            EventHandler handler = WindowClassIgnoreCaseChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WindowClassIgnoreCase");
+        }
+        
+        public virtual bool WindowClassIgnoreCase
+        {
+            get { return _windowClassIgnoreCase; }
+            set
+            {
+                if ((value == _windowClassIgnoreCase))
+                {
+                    return;
+                }
+                _windowClassIgnoreCase = value;
+                this.OnWindowClassIgnoreCaseChanged();
             }
         }
         
@@ -206,6 +447,18 @@ namespace Mastersign.WinMan
         #region Property ProcessFileName
         
         private string _processFileName;
+        
+        public event EventHandler ProcessFileNameChanged;
+        
+        protected virtual void OnProcessFileNameChanged()
+        {
+            EventHandler handler = ProcessFileNameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"ProcessFileName");
+        }
         
         public virtual string ProcessFileName
         {
@@ -216,16 +469,19 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _processFileName = value;
+                this.OnProcessFileNameChanged();
             }
         }
         
         #endregion
     }
     
-    public partial class ScreenPattern : IEquatable<ScreenPattern>
+    public partial class ScreenPattern : IEquatable<ScreenPattern>, INotifyPropertyChanged
     {
         public ScreenPattern()
         {
+            this._name = DEF_NAME;
         }
         
         #region Equatability
@@ -236,7 +492,7 @@ namespace Mastersign.WinMan
             {
                 return false;
             }
-            return true;
+            return object.ReferenceEquals(this, o);
         }
         
         public override bool Equals(object o)
@@ -259,10 +515,40 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
         #region Property Name
         
         private string _name;
         
+        public event EventHandler NameChanged;
+        
+        protected virtual void OnNameChanged()
+        {
+            EventHandler handler = NameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Name");
+        }
+        
+        private const string DEF_NAME = @"Screen";
+        
+        [DefaultValue(DEF_NAME)]
         public virtual string Name
         {
             get { return _name; }
@@ -272,6 +558,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _name = value;
+                this.OnNameChanged();
             }
         }
         
@@ -280,6 +568,18 @@ namespace Mastersign.WinMan
         #region Property Bounds
         
         private global::System.Drawing.Rectangle _bounds;
+        
+        public event EventHandler BoundsChanged;
+        
+        protected virtual void OnBoundsChanged()
+        {
+            EventHandler handler = BoundsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Bounds");
+        }
         
         public virtual global::System.Drawing.Rectangle Bounds
         {
@@ -290,6 +590,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _bounds = value;
+                this.OnBoundsChanged();
             }
         }
         
@@ -298,6 +600,18 @@ namespace Mastersign.WinMan
         #region Property DeviceName
         
         private string _deviceName;
+        
+        public event EventHandler DeviceNameChanged;
+        
+        protected virtual void OnDeviceNameChanged()
+        {
+            EventHandler handler = DeviceNameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"DeviceName");
+        }
         
         public virtual string DeviceName
         {
@@ -308,16 +622,19 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _deviceName = value;
+                this.OnDeviceNameChanged();
             }
         }
         
         #endregion
     }
     
-    public partial class ConfigurationPattern : IEquatable<ConfigurationPattern>
+    public partial class ConfigurationPattern : IEquatable<ConfigurationPattern>, INotifyPropertyChanged
     {
         public ConfigurationPattern()
         {
+            this._name = DEF_NAME;
             this._virtualDesktopCount = DEF_VIRTUALDESKTOPCOUNT;
             this._respectVirtualDesktopCount = DEF_RESPECTVIRTUALDESKTOPCOUNT;
         }
@@ -330,7 +647,7 @@ namespace Mastersign.WinMan
             {
                 return false;
             }
-            return true;
+            return object.ReferenceEquals(this, o);
         }
         
         public override bool Equals(object o)
@@ -353,11 +670,73 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property Name
+        
+        private string _name;
+        
+        public event EventHandler NameChanged;
+        
+        protected virtual void OnNameChanged()
+        {
+            EventHandler handler = NameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Name");
+        }
+        
+        private const string DEF_NAME = @"Configuration";
+        
+        [DefaultValue(DEF_NAME)]
+        public virtual string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.Equals(value, _name))
+                {
+                    return;
+                }
+                _name = value;
+                this.OnNameChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Screens
         
-        private List<ScreenPattern> _screens;
+        private BindingList<ScreenPattern> _screens;
         
-        public virtual List<ScreenPattern> Screens
+        public event EventHandler ScreensChanged;
+        
+        protected virtual void OnScreensChanged()
+        {
+            EventHandler handler = ScreensChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Screens");
+        }
+        
+        public virtual BindingList<ScreenPattern> Screens
         {
             get { return _screens; }
             set
@@ -366,6 +745,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _screens = value;
+                this.OnScreensChanged();
             }
         }
         
@@ -374,6 +755,18 @@ namespace Mastersign.WinMan
         #region Property VirtualDesktopCount
         
         private int _virtualDesktopCount;
+        
+        public event EventHandler VirtualDesktopCountChanged;
+        
+        protected virtual void OnVirtualDesktopCountChanged()
+        {
+            EventHandler handler = VirtualDesktopCountChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"VirtualDesktopCount");
+        }
         
         private const int DEF_VIRTUALDESKTOPCOUNT = 1;
         
@@ -387,6 +780,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _virtualDesktopCount = value;
+                this.OnVirtualDesktopCountChanged();
             }
         }
         
@@ -395,6 +790,18 @@ namespace Mastersign.WinMan
         #region Property RespectVirtualDesktopCount
         
         private bool _respectVirtualDesktopCount;
+        
+        public event EventHandler RespectVirtualDesktopCountChanged;
+        
+        protected virtual void OnRespectVirtualDesktopCountChanged()
+        {
+            EventHandler handler = RespectVirtualDesktopCountChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RespectVirtualDesktopCount");
+        }
         
         private const bool DEF_RESPECTVIRTUALDESKTOPCOUNT = false;
         
@@ -408,184 +815,19 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _respectVirtualDesktopCount = value;
+                this.OnRespectVirtualDesktopCountChanged();
             }
         }
         
         #endregion
     }
     
-    public partial class WindowTarget : IEquatable<WindowTarget>
-    {
-        public WindowTarget()
-        {
-            this._positioning = DEF_POSITIONING;
-        }
-        
-        #region Equatability
-        
-        public bool Equals(WindowTarget o)
-        {
-            if (ReferenceEquals(o, null))
-            {
-                return false;
-            }
-            return true;
-        }
-        
-        public override bool Equals(object o)
-        {
-            if (ReferenceEquals(o, null))
-            {
-                return false;
-            }
-            if (!(o.GetType() == typeof(WindowTarget)))
-            {
-                return false;
-            }
-            return this.Equals((WindowTarget)o);
-        }
-        
-        public override int GetHashCode()
-        {
-            return this.GetType().GetHashCode();
-        }
-        
-        #endregion
-        
-        #region Property ScreenName
-        
-        private ScreenPattern _screenName;
-        
-        public virtual ScreenPattern ScreenName
-        {
-            get { return _screenName; }
-            set
-            {
-                if ((value == _screenName))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-        
-        #region Property VirtualDesktop
-        
-        private int _virtualDesktop;
-        
-        public virtual int VirtualDesktop
-        {
-            get { return _virtualDesktop; }
-            set
-            {
-                if ((value == _virtualDesktop))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-        
-        #region Property Positioning
-        
-        private Positioning _positioning;
-        
-        private const Positioning DEF_POSITIONING = Positioning.Free;
-        
-        [DefaultValue(DEF_POSITIONING)]
-        public virtual Positioning Positioning
-        {
-            get { return _positioning; }
-            set
-            {
-                if ((value == _positioning))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-        
-        #region Property Left
-        
-        private float _left;
-        
-        public virtual float Left
-        {
-            get { return _left; }
-            set
-            {
-                if ((Math.Abs(value - _left) < float.Epsilon))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-        
-        #region Property Top
-        
-        private float _top;
-        
-        public virtual float Top
-        {
-            get { return _top; }
-            set
-            {
-                if ((Math.Abs(value - _top) < float.Epsilon))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-        
-        #region Property Right
-        
-        private float _right;
-        
-        public virtual float Right
-        {
-            get { return _right; }
-            set
-            {
-                if ((Math.Abs(value - _right) < float.Epsilon))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-        
-        #region Property Bottom
-        
-        private float _bottom;
-        
-        public virtual float Bottom
-        {
-            get { return _bottom; }
-            set
-            {
-                if ((Math.Abs(value - _bottom) < float.Epsilon))
-                {
-                    return;
-                }
-            }
-        }
-        
-        #endregion
-    }
-    
-    public partial class WindowAction : IEquatable<WindowAction>
+    public partial class WindowAction : IEquatable<WindowAction>, INotifyPropertyChanged
     {
         public WindowAction()
         {
+            this._positioning = DEF_POSITIONING;
         }
         
         #region Equatability
@@ -596,7 +838,7 @@ namespace Mastersign.WinMan
             {
                 return false;
             }
-            return true;
+            return object.ReferenceEquals(this, o);
         }
         
         public override bool Equals(object o)
@@ -619,9 +861,36 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
         #region Property Window
         
         private string _window;
+        
+        public event EventHandler WindowChanged;
+        
+        protected virtual void OnWindowChanged()
+        {
+            EventHandler handler = WindowChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Window");
+        }
         
         public virtual string Window
         {
@@ -632,34 +901,246 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _window = value;
+                this.OnWindowChanged();
             }
         }
         
         #endregion
         
-        #region Property Target
+        #region Property Screen
         
-        private WindowTarget _target;
+        private string _screen;
         
-        public virtual WindowTarget Target
+        public event EventHandler ScreenChanged;
+        
+        protected virtual void OnScreenChanged()
         {
-            get { return _target; }
+            EventHandler handler = ScreenChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Screen");
+        }
+        
+        public virtual string Screen
+        {
+            get { return _screen; }
             set
             {
-                if ((value == _target))
+                if (string.Equals(value, _screen))
                 {
                     return;
                 }
+                _screen = value;
+                this.OnScreenChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property VirtualDesktop
+        
+        private int _virtualDesktop;
+        
+        public event EventHandler VirtualDesktopChanged;
+        
+        protected virtual void OnVirtualDesktopChanged()
+        {
+            EventHandler handler = VirtualDesktopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"VirtualDesktop");
+        }
+        
+        public virtual int VirtualDesktop
+        {
+            get { return _virtualDesktop; }
+            set
+            {
+                if ((value == _virtualDesktop))
+                {
+                    return;
+                }
+                _virtualDesktop = value;
+                this.OnVirtualDesktopChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Positioning
+        
+        private Positioning _positioning;
+        
+        public event EventHandler PositioningChanged;
+        
+        protected virtual void OnPositioningChanged()
+        {
+            EventHandler handler = PositioningChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Positioning");
+        }
+        
+        private const Positioning DEF_POSITIONING = Positioning.Free;
+        
+        [DefaultValue(DEF_POSITIONING)]
+        public virtual Positioning Positioning
+        {
+            get { return _positioning; }
+            set
+            {
+                if ((value == _positioning))
+                {
+                    return;
+                }
+                _positioning = value;
+                this.OnPositioningChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Left
+        
+        private float _left;
+        
+        public event EventHandler LeftChanged;
+        
+        protected virtual void OnLeftChanged()
+        {
+            EventHandler handler = LeftChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Left");
+        }
+        
+        public virtual float Left
+        {
+            get { return _left; }
+            set
+            {
+                if ((Math.Abs(value - _left) < float.Epsilon))
+                {
+                    return;
+                }
+                _left = value;
+                this.OnLeftChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Top
+        
+        private float _top;
+        
+        public event EventHandler TopChanged;
+        
+        protected virtual void OnTopChanged()
+        {
+            EventHandler handler = TopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Top");
+        }
+        
+        public virtual float Top
+        {
+            get { return _top; }
+            set
+            {
+                if ((Math.Abs(value - _top) < float.Epsilon))
+                {
+                    return;
+                }
+                _top = value;
+                this.OnTopChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Right
+        
+        private float _right;
+        
+        public event EventHandler RightChanged;
+        
+        protected virtual void OnRightChanged()
+        {
+            EventHandler handler = RightChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Right");
+        }
+        
+        public virtual float Right
+        {
+            get { return _right; }
+            set
+            {
+                if ((Math.Abs(value - _right) < float.Epsilon))
+                {
+                    return;
+                }
+                _right = value;
+                this.OnRightChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Bottom
+        
+        private float _bottom;
+        
+        public event EventHandler BottomChanged;
+        
+        protected virtual void OnBottomChanged()
+        {
+            EventHandler handler = BottomChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Bottom");
+        }
+        
+        public virtual float Bottom
+        {
+            get { return _bottom; }
+            set
+            {
+                if ((Math.Abs(value - _bottom) < float.Epsilon))
+                {
+                    return;
+                }
+                _bottom = value;
+                this.OnBottomChanged();
             }
         }
         
         #endregion
     }
     
-    public partial class Layout : IEquatable<Layout>
+    public partial class Layout : IEquatable<Layout>, INotifyPropertyChanged
     {
         public Layout()
         {
+            this._name = DEF_NAME;
         }
         
         #region Equatability
@@ -670,7 +1151,7 @@ namespace Mastersign.WinMan
             {
                 return false;
             }
-            return true;
+            return object.ReferenceEquals(this, o);
         }
         
         public override bool Equals(object o)
@@ -693,11 +1174,73 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property Name
+        
+        private string _name;
+        
+        public event EventHandler NameChanged;
+        
+        protected virtual void OnNameChanged()
+        {
+            EventHandler handler = NameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Name");
+        }
+        
+        private const string DEF_NAME = @"Layout";
+        
+        [DefaultValue(DEF_NAME)]
+        public virtual string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.Equals(value, _name))
+                {
+                    return;
+                }
+                _name = value;
+                this.OnNameChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Configurations
         
-        private List<ConfigurationPattern> _configurations;
+        private BindingList<ConfigurationPattern> _configurations;
         
-        public virtual List<ConfigurationPattern> Configurations
+        public event EventHandler ConfigurationsChanged;
+        
+        protected virtual void OnConfigurationsChanged()
+        {
+            EventHandler handler = ConfigurationsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Configurations");
+        }
+        
+        public virtual BindingList<ConfigurationPattern> Configurations
         {
             get { return _configurations; }
             set
@@ -706,6 +1249,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _configurations = value;
+                this.OnConfigurationsChanged();
             }
         }
         
@@ -713,9 +1258,21 @@ namespace Mastersign.WinMan
         
         #region Property Windows
         
-        private List<WindowAction> _windows;
+        private BindingList<WindowAction> _windows;
         
-        public virtual List<WindowAction> Windows
+        public event EventHandler WindowsChanged;
+        
+        protected virtual void OnWindowsChanged()
+        {
+            EventHandler handler = WindowsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Windows");
+        }
+        
+        public virtual BindingList<WindowAction> Windows
         {
             get { return _windows; }
             set
@@ -724,13 +1281,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _windows = value;
+                this.OnWindowsChanged();
             }
         }
         
         #endregion
     }
     
-    public partial class Workspace : IEquatable<Workspace>
+    public partial class Workspace : IEquatable<Workspace>, INotifyPropertyChanged
     {
         public Workspace()
         {
@@ -744,7 +1303,7 @@ namespace Mastersign.WinMan
             {
                 return false;
             }
-            return true;
+            return object.ReferenceEquals(this, o);
         }
         
         public override bool Equals(object o)
@@ -767,11 +1326,38 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
         #region Property WindowPatterns
         
-        private List<WindowPattern> _windowPatterns;
+        private BindingList<WindowPattern> _windowPatterns;
         
-        public virtual List<WindowPattern> WindowPatterns
+        public event EventHandler WindowPatternsChanged;
+        
+        protected virtual void OnWindowPatternsChanged()
+        {
+            EventHandler handler = WindowPatternsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WindowPatterns");
+        }
+        
+        public virtual BindingList<WindowPattern> WindowPatterns
         {
             get { return _windowPatterns; }
             set
@@ -780,6 +1366,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _windowPatterns = value;
+                this.OnWindowPatternsChanged();
             }
         }
         
@@ -787,9 +1375,21 @@ namespace Mastersign.WinMan
         
         #region Property Layouts
         
-        private List<Layout> _layouts;
+        private BindingList<Layout> _layouts;
         
-        public virtual List<Layout> Layouts
+        public event EventHandler LayoutsChanged;
+        
+        protected virtual void OnLayoutsChanged()
+        {
+            EventHandler handler = LayoutsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Layouts");
+        }
+        
+        public virtual BindingList<Layout> Layouts
         {
             get { return _layouts; }
             set
@@ -798,6 +1398,8 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                _layouts = value;
+                this.OnLayoutsChanged();
             }
         }
         

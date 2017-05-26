@@ -7,34 +7,55 @@
     <ReferencedType id="rect" name="System.Drawing.Rectangle" kind="Struct" immutable="true" />
   </ReferencedTypes>
 
-  <Configuration modelType="Plain">
-    <IsXmlSerializable value="true" />
-    <IsEquatable overrideOperators="false" />
-    <OverrideToString value="true" />
+  <Configuration modelType="ChangeTracking">
+    <ChangeTrackingConfiguration level="Notification" />
+    <CollectionType>BindingList</CollectionType>
+    <OverrideToString value="false" />
+    <IsEquatable value="true" overrideOperators="false" />
   </Configuration>
 
   <Types>
 
+    <Enum name="StringPatternType">
+      <Member name="Exact" />
+      <Member name="Wildcard" />
+      <Member name="Regex" />
+    </Enum>
+
     <Class name="WindowPattern">
-      <Property name="Name" type="string" />
+      <Property name="Name" type="string">
+        <DefaultValue>No Name</DefaultValue>
+      </Property>
       <Property name="Command" type="string" />
       <Property name="CommandArgs" type="string" />
+      <Property name="WorkingDir" type="string" />
       <Property name="Restore" type="bool" />
 
       <Property name="TitlePattern" type="string" />
-      <Property name="IsTitleRegex" type="bool" />
+      <Property name="TitlePatternType" type="StringPatternType">
+        <DefaultValue>Wildcard</DefaultValue>
+      </Property>
+      <Property name="TitleIgnoreCase" type="bool" />
       <Property name="WindowClassPattern" type="string" />
-      <Property name="IsWindowClassRegex" type="bool" />
+      <Property name="WindowClassPatternType" type="StringPatternType">
+        <DefaultValue>Exact</DefaultValue>
+      </Property>
+      <Property name="WindowClassIgnoreCase" type="bool" />
       <Property name="ProcessFileName" type="string" />
     </Class>
 
     <Class name="ScreenPattern">
-      <Property name="Name" type="string" />
+      <Property name="Name" type="string">
+        <DefaultValue>Screen</DefaultValue>
+      </Property>
       <Property name="Bounds" type="rect" />
       <Property name="DeviceName" type="string" />
     </Class>
 
     <Class name="ConfigurationPattern">
+      <Property name="Name" type="string">
+        <DefaultValue>Configuration</DefaultValue>
+      </Property>
       <Property name="Screens" type="ScreenPattern" isCollection="true" />
       <Property name="VirtualDesktopCount" type="int">
         <DefaultValue>1</DefaultValue>
@@ -58,8 +79,10 @@
       <Member name="DockBottomRight" />
     </Enum>
 
-    <Class name="WindowTarget">
-      <Property name="ScreenName" type="ScreenPattern" />
+    <Class name="WindowAction">
+      <Property name="Window" type="string" />
+
+      <Property name="Screen" type="string" />
       <Property name="VirtualDesktop" type="int" />
 
       <Property name="Positioning" type="Positioning">
@@ -71,12 +94,10 @@
       <Property name="Bottom" type="float" />
     </Class>
 
-    <Class name="WindowAction">
-      <Property name="Window" type="string" />
-      <Property name="Target" type="WindowTarget" />
-    </Class>
-
     <Class name="Layout">
+      <Property name="Name" type="string">
+        <DefaultValue>Layout</DefaultValue>
+      </Property>
       <Property name="Configurations" type="ConfigurationPattern" isCollection="true" />
       <Property name="Windows" type="WindowAction" isCollection="true" />
     </Class>

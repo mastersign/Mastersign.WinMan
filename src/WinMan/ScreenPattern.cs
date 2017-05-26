@@ -16,8 +16,11 @@ namespace Mastersign.WinMan
         public static ScreenPattern FromScreen(Screen screen)
             => new ScreenPattern()
                 {
+                    Name = screen.DeviceName,
                     DeviceName = screen.DeviceName,
                     Bounds = screen.Bounds
                 };
+
+        public override string ToString() => DeviceName;
     }
 }
