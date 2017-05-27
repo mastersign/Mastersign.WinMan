@@ -79,19 +79,29 @@
       <Member name="DockBottomRight" />
     </Enum>
 
+    <Enum name="ScreenUnit">
+      <Member name="Pixel" />
+      <Member name="Percent" />
+    </Enum>
+
     <Class name="WindowAction">
       <Property name="Window" type="string" />
 
+      <Property name="Restore" type="bool" />
       <Property name="Screen" type="string" />
       <Property name="VirtualDesktop" type="int" />
 
       <Property name="Positioning" type="Positioning">
         <DefaultValue>Free</DefaultValue>
       </Property>
-      <Property name="Left" type="float" />
-      <Property name="Top" type="float" />
-      <Property name="Right" type="float" />
-      <Property name="Bottom" type="float" />
+      <Property name="Left" type="int" />
+      <Property name="LeftUnit" type="ScreenUnit" />
+      <Property name="Top" type="int" />
+      <Property name="TopUnit" type="ScreenUnit" />
+      <Property name="Right" type="int" />
+      <Property name="RightUnit" type="ScreenUnit" />
+      <Property name="Bottom" type="int" />
+      <Property name="BottomUnit" type="ScreenUnit" />
     </Class>
 
     <Class name="Layout">

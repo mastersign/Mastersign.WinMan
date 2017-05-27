@@ -48,6 +48,8 @@ namespace Mastersign.WinMan
                     WorkingDir = w.Process?.StartInfo?.WorkingDirectory
                 };
 
+        public WindowWrapper[] Discover() => WindowWrapper.AllWindows().Where(w => IsMatch(w)).ToArray();
+
         public override string ToString() => Name;
     }
 }

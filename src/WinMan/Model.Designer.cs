@@ -28,6 +28,12 @@ namespace Mastersign.WinMan
         DockBottomRight,
     }
     
+    public enum ScreenUnit
+    {
+        Pixel,
+        Percent,
+    }
+    
     public partial class WindowPattern : IEquatable<WindowPattern>, INotifyPropertyChanged
     {
         public WindowPattern()
@@ -908,6 +914,38 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property Restore
+        
+        private bool _restore;
+        
+        public event EventHandler RestoreChanged;
+        
+        protected virtual void OnRestoreChanged()
+        {
+            EventHandler handler = RestoreChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Restore");
+        }
+        
+        public virtual bool Restore
+        {
+            get { return _restore; }
+            set
+            {
+                if ((value == _restore))
+                {
+                    return;
+                }
+                _restore = value;
+                this.OnRestoreChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Screen
         
         private string _screen;
@@ -1009,7 +1047,7 @@ namespace Mastersign.WinMan
         
         #region Property Left
         
-        private float _left;
+        private int _left;
         
         public event EventHandler LeftChanged;
         
@@ -1023,12 +1061,12 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Left");
         }
         
-        public virtual float Left
+        public virtual int Left
         {
             get { return _left; }
             set
             {
-                if ((Math.Abs(value - _left) < float.Epsilon))
+                if ((value == _left))
                 {
                     return;
                 }
@@ -1039,9 +1077,41 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property LeftUnit
+        
+        private ScreenUnit _leftUnit;
+        
+        public event EventHandler LeftUnitChanged;
+        
+        protected virtual void OnLeftUnitChanged()
+        {
+            EventHandler handler = LeftUnitChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"LeftUnit");
+        }
+        
+        public virtual ScreenUnit LeftUnit
+        {
+            get { return _leftUnit; }
+            set
+            {
+                if ((value == _leftUnit))
+                {
+                    return;
+                }
+                _leftUnit = value;
+                this.OnLeftUnitChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Top
         
-        private float _top;
+        private int _top;
         
         public event EventHandler TopChanged;
         
@@ -1055,12 +1125,12 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Top");
         }
         
-        public virtual float Top
+        public virtual int Top
         {
             get { return _top; }
             set
             {
-                if ((Math.Abs(value - _top) < float.Epsilon))
+                if ((value == _top))
                 {
                     return;
                 }
@@ -1071,9 +1141,41 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property TopUnit
+        
+        private ScreenUnit _topUnit;
+        
+        public event EventHandler TopUnitChanged;
+        
+        protected virtual void OnTopUnitChanged()
+        {
+            EventHandler handler = TopUnitChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"TopUnit");
+        }
+        
+        public virtual ScreenUnit TopUnit
+        {
+            get { return _topUnit; }
+            set
+            {
+                if ((value == _topUnit))
+                {
+                    return;
+                }
+                _topUnit = value;
+                this.OnTopUnitChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Right
         
-        private float _right;
+        private int _right;
         
         public event EventHandler RightChanged;
         
@@ -1087,12 +1189,12 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Right");
         }
         
-        public virtual float Right
+        public virtual int Right
         {
             get { return _right; }
             set
             {
-                if ((Math.Abs(value - _right) < float.Epsilon))
+                if ((value == _right))
                 {
                     return;
                 }
@@ -1103,9 +1205,41 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property RightUnit
+        
+        private ScreenUnit _rightUnit;
+        
+        public event EventHandler RightUnitChanged;
+        
+        protected virtual void OnRightUnitChanged()
+        {
+            EventHandler handler = RightUnitChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RightUnit");
+        }
+        
+        public virtual ScreenUnit RightUnit
+        {
+            get { return _rightUnit; }
+            set
+            {
+                if ((value == _rightUnit))
+                {
+                    return;
+                }
+                _rightUnit = value;
+                this.OnRightUnitChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Bottom
         
-        private float _bottom;
+        private int _bottom;
         
         public event EventHandler BottomChanged;
         
@@ -1119,17 +1253,49 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Bottom");
         }
         
-        public virtual float Bottom
+        public virtual int Bottom
         {
             get { return _bottom; }
             set
             {
-                if ((Math.Abs(value - _bottom) < float.Epsilon))
+                if ((value == _bottom))
                 {
                     return;
                 }
                 _bottom = value;
                 this.OnBottomChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property BottomUnit
+        
+        private ScreenUnit _bottomUnit;
+        
+        public event EventHandler BottomUnitChanged;
+        
+        protected virtual void OnBottomUnitChanged()
+        {
+            EventHandler handler = BottomUnitChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"BottomUnit");
+        }
+        
+        public virtual ScreenUnit BottomUnit
+        {
+            get { return _bottomUnit; }
+            set
+            {
+                if ((value == _bottomUnit))
+                {
+                    return;
+                }
+                _bottomUnit = value;
+                this.OnBottomUnitChanged();
             }
         }
         

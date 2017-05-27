@@ -21,5 +21,10 @@ namespace Mastersign.WinMan
                     RespectVirtualDesktopCount = true,
                     Screens = new BindingList<ScreenPattern>(screens.Select(ScreenPattern.FromScreen).ToList()),
                 };
+
+        public ScreenPattern FindScreenPattern(string screenPatternName)
+            => Screens.FirstOrDefault(s => s.Name == screenPatternName);
+
+        public override string ToString() => Name;
     }
 }

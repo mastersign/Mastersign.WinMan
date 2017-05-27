@@ -21,6 +21,8 @@ namespace Mastersign.WinMan
                     Bounds = screen.Bounds
                 };
 
-        public override string ToString() => DeviceName;
+        public Screen Discover() => Screen.AllScreens.FirstOrDefault(s => IsMatch(s));
+
+        public override string ToString() => Name;
     }
 }

@@ -87,6 +87,31 @@
             this.txtConfigurationName = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabWindowActions = new System.Windows.Forms.TabPage();
+            this.txtWindowActionWindow = new System.Windows.Forms.TextBox();
+            this.windowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblWindowActionCaption = new System.Windows.Forms.Label();
+            this.btnNewWindowAction = new System.Windows.Forms.Button();
+            this.btnWindowActionTest = new System.Windows.Forms.Button();
+            this.numWindowActionBottom = new System.Windows.Forms.NumericUpDown();
+            this.numWindowActionRight = new System.Windows.Forms.NumericUpDown();
+            this.numWindowActionTop = new System.Windows.Forms.NumericUpDown();
+            this.numWindowActionLeft = new System.Windows.Forms.NumericUpDown();
+            this.lblWindowActionBottomCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionRightCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionTopCaption = new System.Windows.Forms.Label();
+            this.numWindowActionVirtualDesktop = new System.Windows.Forms.NumericUpDown();
+            this.lblWindowActionLeftCaption = new System.Windows.Forms.Label();
+            this.cmbWindowActionBottomUnit = new System.Windows.Forms.ComboBox();
+            this.lblWindowPositioningCaption = new System.Windows.Forms.Label();
+            this.cmbWindowActionRightUnit = new System.Windows.Forms.ComboBox();
+            this.lblWindowActionScreenCaption = new System.Windows.Forms.Label();
+            this.cmbWindowActionTopUnit = new System.Windows.Forms.ComboBox();
+            this.lblWindowActionVirtualDesktop = new System.Windows.Forms.Label();
+            this.cmbWindowActionLeftUnit = new System.Windows.Forms.ComboBox();
+            this.cmbWindowPositioning = new System.Windows.Forms.ComboBox();
+            this.cmdWindowActionScreen = new System.Windows.Forms.ComboBox();
+            this.btnDeleteWindowAction = new System.Windows.Forms.Button();
+            this.listWindowAction = new System.Windows.Forms.ListBox();
             this.lblLayoutNameCaption = new System.Windows.Forms.Label();
             this.txtLayoutName = new System.Windows.Forms.TextBox();
             this.btnDeleteLayout = new System.Windows.Forms.Button();
@@ -106,6 +131,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numScreenTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVirtualDesktopCount)).BeginInit();
+            this.tabWindowActions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.windowsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionBottom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionTop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).BeginInit();
             this.SuspendLayout();
             // 
             // btnListTopWindows
@@ -219,7 +251,7 @@
             this.grpWindowPatterns.Controls.Add(this.listWindowPatterns);
             this.grpWindowPatterns.Location = new System.Drawing.Point(12, 242);
             this.grpWindowPatterns.Name = "grpWindowPatterns";
-            this.grpWindowPatterns.Size = new System.Drawing.Size(343, 429);
+            this.grpWindowPatterns.Size = new System.Drawing.Size(343, 407);
             this.grpWindowPatterns.TabIndex = 14;
             this.grpWindowPatterns.TabStop = false;
             this.grpWindowPatterns.Text = "Window Patterns";
@@ -378,7 +410,7 @@
             this.listWindowPatterns.IntegralHeight = false;
             this.listWindowPatterns.Location = new System.Drawing.Point(6, 93);
             this.listWindowPatterns.Name = "listWindowPatterns";
-            this.listWindowPatterns.Size = new System.Drawing.Size(160, 330);
+            this.listWindowPatterns.Size = new System.Drawing.Size(160, 308);
             this.listWindowPatterns.TabIndex = 14;
             // 
             // grpLayouts
@@ -394,7 +426,7 @@
             this.grpLayouts.Controls.Add(this.listLayouts);
             this.grpLayouts.Location = new System.Drawing.Point(361, 242);
             this.grpLayouts.Name = "grpLayouts";
-            this.grpLayouts.Size = new System.Drawing.Size(635, 429);
+            this.grpLayouts.Size = new System.Drawing.Size(635, 407);
             this.grpLayouts.TabIndex = 15;
             this.grpLayouts.TabStop = false;
             this.grpLayouts.Text = "Layouts";
@@ -409,7 +441,7 @@
             this.tabLayout.Location = new System.Drawing.Point(172, 19);
             this.tabLayout.Name = "tabLayout";
             this.tabLayout.SelectedIndex = 0;
-            this.tabLayout.Size = new System.Drawing.Size(457, 404);
+            this.tabLayout.Size = new System.Drawing.Size(457, 382);
             this.tabLayout.TabIndex = 30;
             // 
             // tabConfigurations
@@ -438,7 +470,7 @@
             this.tabConfigurations.Location = new System.Drawing.Point(4, 22);
             this.tabConfigurations.Name = "tabConfigurations";
             this.tabConfigurations.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfigurations.Size = new System.Drawing.Size(449, 378);
+            this.tabConfigurations.Size = new System.Drawing.Size(449, 356);
             this.tabConfigurations.TabIndex = 0;
             this.tabConfigurations.Text = "Screen Configurations";
             this.tabConfigurations.UseVisualStyleBackColor = true;
@@ -452,7 +484,7 @@
             this.listScreenPatterns.IntegralHeight = false;
             this.listScreenPatterns.Location = new System.Drawing.Point(172, 150);
             this.listScreenPatterns.Name = "listScreenPatterns";
-            this.listScreenPatterns.Size = new System.Drawing.Size(160, 222);
+            this.listScreenPatterns.Size = new System.Drawing.Size(160, 200);
             this.listScreenPatterns.TabIndex = 36;
             // 
             // screensBindingSource
@@ -486,6 +518,7 @@
             // 
             this.numScreenHeight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.numScreenHeight.Enabled = false;
             this.numScreenHeight.Location = new System.Drawing.Point(375, 228);
             this.numScreenHeight.Maximum = new decimal(new int[] {
             100000,
@@ -493,7 +526,7 @@
             0,
             0});
             this.numScreenHeight.Minimum = new decimal(new int[] {
-            1000000,
+            100000,
             0,
             0,
             -2147483648});
@@ -506,6 +539,7 @@
             // 
             this.numScreenWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.numScreenWidth.Enabled = false;
             this.numScreenWidth.Location = new System.Drawing.Point(375, 202);
             this.numScreenWidth.Maximum = new decimal(new int[] {
             100000,
@@ -513,7 +547,7 @@
             0,
             0});
             this.numScreenWidth.Minimum = new decimal(new int[] {
-            1000000,
+            100000,
             0,
             0,
             -2147483648});
@@ -526,6 +560,7 @@
             // 
             this.numScreenTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.numScreenTop.Enabled = false;
             this.numScreenTop.Location = new System.Drawing.Point(375, 176);
             this.numScreenTop.Maximum = new decimal(new int[] {
             100000,
@@ -533,7 +568,7 @@
             0,
             0});
             this.numScreenTop.Minimum = new decimal(new int[] {
-            1000000,
+            100000,
             0,
             0,
             -2147483648});
@@ -546,6 +581,7 @@
             // 
             this.numScreenLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.numScreenLeft.Enabled = false;
             this.numScreenLeft.Location = new System.Drawing.Point(375, 150);
             this.numScreenLeft.Maximum = new decimal(new int[] {
             100000,
@@ -553,7 +589,7 @@
             0,
             0});
             this.numScreenLeft.Minimum = new decimal(new int[] {
-            1000000,
+            100000,
             0,
             0,
             -2147483648});
@@ -707,23 +743,337 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listBox1.DataSource = this.configurationsBindingSource;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.IntegralHeight = false;
             this.listBox1.Location = new System.Drawing.Point(6, 81);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(160, 291);
+            this.listBox1.Size = new System.Drawing.Size(160, 269);
             this.listBox1.TabIndex = 0;
             // 
             // tabWindowActions
             // 
+            this.tabWindowActions.Controls.Add(this.txtWindowActionWindow);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionCaption);
+            this.tabWindowActions.Controls.Add(this.btnNewWindowAction);
+            this.tabWindowActions.Controls.Add(this.btnWindowActionTest);
+            this.tabWindowActions.Controls.Add(this.numWindowActionBottom);
+            this.tabWindowActions.Controls.Add(this.numWindowActionRight);
+            this.tabWindowActions.Controls.Add(this.numWindowActionTop);
+            this.tabWindowActions.Controls.Add(this.numWindowActionLeft);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionBottomCaption);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionRightCaption);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionTopCaption);
+            this.tabWindowActions.Controls.Add(this.numWindowActionVirtualDesktop);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionLeftCaption);
+            this.tabWindowActions.Controls.Add(this.cmbWindowActionBottomUnit);
+            this.tabWindowActions.Controls.Add(this.lblWindowPositioningCaption);
+            this.tabWindowActions.Controls.Add(this.cmbWindowActionRightUnit);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionScreenCaption);
+            this.tabWindowActions.Controls.Add(this.cmbWindowActionTopUnit);
+            this.tabWindowActions.Controls.Add(this.lblWindowActionVirtualDesktop);
+            this.tabWindowActions.Controls.Add(this.cmbWindowActionLeftUnit);
+            this.tabWindowActions.Controls.Add(this.cmbWindowPositioning);
+            this.tabWindowActions.Controls.Add(this.cmdWindowActionScreen);
+            this.tabWindowActions.Controls.Add(this.btnDeleteWindowAction);
+            this.tabWindowActions.Controls.Add(this.listWindowAction);
             this.tabWindowActions.Location = new System.Drawing.Point(4, 22);
             this.tabWindowActions.Name = "tabWindowActions";
             this.tabWindowActions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWindowActions.Size = new System.Drawing.Size(449, 378);
+            this.tabWindowActions.Size = new System.Drawing.Size(449, 356);
             this.tabWindowActions.TabIndex = 1;
             this.tabWindowActions.Text = "Window Actions";
             this.tabWindowActions.UseVisualStyleBackColor = true;
+            // 
+            // txtWindowActionWindow
+            // 
+            this.txtWindowActionWindow.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowsBindingSource, "Window", true));
+            this.txtWindowActionWindow.Location = new System.Drawing.Point(6, 55);
+            this.txtWindowActionWindow.Name = "txtWindowActionWindow";
+            this.txtWindowActionWindow.Size = new System.Drawing.Size(160, 20);
+            this.txtWindowActionWindow.TabIndex = 41;
+            // 
+            // windowsBindingSource
+            // 
+            this.windowsBindingSource.DataMember = "Windows";
+            this.windowsBindingSource.DataSource = this.layoutsBindingSource;
+            // 
+            // lblWindowActionCaption
+            // 
+            this.lblWindowActionCaption.AutoSize = true;
+            this.lblWindowActionCaption.Location = new System.Drawing.Point(6, 36);
+            this.lblWindowActionCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionCaption.Name = "lblWindowActionCaption";
+            this.lblWindowActionCaption.Size = new System.Drawing.Size(86, 13);
+            this.lblWindowActionCaption.TabIndex = 40;
+            this.lblWindowActionCaption.Text = "Window Pattern:";
+            // 
+            // btnNewWindowAction
+            // 
+            this.btnNewWindowAction.Location = new System.Drawing.Point(6, 7);
+            this.btnNewWindowAction.Name = "btnNewWindowAction";
+            this.btnNewWindowAction.Size = new System.Drawing.Size(78, 23);
+            this.btnNewWindowAction.TabIndex = 39;
+            this.btnNewWindowAction.Text = "New";
+            this.btnNewWindowAction.UseVisualStyleBackColor = true;
+            this.btnNewWindowAction.Click += new System.EventHandler(this.NewWindowActionHandler);
+            // 
+            // btnWindowActionTest
+            // 
+            this.btnWindowActionTest.Location = new System.Drawing.Point(172, 6);
+            this.btnWindowActionTest.Name = "btnWindowActionTest";
+            this.btnWindowActionTest.Size = new System.Drawing.Size(160, 23);
+            this.btnWindowActionTest.TabIndex = 38;
+            this.btnWindowActionTest.Text = "Test Action";
+            this.btnWindowActionTest.UseVisualStyleBackColor = true;
+            this.btnWindowActionTest.Click += new System.EventHandler(this.TestWindowActionHandler);
+            // 
+            // numWindowActionBottom
+            // 
+            this.numWindowActionBottom.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowsBindingSource, "Bottom", true));
+            this.numWindowActionBottom.Location = new System.Drawing.Point(172, 327);
+            this.numWindowActionBottom.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numWindowActionBottom.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numWindowActionBottom.Name = "numWindowActionBottom";
+            this.numWindowActionBottom.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionBottom.TabIndex = 37;
+            // 
+            // numWindowActionRight
+            // 
+            this.numWindowActionRight.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowsBindingSource, "Right", true));
+            this.numWindowActionRight.Location = new System.Drawing.Point(172, 282);
+            this.numWindowActionRight.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numWindowActionRight.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numWindowActionRight.Name = "numWindowActionRight";
+            this.numWindowActionRight.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionRight.TabIndex = 37;
+            // 
+            // numWindowActionTop
+            // 
+            this.numWindowActionTop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowsBindingSource, "Top", true));
+            this.numWindowActionTop.Location = new System.Drawing.Point(172, 237);
+            this.numWindowActionTop.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numWindowActionTop.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numWindowActionTop.Name = "numWindowActionTop";
+            this.numWindowActionTop.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionTop.TabIndex = 37;
+            // 
+            // numWindowActionLeft
+            // 
+            this.numWindowActionLeft.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowsBindingSource, "Left", true));
+            this.numWindowActionLeft.Location = new System.Drawing.Point(172, 192);
+            this.numWindowActionLeft.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numWindowActionLeft.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numWindowActionLeft.Name = "numWindowActionLeft";
+            this.numWindowActionLeft.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionLeft.TabIndex = 37;
+            // 
+            // lblWindowActionBottomCaption
+            // 
+            this.lblWindowActionBottomCaption.AutoSize = true;
+            this.lblWindowActionBottomCaption.Location = new System.Drawing.Point(169, 308);
+            this.lblWindowActionBottomCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionBottomCaption.Name = "lblWindowActionBottomCaption";
+            this.lblWindowActionBottomCaption.Size = new System.Drawing.Size(43, 13);
+            this.lblWindowActionBottomCaption.TabIndex = 35;
+            this.lblWindowActionBottomCaption.Text = "Bottom:";
+            // 
+            // lblWindowActionRightCaption
+            // 
+            this.lblWindowActionRightCaption.AutoSize = true;
+            this.lblWindowActionRightCaption.Location = new System.Drawing.Point(169, 263);
+            this.lblWindowActionRightCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionRightCaption.Name = "lblWindowActionRightCaption";
+            this.lblWindowActionRightCaption.Size = new System.Drawing.Size(35, 13);
+            this.lblWindowActionRightCaption.TabIndex = 35;
+            this.lblWindowActionRightCaption.Text = "Right:";
+            // 
+            // lblWindowActionTopCaption
+            // 
+            this.lblWindowActionTopCaption.AutoSize = true;
+            this.lblWindowActionTopCaption.Location = new System.Drawing.Point(169, 218);
+            this.lblWindowActionTopCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionTopCaption.Name = "lblWindowActionTopCaption";
+            this.lblWindowActionTopCaption.Size = new System.Drawing.Size(29, 13);
+            this.lblWindowActionTopCaption.TabIndex = 35;
+            this.lblWindowActionTopCaption.Text = "Top:";
+            // 
+            // numWindowActionVirtualDesktop
+            // 
+            this.numWindowActionVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowsBindingSource, "VirtualDesktop", true));
+            this.numWindowActionVirtualDesktop.Location = new System.Drawing.Point(172, 55);
+            this.numWindowActionVirtualDesktop.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numWindowActionVirtualDesktop.Name = "numWindowActionVirtualDesktop";
+            this.numWindowActionVirtualDesktop.Size = new System.Drawing.Size(160, 20);
+            this.numWindowActionVirtualDesktop.TabIndex = 36;
+            this.numWindowActionVirtualDesktop.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblWindowActionLeftCaption
+            // 
+            this.lblWindowActionLeftCaption.AutoSize = true;
+            this.lblWindowActionLeftCaption.Location = new System.Drawing.Point(169, 173);
+            this.lblWindowActionLeftCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionLeftCaption.Name = "lblWindowActionLeftCaption";
+            this.lblWindowActionLeftCaption.Size = new System.Drawing.Size(28, 13);
+            this.lblWindowActionLeftCaption.TabIndex = 35;
+            this.lblWindowActionLeftCaption.Text = "Left:";
+            // 
+            // cmbWindowActionBottomUnit
+            // 
+            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "BottomUnit", true));
+            this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionBottomUnit.FormattingEnabled = true;
+            this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(272, 326);
+            this.cmbWindowActionBottomUnit.Name = "cmbWindowActionBottomUnit";
+            this.cmbWindowActionBottomUnit.Size = new System.Drawing.Size(60, 21);
+            this.cmbWindowActionBottomUnit.TabIndex = 34;
+            // 
+            // lblWindowPositioningCaption
+            // 
+            this.lblWindowPositioningCaption.AutoSize = true;
+            this.lblWindowPositioningCaption.Location = new System.Drawing.Point(169, 127);
+            this.lblWindowPositioningCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowPositioningCaption.Name = "lblWindowPositioningCaption";
+            this.lblWindowPositioningCaption.Size = new System.Drawing.Size(61, 13);
+            this.lblWindowPositioningCaption.TabIndex = 35;
+            this.lblWindowPositioningCaption.Text = "Positioning:";
+            // 
+            // cmbWindowActionRightUnit
+            // 
+            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "RightUnit", true));
+            this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionRightUnit.FormattingEnabled = true;
+            this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(272, 281);
+            this.cmbWindowActionRightUnit.Name = "cmbWindowActionRightUnit";
+            this.cmbWindowActionRightUnit.Size = new System.Drawing.Size(60, 21);
+            this.cmbWindowActionRightUnit.TabIndex = 34;
+            // 
+            // lblWindowActionScreenCaption
+            // 
+            this.lblWindowActionScreenCaption.AutoSize = true;
+            this.lblWindowActionScreenCaption.Location = new System.Drawing.Point(169, 81);
+            this.lblWindowActionScreenCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionScreenCaption.Name = "lblWindowActionScreenCaption";
+            this.lblWindowActionScreenCaption.Size = new System.Drawing.Size(44, 13);
+            this.lblWindowActionScreenCaption.TabIndex = 35;
+            this.lblWindowActionScreenCaption.Text = "Screen:";
+            // 
+            // cmbWindowActionTopUnit
+            // 
+            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "TopUnit", true));
+            this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionTopUnit.FormattingEnabled = true;
+            this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(272, 236);
+            this.cmbWindowActionTopUnit.Name = "cmbWindowActionTopUnit";
+            this.cmbWindowActionTopUnit.Size = new System.Drawing.Size(60, 21);
+            this.cmbWindowActionTopUnit.TabIndex = 34;
+            // 
+            // lblWindowActionVirtualDesktop
+            // 
+            this.lblWindowActionVirtualDesktop.AutoSize = true;
+            this.lblWindowActionVirtualDesktop.Location = new System.Drawing.Point(169, 36);
+            this.lblWindowActionVirtualDesktop.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionVirtualDesktop.Name = "lblWindowActionVirtualDesktop";
+            this.lblWindowActionVirtualDesktop.Size = new System.Drawing.Size(82, 13);
+            this.lblWindowActionVirtualDesktop.TabIndex = 35;
+            this.lblWindowActionVirtualDesktop.Text = "Virtual Desktop:";
+            // 
+            // cmbWindowActionLeftUnit
+            // 
+            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "LeftUnit", true));
+            this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionLeftUnit.FormattingEnabled = true;
+            this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(272, 191);
+            this.cmbWindowActionLeftUnit.Name = "cmbWindowActionLeftUnit";
+            this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(60, 21);
+            this.cmbWindowActionLeftUnit.TabIndex = 34;
+            // 
+            // cmbWindowPositioning
+            // 
+            this.cmbWindowPositioning.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "Positioning", true));
+            this.cmbWindowPositioning.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowPositioning.FormattingEnabled = true;
+            this.cmbWindowPositioning.Location = new System.Drawing.Point(172, 146);
+            this.cmbWindowPositioning.Name = "cmbWindowPositioning";
+            this.cmbWindowPositioning.Size = new System.Drawing.Size(160, 21);
+            this.cmbWindowPositioning.TabIndex = 34;
+            // 
+            // cmdWindowActionScreen
+            // 
+            this.cmdWindowActionScreen.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "Screen", true));
+            this.cmdWindowActionScreen.DataSource = this.screensBindingSource;
+            this.cmdWindowActionScreen.DisplayMember = "Name";
+            this.cmdWindowActionScreen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmdWindowActionScreen.FormattingEnabled = true;
+            this.cmdWindowActionScreen.Location = new System.Drawing.Point(172, 100);
+            this.cmdWindowActionScreen.Name = "cmdWindowActionScreen";
+            this.cmdWindowActionScreen.Size = new System.Drawing.Size(160, 21);
+            this.cmdWindowActionScreen.TabIndex = 34;
+            this.cmdWindowActionScreen.ValueMember = "Name";
+            // 
+            // btnDeleteWindowAction
+            // 
+            this.btnDeleteWindowAction.Location = new System.Drawing.Point(88, 7);
+            this.btnDeleteWindowAction.Name = "btnDeleteWindowAction";
+            this.btnDeleteWindowAction.Size = new System.Drawing.Size(78, 23);
+            this.btnDeleteWindowAction.TabIndex = 33;
+            this.btnDeleteWindowAction.Text = "Delete";
+            this.btnDeleteWindowAction.UseVisualStyleBackColor = true;
+            this.btnDeleteWindowAction.Click += new System.EventHandler(this.DeleteWindowActionHandler);
+            // 
+            // listWindowAction
+            // 
+            this.listWindowAction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.listWindowAction.DataSource = this.windowsBindingSource;
+            this.listWindowAction.FormattingEnabled = true;
+            this.listWindowAction.IntegralHeight = false;
+            this.listWindowAction.Location = new System.Drawing.Point(6, 81);
+            this.listWindowAction.Name = "listWindowAction";
+            this.listWindowAction.Size = new System.Drawing.Size(160, 269);
+            this.listWindowAction.TabIndex = 32;
             // 
             // lblLayoutNameCaption
             // 
@@ -772,19 +1122,20 @@
             this.listLayouts.IntegralHeight = false;
             this.listLayouts.Location = new System.Drawing.Point(6, 93);
             this.listLayouts.Name = "listLayouts";
-            this.listLayouts.Size = new System.Drawing.Size(160, 330);
+            this.listLayouts.Size = new System.Drawing.Size(160, 308);
             this.listLayouts.TabIndex = 0;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 683);
+            this.ClientSize = new System.Drawing.Size(1008, 661);
             this.Controls.Add(this.grpLayouts);
             this.Controls.Add(this.grpWindowPatterns);
             this.Controls.Add(this.lblWindowListCaption);
             this.Controls.Add(this.listWindows);
             this.Controls.Add(this.btnListTopWindows);
+            this.MinimumSize = new System.Drawing.Size(1024, 700);
             this.Name = "MainForm";
             this.Text = "WinMan";
             this.Load += new System.EventHandler(this.LoadHandler);
@@ -805,6 +1156,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numScreenTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVirtualDesktopCount)).EndInit();
+            this.tabWindowActions.ResumeLayout(false);
+            this.tabWindowActions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.windowsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionBottom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionTop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -874,6 +1233,31 @@
         private System.Windows.Forms.Label lblScreenHeightCaption;
         private System.Windows.Forms.Label lblScreenWidthCaption;
         private System.Windows.Forms.TextBox txtScreenName;
+        private System.Windows.Forms.Button btnDeleteWindowAction;
+        private System.Windows.Forms.ListBox listWindowAction;
+        private System.Windows.Forms.BindingSource windowsBindingSource;
+        private System.Windows.Forms.NumericUpDown numWindowActionVirtualDesktop;
+        private System.Windows.Forms.Label lblWindowActionVirtualDesktop;
+        private System.Windows.Forms.ComboBox cmdWindowActionScreen;
+        private System.Windows.Forms.Label lblWindowActionScreenCaption;
+        private System.Windows.Forms.Label lblWindowPositioningCaption;
+        private System.Windows.Forms.ComboBox cmbWindowPositioning;
+        private System.Windows.Forms.NumericUpDown numWindowActionLeft;
+        private System.Windows.Forms.Label lblWindowActionLeftCaption;
+        private System.Windows.Forms.ComboBox cmbWindowActionLeftUnit;
+        private System.Windows.Forms.Button btnWindowActionTest;
+        private System.Windows.Forms.NumericUpDown numWindowActionTop;
+        private System.Windows.Forms.Label lblWindowActionTopCaption;
+        private System.Windows.Forms.ComboBox cmbWindowActionTopUnit;
+        private System.Windows.Forms.NumericUpDown numWindowActionBottom;
+        private System.Windows.Forms.NumericUpDown numWindowActionRight;
+        private System.Windows.Forms.Label lblWindowActionBottomCaption;
+        private System.Windows.Forms.Label lblWindowActionRightCaption;
+        private System.Windows.Forms.ComboBox cmbWindowActionBottomUnit;
+        private System.Windows.Forms.ComboBox cmbWindowActionRightUnit;
+        private System.Windows.Forms.TextBox txtWindowActionWindow;
+        private System.Windows.Forms.Label lblWindowActionCaption;
+        private System.Windows.Forms.Button btnNewWindowAction;
     }
 }
 

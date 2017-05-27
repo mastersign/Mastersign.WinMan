@@ -25,6 +25,11 @@ namespace Mastersign.WinMan
         {
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
+            cmbWindowPositioning.DataSource = Enum.GetValues(typeof(Positioning));
+            cmbWindowActionLeftUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
+            cmbWindowActionTopUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
+            cmbWindowActionRightUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
+            cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
             ReloadWindowListHandler(this, EventArgs.Empty);
 
@@ -60,7 +65,7 @@ namespace Mastersign.WinMan
                         w.NormalPosition.ToString(),
                         w.Screen.DeviceName,
                         w.VirtualDesktop?.Id.ToString(),
-                        w.Process.MainModule.FileName,
+                        w.ProcessFileName,
                     });
             item.Tag = w;
             return item;
@@ -70,7 +75,7 @@ namespace Mastersign.WinMan
         {
             _windows = LoadWindows();
             RefreshWindowListHandler(sender, e);
-        } 
+        }
 
         private void RefreshWindowListHandler(object sender, EventArgs e)
         {
@@ -114,7 +119,7 @@ namespace Mastersign.WinMan
             if (selectedWindowPattern == null) return;
             _workspace.WindowPatterns.Remove(selectedWindowPattern);
         }
-        
+
         private void CurrentWindowPatternChangedHandler(object sender, EventArgs e)
         {
             RefreshWindowListHandler(sender, e);
@@ -130,7 +135,11 @@ namespace Mastersign.WinMan
 
         private void NewLayoutHandler(object sender, EventArgs e)
         {
-            _workspace.Layouts.Add(new Layout());
+            _workspace.Layouts.Add(new Layout()
+            {
+                Configurations = new BindingList<ConfigurationPattern>(),
+                Windows = new BindingList<WindowAction>(),
+            });
         }
 
         private void DeleteLayoutHandler(object sender, EventArgs e)
@@ -146,7 +155,9 @@ namespace Mastersign.WinMan
 
         private void RecordConfigurationHandler(object sender, EventArgs e)
         {
-            SelectedLayout.Configurations.Add(ConfigurationPattern.FromConfiguration(
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            selectedLayout.Configurations.Add(ConfigurationPattern.FromConfiguration(
                 Screen.AllScreens, VirtualDesktop.GetDesktops().Length));
         }
 
@@ -171,6 +182,36 @@ namespace Mastersign.WinMan
                 numScreenWidth.Value = screenPattern.Bounds.Width;
                 numScreenHeight.Value = screenPattern.Bounds.Height;
             }
+        }
+
+        #endregion
+
+        #region Window Action
+
+        private WindowAction SelectedWindowAction => windowsBindingSource.Current as WindowAction;
+
+        private void NewWindowActionHandler(object sender, EventArgs e)
+        {
+            windowsBindingSource.Add(new WindowAction()
+            {
+                Window = "Unknown"
+            });
+        }
+
+        private void DeleteWindowActionHandler(object sender, EventArgs e)
+        {
+            var selectedWindowAction = SelectedWindowAction;
+            if (selectedWindowAction == null) return;
+            windowsBindingSource.Remove(selectedWindowAction);
+        }
+
+        private void TestWindowActionHandler(object sender, EventArgs e)
+        {
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            var selectedWindowAction = SelectedWindowAction;
+            if (selectedWindowAction == null) return;
+            selectedWindowAction.Apply(_workspace, selectedLayout);
         }
 
         #endregion

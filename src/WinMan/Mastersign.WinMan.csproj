@@ -33,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
@@ -53,6 +54,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Layout.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,8 +99,10 @@
     <Compile Include="vendor\VirtualDesktop\VirtualDesktopDestroyEventArgs.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktopHelper.cs" />
     <Compile Include="WinApi.cs" />
+    <Compile Include="WindowAction.cs" />
     <Compile Include="WindowPattern.cs" />
     <Compile Include="WindowWrapper.cs" />
+    <Compile Include="Workspace.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

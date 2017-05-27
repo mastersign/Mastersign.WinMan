@@ -226,6 +226,21 @@ namespace Mastersign.WinMan
             }
         }
 
+        public string ProcessFileName
+        {
+            get
+            {
+                try
+                {
+                    return Process?.MainModule?.FileName;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
         public List<WindowWrapper> GetChildWindows()
         {
             List<IntPtr> result = new List<IntPtr>();
