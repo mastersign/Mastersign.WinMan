@@ -20,7 +20,7 @@ namespace Mastersign.WinMan
             if (ProcessFileName != null)
             {
                 var processPattern = NormalizePath(ProcessFileName);
-                var processMainModule = window.Process?.MainModule?.FileName;
+                var processMainModule = window.ProcessFileName;
                 if (processMainModule != null)
                 {
                     processMainModule = NormalizePath(processMainModule);

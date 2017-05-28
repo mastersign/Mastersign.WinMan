@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
@@ -16,9 +17,11 @@ namespace Mastersign.WinMan
             if (windowPattern == null) return;
             var screen = layout.FindScreenPattern(Screen)?.Discover();
             if (screen == null) return;
+            var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(VirtualDesktop - 1);
+            if (virtualDesktop == null) return;
             Array.ForEach(
                 windowPattern.Discover(),
-                w => Apply(w, screen));
+                w => Apply(w, screen, virtualDesktop));
         }
 
         private int ResolveValue(int reference, int range, int value, ScreenUnit unit)
@@ -34,7 +37,7 @@ namespace Mastersign.WinMan
             }
         }
 
-        public void Apply(WindowWrapper w, Screen screen)
+        public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
         {
             var screenR = screen.WorkingArea;
             var left = ResolveValue(screenR.Left, screenR.Width, Left, LeftUnit);
@@ -71,6 +74,7 @@ namespace Mastersign.WinMan
                     break;
             }
             w.NormalPosition = new RECT(targetBounds);
+            virtualDesktop.MoveWindowHere(w.Handle);
         }
 
         public override string ToString() => Window;

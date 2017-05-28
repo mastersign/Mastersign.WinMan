@@ -64,7 +64,7 @@ namespace Mastersign.WinMan
                         w.ShowCommand.ToString(),
                         w.NormalPosition.ToString(),
                         w.Screen.DeviceName,
-                        w.VirtualDesktop?.Id.ToString(),
+                        (VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1).ToString(),
                         w.ProcessFileName,
                     });
             item.Tag = w;

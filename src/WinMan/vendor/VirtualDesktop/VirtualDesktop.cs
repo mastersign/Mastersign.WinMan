@@ -93,6 +93,14 @@ namespace WindowsDesktop
 			return wrapper;
 		}
 
+        public bool MoveWindowHere(IntPtr hWnd)
+        {
+            IApplicationView appView = ApplicationHelper.GetApplicationView(hWnd);
+            if (!ComObjects.VirtualDesktopManagerInternal.CanViewMoveDesktops(appView)) return false;
+            ComObjects.VirtualDesktopManagerInternal.MoveViewToDesktop(appView, ComObject);
+            return true;
+        }
+
         public override string ToString()
         {
             return Id.ToString();
