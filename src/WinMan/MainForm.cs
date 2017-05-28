@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +24,7 @@ namespace Mastersign.WinMan
             InitializeComponent();
         }
 
-        private void LoadHandler(object sender, EventArgs e)
+        private void FormLoadHandler(object sender, EventArgs e)
         {
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
@@ -32,14 +35,92 @@ namespace Mastersign.WinMan
             cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
             ReloadWindowListHandler(this, EventArgs.Empty);
+            LoadWorkspaceFromFile();
+        }
 
-            _workspace = new Workspace
+        private void FormClosedHandler(object sender, FormClosedEventArgs e)
+        {
+            WriteWorkspaceToFile();
+        }
+
+        #region Workspace
+
+        private const string DEFAULT_WORKSPACE_FILENAME = "winman_workspace.json";
+
+        private string DefaultWorkspaceFilePath =>
+            Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                DEFAULT_WORKSPACE_FILENAME);
+
+        private JsonSerializerSettings CreateJsonSerializerSettings()
+        {
+            var settings = new JsonSerializerSettings
             {
-                WindowPatterns = new BindingList<WindowPattern>(),
-                Layouts = new BindingList<Layout>(),
+                Formatting = Formatting.Indented,
+                NullValueHandling = NullValueHandling.Include,
             };
+            settings.Converters.Add(new StringEnumConverter());
+            return settings;
+        }
+
+        private void LoadWorkspaceFromFile(string fileName = null)
+        {
+            fileName = fileName ?? DefaultWorkspaceFilePath;
+            if (!File.Exists(fileName))
+            {
+                _workspace = new Workspace
+                {
+                    WindowPatterns = new BindingList<WindowPattern>(),
+                    Layouts = new BindingList<Layout>(),
+                };
+            }
+            else
+            {
+                var json = File.ReadAllText(fileName, new UTF8Encoding(false));
+                _workspace = JsonConvert.DeserializeObject<Workspace>(json, CreateJsonSerializerSettings());
+            }
             workspaceBindingSource.DataSource = _workspace;
         }
+        private void WriteWorkspaceToFile(string fileName = null)
+        {
+            fileName = fileName ?? DefaultWorkspaceFilePath;
+            File.WriteAllText(fileName,
+                JsonConvert.SerializeObject(_workspace, CreateJsonSerializerSettings()),
+                new UTF8Encoding(false));
+        }
+
+        private void OpenWorkspaceHandler(object sender, EventArgs e)
+        {
+            var openDlg = new OpenFileDialog
+            {
+                Title = "Open Workspace...",
+                InitialDirectory = Path.GetDirectoryName(DefaultWorkspaceFilePath),
+                FileName = Path.GetFileName(DefaultWorkspaceFilePath),
+            };
+            var dlgResult = openDlg.ShowDialog(this);
+            if (dlgResult == DialogResult.OK)
+            {
+                LoadWorkspaceFromFile(openDlg.FileName);
+            }
+        }
+
+        private void SaveWorkspaceHandler(object sender, EventArgs e)
+        {
+            var saveDlg = new SaveFileDialog
+            {
+                Title = "Save Workspace...",
+                InitialDirectory = Path.GetDirectoryName(DefaultWorkspaceFilePath),
+                FileName = Path.GetFileName(DefaultWorkspaceFilePath),
+                OverwritePrompt = true,
+            };
+            var dlgResult = saveDlg.ShowDialog(this);
+            if (dlgResult == DialogResult.OK)
+            {
+                WriteWorkspaceToFile(saveDlg.FileName);
+            }
+        }
+
+        #endregion
 
         #region Window List
 

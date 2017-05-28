@@ -117,6 +117,8 @@
             this.btnDeleteLayout = new System.Windows.Forms.Button();
             this.btnNewLayout = new System.Windows.Forms.Button();
             this.listLayouts = new System.Windows.Forms.ListBox();
+            this.btnOpenWorkspace = new System.Windows.Forms.Button();
+            this.btnSaveWorkspace = new System.Windows.Forms.Button();
             this.grpWindowPatterns.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).BeginInit();
@@ -962,7 +964,7 @@
             // 
             // cmbWindowActionBottomUnit
             // 
-            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "BottomUnit", true));
+            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowsBindingSource, "BottomUnit", true));
             this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionBottomUnit.FormattingEnabled = true;
             this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(272, 326);
@@ -982,7 +984,7 @@
             // 
             // cmbWindowActionRightUnit
             // 
-            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "RightUnit", true));
+            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowsBindingSource, "RightUnit", true));
             this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionRightUnit.FormattingEnabled = true;
             this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(272, 281);
@@ -1002,7 +1004,7 @@
             // 
             // cmbWindowActionTopUnit
             // 
-            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "TopUnit", true));
+            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowsBindingSource, "TopUnit", true));
             this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionTopUnit.FormattingEnabled = true;
             this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(272, 236);
@@ -1022,7 +1024,7 @@
             // 
             // cmbWindowActionLeftUnit
             // 
-            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "LeftUnit", true));
+            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowsBindingSource, "LeftUnit", true));
             this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionLeftUnit.FormattingEnabled = true;
             this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(272, 191);
@@ -1032,7 +1034,7 @@
             // 
             // cmbWindowPositioning
             // 
-            this.cmbWindowPositioning.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "Positioning", true));
+            this.cmbWindowPositioning.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowsBindingSource, "Positioning", true));
             this.cmbWindowPositioning.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowPositioning.FormattingEnabled = true;
             this.cmbWindowPositioning.Location = new System.Drawing.Point(172, 146);
@@ -1042,7 +1044,7 @@
             // 
             // cmdWindowActionScreen
             // 
-            this.cmdWindowActionScreen.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowsBindingSource, "Screen", true));
+            this.cmdWindowActionScreen.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowsBindingSource, "Screen", true));
             this.cmdWindowActionScreen.DataSource = this.screensBindingSource;
             this.cmdWindowActionScreen.DisplayMember = "Name";
             this.cmdWindowActionScreen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1125,11 +1127,33 @@
             this.listLayouts.Size = new System.Drawing.Size(160, 308);
             this.listLayouts.TabIndex = 0;
             // 
+            // btnOpenWorkspace
+            // 
+            this.btnOpenWorkspace.Location = new System.Drawing.Point(220, 12);
+            this.btnOpenWorkspace.Name = "btnOpenWorkspace";
+            this.btnOpenWorkspace.Size = new System.Drawing.Size(110, 23);
+            this.btnOpenWorkspace.TabIndex = 16;
+            this.btnOpenWorkspace.Text = "Open Workspace";
+            this.btnOpenWorkspace.UseVisualStyleBackColor = true;
+            this.btnOpenWorkspace.Click += new System.EventHandler(this.OpenWorkspaceHandler);
+            // 
+            // btnSaveWorkspace
+            // 
+            this.btnSaveWorkspace.Location = new System.Drawing.Point(336, 12);
+            this.btnSaveWorkspace.Name = "btnSaveWorkspace";
+            this.btnSaveWorkspace.Size = new System.Drawing.Size(110, 23);
+            this.btnSaveWorkspace.TabIndex = 16;
+            this.btnSaveWorkspace.Text = "Save Workspace";
+            this.btnSaveWorkspace.UseVisualStyleBackColor = true;
+            this.btnSaveWorkspace.Click += new System.EventHandler(this.SaveWorkspaceHandler);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 661);
+            this.Controls.Add(this.btnSaveWorkspace);
+            this.Controls.Add(this.btnOpenWorkspace);
             this.Controls.Add(this.grpLayouts);
             this.Controls.Add(this.grpWindowPatterns);
             this.Controls.Add(this.lblWindowListCaption);
@@ -1138,7 +1162,8 @@
             this.MinimumSize = new System.Drawing.Size(1024, 700);
             this.Name = "MainForm";
             this.Text = "WinMan";
-            this.Load += new System.EventHandler(this.LoadHandler);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosedHandler);
+            this.Load += new System.EventHandler(this.FormLoadHandler);
             this.grpWindowPatterns.ResumeLayout(false);
             this.grpWindowPatterns.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).EndInit();
@@ -1258,6 +1283,8 @@
         private System.Windows.Forms.TextBox txtWindowActionWindow;
         private System.Windows.Forms.Label lblWindowActionCaption;
         private System.Windows.Forms.Button btnNewWindowAction;
+        private System.Windows.Forms.Button btnOpenWorkspace;
+        private System.Windows.Forms.Button btnSaveWorkspace;
     }
 }
 
