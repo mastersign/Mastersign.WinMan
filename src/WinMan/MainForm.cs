@@ -120,6 +120,11 @@ namespace Mastersign.WinMan
             }
         }
 
+        private void ApplyWorkspaceHandler(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
         #region Window List
@@ -140,13 +145,12 @@ namespace Mastersign.WinMan
                     {
                         selectedPattern != null ? (selectedPattern.IsMatch(w) ? "Yes" : "No") : string.Empty,
                         w.Title,
-                        w.Handle.ToString(),
                         w.WindowClass,
-                        w.ShowCommand.ToString(),
-                        w.NormalPosition.ToString(),
+                        Path.GetFileName(w.ProcessFileName),
                         w.Screen.DeviceName,
                         (VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1).ToString(),
-                        w.ProcessFileName,
+                        w.NormalPosition.ToString(),
+                        w.ShowCommand.ToString(),
                     });
             item.Tag = w;
             return item;
@@ -286,7 +290,7 @@ namespace Mastersign.WinMan
             windowsBindingSource.Remove(selectedWindowAction);
         }
 
-        private void TestWindowActionHandler(object sender, EventArgs e)
+        private void ApplyWindowActionHandler(object sender, EventArgs e)
         {
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
@@ -296,5 +300,10 @@ namespace Mastersign.WinMan
         }
 
         #endregion
+
+        private void PreviewPaintHandler(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
