@@ -13,6 +13,13 @@ namespace Mastersign.WinMan
         Regex,
     }
     
+    public enum WindowState
+    {
+        Minimized,
+        Normal,
+        Maximized,
+    }
+    
     public enum Positioning
     {
         Free,
@@ -833,6 +840,7 @@ namespace Mastersign.WinMan
     {
         public WindowAction()
         {
+            this._windowState = DEF_WINDOWSTATE;
             this._positioning = DEF_POSITIONING;
         }
         
@@ -946,6 +954,38 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property VirtualDesktop
+        
+        private int _virtualDesktop;
+        
+        public event EventHandler VirtualDesktopChanged;
+        
+        protected virtual void OnVirtualDesktopChanged()
+        {
+            EventHandler handler = VirtualDesktopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"VirtualDesktop");
+        }
+        
+        public virtual int VirtualDesktop
+        {
+            get { return _virtualDesktop; }
+            set
+            {
+                if ((value == _virtualDesktop))
+                {
+                    return;
+                }
+                _virtualDesktop = value;
+                this.OnVirtualDesktopChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Screen
         
         private string _screen;
@@ -978,33 +1018,36 @@ namespace Mastersign.WinMan
         
         #endregion
         
-        #region Property VirtualDesktop
+        #region Property WindowState
         
-        private int _virtualDesktop;
+        private WindowState _windowState;
         
-        public event EventHandler VirtualDesktopChanged;
+        public event EventHandler WindowStateChanged;
         
-        protected virtual void OnVirtualDesktopChanged()
+        protected virtual void OnWindowStateChanged()
         {
-            EventHandler handler = VirtualDesktopChanged;
+            EventHandler handler = WindowStateChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
-            this.OnPropertyChanged(@"VirtualDesktop");
+            this.OnPropertyChanged(@"WindowState");
         }
         
-        public virtual int VirtualDesktop
+        private const WindowState DEF_WINDOWSTATE = WindowState.Normal;
+        
+        [DefaultValue(DEF_WINDOWSTATE)]
+        public virtual WindowState WindowState
         {
-            get { return _virtualDesktop; }
+            get { return _windowState; }
             set
             {
-                if ((value == _virtualDesktop))
+                if ((value == _windowState))
                 {
                     return;
                 }
-                _virtualDesktop = value;
-                this.OnVirtualDesktopChanged();
+                _windowState = value;
+                this.OnWindowStateChanged();
             }
         }
         
@@ -1307,6 +1350,7 @@ namespace Mastersign.WinMan
         public Layout()
         {
             this._name = DEF_NAME;
+            this._defaultLayout = DEF_DEFAULTLAYOUT;
         }
         
         #region Equatability
@@ -1385,6 +1429,41 @@ namespace Mastersign.WinMan
                 }
                 _name = value;
                 this.OnNameChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property DefaultLayout
+        
+        private bool _defaultLayout;
+        
+        public event EventHandler DefaultLayoutChanged;
+        
+        protected virtual void OnDefaultLayoutChanged()
+        {
+            EventHandler handler = DefaultLayoutChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"DefaultLayout");
+        }
+        
+        private const bool DEF_DEFAULTLAYOUT = true;
+        
+        [DefaultValue(DEF_DEFAULTLAYOUT)]
+        public virtual bool DefaultLayout
+        {
+            get { return _defaultLayout; }
+            set
+            {
+                if ((value == _defaultLayout))
+                {
+                    return;
+                }
+                _defaultLayout = value;
+                this.OnDefaultLayoutChanged();
             }
         }
         

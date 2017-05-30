@@ -18,5 +18,10 @@ namespace Mastersign.WinMan
             => Layouts
             .Select(l => l.FindScreenPattern(screenPatternName))
             .FirstOrDefault(s => s != null);
+
+        public void Apply()
+        {
+            Layouts.Where(l => l.DefaultLayout).All(l => l.Apply(this));
+        }
     }
 }

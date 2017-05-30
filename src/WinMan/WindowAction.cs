@@ -11,17 +11,32 @@ namespace Mastersign.WinMan
 {
     partial class WindowAction
     {
-        public void Apply(Workspace workspace, Layout layout)
+        public bool Apply(Workspace workspace, Layout layout)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
-            if (windowPattern == null) return;
+            if (windowPattern == null) return false;
             var screen = layout.FindScreenPattern(Screen)?.Discover();
-            if (screen == null) return;
+            if (screen == null) return false;
             var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(VirtualDesktop - 1);
-            if (virtualDesktop == null) return;
-            Array.ForEach(
-                windowPattern.Discover(),
-                w => Apply(w, screen, virtualDesktop));
+            if (virtualDesktop == null) return false;
+
+            var windowWrappers = windowPattern.Discover();
+            if (windowWrappers.Length > 0)
+            {
+                Array.ForEach(
+                    windowPattern.Discover(),
+                    w => Apply(w, screen, virtualDesktop));
+                return true;
+            }
+            else if (Restore)
+            {
+                // TODO restore window
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private int ResolveValue(int reference, int range, int value, ScreenUnit unit)

@@ -65,6 +65,12 @@
       </Property>
     </Class>
 
+    <Enum name="WindowState">
+      <Member name="Minimized" />
+      <Member name="Normal" />
+      <Member name="Maximized" />
+    </Enum>
+
     <Enum name="Positioning">
       <Member name="Free" />
       <Member name="DockLeft" />
@@ -88,9 +94,11 @@
       <Property name="Window" type="string" />
 
       <Property name="Restore" type="bool" />
-      <Property name="Screen" type="string" />
       <Property name="VirtualDesktop" type="int" />
-
+      <Property name="Screen" type="string" />
+      <Property name="WindowState" type="WindowState">
+        <DefaultValue>Normal</DefaultValue>
+      </Property>
       <Property name="Positioning" type="Positioning">
         <DefaultValue>Free</DefaultValue>
       </Property>
@@ -107,6 +115,9 @@
     <Class name="Layout">
       <Property name="Name" type="string">
         <DefaultValue>Layout</DefaultValue>
+      </Property>
+      <Property name="DefaultLayout" type="bool">
+        <DefaultValue>true</DefaultValue>
       </Property>
       <Property name="Configurations" type="ConfigurationPattern" isCollection="true" />
       <Property name="Windows" type="WindowAction" isCollection="true" />

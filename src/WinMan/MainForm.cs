@@ -28,6 +28,7 @@ namespace Mastersign.WinMan
         {
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
+            cmbWindowState.DataSource = Enum.GetValues(typeof(WindowState));
             cmbWindowPositioning.DataSource = Enum.GetValues(typeof(Positioning));
             cmbWindowActionLeftUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionTopUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
@@ -122,7 +123,7 @@ namespace Mastersign.WinMan
 
         private void ApplyWorkspaceHandler(object sender, EventArgs e)
         {
-
+            _workspace.Apply();
         }
 
         #endregion
@@ -211,6 +212,15 @@ namespace Mastersign.WinMan
             listWindowPatterns.DataSource = listWindowPatterns.DataSource;
         }
 
+        private void WindowPatternListChangedHandler(object sender, ListChangedEventArgs e)
+        {
+            if (_workspace != null)
+            {
+                cmbWindowActionWindow.Items.Clear();
+                cmbWindowActionWindow.Items.AddRange(_workspace.WindowPatterns.Select(p => p.Name).ToArray());
+            }
+        }
+
         #endregion
 
         #region Layouts
@@ -232,6 +242,14 @@ namespace Mastersign.WinMan
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
             _workspace.Layouts.Remove(selectedLayout);
+        }
+
+        private void ApplyCurrentLayoutHandler(object sender, EventArgs e)
+        {
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+
+            selectedLayout.Apply(_workspace);
         }
 
         #endregion
@@ -273,11 +291,11 @@ namespace Mastersign.WinMan
 
         #region Window Action
 
-        private WindowAction SelectedWindowAction => windowsBindingSource.Current as WindowAction;
+        private WindowAction SelectedWindowAction => windowActionsBindingSource.Current as WindowAction;
 
         private void NewWindowActionHandler(object sender, EventArgs e)
         {
-            windowsBindingSource.Add(new WindowAction()
+            windowActionsBindingSource.Add(new WindowAction()
             {
                 Window = "Unknown"
             });
@@ -287,7 +305,7 @@ namespace Mastersign.WinMan
         {
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction == null) return;
-            windowsBindingSource.Remove(selectedWindowAction);
+            windowActionsBindingSource.Remove(selectedWindowAction);
         }
 
         private void ApplyWindowActionHandler(object sender, EventArgs e)
