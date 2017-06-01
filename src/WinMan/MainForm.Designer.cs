@@ -29,8 +29,40 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TableLayoutPanel tableConfigurationPatterns;
+            System.Windows.Forms.TableLayoutPanel tableConfigurationPatternList;
+            System.Windows.Forms.TableLayoutPanel tableConfigurationPatternDetails;
+            System.Windows.Forms.TableLayoutPanel tableWindowPatterns;
+            System.Windows.Forms.TableLayoutPanel tableLayouts;
+            System.Windows.Forms.TableLayoutPanel tableLayoutList;
+            System.Windows.Forms.TableLayoutPanel tableLayoutDetails;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.btnListTopWindows = new System.Windows.Forms.Button();
+            this.btnRecordConfiguration = new System.Windows.Forms.Button();
+            this.btnDeleteConfiguration = new System.Windows.Forms.Button();
+            this.lblConfigurationNameCaption = new System.Windows.Forms.Label();
+            this.txtConfigurationName = new System.Windows.Forms.TextBox();
+            this.configurationPatternsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.workspaceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.listConfigurationPatterns = new System.Windows.Forms.ListBox();
+            this.previewConfiguration = new Mastersign.WinMan.PreviewCanvas();
+            this.lblVirtualDesktopsCaption = new System.Windows.Forms.Label();
+            this.numScreenHeight = new System.Windows.Forms.NumericUpDown();
+            this.listScreenPatterns = new System.Windows.Forms.ListBox();
+            this.screensPatternsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lblScreenHeightCaption = new System.Windows.Forms.Label();
+            this.numScreenWidth = new System.Windows.Forms.NumericUpDown();
+            this.numVirtualDesktopCount = new System.Windows.Forms.NumericUpDown();
+            this.lblScreenTopCaption = new System.Windows.Forms.Label();
+            this.lblScreenWidthCaption = new System.Windows.Forms.Label();
+            this.numScreenTop = new System.Windows.Forms.NumericUpDown();
+            this.chkRespectVirtualDesktopCount = new System.Windows.Forms.CheckBox();
+            this.numScreenLeft = new System.Windows.Forms.NumericUpDown();
+            this.lblScreensCaption = new System.Windows.Forms.Label();
+            this.lblScreenNameCaption = new System.Windows.Forms.Label();
+            this.txtScreenName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblScreenLeftCaption = new System.Windows.Forms.Label();
+            this.txtDeviceName = new System.Windows.Forms.TextBox();
             this.listWindows = new System.Windows.Forms.ListView();
             this.colMatch = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -40,103 +72,78 @@
             this.colVirtualDesktop = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colPosition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colState = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnListTopWindows = new System.Windows.Forms.Button();
             this.btnDeleteWindowPattern = new System.Windows.Forms.Button();
-            this.lblWindowPatternName = new System.Windows.Forms.Label();
-            this.btnNewWindowPattern = new System.Windows.Forms.Button();
-            this.chkWindowClassIgnoreCase = new System.Windows.Forms.CheckBox();
+            this.lblRestoreCommandArgs = new System.Windows.Forms.Label();
+            this.lblWindowPatternsCaption = new System.Windows.Forms.Label();
+            this.lblMatchCount = new System.Windows.Forms.Label();
+            this.lblRestoreWorkingDir = new System.Windows.Forms.Label();
+            this.txtRestoreWorkingDir = new System.Windows.Forms.TextBox();
             this.windowPatternsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.workspaceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.listWindowPatterns = new System.Windows.Forms.ListBox();
+            this.lblWindowPatternName = new System.Windows.Forms.Label();
+            this.chkWindowClassIgnoreCase = new System.Windows.Forms.CheckBox();
+            this.txtRestoreCommandArgs = new System.Windows.Forms.TextBox();
+            this.txtWindowPatternName = new System.Windows.Forms.TextBox();
+            this.txtRestoreCommand = new System.Windows.Forms.TextBox();
+            this.lblRestoreCommand = new System.Windows.Forms.Label();
             this.chkTitleIgnoreCase = new System.Windows.Forms.CheckBox();
             this.cmbWindowClassPatternType = new System.Windows.Forms.ComboBox();
-            this.cmbTitlePatternType = new System.Windows.Forms.ComboBox();
-            this.txtProcessFileName = new System.Windows.Forms.TextBox();
-            this.txtWindowClassPattern = new System.Windows.Forms.TextBox();
-            this.txtWindowPatternName = new System.Windows.Forms.TextBox();
             this.txtTitlePattern = new System.Windows.Forms.TextBox();
+            this.lblMatchCountCaption = new System.Windows.Forms.Label();
+            this.txtProcessFileName = new System.Windows.Forms.TextBox();
             this.lblProcessFileName = new System.Windows.Forms.Label();
-            this.lblWindowClassPatternCaption = new System.Windows.Forms.Label();
             this.lblTitlePatternCaption = new System.Windows.Forms.Label();
-            this.listWindowPatterns = new System.Windows.Forms.ListBox();
-            this.screensPatternsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.configurationPatternsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.windowActionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.layoutsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cmbTitlePatternType = new System.Windows.Forms.ComboBox();
+            this.txtWindowClassPattern = new System.Windows.Forms.TextBox();
+            this.lblWindowClassPatternCaption = new System.Windows.Forms.Label();
+            this.btnNewWindowPattern = new System.Windows.Forms.Button();
+            this.previewLayout = new Mastersign.WinMan.PreviewCanvas();
+            this.btnNewLayout = new System.Windows.Forms.Button();
+            this.btnDeleteLayout = new System.Windows.Forms.Button();
             this.lblLayoutNameCaption = new System.Windows.Forms.Label();
             this.txtLayoutName = new System.Windows.Forms.TextBox();
-            this.btnDeleteLayout = new System.Windows.Forms.Button();
-            this.btnNewLayout = new System.Windows.Forms.Button();
+            this.layoutsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chkLayoutIsDefaultLayout = new System.Windows.Forms.CheckBox();
+            this.lblConfigurationPatternCaption = new System.Windows.Forms.Label();
+            this.cmbLayoutConfiguration = new System.Windows.Forms.ComboBox();
             this.listLayouts = new System.Windows.Forms.ListBox();
+            this.lblWindowActionsCaption = new System.Windows.Forms.Label();
+            this.chkWindowActionBottomInvert = new System.Windows.Forms.CheckBox();
+            this.windowActionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
+            this.chkWindowActionRightInvert = new System.Windows.Forms.CheckBox();
+            this.btnNewWindowAction = new System.Windows.Forms.Button();
+            this.chkWindowActionTopInvert = new System.Windows.Forms.CheckBox();
+            this.btnDeleteWindowAction = new System.Windows.Forms.Button();
+            this.chkWindowActionLeftInvert = new System.Windows.Forms.CheckBox();
+            this.listWindowAction = new System.Windows.Forms.ListBox();
+            this.cmbWindowActionBottomUnit = new System.Windows.Forms.ComboBox();
+            this.numWindowActionBottom = new System.Windows.Forms.NumericUpDown();
+            this.cmbWindowActionRightUnit = new System.Windows.Forms.ComboBox();
+            this.btnWindowActionApply = new System.Windows.Forms.Button();
+            this.cmbWindowActionTopUnit = new System.Windows.Forms.ComboBox();
+            this.numWindowActionRight = new System.Windows.Forms.NumericUpDown();
+            this.cmbWindowActionLeftUnit = new System.Windows.Forms.ComboBox();
+            this.chkWindowActionRestore = new System.Windows.Forms.CheckBox();
+            this.numWindowActionTop = new System.Windows.Forms.NumericUpDown();
+            this.cmbWindowActionWindow = new System.Windows.Forms.ComboBox();
+            this.numWindowActionLeft = new System.Windows.Forms.NumericUpDown();
+            this.lblWindowActionCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionVirtualDesktop = new System.Windows.Forms.Label();
+            this.numWindowActionVirtualDesktop = new System.Windows.Forms.NumericUpDown();
+            this.lblWindowActionBottomCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionScreenCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionRightCaption = new System.Windows.Forms.Label();
+            this.cmdWindowActionScreen = new System.Windows.Forms.ComboBox();
+            this.lblWindowActionTopCaption = new System.Windows.Forms.Label();
+            this.lblWindowStateCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionLeftCaption = new System.Windows.Forms.Label();
+            this.cmbWindowState = new System.Windows.Forms.ComboBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tpConfigurationPatterns = new System.Windows.Forms.TabPage();
-            this.previewConfiguration = new Mastersign.WinMan.PreviewCanvas();
-            this.listScreenPatterns = new System.Windows.Forms.ListBox();
-            this.chkRespectVirtualDesktopCount = new System.Windows.Forms.CheckBox();
-            this.numScreenHeight = new System.Windows.Forms.NumericUpDown();
-            this.numScreenWidth = new System.Windows.Forms.NumericUpDown();
-            this.numScreenTop = new System.Windows.Forms.NumericUpDown();
-            this.numScreenLeft = new System.Windows.Forms.NumericUpDown();
-            this.numVirtualDesktopCount = new System.Windows.Forms.NumericUpDown();
-            this.btnDeleteConfiguration = new System.Windows.Forms.Button();
-            this.btnRecordConfiguration = new System.Windows.Forms.Button();
-            this.lblScreenTopCaption = new System.Windows.Forms.Label();
-            this.lblScreenHeightCaption = new System.Windows.Forms.Label();
-            this.lblScreenWidthCaption = new System.Windows.Forms.Label();
-            this.lblScreenLeftCaption = new System.Windows.Forms.Label();
-            this.lblScreenNameCaption = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblScreensCaption = new System.Windows.Forms.Label();
-            this.lblVirtualDesktopsCaption = new System.Windows.Forms.Label();
-            this.lblConfigurationNameCaption = new System.Windows.Forms.Label();
-            this.txtDeviceName = new System.Windows.Forms.TextBox();
-            this.txtScreenName = new System.Windows.Forms.TextBox();
-            this.txtConfigurationName = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tpWindowPatterns = new System.Windows.Forms.TabPage();
-            this.lblRestoreCommandArgs = new System.Windows.Forms.Label();
-            this.lblMatchCount = new System.Windows.Forms.Label();
-            this.lblWindowPatternsCaption = new System.Windows.Forms.Label();
-            this.txtRestoreWorkingDir = new System.Windows.Forms.TextBox();
-            this.txtRestoreCommandArgs = new System.Windows.Forms.TextBox();
-            this.txtRestoreCommand = new System.Windows.Forms.TextBox();
-            this.lblRestoreWorkingDir = new System.Windows.Forms.Label();
-            this.lblRestoreCommand = new System.Windows.Forms.Label();
-            this.lblMatchCountCaption = new System.Windows.Forms.Label();
             this.tpLayouts = new System.Windows.Forms.TabPage();
-            this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
-            this.chkWindowActionBottomInvert = new System.Windows.Forms.CheckBox();
-            this.chkWindowActionRightInvert = new System.Windows.Forms.CheckBox();
-            this.chkWindowActionTopInvert = new System.Windows.Forms.CheckBox();
-            this.chkWindowActionLeftInvert = new System.Windows.Forms.CheckBox();
-            this.lblWindowActionsCaption = new System.Windows.Forms.Label();
-            this.chkWindowActionRestore = new System.Windows.Forms.CheckBox();
-            this.cmbLayoutConfiguration = new System.Windows.Forms.ComboBox();
-            this.cmbWindowActionWindow = new System.Windows.Forms.ComboBox();
-            this.lblWindowActionCaption = new System.Windows.Forms.Label();
-            this.btnNewWindowAction = new System.Windows.Forms.Button();
-            this.btnWindowActionApply = new System.Windows.Forms.Button();
-            this.numWindowActionBottom = new System.Windows.Forms.NumericUpDown();
-            this.numWindowActionRight = new System.Windows.Forms.NumericUpDown();
-            this.numWindowActionTop = new System.Windows.Forms.NumericUpDown();
-            this.numWindowActionLeft = new System.Windows.Forms.NumericUpDown();
-            this.lblWindowActionBottomCaption = new System.Windows.Forms.Label();
-            this.lblWindowActionRightCaption = new System.Windows.Forms.Label();
-            this.lblWindowActionTopCaption = new System.Windows.Forms.Label();
-            this.numWindowActionVirtualDesktop = new System.Windows.Forms.NumericUpDown();
-            this.lblWindowActionLeftCaption = new System.Windows.Forms.Label();
-            this.cmbWindowActionBottomUnit = new System.Windows.Forms.ComboBox();
-            this.cmbWindowActionRightUnit = new System.Windows.Forms.ComboBox();
-            this.lblWindowStateCaption = new System.Windows.Forms.Label();
-            this.lblWindowActionScreenCaption = new System.Windows.Forms.Label();
-            this.cmbWindowActionTopUnit = new System.Windows.Forms.ComboBox();
-            this.lblWindowActionVirtualDesktop = new System.Windows.Forms.Label();
-            this.cmbWindowActionLeftUnit = new System.Windows.Forms.ComboBox();
-            this.cmbWindowState = new System.Windows.Forms.ComboBox();
-            this.cmdWindowActionScreen = new System.Windows.Forms.ComboBox();
-            this.btnDeleteWindowAction = new System.Windows.Forms.Button();
-            this.listWindowAction = new System.Windows.Forms.ListBox();
-            this.chkLayoutIsDefaultLayout = new System.Windows.Forms.CheckBox();
-            this.previewLayout = new Mastersign.WinMan.PreviewCanvas();
-            this.lblConfigurationPatternCaption = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tsbNewWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbOpenWorkspace = new System.Windows.Forms.ToolStripButton();
@@ -145,45 +152,526 @@
             this.tsbApplyCurrentLayout = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslFileName = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.screensPatternsBindingSource)).BeginInit();
+            tableConfigurationPatterns = new System.Windows.Forms.TableLayoutPanel();
+            tableConfigurationPatternList = new System.Windows.Forms.TableLayoutPanel();
+            tableConfigurationPatternDetails = new System.Windows.Forms.TableLayoutPanel();
+            tableWindowPatterns = new System.Windows.Forms.TableLayoutPanel();
+            tableLayouts = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutList = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutDetails = new System.Windows.Forms.TableLayoutPanel();
+            tableConfigurationPatterns.SuspendLayout();
+            tableConfigurationPatternList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationPatternsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.windowActionsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutsBindingSource)).BeginInit();
-            this.tabMain.SuspendLayout();
-            this.tpConfigurationPatterns.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).BeginInit();
+            tableConfigurationPatternDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.screensPatternsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numVirtualDesktopCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenLeft)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numVirtualDesktopCount)).BeginInit();
-            this.tpWindowPatterns.SuspendLayout();
-            this.tpLayouts.SuspendLayout();
+            tableWindowPatterns.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).BeginInit();
+            tableLayouts.SuspendLayout();
+            tableLayoutList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutsBindingSource)).BeginInit();
+            tableLayoutDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.windowActionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionBottom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionRight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).BeginInit();
+            this.tabMain.SuspendLayout();
+            this.tpConfigurationPatterns.SuspendLayout();
+            this.tpWindowPatterns.SuspendLayout();
+            this.tpLayouts.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnListTopWindows
+            // tableConfigurationPatterns
             // 
-            this.btnListTopWindows.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnListTopWindows.Location = new System.Drawing.Point(654, 207);
-            this.btnListTopWindows.Name = "btnListTopWindows";
-            this.btnListTopWindows.Size = new System.Drawing.Size(116, 23);
-            this.btnListTopWindows.TabIndex = 1;
-            this.btnListTopWindows.Text = "Refresh Window List";
-            this.btnListTopWindows.UseVisualStyleBackColor = true;
-            this.btnListTopWindows.Click += new System.EventHandler(this.ReloadWindowListHandler);
+            tableConfigurationPatterns.ColumnCount = 2;
+            tableConfigurationPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableConfigurationPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            tableConfigurationPatterns.Controls.Add(tableConfigurationPatternList, 0, 0);
+            tableConfigurationPatterns.Controls.Add(this.previewConfiguration, 1, 0);
+            tableConfigurationPatterns.Controls.Add(tableConfigurationPatternDetails, 1, 1);
+            tableConfigurationPatterns.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableConfigurationPatterns.Location = new System.Drawing.Point(4, 5);
+            tableConfigurationPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableConfigurationPatterns.Name = "tableConfigurationPatterns";
+            tableConfigurationPatterns.RowCount = 2;
+            tableConfigurationPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            tableConfigurationPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            tableConfigurationPatterns.Size = new System.Drawing.Size(1160, 833);
+            tableConfigurationPatterns.TabIndex = 59;
+            // 
+            // tableConfigurationPatternList
+            // 
+            tableConfigurationPatternList.ColumnCount = 2;
+            tableConfigurationPatternList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableConfigurationPatternList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableConfigurationPatternList.Controls.Add(this.btnRecordConfiguration, 0, 0);
+            tableConfigurationPatternList.Controls.Add(this.btnDeleteConfiguration, 1, 0);
+            tableConfigurationPatternList.Controls.Add(this.lblConfigurationNameCaption, 0, 1);
+            tableConfigurationPatternList.Controls.Add(this.txtConfigurationName, 0, 2);
+            tableConfigurationPatternList.Controls.Add(this.listConfigurationPatterns, 0, 3);
+            tableConfigurationPatternList.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableConfigurationPatternList.Location = new System.Drawing.Point(4, 5);
+            tableConfigurationPatternList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableConfigurationPatternList.Name = "tableConfigurationPatternList";
+            tableConfigurationPatternList.RowCount = 4;
+            tableConfigurationPatterns.SetRowSpan(tableConfigurationPatternList, 2);
+            tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableConfigurationPatternList.Size = new System.Drawing.Size(282, 823);
+            tableConfigurationPatternList.TabIndex = 0;
+            // 
+            // btnRecordConfiguration
+            // 
+            this.btnRecordConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRecordConfiguration.Location = new System.Drawing.Point(4, 5);
+            this.btnRecordConfiguration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRecordConfiguration.Name = "btnRecordConfiguration";
+            this.btnRecordConfiguration.Size = new System.Drawing.Size(133, 35);
+            this.btnRecordConfiguration.TabIndex = 49;
+            this.btnRecordConfiguration.Text = "Record";
+            this.btnRecordConfiguration.UseVisualStyleBackColor = true;
+            this.btnRecordConfiguration.Click += new System.EventHandler(this.RecordConfigurationHandler);
+            // 
+            // btnDeleteConfiguration
+            // 
+            this.btnDeleteConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeleteConfiguration.Location = new System.Drawing.Point(145, 5);
+            this.btnDeleteConfiguration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeleteConfiguration.Name = "btnDeleteConfiguration";
+            this.btnDeleteConfiguration.Size = new System.Drawing.Size(133, 35);
+            this.btnDeleteConfiguration.TabIndex = 50;
+            this.btnDeleteConfiguration.Text = "Delete";
+            this.btnDeleteConfiguration.UseVisualStyleBackColor = true;
+            this.btnDeleteConfiguration.Click += new System.EventHandler(this.DeleteConfigurationHandler);
+            // 
+            // lblConfigurationNameCaption
+            // 
+            this.lblConfigurationNameCaption.AutoSize = true;
+            tableConfigurationPatternList.SetColumnSpan(this.lblConfigurationNameCaption, 2);
+            this.lblConfigurationNameCaption.Location = new System.Drawing.Point(4, 50);
+            this.lblConfigurationNameCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblConfigurationNameCaption.Name = "lblConfigurationNameCaption";
+            this.lblConfigurationNameCaption.Size = new System.Drawing.Size(55, 20);
+            this.lblConfigurationNameCaption.TabIndex = 41;
+            this.lblConfigurationNameCaption.Text = "Name:";
+            // 
+            // txtConfigurationName
+            // 
+            tableConfigurationPatternList.SetColumnSpan(this.txtConfigurationName, 2);
+            this.txtConfigurationName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtConfigurationName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtConfigurationName.Location = new System.Drawing.Point(4, 80);
+            this.txtConfigurationName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtConfigurationName.Name = "txtConfigurationName";
+            this.txtConfigurationName.Size = new System.Drawing.Size(274, 26);
+            this.txtConfigurationName.TabIndex = 40;
+            // 
+            // configurationPatternsBindingSource
+            // 
+            this.configurationPatternsBindingSource.DataMember = "ConfigurationPatterns";
+            this.configurationPatternsBindingSource.DataSource = this.workspaceBindingSource;
+            this.configurationPatternsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedConfigurationPatternChanged);
+            this.configurationPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedConfigurationPatternChanged);
+            this.configurationPatternsBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.ConfigurationPatternsListChangedHandler);
+            // 
+            // workspaceBindingSource
+            // 
+            this.workspaceBindingSource.DataSource = typeof(Mastersign.WinMan.Workspace);
+            // 
+            // listConfigurationPatterns
+            // 
+            tableConfigurationPatternList.SetColumnSpan(this.listConfigurationPatterns, 2);
+            this.listConfigurationPatterns.DataSource = this.configurationPatternsBindingSource;
+            this.listConfigurationPatterns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listConfigurationPatterns.FormattingEnabled = true;
+            this.listConfigurationPatterns.IntegralHeight = false;
+            this.listConfigurationPatterns.ItemHeight = 20;
+            this.listConfigurationPatterns.Location = new System.Drawing.Point(4, 116);
+            this.listConfigurationPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listConfigurationPatterns.Name = "listConfigurationPatterns";
+            this.listConfigurationPatterns.Size = new System.Drawing.Size(274, 702);
+            this.listConfigurationPatterns.TabIndex = 37;
+            // 
+            // previewConfiguration
+            // 
+            this.previewConfiguration.BackColor = System.Drawing.SystemColors.Desktop;
+            this.previewConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.previewConfiguration.Location = new System.Drawing.Point(294, 5);
+            this.previewConfiguration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.previewConfiguration.Name = "previewConfiguration";
+            this.previewConfiguration.Size = new System.Drawing.Size(862, 364);
+            this.previewConfiguration.TabIndex = 58;
+            this.previewConfiguration.Paint += new System.Windows.Forms.PaintEventHandler(this.ConfigurationPreviewPaintHandler);
+            // 
+            // tableConfigurationPatternDetails
+            // 
+            tableConfigurationPatternDetails.ColumnCount = 4;
+            tableConfigurationPatternDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableConfigurationPatternDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableConfigurationPatternDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            tableConfigurationPatternDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            tableConfigurationPatternDetails.Controls.Add(this.lblVirtualDesktopsCaption, 1, 0);
+            tableConfigurationPatternDetails.Controls.Add(this.numScreenHeight, 2, 7);
+            tableConfigurationPatternDetails.Controls.Add(this.listScreenPatterns, 0, 2);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreenHeightCaption, 1, 7);
+            tableConfigurationPatternDetails.Controls.Add(this.numScreenWidth, 2, 6);
+            tableConfigurationPatternDetails.Controls.Add(this.numVirtualDesktopCount, 2, 0);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreenTopCaption, 1, 5);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreenWidthCaption, 1, 6);
+            tableConfigurationPatternDetails.Controls.Add(this.numScreenTop, 2, 5);
+            tableConfigurationPatternDetails.Controls.Add(this.chkRespectVirtualDesktopCount, 3, 0);
+            tableConfigurationPatternDetails.Controls.Add(this.numScreenLeft, 2, 4);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreensCaption, 0, 1);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreenNameCaption, 1, 2);
+            tableConfigurationPatternDetails.Controls.Add(this.txtScreenName, 2, 2);
+            tableConfigurationPatternDetails.Controls.Add(this.label1, 1, 3);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreenLeftCaption, 1, 4);
+            tableConfigurationPatternDetails.Controls.Add(this.txtDeviceName, 2, 3);
+            tableConfigurationPatternDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableConfigurationPatternDetails.Location = new System.Drawing.Point(294, 379);
+            tableConfigurationPatternDetails.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableConfigurationPatternDetails.Name = "tableConfigurationPatternDetails";
+            tableConfigurationPatternDetails.RowCount = 9;
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableConfigurationPatternDetails.Size = new System.Drawing.Size(862, 449);
+            tableConfigurationPatternDetails.TabIndex = 59;
+            // 
+            // lblVirtualDesktopsCaption
+            // 
+            this.lblVirtualDesktopsCaption.AutoSize = true;
+            this.lblVirtualDesktopsCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblVirtualDesktopsCaption.Location = new System.Drawing.Point(245, 5);
+            this.lblVirtualDesktopsCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblVirtualDesktopsCaption.Name = "lblVirtualDesktopsCaption";
+            this.lblVirtualDesktopsCaption.Size = new System.Drawing.Size(130, 26);
+            this.lblVirtualDesktopsCaption.TabIndex = 42;
+            this.lblVirtualDesktopsCaption.Text = "Virtual Desktops:";
+            this.lblVirtualDesktopsCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numScreenHeight
+            // 
+            this.numScreenHeight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numScreenHeight.Enabled = false;
+            this.numScreenHeight.Location = new System.Drawing.Point(383, 251);
+            this.numScreenHeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numScreenHeight.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numScreenHeight.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numScreenHeight.Name = "numScreenHeight";
+            this.numScreenHeight.ReadOnly = true;
+            this.numScreenHeight.Size = new System.Drawing.Size(233, 26);
+            this.numScreenHeight.TabIndex = 55;
+            // 
+            // listScreenPatterns
+            // 
+            this.listScreenPatterns.DataSource = this.screensPatternsBindingSource;
+            this.listScreenPatterns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listScreenPatterns.FormattingEnabled = true;
+            this.listScreenPatterns.IntegralHeight = false;
+            this.listScreenPatterns.ItemHeight = 20;
+            this.listScreenPatterns.Location = new System.Drawing.Point(4, 71);
+            this.listScreenPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listScreenPatterns.Name = "listScreenPatterns";
+            tableConfigurationPatternDetails.SetRowSpan(this.listScreenPatterns, 7);
+            this.listScreenPatterns.Size = new System.Drawing.Size(233, 373);
+            this.listScreenPatterns.TabIndex = 57;
+            // 
+            // screensPatternsBindingSource
+            // 
+            this.screensPatternsBindingSource.DataMember = "Screens";
+            this.screensPatternsBindingSource.DataSource = this.configurationPatternsBindingSource;
+            this.screensPatternsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedScreenPatternChanged);
+            this.screensPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedScreenPatternChanged);
+            // 
+            // lblScreenHeightCaption
+            // 
+            this.lblScreenHeightCaption.AutoSize = true;
+            this.lblScreenHeightCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblScreenHeightCaption.Enabled = false;
+            this.lblScreenHeightCaption.Location = new System.Drawing.Point(245, 251);
+            this.lblScreenHeightCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblScreenHeightCaption.Name = "lblScreenHeightCaption";
+            this.lblScreenHeightCaption.Size = new System.Drawing.Size(130, 26);
+            this.lblScreenHeightCaption.TabIndex = 47;
+            this.lblScreenHeightCaption.Text = "Height:";
+            this.lblScreenHeightCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numScreenWidth
+            // 
+            this.numScreenWidth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numScreenWidth.Enabled = false;
+            this.numScreenWidth.Location = new System.Drawing.Point(383, 215);
+            this.numScreenWidth.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numScreenWidth.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numScreenWidth.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numScreenWidth.Name = "numScreenWidth";
+            this.numScreenWidth.ReadOnly = true;
+            this.numScreenWidth.Size = new System.Drawing.Size(233, 26);
+            this.numScreenWidth.TabIndex = 54;
+            // 
+            // numVirtualDesktopCount
+            // 
+            this.numVirtualDesktopCount.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationPatternsBindingSource, "VirtualDesktopCount", true));
+            this.numVirtualDesktopCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numVirtualDesktopCount.Location = new System.Drawing.Point(383, 5);
+            this.numVirtualDesktopCount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numVirtualDesktopCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numVirtualDesktopCount.Name = "numVirtualDesktopCount";
+            this.numVirtualDesktopCount.Size = new System.Drawing.Size(233, 26);
+            this.numVirtualDesktopCount.TabIndex = 51;
+            this.numVirtualDesktopCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblScreenTopCaption
+            // 
+            this.lblScreenTopCaption.AutoSize = true;
+            this.lblScreenTopCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblScreenTopCaption.Enabled = false;
+            this.lblScreenTopCaption.Location = new System.Drawing.Point(245, 179);
+            this.lblScreenTopCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblScreenTopCaption.Name = "lblScreenTopCaption";
+            this.lblScreenTopCaption.Size = new System.Drawing.Size(130, 26);
+            this.lblScreenTopCaption.TabIndex = 48;
+            this.lblScreenTopCaption.Text = "Top:";
+            this.lblScreenTopCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblScreenWidthCaption
+            // 
+            this.lblScreenWidthCaption.AutoSize = true;
+            this.lblScreenWidthCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblScreenWidthCaption.Enabled = false;
+            this.lblScreenWidthCaption.Location = new System.Drawing.Point(245, 215);
+            this.lblScreenWidthCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblScreenWidthCaption.Name = "lblScreenWidthCaption";
+            this.lblScreenWidthCaption.Size = new System.Drawing.Size(130, 26);
+            this.lblScreenWidthCaption.TabIndex = 46;
+            this.lblScreenWidthCaption.Text = "Width:";
+            this.lblScreenWidthCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numScreenTop
+            // 
+            this.numScreenTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numScreenTop.Enabled = false;
+            this.numScreenTop.Location = new System.Drawing.Point(383, 179);
+            this.numScreenTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numScreenTop.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numScreenTop.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numScreenTop.Name = "numScreenTop";
+            this.numScreenTop.ReadOnly = true;
+            this.numScreenTop.Size = new System.Drawing.Size(233, 26);
+            this.numScreenTop.TabIndex = 53;
+            // 
+            // chkRespectVirtualDesktopCount
+            // 
+            this.chkRespectVirtualDesktopCount.AutoSize = true;
+            this.chkRespectVirtualDesktopCount.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationPatternsBindingSource, "RespectVirtualDesktopCount", true));
+            this.chkRespectVirtualDesktopCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkRespectVirtualDesktopCount.Location = new System.Drawing.Point(624, 5);
+            this.chkRespectVirtualDesktopCount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkRespectVirtualDesktopCount.Name = "chkRespectVirtualDesktopCount";
+            this.chkRespectVirtualDesktopCount.Size = new System.Drawing.Size(234, 26);
+            this.chkRespectVirtualDesktopCount.TabIndex = 56;
+            this.chkRespectVirtualDesktopCount.Text = "Respect VD Count";
+            this.chkRespectVirtualDesktopCount.UseVisualStyleBackColor = true;
+            // 
+            // numScreenLeft
+            // 
+            this.numScreenLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numScreenLeft.Enabled = false;
+            this.numScreenLeft.Location = new System.Drawing.Point(383, 143);
+            this.numScreenLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numScreenLeft.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numScreenLeft.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numScreenLeft.Name = "numScreenLeft";
+            this.numScreenLeft.ReadOnly = true;
+            this.numScreenLeft.Size = new System.Drawing.Size(233, 26);
+            this.numScreenLeft.TabIndex = 52;
+            // 
+            // lblScreensCaption
+            // 
+            this.lblScreensCaption.AutoSize = true;
+            this.lblScreensCaption.Location = new System.Drawing.Point(4, 41);
+            this.lblScreensCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblScreensCaption.Name = "lblScreensCaption";
+            this.lblScreensCaption.Size = new System.Drawing.Size(72, 20);
+            this.lblScreensCaption.TabIndex = 43;
+            this.lblScreensCaption.Text = "Screens:";
+            // 
+            // lblScreenNameCaption
+            // 
+            this.lblScreenNameCaption.AutoSize = true;
+            this.lblScreenNameCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblScreenNameCaption.Location = new System.Drawing.Point(245, 71);
+            this.lblScreenNameCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblScreenNameCaption.Name = "lblScreenNameCaption";
+            this.lblScreenNameCaption.Size = new System.Drawing.Size(130, 26);
+            this.lblScreenNameCaption.TabIndex = 44;
+            this.lblScreenNameCaption.Text = "Name:";
+            this.lblScreenNameCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtScreenName
+            // 
+            this.txtScreenName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screensPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtScreenName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtScreenName.Location = new System.Drawing.Point(383, 71);
+            this.txtScreenName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtScreenName.Name = "txtScreenName";
+            this.txtScreenName.Size = new System.Drawing.Size(233, 26);
+            this.txtScreenName.TabIndex = 38;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Enabled = false;
+            this.label1.Location = new System.Drawing.Point(245, 107);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 26);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "Device Name:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblScreenLeftCaption
+            // 
+            this.lblScreenLeftCaption.AutoSize = true;
+            this.lblScreenLeftCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblScreenLeftCaption.Enabled = false;
+            this.lblScreenLeftCaption.Location = new System.Drawing.Point(245, 143);
+            this.lblScreenLeftCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblScreenLeftCaption.Name = "lblScreenLeftCaption";
+            this.lblScreenLeftCaption.Size = new System.Drawing.Size(130, 26);
+            this.lblScreenLeftCaption.TabIndex = 45;
+            this.lblScreenLeftCaption.Text = "Left:";
+            this.lblScreenLeftCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtDeviceName
+            // 
+            this.txtDeviceName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screensPatternsBindingSource, "DeviceName", true));
+            this.txtDeviceName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDeviceName.Enabled = false;
+            this.txtDeviceName.Location = new System.Drawing.Point(383, 107);
+            this.txtDeviceName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtDeviceName.Name = "txtDeviceName";
+            this.txtDeviceName.ReadOnly = true;
+            this.txtDeviceName.Size = new System.Drawing.Size(233, 26);
+            this.txtDeviceName.TabIndex = 39;
+            // 
+            // tableWindowPatterns
+            // 
+            tableWindowPatterns.ColumnCount = 5;
+            tableWindowPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.31579F));
+            tableWindowPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
+            tableWindowPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.05263F));
+            tableWindowPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.05263F));
+            tableWindowPatterns.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.78947F));
+            tableWindowPatterns.Controls.Add(this.listWindows, 0, 0);
+            tableWindowPatterns.Controls.Add(this.btnListTopWindows, 4, 1);
+            tableWindowPatterns.Controls.Add(this.btnDeleteWindowPattern, 3, 2);
+            tableWindowPatterns.Controls.Add(this.lblRestoreCommandArgs, 1, 11);
+            tableWindowPatterns.Controls.Add(this.lblWindowPatternsCaption, 0, 1);
+            tableWindowPatterns.Controls.Add(this.lblMatchCount, 2, 9);
+            tableWindowPatterns.Controls.Add(this.lblRestoreWorkingDir, 1, 12);
+            tableWindowPatterns.Controls.Add(this.txtRestoreWorkingDir, 2, 12);
+            tableWindowPatterns.Controls.Add(this.listWindowPatterns, 0, 2);
+            tableWindowPatterns.Controls.Add(this.lblWindowPatternName, 1, 3);
+            tableWindowPatterns.Controls.Add(this.chkWindowClassIgnoreCase, 3, 7);
+            tableWindowPatterns.Controls.Add(this.txtRestoreCommandArgs, 2, 11);
+            tableWindowPatterns.Controls.Add(this.txtWindowPatternName, 2, 3);
+            tableWindowPatterns.Controls.Add(this.txtRestoreCommand, 2, 10);
+            tableWindowPatterns.Controls.Add(this.lblRestoreCommand, 1, 10);
+            tableWindowPatterns.Controls.Add(this.chkTitleIgnoreCase, 3, 5);
+            tableWindowPatterns.Controls.Add(this.cmbWindowClassPatternType, 2, 7);
+            tableWindowPatterns.Controls.Add(this.txtTitlePattern, 2, 4);
+            tableWindowPatterns.Controls.Add(this.lblMatchCountCaption, 1, 9);
+            tableWindowPatterns.Controls.Add(this.txtProcessFileName, 2, 8);
+            tableWindowPatterns.Controls.Add(this.lblProcessFileName, 1, 8);
+            tableWindowPatterns.Controls.Add(this.lblTitlePatternCaption, 1, 4);
+            tableWindowPatterns.Controls.Add(this.cmbTitlePatternType, 2, 5);
+            tableWindowPatterns.Controls.Add(this.txtWindowClassPattern, 2, 6);
+            tableWindowPatterns.Controls.Add(this.lblWindowClassPatternCaption, 1, 6);
+            tableWindowPatterns.Controls.Add(this.btnNewWindowPattern, 2, 2);
+            tableWindowPatterns.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableWindowPatterns.Location = new System.Drawing.Point(4, 5);
+            tableWindowPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableWindowPatterns.Name = "tableWindowPatterns";
+            tableWindowPatterns.RowCount = 14;
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.33334F));
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableWindowPatterns.Size = new System.Drawing.Size(1160, 833);
+            tableWindowPatterns.TabIndex = 30;
             // 
             // listWindows
             // 
-            this.listWindows.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.listWindows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colMatch,
             this.colTitle,
@@ -193,12 +681,15 @@
             this.colVirtualDesktop,
             this.colPosition,
             this.colState});
+            tableWindowPatterns.SetColumnSpan(this.listWindows, 5);
+            this.listWindows.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listWindows.FullRowSelect = true;
             this.listWindows.GridLines = true;
-            this.listWindows.Location = new System.Drawing.Point(6, 6);
+            this.listWindows.Location = new System.Drawing.Point(4, 5);
+            this.listWindows.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listWindows.MultiSelect = false;
             this.listWindows.Name = "listWindows";
-            this.listWindows.Size = new System.Drawing.Size(764, 195);
+            this.listWindows.Size = new System.Drawing.Size(1152, 301);
             this.listWindows.TabIndex = 3;
             this.listWindows.UseCompatibleStateImageBehavior = false;
             this.listWindows.View = System.Windows.Forms.View.Details;
@@ -243,46 +734,86 @@
             this.colState.Text = "State";
             this.colState.Width = 100;
             // 
+            // btnListTopWindows
+            // 
+            this.btnListTopWindows.Location = new System.Drawing.Point(980, 316);
+            this.btnListTopWindows.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnListTopWindows.Name = "btnListTopWindows";
+            this.btnListTopWindows.Size = new System.Drawing.Size(174, 35);
+            this.btnListTopWindows.TabIndex = 1;
+            this.btnListTopWindows.Text = "Refresh Window List";
+            this.btnListTopWindows.UseVisualStyleBackColor = true;
+            this.btnListTopWindows.Click += new System.EventHandler(this.ReloadWindowListHandler);
+            // 
             // btnDeleteWindowPattern
             // 
-            this.btnDeleteWindowPattern.Location = new System.Drawing.Point(299, 226);
+            this.btnDeleteWindowPattern.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeleteWindowPattern.Location = new System.Drawing.Point(736, 361);
+            this.btnDeleteWindowPattern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeleteWindowPattern.Name = "btnDeleteWindowPattern";
-            this.btnDeleteWindowPattern.Size = new System.Drawing.Size(141, 23);
+            this.btnDeleteWindowPattern.Size = new System.Drawing.Size(236, 35);
             this.btnDeleteWindowPattern.TabIndex = 26;
             this.btnDeleteWindowPattern.Text = "Delete Window Pattern";
             this.btnDeleteWindowPattern.UseVisualStyleBackColor = true;
             this.btnDeleteWindowPattern.Click += new System.EventHandler(this.DeleteWindowPatternHandler);
             // 
-            // lblWindowPatternName
+            // lblRestoreCommandArgs
             // 
-            this.lblWindowPatternName.AutoSize = true;
-            this.lblWindowPatternName.Location = new System.Drawing.Point(174, 258);
-            this.lblWindowPatternName.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowPatternName.Name = "lblWindowPatternName";
-            this.lblWindowPatternName.Size = new System.Drawing.Size(38, 13);
-            this.lblWindowPatternName.TabIndex = 25;
-            this.lblWindowPatternName.Text = "Name:";
+            this.lblRestoreCommandArgs.AutoSize = true;
+            this.lblRestoreCommandArgs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRestoreCommandArgs.Location = new System.Drawing.Point(309, 703);
+            this.lblRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblRestoreCommandArgs.Name = "lblRestoreCommandArgs";
+            this.lblRestoreCommandArgs.Size = new System.Drawing.Size(175, 26);
+            this.lblRestoreCommandArgs.TabIndex = 29;
+            this.lblRestoreCommandArgs.Text = "Command Args:";
+            this.lblRestoreCommandArgs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnNewWindowPattern
+            // lblWindowPatternsCaption
             // 
-            this.btnNewWindowPattern.Location = new System.Drawing.Point(177, 226);
-            this.btnNewWindowPattern.Name = "btnNewWindowPattern";
-            this.btnNewWindowPattern.Size = new System.Drawing.Size(116, 23);
-            this.btnNewWindowPattern.TabIndex = 24;
-            this.btnNewWindowPattern.Text = "New Window Pattern";
-            this.btnNewWindowPattern.UseVisualStyleBackColor = true;
-            this.btnNewWindowPattern.Click += new System.EventHandler(this.NewWindowPatternHandler);
+            this.lblWindowPatternsCaption.AutoSize = true;
+            this.lblWindowPatternsCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowPatternsCaption.Location = new System.Drawing.Point(4, 316);
+            this.lblWindowPatternsCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowPatternsCaption.Name = "lblWindowPatternsCaption";
+            this.lblWindowPatternsCaption.Size = new System.Drawing.Size(297, 35);
+            this.lblWindowPatternsCaption.TabIndex = 27;
+            this.lblWindowPatternsCaption.Text = "Window Patterns:";
+            this.lblWindowPatternsCaption.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // chkWindowClassIgnoreCase
+            // lblMatchCount
             // 
-            this.chkWindowClassIgnoreCase.AutoSize = true;
-            this.chkWindowClassIgnoreCase.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowPatternsBindingSource, "WindowClassIgnoreCase", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowClassIgnoreCase.Location = new System.Drawing.Point(362, 362);
-            this.chkWindowClassIgnoreCase.Name = "chkWindowClassIgnoreCase";
-            this.chkWindowClassIgnoreCase.Size = new System.Drawing.Size(83, 17);
-            this.chkWindowClassIgnoreCase.TabIndex = 22;
-            this.chkWindowClassIgnoreCase.Text = "Ignore Case";
-            this.chkWindowClassIgnoreCase.UseVisualStyleBackColor = true;
+            this.lblMatchCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMatchCount.Location = new System.Drawing.Point(492, 626);
+            this.lblMatchCount.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblMatchCount.Name = "lblMatchCount";
+            this.lblMatchCount.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
+            this.lblMatchCount.Size = new System.Drawing.Size(150, 31);
+            this.lblMatchCount.TabIndex = 28;
+            this.lblMatchCount.Text = "0";
+            this.lblMatchCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblRestoreWorkingDir
+            // 
+            this.lblRestoreWorkingDir.AutoSize = true;
+            this.lblRestoreWorkingDir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRestoreWorkingDir.Location = new System.Drawing.Point(309, 739);
+            this.lblRestoreWorkingDir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblRestoreWorkingDir.Name = "lblRestoreWorkingDir";
+            this.lblRestoreWorkingDir.Size = new System.Drawing.Size(175, 26);
+            this.lblRestoreWorkingDir.TabIndex = 15;
+            this.lblRestoreWorkingDir.Text = "Working Directory:";
+            this.lblRestoreWorkingDir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtRestoreWorkingDir
+            // 
+            this.txtRestoreWorkingDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "WorkingDir", true));
+            this.txtRestoreWorkingDir.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRestoreWorkingDir.Location = new System.Drawing.Point(492, 739);
+            this.txtRestoreWorkingDir.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRestoreWorkingDir.Name = "txtRestoreWorkingDir";
+            this.txtRestoreWorkingDir.Size = new System.Drawing.Size(236, 26);
+            this.txtRestoreWorkingDir.TabIndex = 17;
             // 
             // windowPatternsBindingSource
             // 
@@ -292,17 +823,99 @@
             this.windowPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.CurrentWindowPatternChangedHandler);
             this.windowPatternsBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.WindowPatternListChangedHandler);
             // 
-            // workspaceBindingSource
+            // listWindowPatterns
             // 
-            this.workspaceBindingSource.DataSource = typeof(Mastersign.WinMan.Workspace);
+            this.listWindowPatterns.DataSource = this.windowPatternsBindingSource;
+            this.listWindowPatterns.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listWindowPatterns.FormattingEnabled = true;
+            this.listWindowPatterns.IntegralHeight = false;
+            this.listWindowPatterns.ItemHeight = 20;
+            this.listWindowPatterns.Location = new System.Drawing.Point(4, 361);
+            this.listWindowPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listWindowPatterns.Name = "listWindowPatterns";
+            tableWindowPatterns.SetRowSpan(this.listWindowPatterns, 12);
+            this.listWindowPatterns.Size = new System.Drawing.Size(297, 467);
+            this.listWindowPatterns.TabIndex = 14;
+            // 
+            // lblWindowPatternName
+            // 
+            this.lblWindowPatternName.AutoSize = true;
+            this.lblWindowPatternName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowPatternName.Location = new System.Drawing.Point(309, 406);
+            this.lblWindowPatternName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowPatternName.Name = "lblWindowPatternName";
+            this.lblWindowPatternName.Size = new System.Drawing.Size(175, 26);
+            this.lblWindowPatternName.TabIndex = 25;
+            this.lblWindowPatternName.Text = "Name:";
+            this.lblWindowPatternName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // chkWindowClassIgnoreCase
+            // 
+            this.chkWindowClassIgnoreCase.AutoSize = true;
+            this.chkWindowClassIgnoreCase.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowPatternsBindingSource, "WindowClassIgnoreCase", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkWindowClassIgnoreCase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowClassIgnoreCase.Location = new System.Drawing.Point(736, 552);
+            this.chkWindowClassIgnoreCase.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkWindowClassIgnoreCase.Name = "chkWindowClassIgnoreCase";
+            this.chkWindowClassIgnoreCase.Size = new System.Drawing.Size(236, 28);
+            this.chkWindowClassIgnoreCase.TabIndex = 22;
+            this.chkWindowClassIgnoreCase.Text = "Ignore Case";
+            this.chkWindowClassIgnoreCase.UseVisualStyleBackColor = true;
+            // 
+            // txtRestoreCommandArgs
+            // 
+            tableWindowPatterns.SetColumnSpan(this.txtRestoreCommandArgs, 3);
+            this.txtRestoreCommandArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "CommandArgs", true));
+            this.txtRestoreCommandArgs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRestoreCommandArgs.Location = new System.Drawing.Point(492, 703);
+            this.txtRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRestoreCommandArgs.Name = "txtRestoreCommandArgs";
+            this.txtRestoreCommandArgs.Size = new System.Drawing.Size(664, 26);
+            this.txtRestoreCommandArgs.TabIndex = 17;
+            // 
+            // txtWindowPatternName
+            // 
+            tableWindowPatterns.SetColumnSpan(this.txtWindowPatternName, 2);
+            this.txtWindowPatternName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtWindowPatternName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtWindowPatternName.Location = new System.Drawing.Point(492, 406);
+            this.txtWindowPatternName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtWindowPatternName.Name = "txtWindowPatternName";
+            this.txtWindowPatternName.Size = new System.Drawing.Size(480, 26);
+            this.txtWindowPatternName.TabIndex = 18;
+            // 
+            // txtRestoreCommand
+            // 
+            tableWindowPatterns.SetColumnSpan(this.txtRestoreCommand, 3);
+            this.txtRestoreCommand.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "Command", true));
+            this.txtRestoreCommand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtRestoreCommand.Location = new System.Drawing.Point(492, 667);
+            this.txtRestoreCommand.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtRestoreCommand.Name = "txtRestoreCommand";
+            this.txtRestoreCommand.Size = new System.Drawing.Size(664, 26);
+            this.txtRestoreCommand.TabIndex = 17;
+            // 
+            // lblRestoreCommand
+            // 
+            this.lblRestoreCommand.AutoSize = true;
+            this.lblRestoreCommand.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRestoreCommand.Location = new System.Drawing.Point(309, 667);
+            this.lblRestoreCommand.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblRestoreCommand.Name = "lblRestoreCommand";
+            this.lblRestoreCommand.Size = new System.Drawing.Size(175, 26);
+            this.lblRestoreCommand.TabIndex = 15;
+            this.lblRestoreCommand.Text = "Command:";
+            this.lblRestoreCommand.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // chkTitleIgnoreCase
             // 
             this.chkTitleIgnoreCase.AutoSize = true;
             this.chkTitleIgnoreCase.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowPatternsBindingSource, "TitleIgnoreCase", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkTitleIgnoreCase.Location = new System.Drawing.Point(362, 309);
+            this.chkTitleIgnoreCase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkTitleIgnoreCase.Location = new System.Drawing.Point(736, 478);
+            this.chkTitleIgnoreCase.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkTitleIgnoreCase.Name = "chkTitleIgnoreCase";
-            this.chkTitleIgnoreCase.Size = new System.Drawing.Size(83, 17);
+            this.chkTitleIgnoreCase.Size = new System.Drawing.Size(236, 28);
             this.chkTitleIgnoreCase.TabIndex = 23;
             this.chkTitleIgnoreCase.Text = "Ignore Case";
             this.chkTitleIgnoreCase.UseVisualStyleBackColor = true;
@@ -310,111 +923,366 @@
             // cmbWindowClassPatternType
             // 
             this.cmbWindowClassPatternType.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowPatternsBindingSource, "WindowClassPatternType", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowClassPatternType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowClassPatternType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowClassPatternType.FormattingEnabled = true;
-            this.cmbWindowClassPatternType.Location = new System.Drawing.Point(273, 360);
+            this.cmbWindowClassPatternType.Location = new System.Drawing.Point(492, 552);
+            this.cmbWindowClassPatternType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbWindowClassPatternType.Name = "cmbWindowClassPatternType";
-            this.cmbWindowClassPatternType.Size = new System.Drawing.Size(83, 21);
+            this.cmbWindowClassPatternType.Size = new System.Drawing.Size(236, 28);
             this.cmbWindowClassPatternType.TabIndex = 20;
-            // 
-            // cmbTitlePatternType
-            // 
-            this.cmbTitlePatternType.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowPatternsBindingSource, "TitlePatternType", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbTitlePatternType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTitlePatternType.FormattingEnabled = true;
-            this.cmbTitlePatternType.Location = new System.Drawing.Point(273, 307);
-            this.cmbTitlePatternType.Name = "cmbTitlePatternType";
-            this.cmbTitlePatternType.Size = new System.Drawing.Size(83, 21);
-            this.cmbTitlePatternType.TabIndex = 21;
-            // 
-            // txtProcessFileName
-            // 
-            this.txtProcessFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "ProcessFileName", true));
-            this.txtProcessFileName.Location = new System.Drawing.Point(273, 387);
-            this.txtProcessFileName.Name = "txtProcessFileName";
-            this.txtProcessFileName.Size = new System.Drawing.Size(308, 20);
-            this.txtProcessFileName.TabIndex = 17;
-            // 
-            // txtWindowClassPattern
-            // 
-            this.txtWindowClassPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "WindowClassPattern", true));
-            this.txtWindowClassPattern.Location = new System.Drawing.Point(273, 334);
-            this.txtWindowClassPattern.Name = "txtWindowClassPattern";
-            this.txtWindowClassPattern.Size = new System.Drawing.Size(308, 20);
-            this.txtWindowClassPattern.TabIndex = 17;
-            // 
-            // txtWindowPatternName
-            // 
-            this.txtWindowPatternName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtWindowPatternName.Location = new System.Drawing.Point(273, 255);
-            this.txtWindowPatternName.Name = "txtWindowPatternName";
-            this.txtWindowPatternName.Size = new System.Drawing.Size(308, 20);
-            this.txtWindowPatternName.TabIndex = 18;
             // 
             // txtTitlePattern
             // 
+            tableWindowPatterns.SetColumnSpan(this.txtTitlePattern, 2);
             this.txtTitlePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "TitlePattern", true));
-            this.txtTitlePattern.Location = new System.Drawing.Point(273, 281);
+            this.txtTitlePattern.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtTitlePattern.Location = new System.Drawing.Point(492, 442);
+            this.txtTitlePattern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTitlePattern.Name = "txtTitlePattern";
-            this.txtTitlePattern.Size = new System.Drawing.Size(308, 20);
+            this.txtTitlePattern.Size = new System.Drawing.Size(480, 26);
             this.txtTitlePattern.TabIndex = 19;
+            // 
+            // lblMatchCountCaption
+            // 
+            this.lblMatchCountCaption.AutoSize = true;
+            this.lblMatchCountCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMatchCountCaption.Location = new System.Drawing.Point(309, 626);
+            this.lblMatchCountCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblMatchCountCaption.Name = "lblMatchCountCaption";
+            this.lblMatchCountCaption.Size = new System.Drawing.Size(175, 31);
+            this.lblMatchCountCaption.TabIndex = 15;
+            this.lblMatchCountCaption.Text = "Matching:";
+            this.lblMatchCountCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtProcessFileName
+            // 
+            tableWindowPatterns.SetColumnSpan(this.txtProcessFileName, 3);
+            this.txtProcessFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "ProcessFileName", true));
+            this.txtProcessFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtProcessFileName.Location = new System.Drawing.Point(492, 590);
+            this.txtProcessFileName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtProcessFileName.Name = "txtProcessFileName";
+            this.txtProcessFileName.Size = new System.Drawing.Size(664, 26);
+            this.txtProcessFileName.TabIndex = 17;
             // 
             // lblProcessFileName
             // 
             this.lblProcessFileName.AutoSize = true;
-            this.lblProcessFileName.Location = new System.Drawing.Point(174, 390);
-            this.lblProcessFileName.Margin = new System.Windows.Forms.Padding(3);
+            this.lblProcessFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblProcessFileName.Location = new System.Drawing.Point(309, 590);
+            this.lblProcessFileName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lblProcessFileName.Name = "lblProcessFileName";
-            this.lblProcessFileName.Size = new System.Drawing.Size(67, 13);
+            this.lblProcessFileName.Size = new System.Drawing.Size(175, 26);
             this.lblProcessFileName.TabIndex = 15;
             this.lblProcessFileName.Text = "Process File:";
-            // 
-            // lblWindowClassPatternCaption
-            // 
-            this.lblWindowClassPatternCaption.AutoSize = true;
-            this.lblWindowClassPatternCaption.Location = new System.Drawing.Point(174, 337);
-            this.lblWindowClassPatternCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowClassPatternCaption.Name = "lblWindowClassPatternCaption";
-            this.lblWindowClassPatternCaption.Size = new System.Drawing.Size(77, 13);
-            this.lblWindowClassPatternCaption.TabIndex = 15;
-            this.lblWindowClassPatternCaption.Text = "Window Class:";
+            this.lblProcessFileName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblTitlePatternCaption
             // 
             this.lblTitlePatternCaption.AutoSize = true;
-            this.lblTitlePatternCaption.Location = new System.Drawing.Point(174, 284);
-            this.lblTitlePatternCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblTitlePatternCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitlePatternCaption.Location = new System.Drawing.Point(309, 442);
+            this.lblTitlePatternCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lblTitlePatternCaption.Name = "lblTitlePatternCaption";
-            this.lblTitlePatternCaption.Size = new System.Drawing.Size(72, 13);
+            this.lblTitlePatternCaption.Size = new System.Drawing.Size(175, 26);
             this.lblTitlePatternCaption.TabIndex = 16;
             this.lblTitlePatternCaption.Text = "Window Title:";
+            this.lblTitlePatternCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // listWindowPatterns
+            // cmbTitlePatternType
             // 
-            this.listWindowPatterns.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listWindowPatterns.DataSource = this.windowPatternsBindingSource;
-            this.listWindowPatterns.FormattingEnabled = true;
-            this.listWindowPatterns.IntegralHeight = false;
-            this.listWindowPatterns.Location = new System.Drawing.Point(8, 226);
-            this.listWindowPatterns.Name = "listWindowPatterns";
-            this.listWindowPatterns.Size = new System.Drawing.Size(160, 320);
-            this.listWindowPatterns.TabIndex = 14;
+            this.cmbTitlePatternType.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowPatternsBindingSource, "TitlePatternType", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbTitlePatternType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbTitlePatternType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTitlePatternType.FormattingEnabled = true;
+            this.cmbTitlePatternType.Location = new System.Drawing.Point(492, 478);
+            this.cmbTitlePatternType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbTitlePatternType.Name = "cmbTitlePatternType";
+            this.cmbTitlePatternType.Size = new System.Drawing.Size(236, 28);
+            this.cmbTitlePatternType.TabIndex = 21;
             // 
-            // screensPatternsBindingSource
+            // txtWindowClassPattern
             // 
-            this.screensPatternsBindingSource.DataMember = "Screens";
-            this.screensPatternsBindingSource.DataSource = this.configurationPatternsBindingSource;
-            this.screensPatternsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedScreenPatternChanged);
-            this.screensPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedScreenPatternChanged);
+            tableWindowPatterns.SetColumnSpan(this.txtWindowClassPattern, 3);
+            this.txtWindowClassPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "WindowClassPattern", true));
+            this.txtWindowClassPattern.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtWindowClassPattern.Location = new System.Drawing.Point(492, 516);
+            this.txtWindowClassPattern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtWindowClassPattern.Name = "txtWindowClassPattern";
+            this.txtWindowClassPattern.Size = new System.Drawing.Size(664, 26);
+            this.txtWindowClassPattern.TabIndex = 17;
             // 
-            // configurationPatternsBindingSource
+            // lblWindowClassPatternCaption
             // 
-            this.configurationPatternsBindingSource.DataMember = "ConfigurationPatterns";
-            this.configurationPatternsBindingSource.DataSource = this.workspaceBindingSource;
-            this.configurationPatternsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedConfigurationPatternChanged);
-            this.configurationPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedConfigurationPatternChanged);
-            this.configurationPatternsBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.ConfigurationPatternsListChangedHandler);
+            this.lblWindowClassPatternCaption.AutoSize = true;
+            this.lblWindowClassPatternCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowClassPatternCaption.Location = new System.Drawing.Point(309, 516);
+            this.lblWindowClassPatternCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowClassPatternCaption.Name = "lblWindowClassPatternCaption";
+            this.lblWindowClassPatternCaption.Size = new System.Drawing.Size(175, 26);
+            this.lblWindowClassPatternCaption.TabIndex = 15;
+            this.lblWindowClassPatternCaption.Text = "Window Class:";
+            this.lblWindowClassPatternCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnNewWindowPattern
+            // 
+            this.btnNewWindowPattern.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnNewWindowPattern.Location = new System.Drawing.Point(492, 361);
+            this.btnNewWindowPattern.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNewWindowPattern.Name = "btnNewWindowPattern";
+            this.btnNewWindowPattern.Size = new System.Drawing.Size(236, 35);
+            this.btnNewWindowPattern.TabIndex = 24;
+            this.btnNewWindowPattern.Text = "New Window Pattern";
+            this.btnNewWindowPattern.UseVisualStyleBackColor = true;
+            this.btnNewWindowPattern.Click += new System.EventHandler(this.NewWindowPatternHandler);
+            // 
+            // tableLayouts
+            // 
+            tableLayouts.ColumnCount = 2;
+            tableLayouts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayouts.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            tableLayouts.Controls.Add(this.previewLayout, 1, 0);
+            tableLayouts.Controls.Add(tableLayoutList, 0, 0);
+            tableLayouts.Controls.Add(tableLayoutDetails, 1, 1);
+            tableLayouts.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayouts.Location = new System.Drawing.Point(4, 5);
+            tableLayouts.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableLayouts.Name = "tableLayouts";
+            tableLayouts.RowCount = 2;
+            tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
+            tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            tableLayouts.Size = new System.Drawing.Size(1160, 833);
+            tableLayouts.TabIndex = 73;
+            // 
+            // previewLayout
+            // 
+            this.previewLayout.BackColor = System.Drawing.SystemColors.Desktop;
+            this.previewLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.previewLayout.Location = new System.Drawing.Point(294, 5);
+            this.previewLayout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.previewLayout.Name = "previewLayout";
+            this.previewLayout.Size = new System.Drawing.Size(862, 364);
+            this.previewLayout.TabIndex = 31;
+            this.previewLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutPreviewPaintHandler);
+            // 
+            // tableLayoutList
+            // 
+            tableLayoutList.ColumnCount = 2;
+            tableLayoutList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutList.Controls.Add(this.btnNewLayout, 0, 0);
+            tableLayoutList.Controls.Add(this.btnDeleteLayout, 1, 0);
+            tableLayoutList.Controls.Add(this.lblLayoutNameCaption, 0, 1);
+            tableLayoutList.Controls.Add(this.txtLayoutName, 0, 2);
+            tableLayoutList.Controls.Add(this.chkLayoutIsDefaultLayout, 0, 3);
+            tableLayoutList.Controls.Add(this.lblConfigurationPatternCaption, 0, 4);
+            tableLayoutList.Controls.Add(this.cmbLayoutConfiguration, 0, 5);
+            tableLayoutList.Controls.Add(this.listLayouts, 0, 6);
+            tableLayoutList.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutList.Location = new System.Drawing.Point(4, 5);
+            tableLayoutList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableLayoutList.Name = "tableLayoutList";
+            tableLayoutList.RowCount = 7;
+            tableLayouts.SetRowSpan(tableLayoutList, 2);
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutList.Size = new System.Drawing.Size(282, 823);
+            tableLayoutList.TabIndex = 32;
+            // 
+            // btnNewLayout
+            // 
+            this.btnNewLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnNewLayout.Location = new System.Drawing.Point(4, 5);
+            this.btnNewLayout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnNewLayout.Name = "btnNewLayout";
+            this.btnNewLayout.Size = new System.Drawing.Size(133, 35);
+            this.btnNewLayout.TabIndex = 1;
+            this.btnNewLayout.Text = "New";
+            this.btnNewLayout.UseVisualStyleBackColor = true;
+            this.btnNewLayout.Click += new System.EventHandler(this.NewLayoutHandler);
+            // 
+            // btnDeleteLayout
+            // 
+            this.btnDeleteLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeleteLayout.Location = new System.Drawing.Point(145, 5);
+            this.btnDeleteLayout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeleteLayout.Name = "btnDeleteLayout";
+            this.btnDeleteLayout.Size = new System.Drawing.Size(133, 35);
+            this.btnDeleteLayout.TabIndex = 27;
+            this.btnDeleteLayout.Text = "Delete";
+            this.btnDeleteLayout.UseVisualStyleBackColor = true;
+            this.btnDeleteLayout.Click += new System.EventHandler(this.DeleteLayoutHandler);
+            // 
+            // lblLayoutNameCaption
+            // 
+            this.lblLayoutNameCaption.AutoSize = true;
+            tableLayoutList.SetColumnSpan(this.lblLayoutNameCaption, 2);
+            this.lblLayoutNameCaption.Location = new System.Drawing.Point(4, 50);
+            this.lblLayoutNameCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblLayoutNameCaption.Name = "lblLayoutNameCaption";
+            this.lblLayoutNameCaption.Size = new System.Drawing.Size(55, 20);
+            this.lblLayoutNameCaption.TabIndex = 29;
+            this.lblLayoutNameCaption.Text = "Name:";
+            // 
+            // txtLayoutName
+            // 
+            tableLayoutList.SetColumnSpan(this.txtLayoutName, 2);
+            this.txtLayoutName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtLayoutName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLayoutName.Location = new System.Drawing.Point(4, 80);
+            this.txtLayoutName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtLayoutName.Name = "txtLayoutName";
+            this.txtLayoutName.Size = new System.Drawing.Size(274, 26);
+            this.txtLayoutName.TabIndex = 28;
+            // 
+            // layoutsBindingSource
+            // 
+            this.layoutsBindingSource.DataMember = "Layouts";
+            this.layoutsBindingSource.DataSource = this.workspaceBindingSource;
+            this.layoutsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedLayoutChangedHandler);
+            // 
+            // chkLayoutIsDefaultLayout
+            // 
+            this.chkLayoutIsDefaultLayout.AutoSize = true;
+            tableLayoutList.SetColumnSpan(this.chkLayoutIsDefaultLayout, 2);
+            this.chkLayoutIsDefaultLayout.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "DefaultLayout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLayoutIsDefaultLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(4, 116);
+            this.chkLayoutIsDefaultLayout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
+            this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(274, 24);
+            this.chkLayoutIsDefaultLayout.TabIndex = 32;
+            this.chkLayoutIsDefaultLayout.Text = "Default Layout";
+            this.chkLayoutIsDefaultLayout.UseVisualStyleBackColor = true;
+            // 
+            // lblConfigurationPatternCaption
+            // 
+            this.lblConfigurationPatternCaption.AutoSize = true;
+            tableLayoutList.SetColumnSpan(this.lblConfigurationPatternCaption, 2);
+            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(4, 150);
+            this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
+            this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(164, 20);
+            this.lblConfigurationPatternCaption.TabIndex = 29;
+            this.lblConfigurationPatternCaption.Text = "Configuration Pattern:";
+            // 
+            // cmbLayoutConfiguration
+            // 
+            tableLayoutList.SetColumnSpan(this.cmbLayoutConfiguration, 2);
+            this.cmbLayoutConfiguration.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Configuration", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbLayoutConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbLayoutConfiguration.FormattingEnabled = true;
+            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(4, 180);
+            this.cmbLayoutConfiguration.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
+            this.cmbLayoutConfiguration.Size = new System.Drawing.Size(274, 28);
+            this.cmbLayoutConfiguration.TabIndex = 68;
+            // 
+            // listLayouts
+            // 
+            tableLayoutList.SetColumnSpan(this.listLayouts, 2);
+            this.listLayouts.DataSource = this.layoutsBindingSource;
+            this.listLayouts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listLayouts.FormattingEnabled = true;
+            this.listLayouts.IntegralHeight = false;
+            this.listLayouts.ItemHeight = 20;
+            this.listLayouts.Location = new System.Drawing.Point(4, 218);
+            this.listLayouts.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listLayouts.Name = "listLayouts";
+            this.listLayouts.Size = new System.Drawing.Size(274, 600);
+            this.listLayouts.TabIndex = 0;
+            // 
+            // tableLayoutDetails
+            // 
+            tableLayoutDetails.ColumnCount = 6;
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            tableLayoutDetails.Controls.Add(this.lblWindowActionsCaption, 0, 0);
+            tableLayoutDetails.Controls.Add(this.chkWindowActionBottomInvert, 5, 9);
+            tableLayoutDetails.Controls.Add(this.chkWindowActionCompensateOsMargin, 3, 10);
+            tableLayoutDetails.Controls.Add(this.chkWindowActionRightInvert, 5, 8);
+            tableLayoutDetails.Controls.Add(this.btnNewWindowAction, 0, 1);
+            tableLayoutDetails.Controls.Add(this.chkWindowActionTopInvert, 5, 7);
+            tableLayoutDetails.Controls.Add(this.btnDeleteWindowAction, 1, 1);
+            tableLayoutDetails.Controls.Add(this.chkWindowActionLeftInvert, 5, 6);
+            tableLayoutDetails.Controls.Add(this.listWindowAction, 0, 2);
+            tableLayoutDetails.Controls.Add(this.cmbWindowActionBottomUnit, 4, 9);
+            tableLayoutDetails.Controls.Add(this.numWindowActionBottom, 3, 9);
+            tableLayoutDetails.Controls.Add(this.cmbWindowActionRightUnit, 4, 8);
+            tableLayoutDetails.Controls.Add(this.btnWindowActionApply, 5, 1);
+            tableLayoutDetails.Controls.Add(this.cmbWindowActionTopUnit, 4, 7);
+            tableLayoutDetails.Controls.Add(this.numWindowActionRight, 3, 8);
+            tableLayoutDetails.Controls.Add(this.cmbWindowActionLeftUnit, 4, 6);
+            tableLayoutDetails.Controls.Add(this.chkWindowActionRestore, 3, 1);
+            tableLayoutDetails.Controls.Add(this.numWindowActionTop, 3, 7);
+            tableLayoutDetails.Controls.Add(this.cmbWindowActionWindow, 3, 2);
+            tableLayoutDetails.Controls.Add(this.numWindowActionLeft, 3, 6);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionCaption, 2, 2);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionVirtualDesktop, 2, 3);
+            tableLayoutDetails.Controls.Add(this.numWindowActionVirtualDesktop, 3, 3);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionBottomCaption, 2, 9);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionScreenCaption, 2, 4);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionRightCaption, 2, 8);
+            tableLayoutDetails.Controls.Add(this.cmdWindowActionScreen, 3, 4);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionTopCaption, 2, 7);
+            tableLayoutDetails.Controls.Add(this.lblWindowStateCaption, 2, 5);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionLeftCaption, 2, 6);
+            tableLayoutDetails.Controls.Add(this.cmbWindowState, 3, 5);
+            tableLayoutDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutDetails.Location = new System.Drawing.Point(294, 379);
+            tableLayoutDetails.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            tableLayoutDetails.Name = "tableLayoutDetails";
+            tableLayoutDetails.RowCount = 12;
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutDetails.Size = new System.Drawing.Size(862, 449);
+            tableLayoutDetails.TabIndex = 33;
+            // 
+            // lblWindowActionsCaption
+            // 
+            this.lblWindowActionsCaption.AutoSize = true;
+            tableLayoutDetails.SetColumnSpan(this.lblWindowActionsCaption, 2);
+            this.lblWindowActionsCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionsCaption.Location = new System.Drawing.Point(4, 5);
+            this.lblWindowActionsCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionsCaption.Name = "lblWindowActionsCaption";
+            this.lblWindowActionsCaption.Size = new System.Drawing.Size(278, 20);
+            this.lblWindowActionsCaption.TabIndex = 70;
+            this.lblWindowActionsCaption.Text = "Window Actions:";
+            this.lblWindowActionsCaption.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // chkWindowActionBottomInvert
+            // 
+            this.chkWindowActionBottomInvert.AutoSize = true;
+            this.chkWindowActionBottomInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "BottomInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkWindowActionBottomInvert.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowActionBottomInvert.Location = new System.Drawing.Point(719, 346);
+            this.chkWindowActionBottomInvert.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkWindowActionBottomInvert.Name = "chkWindowActionBottomInvert";
+            this.chkWindowActionBottomInvert.Size = new System.Drawing.Size(139, 28);
+            this.chkWindowActionBottomInvert.TabIndex = 71;
+            this.chkWindowActionBottomInvert.Text = "from Bottom";
+            this.chkWindowActionBottomInvert.UseVisualStyleBackColor = true;
             // 
             // windowActionsBindingSource
             // 
@@ -423,686 +1291,116 @@
             this.windowActionsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedWindowActionChangedHandler);
             this.windowActionsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedWindowActionChangedHandler);
             // 
-            // layoutsBindingSource
-            // 
-            this.layoutsBindingSource.DataMember = "Layouts";
-            this.layoutsBindingSource.DataSource = this.workspaceBindingSource;
-            this.layoutsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedLayoutChangedHandler);
-            // 
-            // lblLayoutNameCaption
-            // 
-            this.lblLayoutNameCaption.AutoSize = true;
-            this.lblLayoutNameCaption.Location = new System.Drawing.Point(8, 35);
-            this.lblLayoutNameCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblLayoutNameCaption.Name = "lblLayoutNameCaption";
-            this.lblLayoutNameCaption.Size = new System.Drawing.Size(38, 13);
-            this.lblLayoutNameCaption.TabIndex = 29;
-            this.lblLayoutNameCaption.Text = "Name:";
-            // 
-            // txtLayoutName
-            // 
-            this.txtLayoutName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtLayoutName.Location = new System.Drawing.Point(8, 54);
-            this.txtLayoutName.Name = "txtLayoutName";
-            this.txtLayoutName.Size = new System.Drawing.Size(160, 20);
-            this.txtLayoutName.TabIndex = 28;
-            // 
-            // btnDeleteLayout
-            // 
-            this.btnDeleteLayout.Location = new System.Drawing.Point(90, 6);
-            this.btnDeleteLayout.Name = "btnDeleteLayout";
-            this.btnDeleteLayout.Size = new System.Drawing.Size(78, 23);
-            this.btnDeleteLayout.TabIndex = 27;
-            this.btnDeleteLayout.Text = "Delete";
-            this.btnDeleteLayout.UseVisualStyleBackColor = true;
-            this.btnDeleteLayout.Click += new System.EventHandler(this.DeleteLayoutHandler);
-            // 
-            // btnNewLayout
-            // 
-            this.btnNewLayout.Location = new System.Drawing.Point(8, 6);
-            this.btnNewLayout.Name = "btnNewLayout";
-            this.btnNewLayout.Size = new System.Drawing.Size(78, 23);
-            this.btnNewLayout.TabIndex = 1;
-            this.btnNewLayout.Text = "New";
-            this.btnNewLayout.UseVisualStyleBackColor = true;
-            this.btnNewLayout.Click += new System.EventHandler(this.NewLayoutHandler);
-            // 
-            // listLayouts
-            // 
-            this.listLayouts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listLayouts.DataSource = this.layoutsBindingSource;
-            this.listLayouts.FormattingEnabled = true;
-            this.listLayouts.IntegralHeight = false;
-            this.listLayouts.Location = new System.Drawing.Point(8, 152);
-            this.listLayouts.Name = "listLayouts";
-            this.listLayouts.Size = new System.Drawing.Size(160, 392);
-            this.listLayouts.TabIndex = 0;
-            // 
-            // tabMain
-            // 
-            this.tabMain.Controls.Add(this.tpConfigurationPatterns);
-            this.tabMain.Controls.Add(this.tpWindowPatterns);
-            this.tabMain.Controls.Add(this.tpLayouts);
-            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabMain.Location = new System.Drawing.Point(0, 25);
-            this.tabMain.Name = "tabMain";
-            this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(784, 578);
-            this.tabMain.TabIndex = 17;
-            // 
-            // tpConfigurationPatterns
-            // 
-            this.tpConfigurationPatterns.Controls.Add(this.previewConfiguration);
-            this.tpConfigurationPatterns.Controls.Add(this.listScreenPatterns);
-            this.tpConfigurationPatterns.Controls.Add(this.chkRespectVirtualDesktopCount);
-            this.tpConfigurationPatterns.Controls.Add(this.numScreenHeight);
-            this.tpConfigurationPatterns.Controls.Add(this.numScreenWidth);
-            this.tpConfigurationPatterns.Controls.Add(this.numScreenTop);
-            this.tpConfigurationPatterns.Controls.Add(this.numScreenLeft);
-            this.tpConfigurationPatterns.Controls.Add(this.numVirtualDesktopCount);
-            this.tpConfigurationPatterns.Controls.Add(this.btnDeleteConfiguration);
-            this.tpConfigurationPatterns.Controls.Add(this.btnRecordConfiguration);
-            this.tpConfigurationPatterns.Controls.Add(this.lblScreenTopCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.lblScreenHeightCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.lblScreenWidthCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.lblScreenLeftCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.lblScreenNameCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.label1);
-            this.tpConfigurationPatterns.Controls.Add(this.lblScreensCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.lblVirtualDesktopsCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.lblConfigurationNameCaption);
-            this.tpConfigurationPatterns.Controls.Add(this.txtDeviceName);
-            this.tpConfigurationPatterns.Controls.Add(this.txtScreenName);
-            this.tpConfigurationPatterns.Controls.Add(this.txtConfigurationName);
-            this.tpConfigurationPatterns.Controls.Add(this.listBox1);
-            this.tpConfigurationPatterns.Location = new System.Drawing.Point(4, 22);
-            this.tpConfigurationPatterns.Name = "tpConfigurationPatterns";
-            this.tpConfigurationPatterns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpConfigurationPatterns.Size = new System.Drawing.Size(776, 552);
-            this.tpConfigurationPatterns.TabIndex = 2;
-            this.tpConfigurationPatterns.Text = "Configuration Patterns";
-            this.tpConfigurationPatterns.UseVisualStyleBackColor = true;
-            // 
-            // previewConfiguration
-            // 
-            this.previewConfiguration.BackColor = System.Drawing.SystemColors.Desktop;
-            this.previewConfiguration.Location = new System.Drawing.Point(174, 6);
-            this.previewConfiguration.Name = "previewConfiguration";
-            this.previewConfiguration.Size = new System.Drawing.Size(594, 256);
-            this.previewConfiguration.TabIndex = 58;
-            this.previewConfiguration.Paint += new System.Windows.Forms.PaintEventHandler(this.ConfigurationPreviewPaintHandler);
-            // 
-            // listScreenPatterns
-            // 
-            this.listScreenPatterns.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listScreenPatterns.DataSource = this.screensPatternsBindingSource;
-            this.listScreenPatterns.FormattingEnabled = true;
-            this.listScreenPatterns.IntegralHeight = false;
-            this.listScreenPatterns.Location = new System.Drawing.Point(174, 315);
-            this.listScreenPatterns.Name = "listScreenPatterns";
-            this.listScreenPatterns.Size = new System.Drawing.Size(123, 231);
-            this.listScreenPatterns.TabIndex = 57;
-            // 
-            // chkRespectVirtualDesktopCount
-            // 
-            this.chkRespectVirtualDesktopCount.AutoSize = true;
-            this.chkRespectVirtualDesktopCount.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationPatternsBindingSource, "RespectVirtualDesktopCount", true));
-            this.chkRespectVirtualDesktopCount.Location = new System.Drawing.Point(337, 269);
-            this.chkRespectVirtualDesktopCount.Name = "chkRespectVirtualDesktopCount";
-            this.chkRespectVirtualDesktopCount.Size = new System.Drawing.Size(115, 17);
-            this.chkRespectVirtualDesktopCount.TabIndex = 56;
-            this.chkRespectVirtualDesktopCount.Text = "Respect VD Count";
-            this.chkRespectVirtualDesktopCount.UseVisualStyleBackColor = true;
-            // 
-            // numScreenHeight
-            // 
-            this.numScreenHeight.Enabled = false;
-            this.numScreenHeight.Location = new System.Drawing.Point(386, 445);
-            this.numScreenHeight.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numScreenHeight.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numScreenHeight.Name = "numScreenHeight";
-            this.numScreenHeight.ReadOnly = true;
-            this.numScreenHeight.Size = new System.Drawing.Size(86, 20);
-            this.numScreenHeight.TabIndex = 55;
-            // 
-            // numScreenWidth
-            // 
-            this.numScreenWidth.Enabled = false;
-            this.numScreenWidth.Location = new System.Drawing.Point(386, 419);
-            this.numScreenWidth.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numScreenWidth.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numScreenWidth.Name = "numScreenWidth";
-            this.numScreenWidth.ReadOnly = true;
-            this.numScreenWidth.Size = new System.Drawing.Size(86, 20);
-            this.numScreenWidth.TabIndex = 54;
-            // 
-            // numScreenTop
-            // 
-            this.numScreenTop.Enabled = false;
-            this.numScreenTop.Location = new System.Drawing.Point(386, 393);
-            this.numScreenTop.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numScreenTop.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numScreenTop.Name = "numScreenTop";
-            this.numScreenTop.ReadOnly = true;
-            this.numScreenTop.Size = new System.Drawing.Size(86, 20);
-            this.numScreenTop.TabIndex = 53;
-            // 
-            // numScreenLeft
-            // 
-            this.numScreenLeft.Enabled = false;
-            this.numScreenLeft.Location = new System.Drawing.Point(386, 367);
-            this.numScreenLeft.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numScreenLeft.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numScreenLeft.Name = "numScreenLeft";
-            this.numScreenLeft.ReadOnly = true;
-            this.numScreenLeft.Size = new System.Drawing.Size(86, 20);
-            this.numScreenLeft.TabIndex = 52;
-            // 
-            // numVirtualDesktopCount
-            // 
-            this.numVirtualDesktopCount.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationPatternsBindingSource, "VirtualDesktopCount", true));
-            this.numVirtualDesktopCount.Location = new System.Drawing.Point(264, 268);
-            this.numVirtualDesktopCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numVirtualDesktopCount.Name = "numVirtualDesktopCount";
-            this.numVirtualDesktopCount.Size = new System.Drawing.Size(67, 20);
-            this.numVirtualDesktopCount.TabIndex = 51;
-            this.numVirtualDesktopCount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // btnDeleteConfiguration
-            // 
-            this.btnDeleteConfiguration.Location = new System.Drawing.Point(90, 6);
-            this.btnDeleteConfiguration.Name = "btnDeleteConfiguration";
-            this.btnDeleteConfiguration.Size = new System.Drawing.Size(78, 23);
-            this.btnDeleteConfiguration.TabIndex = 50;
-            this.btnDeleteConfiguration.Text = "Delete";
-            this.btnDeleteConfiguration.UseVisualStyleBackColor = true;
-            this.btnDeleteConfiguration.Click += new System.EventHandler(this.DeleteConfigurationHandler);
-            // 
-            // btnRecordConfiguration
-            // 
-            this.btnRecordConfiguration.Location = new System.Drawing.Point(8, 6);
-            this.btnRecordConfiguration.Name = "btnRecordConfiguration";
-            this.btnRecordConfiguration.Size = new System.Drawing.Size(78, 23);
-            this.btnRecordConfiguration.TabIndex = 49;
-            this.btnRecordConfiguration.Text = "Record";
-            this.btnRecordConfiguration.UseVisualStyleBackColor = true;
-            this.btnRecordConfiguration.Click += new System.EventHandler(this.RecordConfigurationHandler);
-            // 
-            // lblScreenTopCaption
-            // 
-            this.lblScreenTopCaption.AutoSize = true;
-            this.lblScreenTopCaption.Enabled = false;
-            this.lblScreenTopCaption.Location = new System.Drawing.Point(302, 395);
-            this.lblScreenTopCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblScreenTopCaption.Name = "lblScreenTopCaption";
-            this.lblScreenTopCaption.Size = new System.Drawing.Size(29, 13);
-            this.lblScreenTopCaption.TabIndex = 48;
-            this.lblScreenTopCaption.Text = "Top:";
-            // 
-            // lblScreenHeightCaption
-            // 
-            this.lblScreenHeightCaption.AutoSize = true;
-            this.lblScreenHeightCaption.Enabled = false;
-            this.lblScreenHeightCaption.Location = new System.Drawing.Point(302, 447);
-            this.lblScreenHeightCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblScreenHeightCaption.Name = "lblScreenHeightCaption";
-            this.lblScreenHeightCaption.Size = new System.Drawing.Size(41, 13);
-            this.lblScreenHeightCaption.TabIndex = 47;
-            this.lblScreenHeightCaption.Text = "Height:";
-            // 
-            // lblScreenWidthCaption
-            // 
-            this.lblScreenWidthCaption.AutoSize = true;
-            this.lblScreenWidthCaption.Enabled = false;
-            this.lblScreenWidthCaption.Location = new System.Drawing.Point(303, 421);
-            this.lblScreenWidthCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblScreenWidthCaption.Name = "lblScreenWidthCaption";
-            this.lblScreenWidthCaption.Size = new System.Drawing.Size(38, 13);
-            this.lblScreenWidthCaption.TabIndex = 46;
-            this.lblScreenWidthCaption.Text = "Width:";
-            // 
-            // lblScreenLeftCaption
-            // 
-            this.lblScreenLeftCaption.AutoSize = true;
-            this.lblScreenLeftCaption.Enabled = false;
-            this.lblScreenLeftCaption.Location = new System.Drawing.Point(303, 369);
-            this.lblScreenLeftCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblScreenLeftCaption.Name = "lblScreenLeftCaption";
-            this.lblScreenLeftCaption.Size = new System.Drawing.Size(28, 13);
-            this.lblScreenLeftCaption.TabIndex = 45;
-            this.lblScreenLeftCaption.Text = "Left:";
-            // 
-            // lblScreenNameCaption
-            // 
-            this.lblScreenNameCaption.AutoSize = true;
-            this.lblScreenNameCaption.Location = new System.Drawing.Point(302, 318);
-            this.lblScreenNameCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblScreenNameCaption.Name = "lblScreenNameCaption";
-            this.lblScreenNameCaption.Size = new System.Drawing.Size(38, 13);
-            this.lblScreenNameCaption.TabIndex = 44;
-            this.lblScreenNameCaption.Text = "Name:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Enabled = false;
-            this.label1.Location = new System.Drawing.Point(303, 344);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 13);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "Device Name:";
-            // 
-            // lblScreensCaption
-            // 
-            this.lblScreensCaption.AutoSize = true;
-            this.lblScreensCaption.Location = new System.Drawing.Point(174, 296);
-            this.lblScreensCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblScreensCaption.Name = "lblScreensCaption";
-            this.lblScreensCaption.Size = new System.Drawing.Size(49, 13);
-            this.lblScreensCaption.TabIndex = 43;
-            this.lblScreensCaption.Text = "Screens:";
-            // 
-            // lblVirtualDesktopsCaption
-            // 
-            this.lblVirtualDesktopsCaption.AutoSize = true;
-            this.lblVirtualDesktopsCaption.Location = new System.Drawing.Point(174, 268);
-            this.lblVirtualDesktopsCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblVirtualDesktopsCaption.Name = "lblVirtualDesktopsCaption";
-            this.lblVirtualDesktopsCaption.Size = new System.Drawing.Size(87, 13);
-            this.lblVirtualDesktopsCaption.TabIndex = 42;
-            this.lblVirtualDesktopsCaption.Text = "Virtual Desktops:";
-            // 
-            // lblConfigurationNameCaption
-            // 
-            this.lblConfigurationNameCaption.AutoSize = true;
-            this.lblConfigurationNameCaption.Location = new System.Drawing.Point(8, 35);
-            this.lblConfigurationNameCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblConfigurationNameCaption.Name = "lblConfigurationNameCaption";
-            this.lblConfigurationNameCaption.Size = new System.Drawing.Size(38, 13);
-            this.lblConfigurationNameCaption.TabIndex = 41;
-            this.lblConfigurationNameCaption.Text = "Name:";
-            // 
-            // txtDeviceName
-            // 
-            this.txtDeviceName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screensPatternsBindingSource, "DeviceName", true));
-            this.txtDeviceName.Enabled = false;
-            this.txtDeviceName.Location = new System.Drawing.Point(386, 341);
-            this.txtDeviceName.Name = "txtDeviceName";
-            this.txtDeviceName.ReadOnly = true;
-            this.txtDeviceName.Size = new System.Drawing.Size(161, 20);
-            this.txtDeviceName.TabIndex = 39;
-            // 
-            // txtScreenName
-            // 
-            this.txtScreenName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screensPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtScreenName.Location = new System.Drawing.Point(386, 315);
-            this.txtScreenName.Name = "txtScreenName";
-            this.txtScreenName.Size = new System.Drawing.Size(161, 20);
-            this.txtScreenName.TabIndex = 38;
-            // 
-            // txtConfigurationName
-            // 
-            this.txtConfigurationName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtConfigurationName.Location = new System.Drawing.Point(8, 54);
-            this.txtConfigurationName.Name = "txtConfigurationName";
-            this.txtConfigurationName.Size = new System.Drawing.Size(160, 20);
-            this.txtConfigurationName.TabIndex = 40;
-            // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listBox1.DataSource = this.configurationPatternsBindingSource;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.IntegralHeight = false;
-            this.listBox1.Location = new System.Drawing.Point(8, 80);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(160, 466);
-            this.listBox1.TabIndex = 37;
-            // 
-            // tpWindowPatterns
-            // 
-            this.tpWindowPatterns.Controls.Add(this.lblRestoreCommandArgs);
-            this.tpWindowPatterns.Controls.Add(this.lblMatchCount);
-            this.tpWindowPatterns.Controls.Add(this.lblWindowPatternsCaption);
-            this.tpWindowPatterns.Controls.Add(this.lblWindowPatternName);
-            this.tpWindowPatterns.Controls.Add(this.btnDeleteWindowPattern);
-            this.tpWindowPatterns.Controls.Add(this.chkWindowClassIgnoreCase);
-            this.tpWindowPatterns.Controls.Add(this.listWindows);
-            this.tpWindowPatterns.Controls.Add(this.chkTitleIgnoreCase);
-            this.tpWindowPatterns.Controls.Add(this.btnListTopWindows);
-            this.tpWindowPatterns.Controls.Add(this.cmbWindowClassPatternType);
-            this.tpWindowPatterns.Controls.Add(this.btnNewWindowPattern);
-            this.tpWindowPatterns.Controls.Add(this.cmbTitlePatternType);
-            this.tpWindowPatterns.Controls.Add(this.txtRestoreWorkingDir);
-            this.tpWindowPatterns.Controls.Add(this.txtRestoreCommandArgs);
-            this.tpWindowPatterns.Controls.Add(this.txtRestoreCommand);
-            this.tpWindowPatterns.Controls.Add(this.txtProcessFileName);
-            this.tpWindowPatterns.Controls.Add(this.listWindowPatterns);
-            this.tpWindowPatterns.Controls.Add(this.txtWindowClassPattern);
-            this.tpWindowPatterns.Controls.Add(this.lblTitlePatternCaption);
-            this.tpWindowPatterns.Controls.Add(this.txtWindowPatternName);
-            this.tpWindowPatterns.Controls.Add(this.lblWindowClassPatternCaption);
-            this.tpWindowPatterns.Controls.Add(this.txtTitlePattern);
-            this.tpWindowPatterns.Controls.Add(this.lblRestoreWorkingDir);
-            this.tpWindowPatterns.Controls.Add(this.lblRestoreCommand);
-            this.tpWindowPatterns.Controls.Add(this.lblMatchCountCaption);
-            this.tpWindowPatterns.Controls.Add(this.lblProcessFileName);
-            this.tpWindowPatterns.Location = new System.Drawing.Point(4, 22);
-            this.tpWindowPatterns.Name = "tpWindowPatterns";
-            this.tpWindowPatterns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpWindowPatterns.Size = new System.Drawing.Size(776, 552);
-            this.tpWindowPatterns.TabIndex = 0;
-            this.tpWindowPatterns.Text = "Windows Patterns";
-            this.tpWindowPatterns.UseVisualStyleBackColor = true;
-            // 
-            // lblRestoreCommandArgs
-            // 
-            this.lblRestoreCommandArgs.AutoSize = true;
-            this.lblRestoreCommandArgs.Location = new System.Drawing.Point(174, 468);
-            this.lblRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(3);
-            this.lblRestoreCommandArgs.Name = "lblRestoreCommandArgs";
-            this.lblRestoreCommandArgs.Size = new System.Drawing.Size(81, 13);
-            this.lblRestoreCommandArgs.TabIndex = 29;
-            this.lblRestoreCommandArgs.Text = "Command Args:";
-            // 
-            // lblMatchCount
-            // 
-            this.lblMatchCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMatchCount.Location = new System.Drawing.Point(270, 413);
-            this.lblMatchCount.Margin = new System.Windows.Forms.Padding(3);
-            this.lblMatchCount.Name = "lblMatchCount";
-            this.lblMatchCount.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
-            this.lblMatchCount.Size = new System.Drawing.Size(100, 20);
-            this.lblMatchCount.TabIndex = 28;
-            this.lblMatchCount.Text = "0";
-            this.lblMatchCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblWindowPatternsCaption
-            // 
-            this.lblWindowPatternsCaption.AutoSize = true;
-            this.lblWindowPatternsCaption.Location = new System.Drawing.Point(8, 207);
-            this.lblWindowPatternsCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowPatternsCaption.Name = "lblWindowPatternsCaption";
-            this.lblWindowPatternsCaption.Size = new System.Drawing.Size(91, 13);
-            this.lblWindowPatternsCaption.TabIndex = 27;
-            this.lblWindowPatternsCaption.Text = "Window Patterns:";
-            // 
-            // txtRestoreWorkingDir
-            // 
-            this.txtRestoreWorkingDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "WorkingDir", true));
-            this.txtRestoreWorkingDir.Location = new System.Drawing.Point(273, 491);
-            this.txtRestoreWorkingDir.Name = "txtRestoreWorkingDir";
-            this.txtRestoreWorkingDir.Size = new System.Drawing.Size(308, 20);
-            this.txtRestoreWorkingDir.TabIndex = 17;
-            // 
-            // txtRestoreCommandArgs
-            // 
-            this.txtRestoreCommandArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "CommandArgs", true));
-            this.txtRestoreCommandArgs.Location = new System.Drawing.Point(273, 465);
-            this.txtRestoreCommandArgs.Name = "txtRestoreCommandArgs";
-            this.txtRestoreCommandArgs.Size = new System.Drawing.Size(308, 20);
-            this.txtRestoreCommandArgs.TabIndex = 17;
-            // 
-            // txtRestoreCommand
-            // 
-            this.txtRestoreCommand.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "Command", true));
-            this.txtRestoreCommand.Location = new System.Drawing.Point(273, 439);
-            this.txtRestoreCommand.Name = "txtRestoreCommand";
-            this.txtRestoreCommand.Size = new System.Drawing.Size(308, 20);
-            this.txtRestoreCommand.TabIndex = 17;
-            // 
-            // lblRestoreWorkingDir
-            // 
-            this.lblRestoreWorkingDir.AutoSize = true;
-            this.lblRestoreWorkingDir.Location = new System.Drawing.Point(174, 494);
-            this.lblRestoreWorkingDir.Margin = new System.Windows.Forms.Padding(3);
-            this.lblRestoreWorkingDir.Name = "lblRestoreWorkingDir";
-            this.lblRestoreWorkingDir.Size = new System.Drawing.Size(95, 13);
-            this.lblRestoreWorkingDir.TabIndex = 15;
-            this.lblRestoreWorkingDir.Text = "Working Directory:";
-            // 
-            // lblRestoreCommand
-            // 
-            this.lblRestoreCommand.AutoSize = true;
-            this.lblRestoreCommand.Location = new System.Drawing.Point(174, 442);
-            this.lblRestoreCommand.Margin = new System.Windows.Forms.Padding(3);
-            this.lblRestoreCommand.Name = "lblRestoreCommand";
-            this.lblRestoreCommand.Size = new System.Drawing.Size(57, 13);
-            this.lblRestoreCommand.TabIndex = 15;
-            this.lblRestoreCommand.Text = "Command:";
-            // 
-            // lblMatchCountCaption
-            // 
-            this.lblMatchCountCaption.AutoSize = true;
-            this.lblMatchCountCaption.Location = new System.Drawing.Point(174, 417);
-            this.lblMatchCountCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblMatchCountCaption.Name = "lblMatchCountCaption";
-            this.lblMatchCountCaption.Size = new System.Drawing.Size(54, 13);
-            this.lblMatchCountCaption.TabIndex = 15;
-            this.lblMatchCountCaption.Text = "Matching:";
-            // 
-            // tpLayouts
-            // 
-            this.tpLayouts.Controls.Add(this.chkWindowActionCompensateOsMargin);
-            this.tpLayouts.Controls.Add(this.chkWindowActionBottomInvert);
-            this.tpLayouts.Controls.Add(this.chkWindowActionRightInvert);
-            this.tpLayouts.Controls.Add(this.chkWindowActionTopInvert);
-            this.tpLayouts.Controls.Add(this.chkWindowActionLeftInvert);
-            this.tpLayouts.Controls.Add(this.lblWindowActionsCaption);
-            this.tpLayouts.Controls.Add(this.chkWindowActionRestore);
-            this.tpLayouts.Controls.Add(this.cmbLayoutConfiguration);
-            this.tpLayouts.Controls.Add(this.cmbWindowActionWindow);
-            this.tpLayouts.Controls.Add(this.lblWindowActionCaption);
-            this.tpLayouts.Controls.Add(this.btnNewWindowAction);
-            this.tpLayouts.Controls.Add(this.btnWindowActionApply);
-            this.tpLayouts.Controls.Add(this.numWindowActionBottom);
-            this.tpLayouts.Controls.Add(this.numWindowActionRight);
-            this.tpLayouts.Controls.Add(this.numWindowActionTop);
-            this.tpLayouts.Controls.Add(this.numWindowActionLeft);
-            this.tpLayouts.Controls.Add(this.lblWindowActionBottomCaption);
-            this.tpLayouts.Controls.Add(this.lblWindowActionRightCaption);
-            this.tpLayouts.Controls.Add(this.lblWindowActionTopCaption);
-            this.tpLayouts.Controls.Add(this.numWindowActionVirtualDesktop);
-            this.tpLayouts.Controls.Add(this.lblWindowActionLeftCaption);
-            this.tpLayouts.Controls.Add(this.cmbWindowActionBottomUnit);
-            this.tpLayouts.Controls.Add(this.cmbWindowActionRightUnit);
-            this.tpLayouts.Controls.Add(this.lblWindowStateCaption);
-            this.tpLayouts.Controls.Add(this.lblWindowActionScreenCaption);
-            this.tpLayouts.Controls.Add(this.cmbWindowActionTopUnit);
-            this.tpLayouts.Controls.Add(this.lblWindowActionVirtualDesktop);
-            this.tpLayouts.Controls.Add(this.cmbWindowActionLeftUnit);
-            this.tpLayouts.Controls.Add(this.cmbWindowState);
-            this.tpLayouts.Controls.Add(this.cmdWindowActionScreen);
-            this.tpLayouts.Controls.Add(this.btnDeleteWindowAction);
-            this.tpLayouts.Controls.Add(this.listWindowAction);
-            this.tpLayouts.Controls.Add(this.chkLayoutIsDefaultLayout);
-            this.tpLayouts.Controls.Add(this.previewLayout);
-            this.tpLayouts.Controls.Add(this.txtLayoutName);
-            this.tpLayouts.Controls.Add(this.lblConfigurationPatternCaption);
-            this.tpLayouts.Controls.Add(this.lblLayoutNameCaption);
-            this.tpLayouts.Controls.Add(this.btnDeleteLayout);
-            this.tpLayouts.Controls.Add(this.listLayouts);
-            this.tpLayouts.Controls.Add(this.btnNewLayout);
-            this.tpLayouts.Location = new System.Drawing.Point(4, 22);
-            this.tpLayouts.Name = "tpLayouts";
-            this.tpLayouts.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLayouts.Size = new System.Drawing.Size(776, 552);
-            this.tpLayouts.TabIndex = 1;
-            this.tpLayouts.Text = "Layouts";
-            this.tpLayouts.UseVisualStyleBackColor = true;
-            // 
             // chkWindowActionCompensateOsMargin
             // 
             this.chkWindowActionCompensateOsMargin.AutoSize = true;
+            tableLayoutDetails.SetColumnSpan(this.chkWindowActionCompensateOsMargin, 2);
             this.chkWindowActionCompensateOsMargin.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "CompensateOsMargin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(429, 528);
+            this.chkWindowActionCompensateOsMargin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(433, 384);
+            this.chkWindowActionCompensateOsMargin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
-            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(138, 17);
+            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(278, 24);
             this.chkWindowActionCompensateOsMargin.TabIndex = 72;
             this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
             this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
-            // 
-            // chkWindowActionBottomInvert
-            // 
-            this.chkWindowActionBottomInvert.AutoSize = true;
-            this.chkWindowActionBottomInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "BottomInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionBottomInvert.Location = new System.Drawing.Point(595, 503);
-            this.chkWindowActionBottomInvert.Name = "chkWindowActionBottomInvert";
-            this.chkWindowActionBottomInvert.Size = new System.Drawing.Size(82, 17);
-            this.chkWindowActionBottomInvert.TabIndex = 71;
-            this.chkWindowActionBottomInvert.Text = "from Bottom";
-            this.chkWindowActionBottomInvert.UseVisualStyleBackColor = true;
             // 
             // chkWindowActionRightInvert
             // 
             this.chkWindowActionRightInvert.AutoSize = true;
             this.chkWindowActionRightInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "RightInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionRightInvert.Location = new System.Drawing.Point(595, 477);
+            this.chkWindowActionRightInvert.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowActionRightInvert.Location = new System.Drawing.Point(719, 308);
+            this.chkWindowActionRightInvert.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkWindowActionRightInvert.Name = "chkWindowActionRightInvert";
-            this.chkWindowActionRightInvert.Size = new System.Drawing.Size(74, 17);
+            this.chkWindowActionRightInvert.Size = new System.Drawing.Size(139, 28);
             this.chkWindowActionRightInvert.TabIndex = 71;
             this.chkWindowActionRightInvert.Text = "from Right";
             this.chkWindowActionRightInvert.UseVisualStyleBackColor = true;
             // 
-            // chkWindowActionTopInvert
-            // 
-            this.chkWindowActionTopInvert.AutoSize = true;
-            this.chkWindowActionTopInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "TopInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionTopInvert.Location = new System.Drawing.Point(595, 451);
-            this.chkWindowActionTopInvert.Name = "chkWindowActionTopInvert";
-            this.chkWindowActionTopInvert.Size = new System.Drawing.Size(82, 17);
-            this.chkWindowActionTopInvert.TabIndex = 71;
-            this.chkWindowActionTopInvert.Text = "from Bottom";
-            this.chkWindowActionTopInvert.UseVisualStyleBackColor = true;
-            // 
-            // chkWindowActionLeftInvert
-            // 
-            this.chkWindowActionLeftInvert.AutoSize = true;
-            this.chkWindowActionLeftInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "LeftInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionLeftInvert.Location = new System.Drawing.Point(595, 425);
-            this.chkWindowActionLeftInvert.Name = "chkWindowActionLeftInvert";
-            this.chkWindowActionLeftInvert.Size = new System.Drawing.Size(74, 17);
-            this.chkWindowActionLeftInvert.TabIndex = 71;
-            this.chkWindowActionLeftInvert.Text = "from Right";
-            this.chkWindowActionLeftInvert.UseVisualStyleBackColor = true;
-            // 
-            // lblWindowActionsCaption
-            // 
-            this.lblWindowActionsCaption.AutoSize = true;
-            this.lblWindowActionsCaption.Location = new System.Drawing.Point(174, 269);
-            this.lblWindowActionsCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionsCaption.Name = "lblWindowActionsCaption";
-            this.lblWindowActionsCaption.Size = new System.Drawing.Size(87, 13);
-            this.lblWindowActionsCaption.TabIndex = 70;
-            this.lblWindowActionsCaption.Text = "Window Actions:";
-            // 
-            // chkWindowActionRestore
-            // 
-            this.chkWindowActionRestore.AutoSize = true;
-            this.chkWindowActionRestore.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "Restore", true));
-            this.chkWindowActionRestore.Location = new System.Drawing.Point(429, 292);
-            this.chkWindowActionRestore.Name = "chkWindowActionRestore";
-            this.chkWindowActionRestore.Size = new System.Drawing.Size(63, 17);
-            this.chkWindowActionRestore.TabIndex = 69;
-            this.chkWindowActionRestore.Text = "Restore";
-            this.chkWindowActionRestore.UseVisualStyleBackColor = true;
-            // 
-            // cmbLayoutConfiguration
-            // 
-            this.cmbLayoutConfiguration.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Configuration", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbLayoutConfiguration.FormattingEnabled = true;
-            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(8, 122);
-            this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
-            this.cmbLayoutConfiguration.Size = new System.Drawing.Size(160, 21);
-            this.cmbLayoutConfiguration.TabIndex = 68;
-            // 
-            // cmbWindowActionWindow
-            // 
-            this.cmbWindowActionWindow.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowActionsBindingSource, "Window", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowActionWindow.FormattingEnabled = true;
-            this.cmbWindowActionWindow.Location = new System.Drawing.Point(429, 317);
-            this.cmbWindowActionWindow.Name = "cmbWindowActionWindow";
-            this.cmbWindowActionWindow.Size = new System.Drawing.Size(160, 21);
-            this.cmbWindowActionWindow.TabIndex = 68;
-            // 
-            // lblWindowActionCaption
-            // 
-            this.lblWindowActionCaption.AutoSize = true;
-            this.lblWindowActionCaption.Location = new System.Drawing.Point(340, 320);
-            this.lblWindowActionCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionCaption.Name = "lblWindowActionCaption";
-            this.lblWindowActionCaption.Size = new System.Drawing.Size(86, 13);
-            this.lblWindowActionCaption.TabIndex = 67;
-            this.lblWindowActionCaption.Text = "Window Pattern:";
-            // 
             // btnNewWindowAction
             // 
-            this.btnNewWindowAction.Location = new System.Drawing.Point(174, 288);
+            this.btnNewWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnNewWindowAction.Location = new System.Drawing.Point(4, 35);
+            this.btnNewWindowAction.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnNewWindowAction.Name = "btnNewWindowAction";
-            this.btnNewWindowAction.Size = new System.Drawing.Size(78, 23);
+            this.btnNewWindowAction.Size = new System.Drawing.Size(135, 37);
             this.btnNewWindowAction.TabIndex = 66;
             this.btnNewWindowAction.Text = "New";
             this.btnNewWindowAction.UseVisualStyleBackColor = true;
             this.btnNewWindowAction.Click += new System.EventHandler(this.NewWindowActionHandler);
             // 
-            // btnWindowActionApply
+            // chkWindowActionTopInvert
             // 
-            this.btnWindowActionApply.Location = new System.Drawing.Point(340, 288);
-            this.btnWindowActionApply.Name = "btnWindowActionApply";
-            this.btnWindowActionApply.Size = new System.Drawing.Size(73, 23);
-            this.btnWindowActionApply.TabIndex = 65;
-            this.btnWindowActionApply.Text = "Apply";
-            this.btnWindowActionApply.UseVisualStyleBackColor = true;
-            this.btnWindowActionApply.Click += new System.EventHandler(this.ApplyWindowActionHandler);
+            this.chkWindowActionTopInvert.AutoSize = true;
+            this.chkWindowActionTopInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "TopInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkWindowActionTopInvert.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowActionTopInvert.Location = new System.Drawing.Point(719, 270);
+            this.chkWindowActionTopInvert.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkWindowActionTopInvert.Name = "chkWindowActionTopInvert";
+            this.chkWindowActionTopInvert.Size = new System.Drawing.Size(139, 28);
+            this.chkWindowActionTopInvert.TabIndex = 71;
+            this.chkWindowActionTopInvert.Text = "from Bottom";
+            this.chkWindowActionTopInvert.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteWindowAction
+            // 
+            this.btnDeleteWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeleteWindowAction.Location = new System.Drawing.Point(147, 35);
+            this.btnDeleteWindowAction.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeleteWindowAction.Name = "btnDeleteWindowAction";
+            this.btnDeleteWindowAction.Size = new System.Drawing.Size(135, 37);
+            this.btnDeleteWindowAction.TabIndex = 44;
+            this.btnDeleteWindowAction.Text = "Delete";
+            this.btnDeleteWindowAction.UseVisualStyleBackColor = true;
+            this.btnDeleteWindowAction.Click += new System.EventHandler(this.DeleteWindowActionHandler);
+            // 
+            // chkWindowActionLeftInvert
+            // 
+            this.chkWindowActionLeftInvert.AutoSize = true;
+            this.chkWindowActionLeftInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "LeftInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkWindowActionLeftInvert.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowActionLeftInvert.Location = new System.Drawing.Point(719, 232);
+            this.chkWindowActionLeftInvert.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkWindowActionLeftInvert.Name = "chkWindowActionLeftInvert";
+            this.chkWindowActionLeftInvert.Size = new System.Drawing.Size(139, 28);
+            this.chkWindowActionLeftInvert.TabIndex = 71;
+            this.chkWindowActionLeftInvert.Text = "from Right";
+            this.chkWindowActionLeftInvert.UseVisualStyleBackColor = true;
+            // 
+            // listWindowAction
+            // 
+            tableLayoutDetails.SetColumnSpan(this.listWindowAction, 2);
+            this.listWindowAction.DataSource = this.windowActionsBindingSource;
+            this.listWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listWindowAction.FormattingEnabled = true;
+            this.listWindowAction.IntegralHeight = false;
+            this.listWindowAction.ItemHeight = 20;
+            this.listWindowAction.Location = new System.Drawing.Point(4, 82);
+            this.listWindowAction.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listWindowAction.Name = "listWindowAction";
+            tableLayoutDetails.SetRowSpan(this.listWindowAction, 10);
+            this.listWindowAction.Size = new System.Drawing.Size(278, 362);
+            this.listWindowAction.TabIndex = 43;
+            // 
+            // cmbWindowActionBottomUnit
+            // 
+            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "BottomUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionBottomUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionBottomUnit.FormattingEnabled = true;
+            this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(576, 346);
+            this.cmbWindowActionBottomUnit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbWindowActionBottomUnit.Name = "cmbWindowActionBottomUnit";
+            this.cmbWindowActionBottomUnit.Size = new System.Drawing.Size(135, 28);
+            this.cmbWindowActionBottomUnit.TabIndex = 51;
             // 
             // numWindowActionBottom
             // 
             this.numWindowActionBottom.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowActionsBindingSource, "Bottom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numWindowActionBottom.Location = new System.Drawing.Point(429, 502);
+            this.numWindowActionBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numWindowActionBottom.Location = new System.Drawing.Point(433, 346);
+            this.numWindowActionBottom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numWindowActionBottom.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -1114,13 +1412,51 @@
             0,
             -2147483648});
             this.numWindowActionBottom.Name = "numWindowActionBottom";
-            this.numWindowActionBottom.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionBottom.Size = new System.Drawing.Size(135, 26);
             this.numWindowActionBottom.TabIndex = 64;
+            // 
+            // cmbWindowActionRightUnit
+            // 
+            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "RightUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionRightUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionRightUnit.FormattingEnabled = true;
+            this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(576, 308);
+            this.cmbWindowActionRightUnit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbWindowActionRightUnit.Name = "cmbWindowActionRightUnit";
+            this.cmbWindowActionRightUnit.Size = new System.Drawing.Size(135, 28);
+            this.cmbWindowActionRightUnit.TabIndex = 50;
+            // 
+            // btnWindowActionApply
+            // 
+            this.btnWindowActionApply.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnWindowActionApply.Location = new System.Drawing.Point(719, 35);
+            this.btnWindowActionApply.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnWindowActionApply.Name = "btnWindowActionApply";
+            this.btnWindowActionApply.Size = new System.Drawing.Size(139, 37);
+            this.btnWindowActionApply.TabIndex = 65;
+            this.btnWindowActionApply.Text = "Apply";
+            this.btnWindowActionApply.UseVisualStyleBackColor = true;
+            this.btnWindowActionApply.Click += new System.EventHandler(this.ApplyWindowActionHandler);
+            // 
+            // cmbWindowActionTopUnit
+            // 
+            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "TopUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionTopUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionTopUnit.FormattingEnabled = true;
+            this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(576, 270);
+            this.cmbWindowActionTopUnit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbWindowActionTopUnit.Name = "cmbWindowActionTopUnit";
+            this.cmbWindowActionTopUnit.Size = new System.Drawing.Size(135, 28);
+            this.cmbWindowActionTopUnit.TabIndex = 49;
             // 
             // numWindowActionRight
             // 
             this.numWindowActionRight.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowActionsBindingSource, "Right", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numWindowActionRight.Location = new System.Drawing.Point(429, 476);
+            this.numWindowActionRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numWindowActionRight.Location = new System.Drawing.Point(433, 308);
+            this.numWindowActionRight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numWindowActionRight.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -1132,13 +1468,40 @@
             0,
             -2147483648});
             this.numWindowActionRight.Name = "numWindowActionRight";
-            this.numWindowActionRight.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionRight.Size = new System.Drawing.Size(135, 26);
             this.numWindowActionRight.TabIndex = 63;
+            // 
+            // cmbWindowActionLeftUnit
+            // 
+            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "LeftUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionLeftUnit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionLeftUnit.FormattingEnabled = true;
+            this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(576, 232);
+            this.cmbWindowActionLeftUnit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbWindowActionLeftUnit.Name = "cmbWindowActionLeftUnit";
+            this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(135, 28);
+            this.cmbWindowActionLeftUnit.TabIndex = 48;
+            // 
+            // chkWindowActionRestore
+            // 
+            this.chkWindowActionRestore.AutoSize = true;
+            this.chkWindowActionRestore.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "Restore", true));
+            this.chkWindowActionRestore.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWindowActionRestore.Location = new System.Drawing.Point(433, 35);
+            this.chkWindowActionRestore.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.chkWindowActionRestore.Name = "chkWindowActionRestore";
+            this.chkWindowActionRestore.Size = new System.Drawing.Size(135, 37);
+            this.chkWindowActionRestore.TabIndex = 69;
+            this.chkWindowActionRestore.Text = "Restore";
+            this.chkWindowActionRestore.UseVisualStyleBackColor = true;
             // 
             // numWindowActionTop
             // 
             this.numWindowActionTop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowActionsBindingSource, "Top", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numWindowActionTop.Location = new System.Drawing.Point(429, 450);
+            this.numWindowActionTop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numWindowActionTop.Location = new System.Drawing.Point(433, 270);
+            this.numWindowActionTop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numWindowActionTop.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -1150,13 +1513,27 @@
             0,
             -2147483648});
             this.numWindowActionTop.Name = "numWindowActionTop";
-            this.numWindowActionTop.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionTop.Size = new System.Drawing.Size(135, 26);
             this.numWindowActionTop.TabIndex = 62;
+            // 
+            // cmbWindowActionWindow
+            // 
+            tableLayoutDetails.SetColumnSpan(this.cmbWindowActionWindow, 2);
+            this.cmbWindowActionWindow.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowActionsBindingSource, "Window", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowActionWindow.FormattingEnabled = true;
+            this.cmbWindowActionWindow.Location = new System.Drawing.Point(433, 82);
+            this.cmbWindowActionWindow.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbWindowActionWindow.Name = "cmbWindowActionWindow";
+            this.cmbWindowActionWindow.Size = new System.Drawing.Size(278, 28);
+            this.cmbWindowActionWindow.TabIndex = 68;
             // 
             // numWindowActionLeft
             // 
             this.numWindowActionLeft.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowActionsBindingSource, "Left", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numWindowActionLeft.Location = new System.Drawing.Point(429, 424);
+            this.numWindowActionLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numWindowActionLeft.Location = new System.Drawing.Point(433, 232);
+            this.numWindowActionLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numWindowActionLeft.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -1168,50 +1545,46 @@
             0,
             -2147483648});
             this.numWindowActionLeft.Name = "numWindowActionLeft";
-            this.numWindowActionLeft.Size = new System.Drawing.Size(94, 20);
+            this.numWindowActionLeft.Size = new System.Drawing.Size(135, 26);
             this.numWindowActionLeft.TabIndex = 61;
             // 
-            // lblWindowActionBottomCaption
+            // lblWindowActionCaption
             // 
-            this.lblWindowActionBottomCaption.AutoSize = true;
-            this.lblWindowActionBottomCaption.Location = new System.Drawing.Point(340, 504);
-            this.lblWindowActionBottomCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionBottomCaption.Name = "lblWindowActionBottomCaption";
-            this.lblWindowActionBottomCaption.Size = new System.Drawing.Size(43, 13);
-            this.lblWindowActionBottomCaption.TabIndex = 59;
-            this.lblWindowActionBottomCaption.Text = "Bottom:";
+            this.lblWindowActionCaption.AutoSize = true;
+            this.lblWindowActionCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionCaption.Location = new System.Drawing.Point(290, 82);
+            this.lblWindowActionCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionCaption.Name = "lblWindowActionCaption";
+            this.lblWindowActionCaption.Size = new System.Drawing.Size(135, 28);
+            this.lblWindowActionCaption.TabIndex = 67;
+            this.lblWindowActionCaption.Text = "Window Pattern:";
+            this.lblWindowActionCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblWindowActionRightCaption
+            // lblWindowActionVirtualDesktop
             // 
-            this.lblWindowActionRightCaption.AutoSize = true;
-            this.lblWindowActionRightCaption.Location = new System.Drawing.Point(340, 477);
-            this.lblWindowActionRightCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionRightCaption.Name = "lblWindowActionRightCaption";
-            this.lblWindowActionRightCaption.Size = new System.Drawing.Size(35, 13);
-            this.lblWindowActionRightCaption.TabIndex = 58;
-            this.lblWindowActionRightCaption.Text = "Right:";
-            // 
-            // lblWindowActionTopCaption
-            // 
-            this.lblWindowActionTopCaption.AutoSize = true;
-            this.lblWindowActionTopCaption.Location = new System.Drawing.Point(340, 451);
-            this.lblWindowActionTopCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionTopCaption.Name = "lblWindowActionTopCaption";
-            this.lblWindowActionTopCaption.Size = new System.Drawing.Size(29, 13);
-            this.lblWindowActionTopCaption.TabIndex = 57;
-            this.lblWindowActionTopCaption.Text = "Top:";
+            this.lblWindowActionVirtualDesktop.AutoSize = true;
+            this.lblWindowActionVirtualDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionVirtualDesktop.Location = new System.Drawing.Point(290, 120);
+            this.lblWindowActionVirtualDesktop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionVirtualDesktop.Name = "lblWindowActionVirtualDesktop";
+            this.lblWindowActionVirtualDesktop.Size = new System.Drawing.Size(135, 26);
+            this.lblWindowActionVirtualDesktop.TabIndex = 52;
+            this.lblWindowActionVirtualDesktop.Text = "Virtual Desktop:";
+            this.lblWindowActionVirtualDesktop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // numWindowActionVirtualDesktop
             // 
             this.numWindowActionVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowActionsBindingSource, "VirtualDesktop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numWindowActionVirtualDesktop.Location = new System.Drawing.Point(429, 344);
+            this.numWindowActionVirtualDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numWindowActionVirtualDesktop.Location = new System.Drawing.Point(433, 120);
+            this.numWindowActionVirtualDesktop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.numWindowActionVirtualDesktop.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numWindowActionVirtualDesktop.Name = "numWindowActionVirtualDesktop";
-            this.numWindowActionVirtualDesktop.Size = new System.Drawing.Size(160, 20);
+            this.numWindowActionVirtualDesktop.Size = new System.Drawing.Size(135, 26);
             this.numWindowActionVirtualDesktop.TabIndex = 60;
             this.numWindowActionVirtualDesktop.Value = new decimal(new int[] {
             1,
@@ -1219,164 +1592,160 @@
             0,
             0});
             // 
-            // lblWindowActionLeftCaption
+            // lblWindowActionBottomCaption
             // 
-            this.lblWindowActionLeftCaption.AutoSize = true;
-            this.lblWindowActionLeftCaption.Location = new System.Drawing.Point(340, 425);
-            this.lblWindowActionLeftCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionLeftCaption.Name = "lblWindowActionLeftCaption";
-            this.lblWindowActionLeftCaption.Size = new System.Drawing.Size(28, 13);
-            this.lblWindowActionLeftCaption.TabIndex = 56;
-            this.lblWindowActionLeftCaption.Text = "Left:";
-            // 
-            // cmbWindowActionBottomUnit
-            // 
-            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "BottomUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWindowActionBottomUnit.FormattingEnabled = true;
-            this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(529, 501);
-            this.cmbWindowActionBottomUnit.Name = "cmbWindowActionBottomUnit";
-            this.cmbWindowActionBottomUnit.Size = new System.Drawing.Size(60, 21);
-            this.cmbWindowActionBottomUnit.TabIndex = 51;
-            // 
-            // cmbWindowActionRightUnit
-            // 
-            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "RightUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWindowActionRightUnit.FormattingEnabled = true;
-            this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(529, 475);
-            this.cmbWindowActionRightUnit.Name = "cmbWindowActionRightUnit";
-            this.cmbWindowActionRightUnit.Size = new System.Drawing.Size(60, 21);
-            this.cmbWindowActionRightUnit.TabIndex = 50;
-            // 
-            // lblWindowStateCaption
-            // 
-            this.lblWindowStateCaption.AutoSize = true;
-            this.lblWindowStateCaption.Location = new System.Drawing.Point(340, 400);
-            this.lblWindowStateCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowStateCaption.Name = "lblWindowStateCaption";
-            this.lblWindowStateCaption.Size = new System.Drawing.Size(77, 13);
-            this.lblWindowStateCaption.TabIndex = 54;
-            this.lblWindowStateCaption.Text = "Window State:";
+            this.lblWindowActionBottomCaption.AutoSize = true;
+            this.lblWindowActionBottomCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionBottomCaption.Location = new System.Drawing.Point(290, 346);
+            this.lblWindowActionBottomCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionBottomCaption.Name = "lblWindowActionBottomCaption";
+            this.lblWindowActionBottomCaption.Size = new System.Drawing.Size(135, 28);
+            this.lblWindowActionBottomCaption.TabIndex = 59;
+            this.lblWindowActionBottomCaption.Text = "Bottom:";
+            this.lblWindowActionBottomCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblWindowActionScreenCaption
             // 
             this.lblWindowActionScreenCaption.AutoSize = true;
-            this.lblWindowActionScreenCaption.Location = new System.Drawing.Point(340, 373);
-            this.lblWindowActionScreenCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionScreenCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionScreenCaption.Location = new System.Drawing.Point(290, 156);
+            this.lblWindowActionScreenCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lblWindowActionScreenCaption.Name = "lblWindowActionScreenCaption";
-            this.lblWindowActionScreenCaption.Size = new System.Drawing.Size(44, 13);
+            this.lblWindowActionScreenCaption.Size = new System.Drawing.Size(135, 28);
             this.lblWindowActionScreenCaption.TabIndex = 53;
             this.lblWindowActionScreenCaption.Text = "Screen:";
+            this.lblWindowActionScreenCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cmbWindowActionTopUnit
+            // lblWindowActionRightCaption
             // 
-            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "TopUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWindowActionTopUnit.FormattingEnabled = true;
-            this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(529, 449);
-            this.cmbWindowActionTopUnit.Name = "cmbWindowActionTopUnit";
-            this.cmbWindowActionTopUnit.Size = new System.Drawing.Size(60, 21);
-            this.cmbWindowActionTopUnit.TabIndex = 49;
-            // 
-            // lblWindowActionVirtualDesktop
-            // 
-            this.lblWindowActionVirtualDesktop.AutoSize = true;
-            this.lblWindowActionVirtualDesktop.Location = new System.Drawing.Point(340, 346);
-            this.lblWindowActionVirtualDesktop.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionVirtualDesktop.Name = "lblWindowActionVirtualDesktop";
-            this.lblWindowActionVirtualDesktop.Size = new System.Drawing.Size(82, 13);
-            this.lblWindowActionVirtualDesktop.TabIndex = 52;
-            this.lblWindowActionVirtualDesktop.Text = "Virtual Desktop:";
-            // 
-            // cmbWindowActionLeftUnit
-            // 
-            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "LeftUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWindowActionLeftUnit.FormattingEnabled = true;
-            this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(529, 423);
-            this.cmbWindowActionLeftUnit.Name = "cmbWindowActionLeftUnit";
-            this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(60, 21);
-            this.cmbWindowActionLeftUnit.TabIndex = 48;
-            // 
-            // cmbWindowState
-            // 
-            this.cmbWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowState.DisplayMember = "Name";
-            this.cmbWindowState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWindowState.FormattingEnabled = true;
-            this.cmbWindowState.Location = new System.Drawing.Point(429, 397);
-            this.cmbWindowState.Name = "cmbWindowState";
-            this.cmbWindowState.Size = new System.Drawing.Size(160, 21);
-            this.cmbWindowState.TabIndex = 46;
-            this.cmbWindowState.ValueMember = "Name";
+            this.lblWindowActionRightCaption.AutoSize = true;
+            this.lblWindowActionRightCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionRightCaption.Location = new System.Drawing.Point(290, 308);
+            this.lblWindowActionRightCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionRightCaption.Name = "lblWindowActionRightCaption";
+            this.lblWindowActionRightCaption.Size = new System.Drawing.Size(135, 28);
+            this.lblWindowActionRightCaption.TabIndex = 58;
+            this.lblWindowActionRightCaption.Text = "Right:";
+            this.lblWindowActionRightCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cmdWindowActionScreen
             // 
+            tableLayoutDetails.SetColumnSpan(this.cmdWindowActionScreen, 2);
             this.cmdWindowActionScreen.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowActionsBindingSource, "Screen", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmdWindowActionScreen.DataSource = this.screensPatternsBindingSource;
             this.cmdWindowActionScreen.DisplayMember = "Name";
+            this.cmdWindowActionScreen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmdWindowActionScreen.FormattingEnabled = true;
-            this.cmdWindowActionScreen.Location = new System.Drawing.Point(429, 370);
+            this.cmdWindowActionScreen.Location = new System.Drawing.Point(433, 156);
+            this.cmdWindowActionScreen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmdWindowActionScreen.Name = "cmdWindowActionScreen";
-            this.cmdWindowActionScreen.Size = new System.Drawing.Size(160, 21);
+            this.cmdWindowActionScreen.Size = new System.Drawing.Size(278, 28);
             this.cmdWindowActionScreen.TabIndex = 45;
             this.cmdWindowActionScreen.ValueMember = "Name";
             // 
-            // btnDeleteWindowAction
+            // lblWindowActionTopCaption
             // 
-            this.btnDeleteWindowAction.Location = new System.Drawing.Point(256, 288);
-            this.btnDeleteWindowAction.Name = "btnDeleteWindowAction";
-            this.btnDeleteWindowAction.Size = new System.Drawing.Size(78, 23);
-            this.btnDeleteWindowAction.TabIndex = 44;
-            this.btnDeleteWindowAction.Text = "Delete";
-            this.btnDeleteWindowAction.UseVisualStyleBackColor = true;
-            this.btnDeleteWindowAction.Click += new System.EventHandler(this.DeleteWindowActionHandler);
+            this.lblWindowActionTopCaption.AutoSize = true;
+            this.lblWindowActionTopCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionTopCaption.Location = new System.Drawing.Point(290, 270);
+            this.lblWindowActionTopCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionTopCaption.Name = "lblWindowActionTopCaption";
+            this.lblWindowActionTopCaption.Size = new System.Drawing.Size(135, 28);
+            this.lblWindowActionTopCaption.TabIndex = 57;
+            this.lblWindowActionTopCaption.Text = "Top:";
+            this.lblWindowActionTopCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // listWindowAction
+            // lblWindowStateCaption
             // 
-            this.listWindowAction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listWindowAction.DataSource = this.windowActionsBindingSource;
-            this.listWindowAction.FormattingEnabled = true;
-            this.listWindowAction.IntegralHeight = false;
-            this.listWindowAction.Location = new System.Drawing.Point(174, 317);
-            this.listWindowAction.Name = "listWindowAction";
-            this.listWindowAction.Size = new System.Drawing.Size(160, 227);
-            this.listWindowAction.TabIndex = 43;
+            this.lblWindowStateCaption.AutoSize = true;
+            this.lblWindowStateCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowStateCaption.Location = new System.Drawing.Point(290, 194);
+            this.lblWindowStateCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowStateCaption.Name = "lblWindowStateCaption";
+            this.lblWindowStateCaption.Size = new System.Drawing.Size(135, 28);
+            this.lblWindowStateCaption.TabIndex = 54;
+            this.lblWindowStateCaption.Text = "Window State:";
+            this.lblWindowStateCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // chkLayoutIsDefaultLayout
+            // lblWindowActionLeftCaption
             // 
-            this.chkLayoutIsDefaultLayout.AutoSize = true;
-            this.chkLayoutIsDefaultLayout.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "DefaultLayout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(8, 80);
-            this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
-            this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(95, 17);
-            this.chkLayoutIsDefaultLayout.TabIndex = 32;
-            this.chkLayoutIsDefaultLayout.Text = "Default Layout";
-            this.chkLayoutIsDefaultLayout.UseVisualStyleBackColor = true;
+            this.lblWindowActionLeftCaption.AutoSize = true;
+            this.lblWindowActionLeftCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionLeftCaption.Location = new System.Drawing.Point(290, 232);
+            this.lblWindowActionLeftCaption.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lblWindowActionLeftCaption.Name = "lblWindowActionLeftCaption";
+            this.lblWindowActionLeftCaption.Size = new System.Drawing.Size(135, 28);
+            this.lblWindowActionLeftCaption.TabIndex = 56;
+            this.lblWindowActionLeftCaption.Text = "Left:";
+            this.lblWindowActionLeftCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // previewLayout
+            // cmbWindowState
             // 
-            this.previewLayout.BackColor = System.Drawing.SystemColors.Desktop;
-            this.previewLayout.Location = new System.Drawing.Point(174, 6);
-            this.previewLayout.Name = "previewLayout";
-            this.previewLayout.Size = new System.Drawing.Size(594, 256);
-            this.previewLayout.TabIndex = 31;
-            this.previewLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutPreviewPaintHandler);
+            tableLayoutDetails.SetColumnSpan(this.cmbWindowState, 2);
+            this.cmbWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowState.DisplayMember = "Name";
+            this.cmbWindowState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowState.FormattingEnabled = true;
+            this.cmbWindowState.Location = new System.Drawing.Point(433, 194);
+            this.cmbWindowState.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cmbWindowState.Name = "cmbWindowState";
+            this.cmbWindowState.Size = new System.Drawing.Size(278, 28);
+            this.cmbWindowState.TabIndex = 46;
+            this.cmbWindowState.ValueMember = "Name";
             // 
-            // lblConfigurationPatternCaption
+            // tabMain
             // 
-            this.lblConfigurationPatternCaption.AutoSize = true;
-            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(8, 103);
-            this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
-            this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(109, 13);
-            this.lblConfigurationPatternCaption.TabIndex = 29;
-            this.lblConfigurationPatternCaption.Text = "Configuration Pattern:";
+            this.tabMain.Controls.Add(this.tpConfigurationPatterns);
+            this.tabMain.Controls.Add(this.tpWindowPatterns);
+            this.tabMain.Controls.Add(this.tpLayouts);
+            this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMain.Location = new System.Drawing.Point(0, 32);
+            this.tabMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.SelectedIndex = 0;
+            this.tabMain.Size = new System.Drawing.Size(1176, 876);
+            this.tabMain.TabIndex = 17;
+            // 
+            // tpConfigurationPatterns
+            // 
+            this.tpConfigurationPatterns.Controls.Add(tableConfigurationPatterns);
+            this.tpConfigurationPatterns.Location = new System.Drawing.Point(4, 29);
+            this.tpConfigurationPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpConfigurationPatterns.Name = "tpConfigurationPatterns";
+            this.tpConfigurationPatterns.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpConfigurationPatterns.Size = new System.Drawing.Size(1168, 843);
+            this.tpConfigurationPatterns.TabIndex = 2;
+            this.tpConfigurationPatterns.Text = "Configuration Patterns";
+            this.tpConfigurationPatterns.UseVisualStyleBackColor = true;
+            // 
+            // tpWindowPatterns
+            // 
+            this.tpWindowPatterns.Controls.Add(tableWindowPatterns);
+            this.tpWindowPatterns.Location = new System.Drawing.Point(4, 29);
+            this.tpWindowPatterns.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpWindowPatterns.Name = "tpWindowPatterns";
+            this.tpWindowPatterns.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpWindowPatterns.Size = new System.Drawing.Size(1168, 843);
+            this.tpWindowPatterns.TabIndex = 0;
+            this.tpWindowPatterns.Text = "Windows Patterns";
+            this.tpWindowPatterns.UseVisualStyleBackColor = true;
+            // 
+            // tpLayouts
+            // 
+            this.tpLayouts.Controls.Add(tableLayouts);
+            this.tpLayouts.Location = new System.Drawing.Point(4, 29);
+            this.tpLayouts.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpLayouts.Name = "tpLayouts";
+            this.tpLayouts.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tpLayouts.Size = new System.Drawing.Size(1168, 843);
+            this.tpLayouts.TabIndex = 1;
+            this.tpLayouts.Text = "Layouts";
+            this.tpLayouts.UseVisualStyleBackColor = true;
             // 
             // toolStrip
             // 
+            this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbNewWorkspace,
             this.tsbOpenWorkspace,
@@ -1385,7 +1754,8 @@
             this.tsbApplyCurrentLayout});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(784, 25);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
+            this.toolStrip.Size = new System.Drawing.Size(1176, 32);
             this.toolStrip.TabIndex = 18;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -1394,7 +1764,7 @@
             this.tsbNewWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewWorkspace.Image")));
             this.tsbNewWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNewWorkspace.Name = "tsbNewWorkspace";
-            this.tsbNewWorkspace.Size = new System.Drawing.Size(112, 22);
+            this.tsbNewWorkspace.Size = new System.Drawing.Size(167, 29);
             this.tsbNewWorkspace.Text = "New Workspace";
             this.tsbNewWorkspace.Click += new System.EventHandler(this.NewWorkspaceHandler);
             // 
@@ -1403,7 +1773,7 @@
             this.tsbOpenWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbOpenWorkspace.Image")));
             this.tsbOpenWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpenWorkspace.Name = "tsbOpenWorkspace";
-            this.tsbOpenWorkspace.Size = new System.Drawing.Size(117, 22);
+            this.tsbOpenWorkspace.Size = new System.Drawing.Size(176, 29);
             this.tsbOpenWorkspace.Text = "Open Workspace";
             this.tsbOpenWorkspace.Click += new System.EventHandler(this.OpenWorkspaceHandler);
             // 
@@ -1412,7 +1782,7 @@
             this.tsbSaveWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveWorkspace.Image")));
             this.tsbSaveWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSaveWorkspace.Name = "tsbSaveWorkspace";
-            this.tsbSaveWorkspace.Size = new System.Drawing.Size(112, 22);
+            this.tsbSaveWorkspace.Size = new System.Drawing.Size(169, 29);
             this.tsbSaveWorkspace.Text = "Save Workspace";
             this.tsbSaveWorkspace.Click += new System.EventHandler(this.SaveWorkspaceHandler);
             // 
@@ -1421,7 +1791,7 @@
             this.tsbApplyWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbApplyWorkspace.Image")));
             this.tsbApplyWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbApplyWorkspace.Name = "tsbApplyWorkspace";
-            this.tsbApplyWorkspace.Size = new System.Drawing.Size(119, 22);
+            this.tsbApplyWorkspace.Size = new System.Drawing.Size(179, 29);
             this.tsbApplyWorkspace.Text = "Apply Workspace";
             this.tsbApplyWorkspace.Click += new System.EventHandler(this.ApplyWorkspaceHandler);
             // 
@@ -1430,62 +1800,74 @@
             this.tsbApplyCurrentLayout.Image = ((System.Drawing.Image)(resources.GetObject("tsbApplyCurrentLayout.Image")));
             this.tsbApplyCurrentLayout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbApplyCurrentLayout.Name = "tsbApplyCurrentLayout";
-            this.tsbApplyCurrentLayout.Size = new System.Drawing.Size(140, 22);
+            this.tsbApplyCurrentLayout.Size = new System.Drawing.Size(208, 29);
             this.tsbApplyCurrentLayout.Text = "Apply Current Layout";
             this.tsbApplyCurrentLayout.Click += new System.EventHandler(this.ApplyCurrentLayoutHandler);
             // 
             // statusStrip
             // 
+            this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsslFileName});
-            this.statusStrip.Location = new System.Drawing.Point(0, 603);
+            this.statusStrip.Location = new System.Drawing.Point(0, 908);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
+            this.statusStrip.Size = new System.Drawing.Size(1176, 30);
             this.statusStrip.TabIndex = 73;
             this.statusStrip.Text = "statusStrip1";
             // 
             // tsslFileName
             // 
             this.tsslFileName.Name = "tsslFileName";
-            this.tsslFileName.Size = new System.Drawing.Size(60, 17);
+            this.tsslFileName.Size = new System.Drawing.Size(90, 25);
             this.tsslFileName.Text = "File Name";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 625);
+            this.ClientSize = new System.Drawing.Size(1176, 938);
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
-            this.MinimumSize = new System.Drawing.Size(800, 664);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(1189, 954);
             this.Name = "MainForm";
             this.Text = "WinMan";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosedHandler);
             this.Load += new System.EventHandler(this.FormLoadHandler);
-            ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.screensPatternsBindingSource)).EndInit();
+            tableConfigurationPatterns.ResumeLayout(false);
+            tableConfigurationPatternList.ResumeLayout(false);
+            tableConfigurationPatternList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationPatternsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.windowActionsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutsBindingSource)).EndInit();
-            this.tabMain.ResumeLayout(false);
-            this.tpConfigurationPatterns.ResumeLayout(false);
-            this.tpConfigurationPatterns.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).EndInit();
+            tableConfigurationPatternDetails.ResumeLayout(false);
+            tableConfigurationPatternDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.screensPatternsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numVirtualDesktopCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numScreenLeft)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numVirtualDesktopCount)).EndInit();
-            this.tpWindowPatterns.ResumeLayout(false);
-            this.tpWindowPatterns.PerformLayout();
-            this.tpLayouts.ResumeLayout(false);
-            this.tpLayouts.PerformLayout();
+            tableWindowPatterns.ResumeLayout(false);
+            tableWindowPatterns.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).EndInit();
+            tableLayouts.ResumeLayout(false);
+            tableLayoutList.ResumeLayout(false);
+            tableLayoutList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutsBindingSource)).EndInit();
+            tableLayoutDetails.ResumeLayout(false);
+            tableLayoutDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.windowActionsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionBottom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionRight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).EndInit();
+            this.tabMain.ResumeLayout(false);
+            this.tpConfigurationPatterns.ResumeLayout(false);
+            this.tpWindowPatterns.ResumeLayout(false);
+            this.tpLayouts.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -1570,7 +1952,7 @@
         private System.Windows.Forms.TextBox txtDeviceName;
         private System.Windows.Forms.TextBox txtScreenName;
         private System.Windows.Forms.TextBox txtConfigurationName;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listConfigurationPatterns;
         private System.Windows.Forms.CheckBox chkWindowActionRestore;
         private System.Windows.Forms.ComboBox cmbLayoutConfiguration;
         private System.Windows.Forms.ComboBox cmbWindowActionWindow;
