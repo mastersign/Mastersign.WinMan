@@ -20,21 +20,6 @@ namespace Mastersign.WinMan
         Maximized,
     }
     
-    public enum Positioning
-    {
-        Free,
-        DockLeft,
-        DockRight,
-        DockTop,
-        DockBottom,
-        DockHeight,
-        DockWidth,
-        DockTopLeft,
-        DockTopRight,
-        DockBottomLeft,
-        DockBottomRight,
-    }
-    
     public enum ScreenUnit
     {
         Pixel,
@@ -126,134 +111,6 @@ namespace Mastersign.WinMan
                 }
                 _name = value;
                 this.OnNameChanged();
-            }
-        }
-        
-        #endregion
-        
-        #region Property Command
-        
-        private string _command;
-        
-        public event EventHandler CommandChanged;
-        
-        protected virtual void OnCommandChanged()
-        {
-            EventHandler handler = CommandChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"Command");
-        }
-        
-        public virtual string Command
-        {
-            get { return _command; }
-            set
-            {
-                if (string.Equals(value, _command))
-                {
-                    return;
-                }
-                _command = value;
-                this.OnCommandChanged();
-            }
-        }
-        
-        #endregion
-        
-        #region Property CommandArgs
-        
-        private string _commandArgs;
-        
-        public event EventHandler CommandArgsChanged;
-        
-        protected virtual void OnCommandArgsChanged()
-        {
-            EventHandler handler = CommandArgsChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"CommandArgs");
-        }
-        
-        public virtual string CommandArgs
-        {
-            get { return _commandArgs; }
-            set
-            {
-                if (string.Equals(value, _commandArgs))
-                {
-                    return;
-                }
-                _commandArgs = value;
-                this.OnCommandArgsChanged();
-            }
-        }
-        
-        #endregion
-        
-        #region Property WorkingDir
-        
-        private string _workingDir;
-        
-        public event EventHandler WorkingDirChanged;
-        
-        protected virtual void OnWorkingDirChanged()
-        {
-            EventHandler handler = WorkingDirChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"WorkingDir");
-        }
-        
-        public virtual string WorkingDir
-        {
-            get { return _workingDir; }
-            set
-            {
-                if (string.Equals(value, _workingDir))
-                {
-                    return;
-                }
-                _workingDir = value;
-                this.OnWorkingDirChanged();
-            }
-        }
-        
-        #endregion
-        
-        #region Property Restore
-        
-        private bool _restore;
-        
-        public event EventHandler RestoreChanged;
-        
-        protected virtual void OnRestoreChanged()
-        {
-            EventHandler handler = RestoreChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"Restore");
-        }
-        
-        public virtual bool Restore
-        {
-            get { return _restore; }
-            set
-            {
-                if ((value == _restore))
-                {
-                    return;
-                }
-                _restore = value;
-                this.OnRestoreChanged();
             }
         }
         
@@ -484,6 +341,134 @@ namespace Mastersign.WinMan
                 }
                 _processFileName = value;
                 this.OnProcessFileNameChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Restore
+        
+        private bool _restore;
+        
+        public event EventHandler RestoreChanged;
+        
+        protected virtual void OnRestoreChanged()
+        {
+            EventHandler handler = RestoreChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Restore");
+        }
+        
+        public virtual bool Restore
+        {
+            get { return _restore; }
+            set
+            {
+                if ((value == _restore))
+                {
+                    return;
+                }
+                _restore = value;
+                this.OnRestoreChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Command
+        
+        private string _command;
+        
+        public event EventHandler CommandChanged;
+        
+        protected virtual void OnCommandChanged()
+        {
+            EventHandler handler = CommandChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Command");
+        }
+        
+        public virtual string Command
+        {
+            get { return _command; }
+            set
+            {
+                if (string.Equals(value, _command))
+                {
+                    return;
+                }
+                _command = value;
+                this.OnCommandChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property CommandArgs
+        
+        private string _commandArgs;
+        
+        public event EventHandler CommandArgsChanged;
+        
+        protected virtual void OnCommandArgsChanged()
+        {
+            EventHandler handler = CommandArgsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"CommandArgs");
+        }
+        
+        public virtual string CommandArgs
+        {
+            get { return _commandArgs; }
+            set
+            {
+                if (string.Equals(value, _commandArgs))
+                {
+                    return;
+                }
+                _commandArgs = value;
+                this.OnCommandArgsChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property WorkingDir
+        
+        private string _workingDir;
+        
+        public event EventHandler WorkingDirChanged;
+        
+        protected virtual void OnWorkingDirChanged()
+        {
+            EventHandler handler = WorkingDirChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WorkingDir");
+        }
+        
+        public virtual string WorkingDir
+        {
+            get { return _workingDir; }
+            set
+            {
+                if (string.Equals(value, _workingDir))
+                {
+                    return;
+                }
+                _workingDir = value;
+                this.OnWorkingDirChanged();
             }
         }
         
@@ -840,8 +825,16 @@ namespace Mastersign.WinMan
     {
         public WindowAction()
         {
+            this._virtualDesktop = DEF_VIRTUALDESKTOP;
             this._windowState = DEF_WINDOWSTATE;
-            this._positioning = DEF_POSITIONING;
+            this._left = DEF_LEFT;
+            this._leftUnit = DEF_LEFTUNIT;
+            this._top = DEF_TOP;
+            this._topUnit = DEF_TOPUNIT;
+            this._right = DEF_RIGHT;
+            this._rightUnit = DEF_RIGHTUNIT;
+            this._bottom = DEF_BOTTOM;
+            this._bottomUnit = DEF_BOTTOMUNIT;
         }
         
         #region Equatability
@@ -970,6 +963,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"VirtualDesktop");
         }
         
+        private const int DEF_VIRTUALDESKTOP = 1;
+        
+        [DefaultValue(DEF_VIRTUALDESKTOP)]
         public virtual int VirtualDesktop
         {
             get { return _virtualDesktop; }
@@ -1053,41 +1049,6 @@ namespace Mastersign.WinMan
         
         #endregion
         
-        #region Property Positioning
-        
-        private Positioning _positioning;
-        
-        public event EventHandler PositioningChanged;
-        
-        protected virtual void OnPositioningChanged()
-        {
-            EventHandler handler = PositioningChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"Positioning");
-        }
-        
-        private const Positioning DEF_POSITIONING = Positioning.Free;
-        
-        [DefaultValue(DEF_POSITIONING)]
-        public virtual Positioning Positioning
-        {
-            get { return _positioning; }
-            set
-            {
-                if ((value == _positioning))
-                {
-                    return;
-                }
-                _positioning = value;
-                this.OnPositioningChanged();
-            }
-        }
-        
-        #endregion
-        
         #region Property Left
         
         private int _left;
@@ -1104,6 +1065,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Left");
         }
         
+        private const int DEF_LEFT = 20;
+        
+        [DefaultValue(DEF_LEFT)]
         public virtual int Left
         {
             get { return _left; }
@@ -1136,6 +1100,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"LeftUnit");
         }
         
+        private const ScreenUnit DEF_LEFTUNIT = ScreenUnit.Percent;
+        
+        [DefaultValue(DEF_LEFTUNIT)]
         public virtual ScreenUnit LeftUnit
         {
             get { return _leftUnit; }
@@ -1147,6 +1114,38 @@ namespace Mastersign.WinMan
                 }
                 _leftUnit = value;
                 this.OnLeftUnitChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property LeftInvert
+        
+        private bool _leftInvert;
+        
+        public event EventHandler LeftInvertChanged;
+        
+        protected virtual void OnLeftInvertChanged()
+        {
+            EventHandler handler = LeftInvertChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"LeftInvert");
+        }
+        
+        public virtual bool LeftInvert
+        {
+            get { return _leftInvert; }
+            set
+            {
+                if ((value == _leftInvert))
+                {
+                    return;
+                }
+                _leftInvert = value;
+                this.OnLeftInvertChanged();
             }
         }
         
@@ -1168,6 +1167,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Top");
         }
         
+        private const int DEF_TOP = 20;
+        
+        [DefaultValue(DEF_TOP)]
         public virtual int Top
         {
             get { return _top; }
@@ -1200,6 +1202,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"TopUnit");
         }
         
+        private const ScreenUnit DEF_TOPUNIT = ScreenUnit.Percent;
+        
+        [DefaultValue(DEF_TOPUNIT)]
         public virtual ScreenUnit TopUnit
         {
             get { return _topUnit; }
@@ -1211,6 +1216,38 @@ namespace Mastersign.WinMan
                 }
                 _topUnit = value;
                 this.OnTopUnitChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property TopInvert
+        
+        private bool _topInvert;
+        
+        public event EventHandler TopInvertChanged;
+        
+        protected virtual void OnTopInvertChanged()
+        {
+            EventHandler handler = TopInvertChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"TopInvert");
+        }
+        
+        public virtual bool TopInvert
+        {
+            get { return _topInvert; }
+            set
+            {
+                if ((value == _topInvert))
+                {
+                    return;
+                }
+                _topInvert = value;
+                this.OnTopInvertChanged();
             }
         }
         
@@ -1232,6 +1269,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Right");
         }
         
+        private const int DEF_RIGHT = 80;
+        
+        [DefaultValue(DEF_RIGHT)]
         public virtual int Right
         {
             get { return _right; }
@@ -1264,6 +1304,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"RightUnit");
         }
         
+        private const ScreenUnit DEF_RIGHTUNIT = ScreenUnit.Percent;
+        
+        [DefaultValue(DEF_RIGHTUNIT)]
         public virtual ScreenUnit RightUnit
         {
             get { return _rightUnit; }
@@ -1275,6 +1318,38 @@ namespace Mastersign.WinMan
                 }
                 _rightUnit = value;
                 this.OnRightUnitChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property RightInvert
+        
+        private bool _rightInvert;
+        
+        public event EventHandler RightInvertChanged;
+        
+        protected virtual void OnRightInvertChanged()
+        {
+            EventHandler handler = RightInvertChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RightInvert");
+        }
+        
+        public virtual bool RightInvert
+        {
+            get { return _rightInvert; }
+            set
+            {
+                if ((value == _rightInvert))
+                {
+                    return;
+                }
+                _rightInvert = value;
+                this.OnRightInvertChanged();
             }
         }
         
@@ -1296,6 +1371,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Bottom");
         }
         
+        private const int DEF_BOTTOM = 80;
+        
+        [DefaultValue(DEF_BOTTOM)]
         public virtual int Bottom
         {
             get { return _bottom; }
@@ -1328,6 +1406,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"BottomUnit");
         }
         
+        private const ScreenUnit DEF_BOTTOMUNIT = ScreenUnit.Percent;
+        
+        [DefaultValue(DEF_BOTTOMUNIT)]
         public virtual ScreenUnit BottomUnit
         {
             get { return _bottomUnit; }
@@ -1339,6 +1420,38 @@ namespace Mastersign.WinMan
                 }
                 _bottomUnit = value;
                 this.OnBottomUnitChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property BottomInvert
+        
+        private bool _bottomInvert;
+        
+        public event EventHandler BottomInvertChanged;
+        
+        protected virtual void OnBottomInvertChanged()
+        {
+            EventHandler handler = BottomInvertChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"BottomInvert");
+        }
+        
+        public virtual bool BottomInvert
+        {
+            get { return _bottomInvert; }
+            set
+            {
+                if ((value == _bottomInvert))
+                {
+                    return;
+                }
+                _bottomInvert = value;
+                this.OnBottomInvertChanged();
             }
         }
         
@@ -1469,33 +1582,33 @@ namespace Mastersign.WinMan
         
         #endregion
         
-        #region Property Configurations
+        #region Property Configuration
         
-        private BindingList<ConfigurationPattern> _configurations;
+        private string _configuration;
         
-        public event EventHandler ConfigurationsChanged;
+        public event EventHandler ConfigurationChanged;
         
-        protected virtual void OnConfigurationsChanged()
+        protected virtual void OnConfigurationChanged()
         {
-            EventHandler handler = ConfigurationsChanged;
+            EventHandler handler = ConfigurationChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
-            this.OnPropertyChanged(@"Configurations");
+            this.OnPropertyChanged(@"Configuration");
         }
         
-        public virtual BindingList<ConfigurationPattern> Configurations
+        public virtual string Configuration
         {
-            get { return _configurations; }
+            get { return _configuration; }
             set
             {
-                if ((value == _configurations))
+                if (string.Equals(value, _configuration))
                 {
                     return;
                 }
-                _configurations = value;
-                this.OnConfigurationsChanged();
+                _configuration = value;
+                this.OnConfigurationChanged();
             }
         }
         
@@ -1613,6 +1726,38 @@ namespace Mastersign.WinMan
                 }
                 _windowPatterns = value;
                 this.OnWindowPatternsChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property ConfigurationPatterns
+        
+        private BindingList<ConfigurationPattern> _configurationPatterns;
+        
+        public event EventHandler ConfigurationPatternsChanged;
+        
+        protected virtual void OnConfigurationPatternsChanged()
+        {
+            EventHandler handler = ConfigurationPatternsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"ConfigurationPatterns");
+        }
+        
+        public virtual BindingList<ConfigurationPattern> ConfigurationPatterns
+        {
+            get { return _configurationPatterns; }
+            set
+            {
+                if ((value == _configurationPatterns))
+                {
+                    return;
+                }
+                _configurationPatterns = value;
+                this.OnConfigurationPatternsChanged();
             }
         }
         

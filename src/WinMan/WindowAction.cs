@@ -15,7 +15,9 @@ namespace Mastersign.WinMan
         {
             var windowPattern = workspace.FindWindowPattern(Window);
             if (windowPattern == null) return false;
-            var screen = layout.FindScreenPattern(Screen)?.Discover();
+            var configurationPattern = workspace.FindConfigurationPattern(layout.Configuration);
+            if (configurationPattern == null) return false;
+            var screen = configurationPattern.FindScreenPattern(Screen)?.Discover();
             if (screen == null) return false;
             var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(VirtualDesktop - 1);
             if (virtualDesktop == null) return false;
@@ -39,55 +41,36 @@ namespace Mastersign.WinMan
             }
         }
 
-        private int ResolveValue(int reference, int range, int value, ScreenUnit unit)
+        private int ResolveValue(int reference, int range, int value, ScreenUnit unit, bool invert)
         {
             switch (unit)
             {
                 case ScreenUnit.Pixel:
-                    return reference + value;
+                    return !invert
+                        ? reference + value
+                        : reference + range - value;
                 case ScreenUnit.Percent:
-                    return reference + (int)Math.Round((value / 100.0) * range);
+                    return !invert
+                        ? reference + (int)Math.Round((value / 100.0) * range)
+                        : reference + range - (int)Math.Round((value / 100.0) * range);
                 default:
                     throw new NotSupportedException();
             }
         }
 
+        public Rectangle CalculateTargetBounds(Rectangle screenBounds)
+        {
+            var left = ResolveValue(screenBounds.Left, screenBounds.Width, Left, LeftUnit, LeftInvert);
+            var top = ResolveValue(screenBounds.Top, screenBounds.Height, Top, TopUnit, TopInvert);
+            var right = ResolveValue(screenBounds.Left, screenBounds.Width, Right, RightUnit, RightInvert);
+            var bottom = ResolveValue(screenBounds.Top, screenBounds.Height, Bottom, BottomUnit, BottomInvert);
+            var targetBounds = new Rectangle(left, top, right - left, bottom - top);
+            return targetBounds;
+        }
+
         public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
         {
-            var screenR = screen.WorkingArea;
-            var left = ResolveValue(screenR.Left, screenR.Width, Left, LeftUnit);
-            var top = ResolveValue(screenR.Top, screenR.Height, Top, TopUnit);
-            var right = ResolveValue(screenR.Left, screenR.Width, Right, RightUnit);
-            var bottom = ResolveValue(screenR.Top, screenR.Height, Bottom, BottomUnit);
-            var targetBounds = screenR;
-            switch (Positioning)
-            {
-                case Positioning.Free:
-                    targetBounds = new Rectangle(left, top, right - left, bottom - top);
-                    break;
-                case Positioning.DockLeft:
-                    break;
-                case Positioning.DockRight:
-                    break;
-                case Positioning.DockTop:
-                    break;
-                case Positioning.DockBottom:
-                    break;
-                case Positioning.DockHeight:
-                    break;
-                case Positioning.DockWidth:
-                    break;
-                case Positioning.DockTopLeft:
-                    break;
-                case Positioning.DockTopRight:
-                    break;
-                case Positioning.DockBottomLeft:
-                    break;
-                case Positioning.DockBottomRight:
-                    break;
-                default:
-                    break;
-            }
+            var targetBounds = CalculateTargetBounds(screen.WorkingArea);
             w.NormalPosition = new RECT(targetBounds);
             virtualDesktop.MoveWindowHere(w.Handle);
         }

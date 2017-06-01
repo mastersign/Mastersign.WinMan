@@ -30,25 +30,44 @@ namespace Mastersign.WinMan
             return hWnd != IntPtr.Zero ? ForHandle(hWnd) : null;
         }
 
-        public static List<WindowWrapper> AllWindows()
+        public static void ClearCaches()
+        {
+            var handles = _instances.Keys.ToArray();
+            foreach (var hWnd in handles)
+            {
+                if (!WinApi.IsWindow(hWnd))
+                {
+                    _instances.Remove(hWnd);
+                }
+                else
+                {
+                    _instances[hWnd].ClearCache();
+                }
+            }
+        }
+
+        public static WindowWrapper[] AllWindows()
         {
             List<IntPtr> result = new List<IntPtr>();
             WinApi.EnumWindows((hWnd, lParam) =>
             {
-                result.Add(hWnd);
+                if (WinApi.IsWindowVisible(hWnd) && VirtualDesktop.FromHwnd(hWnd) != null)
+                {
+                    result.Add(hWnd);
+                }
                 return true;
             }, IntPtr.Zero);
-            return result.Select(ForHandle).ToList();
+            return result.Select(ForHandle).ToArray();
         }
 
         public IntPtr Handle { get; private set; }
         private WindowWrapper(IntPtr hWnd)
         {
             Handle = hWnd;
-            Refresh();
+            ClearCache();
         }
 
-        public void Refresh()
+        public void ClearCache()
         {
             _titleLoaded = false;
             _windowClassLoaded = false;

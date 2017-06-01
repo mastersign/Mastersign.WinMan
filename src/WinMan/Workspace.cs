@@ -11,13 +11,11 @@ namespace Mastersign.WinMan
         public WindowPattern FindWindowPattern(string windowPatternName)
             => WindowPatterns.FirstOrDefault(p => p.Name == windowPatternName);
 
+        public ConfigurationPattern FindConfigurationPattern(string configurationPatternName)
+            => ConfigurationPatterns.FirstOrDefault(p => p.Name == configurationPatternName);
+
         public Layout FindLayout(string layoutName)
             => Layouts.FirstOrDefault(l => l.Name == layoutName);
-
-        public ScreenPattern FindScreenPattern(string screenPatternName)
-            => Layouts
-            .Select(l => l.FindScreenPattern(screenPatternName))
-            .FirstOrDefault(s => s != null);
 
         public void Apply()
         {

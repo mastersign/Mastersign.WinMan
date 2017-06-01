@@ -18,9 +18,11 @@ namespace Mastersign.WinMan
     {
         private Workspace _workspace;
         private WindowWrapper[] _windows;
+        private PreviewPainter previewPainter;
 
         public MainForm()
         {
+            previewPainter = new PreviewPainter();
             InitializeComponent();
         }
 
@@ -29,7 +31,6 @@ namespace Mastersign.WinMan
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowState.DataSource = Enum.GetValues(typeof(WindowState));
-            cmbWindowPositioning.DataSource = Enum.GetValues(typeof(Positioning));
             cmbWindowActionLeftUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionTopUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionRightUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
@@ -71,6 +72,7 @@ namespace Mastersign.WinMan
             {
                 _workspace = new Workspace
                 {
+                    ConfigurationPatterns = new BindingList<ConfigurationPattern>(),
                     WindowPatterns = new BindingList<WindowPattern>(),
                     Layouts = new BindingList<Layout>(),
                 };
@@ -123,6 +125,7 @@ namespace Mastersign.WinMan
 
         private void ApplyWorkspaceHandler(object sender, EventArgs e)
         {
+            WindowWrapper.ClearCaches();
             _workspace.Apply();
         }
 
@@ -132,11 +135,8 @@ namespace Mastersign.WinMan
 
         private WindowWrapper[] LoadWindows()
         {
-            var windows = WindowWrapper.AllWindows()
-                .Where(w => w.IsVisible && w.VirtualDesktop != null)
-                .ToArray();
-            Array.ForEach(windows, w => w.Refresh());
-            return windows;
+            WindowWrapper.ClearCaches();
+            return WindowWrapper.AllWindows();
         }
 
         private ListViewItem ListViewItemFromWindow(WindowWrapper w)
@@ -214,17 +214,87 @@ namespace Mastersign.WinMan
 
         private void WindowPatternListChangedHandler(object sender, ListChangedEventArgs e)
         {
-            if (_workspace != null)
+            if (_workspace == null) return;
+            cmbWindowActionWindow.Items.Clear();
+            cmbWindowActionWindow.Items.AddRange(_workspace.WindowPatterns.Select(p => p.Name).ToArray());
+        }
+
+        #endregion
+
+        #region ConfigurationPatterns
+
+        private ConfigurationPattern SelectedConfigurationPattern
+            => configurationPatternsBindingSource.Current as ConfigurationPattern;
+
+        private void RecordConfigurationHandler(object sender, EventArgs e)
+        {
+            if (_workspace == null) return;
+            _workspace.ConfigurationPatterns.Add(ConfigurationPattern.FromConfiguration(
+                Screen.AllScreens, VirtualDesktop.GetDesktops().Length));
+        }
+
+        private void DeleteConfigurationHandler(object sender, EventArgs e)
+        {
+            var selectedConfigPattern = SelectedConfigurationPattern;
+            if (selectedConfigPattern == null) return;
+            _workspace.ConfigurationPatterns.Remove(selectedConfigPattern);
+        }
+
+        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e)
+        {
+            if (_workspace == null) return;
+            cmbLayoutConfiguration.Items.Clear();
+            cmbLayoutConfiguration.Items.AddRange(_workspace.ConfigurationPatterns.Select(p => p.Name).ToArray());
+        }
+
+        private void SelectedConfigurationPatternChanged(object sender, EventArgs e)
+        {
+            RefreshConfigurationPreview();
+        }
+
+        private void RefreshConfigurationPreview()
+        {
+            previewConfiguration.Invalidate();
+        }
+
+        private void ConfigurationPreviewPaintHandler(object sender, PaintEventArgs e)
+        {
+            var canvas = (Control)sender;
+            if (_workspace == null) return;
+            var configPattern = SelectedConfigurationPattern;
+            if (configPattern == null) return;
+            previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configPattern, SelectedScreenPattern);
+        }
+
+        #endregion
+
+        #region Screen Pattern
+
+        private ScreenPattern SelectedScreenPattern => screensPatternsBindingSource.Current as ScreenPattern;
+
+        private void SelectedScreenPatternChanged(object sender, EventArgs e)
+        {
+            var screenPattern = screensPatternsBindingSource.Current as ScreenPattern;
+            if (screenPattern == null)
             {
-                cmbWindowActionWindow.Items.Clear();
-                cmbWindowActionWindow.Items.AddRange(_workspace.WindowPatterns.Select(p => p.Name).ToArray());
+                numScreenLeft.Value = 0;
+                numScreenTop.Value = 0;
+                numScreenWidth.Value = 0;
+                numScreenHeight.Value = 0;
             }
+            else
+            {
+                numScreenLeft.Value = screenPattern.Bounds.Left;
+                numScreenTop.Value = screenPattern.Bounds.Top;
+                numScreenWidth.Value = screenPattern.Bounds.Width;
+                numScreenHeight.Value = screenPattern.Bounds.Height;
+            }
+            RefreshConfigurationPreview();
         }
 
         #endregion
 
         #region Layouts
-
 
         private Layout SelectedLayout => layoutsBindingSource.Current as Layout;
 
@@ -232,7 +302,6 @@ namespace Mastersign.WinMan
         {
             _workspace.Layouts.Add(new Layout()
             {
-                Configurations = new BindingList<ConfigurationPattern>(),
                 Windows = new BindingList<WindowAction>(),
             });
         }
@@ -249,41 +318,36 @@ namespace Mastersign.WinMan
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
 
+            WindowWrapper.ClearCaches();
             selectedLayout.Apply(_workspace);
         }
 
-        #endregion
-
-        #region Configurations
-
-        private void RecordConfigurationHandler(object sender, EventArgs e)
+        private void SelectedLayoutChangedHandler(object sender, EventArgs e)
         {
-            var selectedLayout = SelectedLayout;
-            if (selectedLayout == null) return;
-            selectedLayout.Configurations.Add(ConfigurationPattern.FromConfiguration(
-                Screen.AllScreens, VirtualDesktop.GetDesktops().Length));
+            RefreshLayoutPreview();
         }
 
-        #endregion
-
-        #region Screen Pattern
-
-        private void CurrentScreenPatternChanged(object sender, EventArgs e)
+        private void RefreshLayoutPreview()
         {
-            var screenPattern = screensBindingSource.Current as ScreenPattern;
-            if (screenPattern == null)
+            previewLayout.Invalidate();
+        }
+
+        private void LayoutPreviewPaintHandler(object sender, PaintEventArgs e)
+        {
+            var canvas = (Control)sender;
+            if (_workspace == null) return;
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            var selectedWindowAction = SelectedWindowAction;
+            if (selectedWindowAction != null)
             {
-                numScreenLeft.Value = 0;
-                numScreenTop.Value = 0;
-                numScreenWidth.Value = 0;
-                numScreenHeight.Value = 0;
+                previewPainter.PaintWindowAction(e.Graphics, canvas.ClientSize, _workspace, selectedLayout, selectedWindowAction);
             }
             else
             {
-                numScreenLeft.Value = screenPattern.Bounds.Left;
-                numScreenTop.Value = screenPattern.Bounds.Top;
-                numScreenWidth.Value = screenPattern.Bounds.Width;
-                numScreenHeight.Value = screenPattern.Bounds.Height;
+                var configuration = _workspace.FindConfigurationPattern(selectedLayout.Configuration);
+                if (configuration == null) return;
+                previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configuration);
             }
         }
 
@@ -314,14 +378,16 @@ namespace Mastersign.WinMan
             if (selectedLayout == null) return;
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction == null) return;
+
+            WindowWrapper.ClearCaches();
             selectedWindowAction.Apply(_workspace, selectedLayout);
         }
 
-        #endregion
-
-        private void PreviewPaintHandler(object sender, PaintEventArgs e)
+        private void SelectedWindowActionChangedHandler(object sender, EventArgs e)
         {
-
+            RefreshLayoutPreview();
         }
+
+        #endregion
     }
 }

@@ -66,6 +66,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.xml</DependentUpon>
     </Compile>
+    <Compile Include="PreviewCanvas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PreviewCanvas.Designer.cs">
+      <DependentUpon>PreviewCanvas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreviewPainter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConfigurationPattern.cs" />

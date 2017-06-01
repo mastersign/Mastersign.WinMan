@@ -26,10 +26,6 @@
       <Property name="Name" type="string">
         <DefaultValue>No Name</DefaultValue>
       </Property>
-      <Property name="Command" type="string" />
-      <Property name="CommandArgs" type="string" />
-      <Property name="WorkingDir" type="string" />
-      <Property name="Restore" type="bool" />
 
       <Property name="TitlePattern" type="string" />
       <Property name="TitlePatternType" type="StringPatternType">
@@ -42,6 +38,11 @@
       </Property>
       <Property name="WindowClassIgnoreCase" type="bool" />
       <Property name="ProcessFileName" type="string" />
+
+      <Property name="Restore" type="bool" />
+      <Property name="Command" type="string" />
+      <Property name="CommandArgs" type="string" />
+      <Property name="WorkingDir" type="string" />
     </Class>
 
     <Class name="ScreenPattern">
@@ -71,20 +72,6 @@
       <Member name="Maximized" />
     </Enum>
 
-    <Enum name="Positioning">
-      <Member name="Free" />
-      <Member name="DockLeft" />
-      <Member name="DockRight" />
-      <Member name="DockTop" />
-      <Member name="DockBottom" />
-      <Member name="DockHeight" />
-      <Member name="DockWidth" />
-      <Member name="DockTopLeft" />
-      <Member name="DockTopRight" />
-      <Member name="DockBottomLeft" />
-      <Member name="DockBottomRight" />
-    </Enum>
-
     <Enum name="ScreenUnit">
       <Member name="Pixel" />
       <Member name="Percent" />
@@ -94,22 +81,41 @@
       <Property name="Window" type="string" />
 
       <Property name="Restore" type="bool" />
-      <Property name="VirtualDesktop" type="int" />
+      <Property name="VirtualDesktop" type="int">
+        <DefaultValue>1</DefaultValue>
+      </Property>
       <Property name="Screen" type="string" />
       <Property name="WindowState" type="WindowState">
         <DefaultValue>Normal</DefaultValue>
       </Property>
-      <Property name="Positioning" type="Positioning">
-        <DefaultValue>Free</DefaultValue>
+      <Property name="Left" type="int">
+        <DefaultValue>20</DefaultValue>
       </Property>
-      <Property name="Left" type="int" />
-      <Property name="LeftUnit" type="ScreenUnit" />
-      <Property name="Top" type="int" />
-      <Property name="TopUnit" type="ScreenUnit" />
-      <Property name="Right" type="int" />
-      <Property name="RightUnit" type="ScreenUnit" />
-      <Property name="Bottom" type="int" />
-      <Property name="BottomUnit" type="ScreenUnit" />
+      <Property name="LeftUnit" type="ScreenUnit">
+        <DefaultValue>Percent</DefaultValue>
+      </Property>
+      <Property name="LeftInvert" type="bool" />
+      <Property name="Top" type="int">
+        <DefaultValue>20</DefaultValue>
+      </Property>
+      <Property name="TopUnit" type="ScreenUnit">
+        <DefaultValue>Percent</DefaultValue>
+      </Property>
+      <Property name="TopInvert" type="bool" />
+      <Property name="Right" type="int">
+        <DefaultValue>80</DefaultValue>
+      </Property>
+      <Property name="RightUnit" type="ScreenUnit">
+        <DefaultValue>Percent</DefaultValue>
+      </Property>
+      <Property name="RightInvert" type="bool" />
+      <Property name="Bottom" type="int">
+        <DefaultValue>80</DefaultValue>
+      </Property>
+      <Property name="BottomUnit" type="ScreenUnit">
+        <DefaultValue>Percent</DefaultValue>
+      </Property>
+      <Property name="BottomInvert" type="bool" />
     </Class>
 
     <Class name="Layout">
@@ -119,12 +125,13 @@
       <Property name="DefaultLayout" type="bool">
         <DefaultValue>true</DefaultValue>
       </Property>
-      <Property name="Configurations" type="ConfigurationPattern" isCollection="true" />
+      <Property name="Configuration" type="string" />
       <Property name="Windows" type="WindowAction" isCollection="true" />
     </Class>
 
     <Class name="Workspace">
       <Property name="WindowPatterns" type="WindowPattern" isCollection="true" />
+      <Property name="ConfigurationPatterns" type="ConfigurationPattern" isCollection="true" />
       <Property name="Layouts" type="Layout" isCollection="true" />
     </Class>
 

@@ -12,7 +12,7 @@ namespace Mastersign.WinMan
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] argv)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
