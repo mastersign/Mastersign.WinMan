@@ -102,6 +102,7 @@
             this.lblRestoreCommand = new System.Windows.Forms.Label();
             this.lblMatchCountCaption = new System.Windows.Forms.Label();
             this.tpLayouts = new System.Windows.Forms.TabPage();
+            this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
             this.chkWindowActionBottomInvert = new System.Windows.Forms.CheckBox();
             this.chkWindowActionRightInvert = new System.Windows.Forms.CheckBox();
             this.chkWindowActionTopInvert = new System.Windows.Forms.CheckBox();
@@ -143,7 +144,7 @@
             this.tsbApplyWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbApplyCurrentLayout = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
+            this.tsslFileName = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.screensPatternsBindingSource)).BeginInit();
@@ -165,6 +166,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).BeginInit();
             this.toolStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnListTopWindows
@@ -973,6 +975,17 @@
             this.tpLayouts.Text = "Layouts";
             this.tpLayouts.UseVisualStyleBackColor = true;
             // 
+            // chkWindowActionCompensateOsMargin
+            // 
+            this.chkWindowActionCompensateOsMargin.AutoSize = true;
+            this.chkWindowActionCompensateOsMargin.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "CompensateOsMargin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(429, 528);
+            this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
+            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(138, 17);
+            this.chkWindowActionCompensateOsMargin.TabIndex = 72;
+            this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
+            this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
+            // 
             // chkWindowActionBottomInvert
             // 
             this.chkWindowActionBottomInvert.AutoSize = true;
@@ -1423,22 +1436,19 @@
             // 
             // statusStrip
             // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslFileName});
             this.statusStrip.Location = new System.Drawing.Point(0, 603);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(784, 22);
             this.statusStrip.TabIndex = 73;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // chkWindowActionCompensateOsMargin
+            // tsslFileName
             // 
-            this.chkWindowActionCompensateOsMargin.AutoSize = true;
-            this.chkWindowActionCompensateOsMargin.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "CompensateOsMargin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(429, 528);
-            this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
-            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(138, 17);
-            this.chkWindowActionCompensateOsMargin.TabIndex = 72;
-            this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
-            this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
+            this.tsslFileName.Name = "tsslFileName";
+            this.tsslFileName.Size = new System.Drawing.Size(60, 17);
+            this.tsslFileName.Text = "File Name";
             // 
             // MainForm
             // 
@@ -1478,6 +1488,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).EndInit();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1598,6 +1610,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripButton tsbNewWorkspace;
         private System.Windows.Forms.CheckBox chkWindowActionCompensateOsMargin;
+        private System.Windows.Forms.ToolStripStatusLabel tsslFileName;
     }
 }
 

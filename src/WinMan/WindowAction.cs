@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsDesktop;
@@ -15,6 +18,8 @@ namespace Mastersign.WinMan
         public const int OS_MARGIN_TOP = 0;
         public const int OS_MARGIN_RIGHT = 8;
         public const int OS_MARGIN_BOTTOM = 8;
+        public const int RESTORE_CHECK_INTERVAL_MS = 500;
+        public const int WAIT_FOR_RESTORE_MS = 20000;
 
         public bool Apply(Workspace workspace, Layout layout)
         {
@@ -30,19 +35,46 @@ namespace Mastersign.WinMan
             var windowWrappers = windowPattern.Discover();
             if (windowWrappers.Length > 0)
             {
-                Array.ForEach(
-                    windowPattern.Discover(),
-                    w => Apply(w, screen, virtualDesktop));
+                Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop));
                 return true;
             }
-            else if (Restore)
+            else if (Restore && !string.IsNullOrWhiteSpace(windowPattern.Command))
             {
-                // TODO restore window
+                if (TryRestoreWindow(windowPattern, ref windowWrappers))
+                {
+                    Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop));
+                    return true;
+                }
+                else return false;
+            }
+            else return true;
+        }
+
+        private bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers)
+        {
+            try
+            {
+                var startInfo = new ProcessStartInfo(windowPattern.Command, windowPattern.CommandArgs);
+                startInfo.UseShellExecute = true;
+                if (!string.IsNullOrWhiteSpace(windowPattern.WorkingDir) &&
+                    Directory.Exists(windowPattern.WorkingDir))
+                {
+                    startInfo.WorkingDirectory = windowPattern.WorkingDir;
+                }
+                var p = Process.Start(startInfo);
+                var tCancel = DateTime.Now + new TimeSpan(0, 0, 0, 0, WAIT_FOR_RESTORE_MS);
+                do
+                {
+                    Thread.Sleep(RESTORE_CHECK_INTERVAL_MS);
+                    Application.DoEvents();
+                    WindowWrapper.ClearCaches();
+                    windowWrappers = windowPattern.Discover();
+                } while (windowWrappers.Length == 0 && DateTime.Now < tCancel);
+                return windowWrappers.Length > 0;
+            }
+            catch (Exception)
+            {
                 return false;
-            }
-            else
-            {
-                return true;
             }
         }
 
@@ -73,6 +105,21 @@ namespace Mastersign.WinMan
             return targetBounds;
         }
 
+        private ShowWindowCommands WindowStateAsShowWindowCommand()
+        {
+            switch (WindowState)
+            {
+                case WindowState.Minimized:
+                    return ShowWindowCommands.ShowMinimized;
+                case WindowState.Normal:
+                    return ShowWindowCommands.Normal;
+                case WindowState.Maximized:
+                    return ShowWindowCommands.ShowMaximized;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
         public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
         {
             var targetBounds = CalculateTargetBounds(screen.WorkingArea);
@@ -84,7 +131,7 @@ namespace Mastersign.WinMan
                     targetBounds.Width + OS_MARGIN_LEFT + OS_MARGIN_RIGHT,
                     targetBounds.Height + OS_MARGIN_TOP + OS_MARGIN_BOTTOM);
             }
-            w.NormalPosition = new RECT(targetBounds);
+            w.SetPlacement(new RECT(targetBounds), WindowStateAsShowWindowCommand());
             virtualDesktop.MoveWindowHere(w.Handle);
         }
 

@@ -18,11 +18,12 @@ namespace Mastersign.WinMan
     {
         private Workspace _workspace;
         private WindowWrapper[] _windows;
-        private PreviewPainter previewPainter;
+        private PreviewPainter _previewPainter;
+        private string _workspaceFileName;
 
         public MainForm()
         {
-            previewPainter = new PreviewPainter();
+            _previewPainter = new PreviewPainter();
             InitializeComponent();
         }
 
@@ -43,6 +44,11 @@ namespace Mastersign.WinMan
         private void FormClosedHandler(object sender, FormClosedEventArgs e)
         {
             WriteWorkspaceToFile();
+        }
+
+        private void UpdateGlobals()
+        {
+            tsslFileName.Text = _workspaceFileName;
         }
 
         #region Workspace
@@ -67,7 +73,7 @@ namespace Mastersign.WinMan
 
         private void LoadWorkspaceFromFile(string fileName = null)
         {
-            fileName = fileName ?? DefaultWorkspaceFilePath;
+            fileName = fileName ?? _workspaceFileName ?? DefaultWorkspaceFilePath;
             if (!File.Exists(fileName))
             {
                 _workspace = new Workspace
@@ -83,13 +89,18 @@ namespace Mastersign.WinMan
                 _workspace = JsonConvert.DeserializeObject<Workspace>(json, CreateJsonSerializerSettings());
             }
             workspaceBindingSource.DataSource = _workspace;
+            _workspaceFileName = fileName;
+            UpdateGlobals();
         }
+
         private void WriteWorkspaceToFile(string fileName = null)
         {
             fileName = fileName ?? DefaultWorkspaceFilePath;
             File.WriteAllText(fileName,
                 JsonConvert.SerializeObject(_workspace, CreateJsonSerializerSettings()),
                 new UTF8Encoding(false));
+            _workspaceFileName = fileName;
+            UpdateGlobals();
         }
 
         private void NewWorkspaceHandler(object sender, EventArgs e)
@@ -101,6 +112,8 @@ namespace Mastersign.WinMan
                 Layouts = new BindingList<Layout>(),
             };
             workspaceBindingSource.DataSource = _workspace;
+            _workspaceFileName = null;
+            UpdateGlobals();
         }
 
         private void OpenWorkspaceHandler(object sender, EventArgs e)
@@ -274,7 +287,7 @@ namespace Mastersign.WinMan
             if (_workspace == null) return;
             var configPattern = SelectedConfigurationPattern;
             if (configPattern == null) return;
-            previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configPattern, SelectedScreenPattern);
+            _previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configPattern, SelectedScreenPattern);
         }
 
         #endregion
@@ -352,13 +365,13 @@ namespace Mastersign.WinMan
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction != null)
             {
-                previewPainter.PaintWindowActions(e.Graphics, canvas.ClientSize, _workspace, selectedLayout, selectedWindowAction);
+                _previewPainter.PaintWindowActions(e.Graphics, canvas.ClientSize, _workspace, selectedLayout, selectedWindowAction);
             }
             else
             {
                 var configuration = _workspace.FindConfigurationPattern(selectedLayout.Configuration);
                 if (configuration == null) return;
-                previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configuration);
+                _previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configuration);
             }
         }
 

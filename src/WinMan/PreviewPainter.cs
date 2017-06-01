@@ -191,9 +191,11 @@ namespace Mastersign.WinMan
             PaintScreens(g, c);
             foreach (var a in l.Windows)
             {
+                if (a == selectedWindowAction) continue;
                 if (a.VirtualDesktop != selectedWindowAction.VirtualDesktop) continue;
-                PaintWindowAction(g, c, a, a == selectedWindowAction);
+                PaintWindowAction(g, c, a, false);
             }
+            PaintWindowAction(g, c, selectedWindowAction, true);
 
             g.Transform = transformOld;
         }
