@@ -92,14 +92,14 @@
             this.txtConfigurationName = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.tpWindowPatterns = new System.Windows.Forms.TabPage();
+            this.lblRestoreCommandArgs = new System.Windows.Forms.Label();
             this.lblMatchCount = new System.Windows.Forms.Label();
             this.lblWindowPatternsCaption = new System.Windows.Forms.Label();
             this.txtRestoreWorkingDir = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtRestoreCommandArgs = new System.Windows.Forms.TextBox();
             this.txtRestoreCommand = new System.Windows.Forms.TextBox();
             this.lblRestoreWorkingDir = new System.Windows.Forms.Label();
-            this.lblRestoreCommandArgs = new System.Windows.Forms.Label();
-            this.lblWindowPatternCommand = new System.Windows.Forms.Label();
+            this.lblRestoreCommand = new System.Windows.Forms.Label();
             this.lblMatchCountCaption = new System.Windows.Forms.Label();
             this.tpLayouts = new System.Windows.Forms.TabPage();
             this.chkWindowActionBottomInvert = new System.Windows.Forms.CheckBox();
@@ -137,10 +137,13 @@
             this.previewLayout = new Mastersign.WinMan.PreviewCanvas();
             this.lblConfigurationPatternCaption = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.tsbNewWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbOpenWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbSaveWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbApplyWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbApplyCurrentLayout = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.windowPatternsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.workspaceBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.screensPatternsBindingSource)).BeginInit();
@@ -393,7 +396,7 @@
             this.listWindowPatterns.IntegralHeight = false;
             this.listWindowPatterns.Location = new System.Drawing.Point(8, 226);
             this.listWindowPatterns.Name = "listWindowPatterns";
-            this.listWindowPatterns.Size = new System.Drawing.Size(160, 296);
+            this.listWindowPatterns.Size = new System.Drawing.Size(160, 320);
             this.listWindowPatterns.TabIndex = 14;
             // 
             // screensPatternsBindingSource
@@ -471,7 +474,7 @@
             this.listLayouts.IntegralHeight = false;
             this.listLayouts.Location = new System.Drawing.Point(8, 152);
             this.listLayouts.Name = "listLayouts";
-            this.listLayouts.Size = new System.Drawing.Size(160, 370);
+            this.listLayouts.Size = new System.Drawing.Size(160, 392);
             this.listLayouts.TabIndex = 0;
             // 
             // tabMain
@@ -483,7 +486,7 @@
             this.tabMain.Location = new System.Drawing.Point(0, 25);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(784, 556);
+            this.tabMain.Size = new System.Drawing.Size(784, 578);
             this.tabMain.TabIndex = 17;
             // 
             // tpConfigurationPatterns
@@ -514,7 +517,7 @@
             this.tpConfigurationPatterns.Location = new System.Drawing.Point(4, 22);
             this.tpConfigurationPatterns.Name = "tpConfigurationPatterns";
             this.tpConfigurationPatterns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpConfigurationPatterns.Size = new System.Drawing.Size(776, 530);
+            this.tpConfigurationPatterns.Size = new System.Drawing.Size(776, 552);
             this.tpConfigurationPatterns.TabIndex = 2;
             this.tpConfigurationPatterns.Text = "Configuration Patterns";
             this.tpConfigurationPatterns.UseVisualStyleBackColor = true;
@@ -537,7 +540,7 @@
             this.listScreenPatterns.IntegralHeight = false;
             this.listScreenPatterns.Location = new System.Drawing.Point(174, 315);
             this.listScreenPatterns.Name = "listScreenPatterns";
-            this.listScreenPatterns.Size = new System.Drawing.Size(123, 207);
+            this.listScreenPatterns.Size = new System.Drawing.Size(123, 231);
             this.listScreenPatterns.TabIndex = 57;
             // 
             // chkRespectVirtualDesktopCount
@@ -795,11 +798,12 @@
             this.listBox1.IntegralHeight = false;
             this.listBox1.Location = new System.Drawing.Point(8, 80);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(160, 442);
+            this.listBox1.Size = new System.Drawing.Size(160, 466);
             this.listBox1.TabIndex = 37;
             // 
             // tpWindowPatterns
             // 
+            this.tpWindowPatterns.Controls.Add(this.lblRestoreCommandArgs);
             this.tpWindowPatterns.Controls.Add(this.lblMatchCount);
             this.tpWindowPatterns.Controls.Add(this.lblWindowPatternsCaption);
             this.tpWindowPatterns.Controls.Add(this.lblWindowPatternName);
@@ -812,7 +816,7 @@
             this.tpWindowPatterns.Controls.Add(this.btnNewWindowPattern);
             this.tpWindowPatterns.Controls.Add(this.cmbTitlePatternType);
             this.tpWindowPatterns.Controls.Add(this.txtRestoreWorkingDir);
-            this.tpWindowPatterns.Controls.Add(this.textBox1);
+            this.tpWindowPatterns.Controls.Add(this.txtRestoreCommandArgs);
             this.tpWindowPatterns.Controls.Add(this.txtRestoreCommand);
             this.tpWindowPatterns.Controls.Add(this.txtProcessFileName);
             this.tpWindowPatterns.Controls.Add(this.listWindowPatterns);
@@ -822,17 +826,26 @@
             this.tpWindowPatterns.Controls.Add(this.lblWindowClassPatternCaption);
             this.tpWindowPatterns.Controls.Add(this.txtTitlePattern);
             this.tpWindowPatterns.Controls.Add(this.lblRestoreWorkingDir);
-            this.tpWindowPatterns.Controls.Add(this.lblRestoreCommandArgs);
-            this.tpWindowPatterns.Controls.Add(this.lblWindowPatternCommand);
+            this.tpWindowPatterns.Controls.Add(this.lblRestoreCommand);
             this.tpWindowPatterns.Controls.Add(this.lblMatchCountCaption);
             this.tpWindowPatterns.Controls.Add(this.lblProcessFileName);
             this.tpWindowPatterns.Location = new System.Drawing.Point(4, 22);
             this.tpWindowPatterns.Name = "tpWindowPatterns";
             this.tpWindowPatterns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpWindowPatterns.Size = new System.Drawing.Size(776, 530);
+            this.tpWindowPatterns.Size = new System.Drawing.Size(776, 552);
             this.tpWindowPatterns.TabIndex = 0;
             this.tpWindowPatterns.Text = "Windows Patterns";
             this.tpWindowPatterns.UseVisualStyleBackColor = true;
+            // 
+            // lblRestoreCommandArgs
+            // 
+            this.lblRestoreCommandArgs.AutoSize = true;
+            this.lblRestoreCommandArgs.Location = new System.Drawing.Point(174, 468);
+            this.lblRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(3);
+            this.lblRestoreCommandArgs.Name = "lblRestoreCommandArgs";
+            this.lblRestoreCommandArgs.Size = new System.Drawing.Size(81, 13);
+            this.lblRestoreCommandArgs.TabIndex = 29;
+            this.lblRestoreCommandArgs.Text = "Command Args:";
             // 
             // lblMatchCount
             // 
@@ -864,12 +877,13 @@
             this.txtRestoreWorkingDir.Size = new System.Drawing.Size(308, 20);
             this.txtRestoreWorkingDir.TabIndex = 17;
             // 
-            // textBox1
+            // txtRestoreCommandArgs
             // 
-            this.textBox1.Location = new System.Drawing.Point(273, 465);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(308, 20);
-            this.textBox1.TabIndex = 17;
+            this.txtRestoreCommandArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "CommandArgs", true));
+            this.txtRestoreCommandArgs.Location = new System.Drawing.Point(273, 465);
+            this.txtRestoreCommandArgs.Name = "txtRestoreCommandArgs";
+            this.txtRestoreCommandArgs.Size = new System.Drawing.Size(308, 20);
+            this.txtRestoreCommandArgs.TabIndex = 17;
             // 
             // txtRestoreCommand
             // 
@@ -889,26 +903,15 @@
             this.lblRestoreWorkingDir.TabIndex = 15;
             this.lblRestoreWorkingDir.Text = "Working Directory:";
             // 
-            // lblRestoreCommandArgs
+            // lblRestoreCommand
             // 
-            this.lblRestoreCommandArgs.AutoSize = true;
-            this.lblRestoreCommandArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "CommandArgs", true));
-            this.lblRestoreCommandArgs.Location = new System.Drawing.Point(174, 468);
-            this.lblRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(3);
-            this.lblRestoreCommandArgs.Name = "lblRestoreCommandArgs";
-            this.lblRestoreCommandArgs.Size = new System.Drawing.Size(81, 13);
-            this.lblRestoreCommandArgs.TabIndex = 15;
-            this.lblRestoreCommandArgs.Text = "Command Args:";
-            // 
-            // lblWindowPatternCommand
-            // 
-            this.lblWindowPatternCommand.AutoSize = true;
-            this.lblWindowPatternCommand.Location = new System.Drawing.Point(174, 442);
-            this.lblWindowPatternCommand.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowPatternCommand.Name = "lblWindowPatternCommand";
-            this.lblWindowPatternCommand.Size = new System.Drawing.Size(57, 13);
-            this.lblWindowPatternCommand.TabIndex = 15;
-            this.lblWindowPatternCommand.Text = "Command:";
+            this.lblRestoreCommand.AutoSize = true;
+            this.lblRestoreCommand.Location = new System.Drawing.Point(174, 442);
+            this.lblRestoreCommand.Margin = new System.Windows.Forms.Padding(3);
+            this.lblRestoreCommand.Name = "lblRestoreCommand";
+            this.lblRestoreCommand.Size = new System.Drawing.Size(57, 13);
+            this.lblRestoreCommand.TabIndex = 15;
+            this.lblRestoreCommand.Text = "Command:";
             // 
             // lblMatchCountCaption
             // 
@@ -922,6 +925,7 @@
             // 
             // tpLayouts
             // 
+            this.tpLayouts.Controls.Add(this.chkWindowActionCompensateOsMargin);
             this.tpLayouts.Controls.Add(this.chkWindowActionBottomInvert);
             this.tpLayouts.Controls.Add(this.chkWindowActionRightInvert);
             this.tpLayouts.Controls.Add(this.chkWindowActionTopInvert);
@@ -964,7 +968,7 @@
             this.tpLayouts.Location = new System.Drawing.Point(4, 22);
             this.tpLayouts.Name = "tpLayouts";
             this.tpLayouts.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLayouts.Size = new System.Drawing.Size(776, 530);
+            this.tpLayouts.Size = new System.Drawing.Size(776, 552);
             this.tpLayouts.TabIndex = 1;
             this.tpLayouts.Text = "Layouts";
             this.tpLayouts.UseVisualStyleBackColor = true;
@@ -1299,7 +1303,6 @@
             this.cmdWindowActionScreen.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowActionsBindingSource, "Screen", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmdWindowActionScreen.DataSource = this.screensPatternsBindingSource;
             this.cmdWindowActionScreen.DisplayMember = "Name";
-            this.cmdWindowActionScreen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmdWindowActionScreen.FormattingEnabled = true;
             this.cmdWindowActionScreen.Location = new System.Drawing.Point(429, 370);
             this.cmdWindowActionScreen.Name = "cmdWindowActionScreen";
@@ -1326,7 +1329,7 @@
             this.listWindowAction.IntegralHeight = false;
             this.listWindowAction.Location = new System.Drawing.Point(174, 317);
             this.listWindowAction.Name = "listWindowAction";
-            this.listWindowAction.Size = new System.Drawing.Size(160, 205);
+            this.listWindowAction.Size = new System.Drawing.Size(160, 227);
             this.listWindowAction.TabIndex = 43;
             // 
             // chkLayoutIsDefaultLayout
@@ -1362,6 +1365,7 @@
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbNewWorkspace,
             this.tsbOpenWorkspace,
             this.tsbSaveWorkspace,
             this.tsbApplyWorkspace,
@@ -1371,6 +1375,15 @@
             this.toolStrip.Size = new System.Drawing.Size(784, 25);
             this.toolStrip.TabIndex = 18;
             this.toolStrip.Text = "toolStrip1";
+            // 
+            // tsbNewWorkspace
+            // 
+            this.tsbNewWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewWorkspace.Image")));
+            this.tsbNewWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbNewWorkspace.Name = "tsbNewWorkspace";
+            this.tsbNewWorkspace.Size = new System.Drawing.Size(112, 22);
+            this.tsbNewWorkspace.Text = "New Workspace";
+            this.tsbNewWorkspace.Click += new System.EventHandler(this.NewWorkspaceHandler);
             // 
             // tsbOpenWorkspace
             // 
@@ -1408,14 +1421,34 @@
             this.tsbApplyCurrentLayout.Text = "Apply Current Layout";
             this.tsbApplyCurrentLayout.Click += new System.EventHandler(this.ApplyCurrentLayoutHandler);
             // 
+            // statusStrip
+            // 
+            this.statusStrip.Location = new System.Drawing.Point(0, 603);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip.TabIndex = 73;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // chkWindowActionCompensateOsMargin
+            // 
+            this.chkWindowActionCompensateOsMargin.AutoSize = true;
+            this.chkWindowActionCompensateOsMargin.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "CompensateOsMargin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(429, 528);
+            this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
+            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(138, 17);
+            this.chkWindowActionCompensateOsMargin.TabIndex = 72;
+            this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
+            this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 581);
+            this.ClientSize = new System.Drawing.Size(784, 625);
             this.Controls.Add(this.tabMain);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
-            this.MinimumSize = new System.Drawing.Size(800, 620);
+            this.MinimumSize = new System.Drawing.Size(800, 664);
             this.Name = "MainForm";
             this.Text = "WinMan";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormClosedHandler);
@@ -1489,16 +1522,15 @@
         private System.Windows.Forms.TabControl tabMain;
         private System.Windows.Forms.TabPage tpWindowPatterns;
         private System.Windows.Forms.Label lblWindowPatternsCaption;
-        private System.Windows.Forms.Label lblWindowPatternCommand;
+        private System.Windows.Forms.Label lblRestoreCommand;
         private System.Windows.Forms.TabPage tpLayouts;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton tsbOpenWorkspace;
         private System.Windows.Forms.ToolStripButton tsbSaveWorkspace;
         private System.Windows.Forms.TextBox txtRestoreCommand;
         private System.Windows.Forms.TextBox txtRestoreWorkingDir;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtRestoreCommandArgs;
         private System.Windows.Forms.Label lblRestoreWorkingDir;
-        private System.Windows.Forms.Label lblRestoreCommandArgs;
         private System.Windows.Forms.Label lblMatchCount;
         private System.Windows.Forms.Label lblMatchCountCaption;
         private System.Windows.Forms.ToolStripButton tsbApplyWorkspace;
@@ -1562,6 +1594,10 @@
         private System.Windows.Forms.CheckBox chkWindowActionBottomInvert;
         private System.Windows.Forms.CheckBox chkWindowActionRightInvert;
         private System.Windows.Forms.CheckBox chkWindowActionTopInvert;
+        private System.Windows.Forms.Label lblRestoreCommandArgs;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripButton tsbNewWorkspace;
+        private System.Windows.Forms.CheckBox chkWindowActionCompensateOsMargin;
     }
 }
 

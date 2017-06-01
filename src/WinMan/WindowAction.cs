@@ -11,6 +11,11 @@ namespace Mastersign.WinMan
 {
     partial class WindowAction
     {
+        public const int OS_MARGIN_LEFT = 8;
+        public const int OS_MARGIN_TOP = 0;
+        public const int OS_MARGIN_RIGHT = 8;
+        public const int OS_MARGIN_BOTTOM = 8;
+
         public bool Apply(Workspace workspace, Layout layout)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
@@ -71,6 +76,14 @@ namespace Mastersign.WinMan
         public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
         {
             var targetBounds = CalculateTargetBounds(screen.WorkingArea);
+            if (CompensateOsMargin)
+            {
+                targetBounds = new Rectangle(
+                    targetBounds.Left - OS_MARGIN_LEFT,
+                    targetBounds.Top - OS_MARGIN_TOP,
+                    targetBounds.Width + OS_MARGIN_LEFT + OS_MARGIN_RIGHT,
+                    targetBounds.Height + OS_MARGIN_TOP + OS_MARGIN_BOTTOM);
+            }
             w.NormalPosition = new RECT(targetBounds);
             virtualDesktop.MoveWindowHere(w.Handle);
         }

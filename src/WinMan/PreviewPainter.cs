@@ -13,15 +13,17 @@ namespace Mastersign.WinMan
         public PreviewPainter()
         {
             OuterMargin = 200; // Screen Pixel
-            BackgroundColor = SystemColors.Desktop;
-            ScreenBrush = SystemBrushes.ButtonFace;
-            ScreenBorderBrush = SystemBrushes.ButtonShadow;
+            BackgroundColor = SystemColors.Window;
+            ScreenBrush = SystemBrushes.Desktop;
+            ScreenBorderBrush = SystemBrushes.WindowFrame;
             ScreenBorderStrength = 32; // Screen Pixel
             ScreenSelectedBrush = SystemBrushes.Highlight;
-            WindowBrush = SystemBrushes.Window;
-            WindowBorderBrush = SystemBrushes.WindowFrame;
+            WindowBrush = SystemBrushes.ButtonFace;
+            WindowSelectedBrush = SystemBrushes.ButtonHighlight;
+            WindowBorderBrush = SystemBrushes.ButtonShadow;
             WindowBorderStrength = 24; // Screen Pixel
-            WindowTitleBarBrush = SystemBrushes.Highlight;
+            WindowTitleBarBrush = SystemBrushes.InactiveCaption;
+            WindowTitleBarSelectedBrush = SystemBrushes.Highlight;
             WindowTitleBarHeight = 40; // Screen Pixel
             MinimizedWindowWidth = 360;
             MinimizedWindowHeight = WindowTitleBarHeight + WindowBorderStrength * 2;
@@ -36,9 +38,11 @@ namespace Mastersign.WinMan
         public Brush ScreenSelectedBrush { get; set; }
 
         public Brush WindowBrush { get; set; }
+        public Brush WindowSelectedBrush { get; set; }
         public Brush WindowBorderBrush { get; set; }
         public int WindowBorderStrength { get; set; }
         public Brush WindowTitleBarBrush { get; set; }
+        public Brush WindowTitleBarSelectedBrush { get; set; }
         public int WindowTitleBarHeight { get; set; }
         public int MinimizedWindowWidth { get; set; }
         public int MinimizedWindowHeight { get; set; }
@@ -106,7 +110,7 @@ namespace Mastersign.WinMan
             g.Transform = transformOld;
         }
 
-        private void PaintWindowAction(Graphics g, ConfigurationPattern c, WindowAction a)
+        private void PaintWindowAction(Graphics g, ConfigurationPattern c, WindowAction a, bool selected = false)
         {
             var screen = c.FindScreenPattern(a.Screen);
             if (screen == null) return;
@@ -138,16 +142,17 @@ namespace Mastersign.WinMan
             windowBounds.Inflate(-WindowBorderStrength, -WindowBorderStrength);
             if (windowBounds.Height >= WindowTitleBarHeight * 2 + WindowBorderStrength)
             {
-                g.FillRectangle(WindowTitleBarBrush,
+                g.FillRectangle(selected ? WindowTitleBarSelectedBrush : WindowTitleBarBrush,
                     windowBounds.Left, windowBounds.Top,
                     windowBounds.Width, WindowTitleBarHeight);
-                g.FillRectangle(WindowBrush,
+                g.FillRectangle(selected ? WindowSelectedBrush : WindowBrush,
                     windowBounds.Left, windowBounds.Top + WindowTitleBarHeight + WindowBorderStrength,
                     windowBounds.Width, windowBounds.Height - WindowTitleBarHeight - WindowBorderStrength);
             }
             else
             {
-                g.FillRectangle(WindowTitleBarBrush, windowBounds);
+                g.FillRectangle(selected ? WindowTitleBarSelectedBrush : WindowTitleBarBrush,
+                    windowBounds);
             }
 
             g.Transform = transformOld;
@@ -167,6 +172,28 @@ namespace Mastersign.WinMan
 
             PaintScreens(g, c);
             PaintWindowAction(g, c, a);
+
+            g.Transform = transformOld;
+        }
+
+        public void PaintWindowActions(Graphics g, Size s, Workspace w, Layout l, WindowAction selectedWindowAction)
+        {
+            var c = w.FindConfigurationPattern(l.Configuration);
+            if (c == null || c.Screens.Count == 0) return;
+
+            g.Clear(BackgroundColor);
+
+            g.SmoothingMode = SmoothingMode.HighQuality;
+
+            var transformOld = g.Transform;
+            TransformToConfiguration(g, s, c);
+
+            PaintScreens(g, c);
+            foreach (var a in l.Windows)
+            {
+                if (a.VirtualDesktop != selectedWindowAction.VirtualDesktop) continue;
+                PaintWindowAction(g, c, a, a == selectedWindowAction);
+            }
 
             g.Transform = transformOld;
         }

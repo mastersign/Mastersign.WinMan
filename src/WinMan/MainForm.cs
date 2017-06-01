@@ -92,6 +92,17 @@ namespace Mastersign.WinMan
                 new UTF8Encoding(false));
         }
 
+        private void NewWorkspaceHandler(object sender, EventArgs e)
+        {
+            _workspace = new Workspace
+            {
+                ConfigurationPatterns = new BindingList<ConfigurationPattern>(),
+                WindowPatterns = new BindingList<WindowPattern>(),
+                Layouts = new BindingList<Layout>(),
+            };
+            workspaceBindingSource.DataSource = _workspace;
+        }
+
         private void OpenWorkspaceHandler(object sender, EventArgs e)
         {
             var openDlg = new OpenFileDialog
@@ -341,7 +352,7 @@ namespace Mastersign.WinMan
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction != null)
             {
-                previewPainter.PaintWindowAction(e.Graphics, canvas.ClientSize, _workspace, selectedLayout, selectedWindowAction);
+                previewPainter.PaintWindowActions(e.Graphics, canvas.ClientSize, _workspace, selectedLayout, selectedWindowAction);
             }
             else
             {
@@ -389,5 +400,6 @@ namespace Mastersign.WinMan
         }
 
         #endregion
+
     }
 }

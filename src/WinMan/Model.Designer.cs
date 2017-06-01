@@ -835,6 +835,7 @@ namespace Mastersign.WinMan
             this._rightUnit = DEF_RIGHTUNIT;
             this._bottom = DEF_BOTTOM;
             this._bottomUnit = DEF_BOTTOMUNIT;
+            this._compensateOsMargin = DEF_COMPENSATEOSMARGIN;
         }
         
         #region Equatability
@@ -1452,6 +1453,41 @@ namespace Mastersign.WinMan
                 }
                 _bottomInvert = value;
                 this.OnBottomInvertChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property CompensateOsMargin
+        
+        private bool _compensateOsMargin;
+        
+        public event EventHandler CompensateOsMarginChanged;
+        
+        protected virtual void OnCompensateOsMarginChanged()
+        {
+            EventHandler handler = CompensateOsMarginChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"CompensateOsMargin");
+        }
+        
+        private const bool DEF_COMPENSATEOSMARGIN = true;
+        
+        [DefaultValue(DEF_COMPENSATEOSMARGIN)]
+        public virtual bool CompensateOsMargin
+        {
+            get { return _compensateOsMargin; }
+            set
+            {
+                if ((value == _compensateOsMargin))
+                {
+                    return;
+                }
+                _compensateOsMargin = value;
+                this.OnCompensateOsMarginChanged();
             }
         }
         
