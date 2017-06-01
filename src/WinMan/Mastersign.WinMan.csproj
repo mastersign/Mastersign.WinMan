@@ -110,6 +110,7 @@
     <Compile Include="WindowAction.cs" />
     <Compile Include="WindowPattern.cs" />
     <Compile Include="WindowWrapper.cs" />
+    <Compile Include="WinFormHelper.cs" />
     <Compile Include="Workspace.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

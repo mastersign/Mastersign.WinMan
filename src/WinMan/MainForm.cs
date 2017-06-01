@@ -25,6 +25,7 @@ namespace Mastersign.WinMan
         {
             _previewPainter = new PreviewPainter();
             InitializeComponent();
+            WinFormHelper.ApplyFixes(this);
         }
 
         private void FormLoadHandler(object sender, EventArgs e)
@@ -191,6 +192,7 @@ namespace Mastersign.WinMan
         {
             listWindows.Items.Clear();
             listWindows.Items.AddRange(_windows.Select(ListViewItemFromWindow).ToArray());
+            listWindows.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private WindowWrapper SelectedWindow
@@ -413,6 +415,5 @@ namespace Mastersign.WinMan
         }
 
         #endregion
-
     }
 }
