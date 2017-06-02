@@ -14,7 +14,7 @@ using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
-    public partial class MainForm : Form
+    public partial class MainForm : ImprovedForm
     {
         private Core _core;
         private PreviewPainter _previewPainter;
@@ -23,7 +23,6 @@ namespace Mastersign.WinMan
         {
             _previewPainter = new PreviewPainter();
             InitializeComponent();
-            WinFormHelper.ApplyFixes(this);
         }
 
         private void FormLoadHandler(object sender, EventArgs e)
