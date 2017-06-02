@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mastersign.WinMan.Gui.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +26,8 @@ namespace Mastersign.WinMan
 
         private void FormLoadHandler(object sender, EventArgs e)
         {
+            InitializeIcons();
+
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowState.DataSource = Enum.GetValues(typeof(WindowState));
@@ -34,6 +37,18 @@ namespace Mastersign.WinMan
             cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
             Core = Program.Core;
+        }
+
+        private void InitializeIcons()
+        {
+            var size = toolStrip.ImageScalingSize;
+            tsbNewWorkspace.Image = new Icon(Resources.New, size).ToBitmap();
+            tsbOpenWorkspace.Image = new Icon(Resources.Open, size).ToBitmap();
+            tsbSaveWorkspace.Image = new Icon(Resources.Save, size).ToBitmap();
+            tsbSaveWorkspaceAs.Image = tsbSaveWorkspace.Image;
+            tsbApplyWorkspace.Image = new Icon(Resources.Apply, size).ToBitmap();
+            tsbApplyCurrentLayout.Image = tsbApplyWorkspace.Image;
+            tsbApplyWindowAction.Image = tsbApplyWorkspace.Image;
         }
 
         #region Core

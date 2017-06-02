@@ -207,7 +207,7 @@
             tableConfigurationPatterns.RowCount = 2;
             tableConfigurationPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             tableConfigurationPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
-            tableConfigurationPatterns.Size = new System.Drawing.Size(970, 582);
+            tableConfigurationPatterns.Size = new System.Drawing.Size(970, 580);
             tableConfigurationPatterns.TabIndex = 59;
             // 
             // tableConfigurationPatternList
@@ -236,7 +236,7 @@
             tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableConfigurationPatternList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableConfigurationPatternList.Size = new System.Drawing.Size(236, 576);
+            tableConfigurationPatternList.Size = new System.Drawing.Size(236, 574);
             tableConfigurationPatternList.TabIndex = 0;
             // 
             // chkRespectVirtualDesktopCount
@@ -346,7 +346,7 @@
             this.listConfigurationPatterns.IntegralHeight = false;
             this.listConfigurationPatterns.Location = new System.Drawing.Point(3, 145);
             this.listConfigurationPatterns.Name = "listConfigurationPatterns";
-            this.listConfigurationPatterns.Size = new System.Drawing.Size(230, 428);
+            this.listConfigurationPatterns.Size = new System.Drawing.Size(230, 426);
             this.listConfigurationPatterns.TabIndex = 37;
             // 
             // previewConfiguration
@@ -393,7 +393,7 @@
             tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableConfigurationPatternDetails.Size = new System.Drawing.Size(722, 315);
+            tableConfigurationPatternDetails.Size = new System.Drawing.Size(722, 313);
             tableConfigurationPatternDetails.TabIndex = 59;
             // 
             // numScreenHeight
@@ -425,7 +425,7 @@
             this.listScreenPatterns.Location = new System.Drawing.Point(3, 22);
             this.listScreenPatterns.Name = "listScreenPatterns";
             tableConfigurationPatternDetails.SetRowSpan(this.listScreenPatterns, 7);
-            this.listScreenPatterns.Size = new System.Drawing.Size(207, 290);
+            this.listScreenPatterns.Size = new System.Drawing.Size(207, 288);
             this.listScreenPatterns.TabIndex = 57;
             // 
             // screensPatternsBindingSource
@@ -1631,10 +1631,10 @@
             this.tabMain.Controls.Add(this.tpWindowPatterns);
             this.tabMain.Controls.Add(this.tpLayouts);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabMain.Location = new System.Drawing.Point(0, 25);
+            this.tabMain.Location = new System.Drawing.Point(0, 27);
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
-            this.tabMain.Size = new System.Drawing.Size(984, 614);
+            this.tabMain.Size = new System.Drawing.Size(984, 612);
             this.tabMain.TabIndex = 17;
             // 
             // tpConfigurationPatterns
@@ -1643,7 +1643,7 @@
             this.tpConfigurationPatterns.Location = new System.Drawing.Point(4, 22);
             this.tpConfigurationPatterns.Name = "tpConfigurationPatterns";
             this.tpConfigurationPatterns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpConfigurationPatterns.Size = new System.Drawing.Size(976, 588);
+            this.tpConfigurationPatterns.Size = new System.Drawing.Size(976, 586);
             this.tpConfigurationPatterns.TabIndex = 2;
             this.tpConfigurationPatterns.Text = "Display Configuration Patterns";
             this.tpConfigurationPatterns.UseVisualStyleBackColor = true;
@@ -1680,9 +1680,11 @@
             this.tsbApplyWorkspace,
             this.tsbApplyCurrentLayout,
             this.tsbApplyWindowAction});
+            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(984, 25);
+            this.toolStrip.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
+            this.toolStrip.Size = new System.Drawing.Size(984, 27);
             this.toolStrip.TabIndex = 18;
             this.toolStrip.Text = "toolStrip";
             // 
@@ -1691,7 +1693,7 @@
             this.tsbNewWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewWorkspace.Image")));
             this.tsbNewWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNewWorkspace.Name = "tsbNewWorkspace";
-            this.tsbNewWorkspace.Size = new System.Drawing.Size(51, 22);
+            this.tsbNewWorkspace.Size = new System.Drawing.Size(51, 20);
             this.tsbNewWorkspace.Text = "New";
             this.tsbNewWorkspace.Click += new System.EventHandler(this.NewWorkspaceHandler);
             // 
@@ -1700,7 +1702,7 @@
             this.tsbOpenWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbOpenWorkspace.Image")));
             this.tsbOpenWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbOpenWorkspace.Name = "tsbOpenWorkspace";
-            this.tsbOpenWorkspace.Size = new System.Drawing.Size(56, 22);
+            this.tsbOpenWorkspace.Size = new System.Drawing.Size(56, 20);
             this.tsbOpenWorkspace.Text = "Open";
             this.tsbOpenWorkspace.Click += new System.EventHandler(this.OpenWorkspaceHandler);
             // 
@@ -1709,7 +1711,7 @@
             this.tsbSaveWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveWorkspace.Image")));
             this.tsbSaveWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSaveWorkspace.Name = "tsbSaveWorkspace";
-            this.tsbSaveWorkspace.Size = new System.Drawing.Size(51, 22);
+            this.tsbSaveWorkspace.Size = new System.Drawing.Size(51, 20);
             this.tsbSaveWorkspace.Text = "Save";
             this.tsbSaveWorkspace.Click += new System.EventHandler(this.SaveWorkspaceHandler);
             // 
@@ -1718,8 +1720,8 @@
             this.tsbSaveWorkspaceAs.Image = ((System.Drawing.Image)(resources.GetObject("tsbSaveWorkspaceAs.Image")));
             this.tsbSaveWorkspaceAs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSaveWorkspaceAs.Name = "tsbSaveWorkspaceAs";
-            this.tsbSaveWorkspaceAs.Size = new System.Drawing.Size(67, 22);
-            this.tsbSaveWorkspaceAs.Text = "Save As";
+            this.tsbSaveWorkspaceAs.Size = new System.Drawing.Size(76, 20);
+            this.tsbSaveWorkspaceAs.Text = "Save As...";
             this.tsbSaveWorkspaceAs.Click += new System.EventHandler(this.SaveWorkspaceAsHandler);
             // 
             // tsbApplyWorkspace
@@ -1727,7 +1729,7 @@
             this.tsbApplyWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbApplyWorkspace.Image")));
             this.tsbApplyWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbApplyWorkspace.Name = "tsbApplyWorkspace";
-            this.tsbApplyWorkspace.Size = new System.Drawing.Size(58, 22);
+            this.tsbApplyWorkspace.Size = new System.Drawing.Size(58, 20);
             this.tsbApplyWorkspace.Text = "Apply";
             this.tsbApplyWorkspace.Click += new System.EventHandler(this.ApplyWorkspaceHandler);
             // 
@@ -1736,7 +1738,7 @@
             this.tsbApplyCurrentLayout.Image = ((System.Drawing.Image)(resources.GetObject("tsbApplyCurrentLayout.Image")));
             this.tsbApplyCurrentLayout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbApplyCurrentLayout.Name = "tsbApplyCurrentLayout";
-            this.tsbApplyCurrentLayout.Size = new System.Drawing.Size(97, 22);
+            this.tsbApplyCurrentLayout.Size = new System.Drawing.Size(97, 20);
             this.tsbApplyCurrentLayout.Text = "Apply Layout";
             this.tsbApplyCurrentLayout.Click += new System.EventHandler(this.ApplyCurrentLayoutHandler);
             // 
@@ -1745,7 +1747,7 @@
             this.tsbApplyWindowAction.Image = ((System.Drawing.Image)(resources.GetObject("tsbApplyWindowAction.Image")));
             this.tsbApplyWindowAction.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbApplyWindowAction.Name = "tsbApplyWindowAction";
-            this.tsbApplyWindowAction.Size = new System.Drawing.Size(143, 22);
+            this.tsbApplyWindowAction.Size = new System.Drawing.Size(143, 20);
             this.tsbApplyWindowAction.Text = "Apply Window Action";
             this.tsbApplyWindowAction.Click += new System.EventHandler(this.ApplyWindowActionHandler);
             // 
