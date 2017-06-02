@@ -25,6 +25,6 @@ namespace Mastersign.WinMan
             return Windows.All(wa => wa.Apply(workspace, this));
         }
 
-        public override string ToString() => Name;
+        public override string ToString() => Name + " - " + Configuration;
     }
 }
