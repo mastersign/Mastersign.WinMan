@@ -17,9 +17,11 @@ namespace Mastersign.WinMan
         public Layout FindLayout(string layoutName)
             => Layouts.FirstOrDefault(l => l.Name == layoutName);
 
+        public IEnumerable<Layout> DefaultLayouts => Layouts.Where(l => l.DefaultLayout);
+
         public void Apply()
         {
-            Layouts.Where(l => l.DefaultLayout).All(l => l.Apply(this));
+            DefaultLayouts.All(l => l.Apply(this));
         }
     }
 }

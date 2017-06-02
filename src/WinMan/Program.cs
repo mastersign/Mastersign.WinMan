@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,14 +21,18 @@ namespace Mastersign.WinMan
         [STAThread]
         static void Main(string[] argv)
         {
-            _core = new Core();
-            _core.LoadWorkspaceFromFile();
-            _core.ReloadWindows();
+            string workspaceFile = null;
+            if (argv.Length == 1 && File.Exists(argv[0]))
+            {
+                workspaceFile = argv[0];
+            }
 
+            _core = new Core();
+            _core.LoadWorkspaceFromFile(workspaceFile);
+            _core.ReloadWindows();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-
             _core.WriteWorkspaceToFile();
         }
     }

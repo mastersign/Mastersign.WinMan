@@ -7,7 +7,7 @@ using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
-    static class VirtualDesktopHelper
+    public static class VirtualDesktopHelper
     {
         public static int GetVirtualDesktopNumber(Guid id)
         {

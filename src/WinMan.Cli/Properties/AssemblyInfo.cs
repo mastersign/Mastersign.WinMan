@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
-[assembly: AssemblyTitle("Mastersign WinMan GUI")]
-[assembly: AssemblyDescription("Window Manager for Windows 10")]
+[assembly: AssemblyTitle("Mastersign WinMan CLI")]
+[assembly: AssemblyDescription("Command Line Interface for Mastersign WinMan")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tobias Kiertscher")]
 [assembly: AssemblyProduct("Mastersign WinMan")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("435bcbfe-16c0-4d33-99a6-38af06d5a8b6")]
+[assembly: Guid("94804423-569b-44ce-b84e-813a50707d79")]
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
