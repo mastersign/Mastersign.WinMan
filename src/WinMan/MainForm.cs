@@ -351,6 +351,15 @@ namespace Mastersign.WinMan
         private void SelectedLayoutChangedHandler(object sender, EventArgs e)
         {
             RefreshLayoutPreview();
+            cmbWindowActionScreen.Items.Clear();
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout != null) {
+                var configuration = _workspace.FindConfigurationPattern(selectedLayout.Configuration);
+                if (configuration != null)
+                {
+                    cmbWindowActionScreen.Items.AddRange(configuration.Screens.Select(s => s.Name).ToArray());
+                }
+            }
         }
 
         private void RefreshLayoutPreview()
