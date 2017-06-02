@@ -14,6 +14,8 @@ namespace Mastersign.WinMan
 
         public static readonly IList<Type> ContainerTypes = new List<Type>();
 
+        public static Padding TableTextBoxMargin { get; set; }
+
         static WinFormHelper()
         {
             Fonts[typeof(GroupBox)] = SystemFonts.SmallCaptionFont;
@@ -32,9 +34,11 @@ namespace Mastersign.WinMan
             Fonts[typeof(DataGridView)] = SystemFonts.IconTitleFont;
             Fonts[typeof(ListView)] = SystemFonts.IconTitleFont;
             Fonts[typeof(TreeView)] = SystemFonts.IconTitleFont;
+
+            TableTextBoxMargin = new Padding(3);
         }
 
-        public static void ApplyFixes(Control c)
+        private static void ApplyFixes(Control c, bool inLayoutContainer)
         {
             if (c == null) return;
             if (Fonts.TryGetValue(c.GetType(), out Font fastHit))
@@ -55,21 +59,36 @@ namespace Mastersign.WinMan
             {
                 foreach (Control child in c.Controls)
                 {
-                    ApplyFixes(child);
+                    ApplyFixes(child, c is TableLayoutPanel || c is FlowLayoutPanel);
                 }
             }
             if (c is TabControl)
             {
                 foreach (Control page in ((TabControl)c).TabPages)
                 {
-                    ApplyFixes(page);
+                    ApplyFixes(page, false);
                 }
             }
             if (c is SplitContainer)
             {
-                ApplyFixes(((SplitContainer)c).Panel1);
-                ApplyFixes(((SplitContainer)c).Panel2);
+                ApplyFixes(((SplitContainer)c).Panel1, false);
+                ApplyFixes(((SplitContainer)c).Panel2, false);
             }
+            if (inLayoutContainer &&
+                c is TextBox ||
+                c is ComboBox ||
+                c is NumericUpDown ||
+                c is DomainUpDown)
+            {
+                c.Margin = TableTextBoxMargin;
+            }
+        }
+
+        public static void ApplyFixes(Control c)
+        {
+            c.SuspendLayout();
+            ApplyFixes(c, false);
+            c.ResumeLayout();
         }
     }
 }
