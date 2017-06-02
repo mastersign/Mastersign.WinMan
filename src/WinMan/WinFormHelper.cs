@@ -82,6 +82,11 @@ namespace Mastersign.WinMan
             {
                 c.Margin = TableTextBoxMargin;
             }
+            if (inLayoutContainer &&
+                c is Button)
+            {
+                ((Button)c).AutoSize = true;
+            }
         }
 
         public static void ApplyFixes(Control c)

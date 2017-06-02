@@ -16,10 +16,8 @@ namespace Mastersign.WinMan
 {
     public partial class MainForm : Form
     {
-        private Workspace _workspace;
-        private WindowWrapper[] _windows;
+        private Core _core;
         private PreviewPainter _previewPainter;
-        private string _workspaceFileName;
 
         public MainForm()
         {
@@ -38,131 +36,118 @@ namespace Mastersign.WinMan
             cmbWindowActionRightUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
-            ReloadWindowListHandler(this, EventArgs.Empty);
-            LoadWorkspaceFromFile();
+            Core = Program.Core;
         }
 
-        private void FormClosedHandler(object sender, FormClosedEventArgs e)
+        #region Core
+
+        public Core Core
         {
-            WriteWorkspaceToFile();
+            get => _core;
+            set
+            {
+                if (value == _core) return;
+                if (_core != null) ReleaseCore();
+                _core = value;
+                BindCore();
+            }
         }
 
-        private void UpdateGlobals()
+        public bool HasCore => _core != null;
+
+        private void ReleaseCore()
         {
-            tsslFileName.Text = _workspaceFileName;
+            Core.WorkspaceChanged -= CoreWorkspaceChangedHandler;
+            Core.WorkspaceFileNameChanged -= CoreWorkspaceFileNameChangedHandler;
+            Core.WindowWrappersChanged -= CoreWindowWrappersChangedHandler;
         }
+
+        private void BindCore()
+        {
+            if (HasCore)
+            {
+                Core.WorkspaceChanged += CoreWorkspaceChangedHandler;
+                Core.WorkspaceFileNameChanged += CoreWorkspaceFileNameChangedHandler;
+                Core.WindowWrappersChanged += CoreWindowWrappersChangedHandler;
+            }
+            CoreWorkspaceChangedHandler(this, EventArgs.Empty);
+            CoreWorkspaceFileNameChangedHandler(this, EventArgs.Empty);
+            CoreWindowWrappersChangedHandler(this, EventArgs.Empty);
+        }
+
+        private void CoreWorkspaceChangedHandler(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke((EventHandler)CoreWorkspaceChangedHandler, sender, e);
+                return;
+            }
+            workspaceBindingSource.DataSource = Core?.Workspace;
+        }
+
+        private void CoreWorkspaceFileNameChangedHandler(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke((EventHandler)CoreWorkspaceFileNameChangedHandler, sender, e);
+                return;
+            }
+            tsslFileName.Text = Core?.WorkspaceFileName;
+        }
+
+        private void CoreWindowWrappersChangedHandler(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke((EventHandler)CoreWindowWrappersChangedHandler, sender, e);
+                return;
+            }
+            RefreshWindowListHandler(sender, e);
+        }
+
+        #endregion
 
         #region Workspace
 
-        private const string DEFAULT_WORKSPACE_FILENAME = "winman_workspace.json";
-
-        private string DefaultWorkspaceFilePath =>
-            Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                DEFAULT_WORKSPACE_FILENAME);
-
-        private JsonSerializerSettings CreateJsonSerializerSettings()
-        {
-            var settings = new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Include,
-            };
-            settings.Converters.Add(new StringEnumConverter());
-            return settings;
-        }
-
-        private void LoadWorkspaceFromFile(string fileName = null)
-        {
-            fileName = fileName ?? _workspaceFileName ?? DefaultWorkspaceFilePath;
-            if (!File.Exists(fileName))
-            {
-                _workspace = new Workspace
-                {
-                    ConfigurationPatterns = new BindingList<ConfigurationPattern>(),
-                    WindowPatterns = new BindingList<WindowPattern>(),
-                    Layouts = new BindingList<Layout>(),
-                };
-            }
-            else
-            {
-                var json = File.ReadAllText(fileName, new UTF8Encoding(false));
-                _workspace = JsonConvert.DeserializeObject<Workspace>(json, CreateJsonSerializerSettings());
-            }
-            workspaceBindingSource.DataSource = _workspace;
-            _workspaceFileName = fileName;
-            UpdateGlobals();
-        }
-
-        private void WriteWorkspaceToFile(string fileName = null)
-        {
-            fileName = fileName ?? DefaultWorkspaceFilePath;
-            File.WriteAllText(fileName,
-                JsonConvert.SerializeObject(_workspace, CreateJsonSerializerSettings()),
-                new UTF8Encoding(false));
-            _workspaceFileName = fileName;
-            UpdateGlobals();
-        }
-
         private void NewWorkspaceHandler(object sender, EventArgs e)
         {
-            _workspace = new Workspace
-            {
-                ConfigurationPatterns = new BindingList<ConfigurationPattern>(),
-                WindowPatterns = new BindingList<WindowPattern>(),
-                Layouts = new BindingList<Layout>(),
-            };
-            workspaceBindingSource.DataSource = _workspace;
-            _workspaceFileName = null;
-            UpdateGlobals();
+            Core.CreateNewWorkspace();
         }
 
         private void OpenWorkspaceHandler(object sender, EventArgs e)
         {
-            var openDlg = new OpenFileDialog
+            if (!HasCore) return;
+            Core.ShowOpenWorkspaceFileDialog(this, "Open Workspace...");
+        }
+
+        private void SaveWorkspaceHandler(object sender, EventArgs a)
+        {
+            if (!HasCore) return;
+            if (string.IsNullOrWhiteSpace(Core.WorkspaceFileName))
             {
-                Title = "Open Workspace...",
-                InitialDirectory = Path.GetDirectoryName(DefaultWorkspaceFilePath),
-                FileName = Path.GetFileName(DefaultWorkspaceFilePath),
-            };
-            var dlgResult = openDlg.ShowDialog(this);
-            if (dlgResult == DialogResult.OK)
+                Core.ShowSaveWorkspaceFileDialog(this, "Save Workspace...");
+            }
+            else
             {
-                LoadWorkspaceFromFile(openDlg.FileName);
+                Core.WriteWorkspaceToFile();
             }
         }
 
-        private void SaveWorkspaceHandler(object sender, EventArgs e)
+        private void SaveWorkspaceAsHandler(object sender, EventArgs e)
         {
-            var saveDlg = new SaveFileDialog
-            {
-                Title = "Save Workspace...",
-                InitialDirectory = Path.GetDirectoryName(DefaultWorkspaceFilePath),
-                FileName = Path.GetFileName(DefaultWorkspaceFilePath),
-                OverwritePrompt = true,
-            };
-            var dlgResult = saveDlg.ShowDialog(this);
-            if (dlgResult == DialogResult.OK)
-            {
-                WriteWorkspaceToFile(saveDlg.FileName);
-            }
+            if (!HasCore) return;
+            Core.ShowSaveWorkspaceFileDialog(this, "Save Workspace As...");
         }
 
         private void ApplyWorkspaceHandler(object sender, EventArgs e)
         {
-            WindowWrapper.ClearCaches();
-            _workspace.Apply();
+            if (!HasCore) return;
+            Core.ApplyWorkspace();
         }
 
         #endregion
 
         #region Window List
-
-        private WindowWrapper[] LoadWindows()
-        {
-            WindowWrapper.ClearCaches();
-            return WindowWrapper.AllWindows();
-        }
 
         private ListViewItem ListViewItemFromWindow(WindowWrapper w)
         {
@@ -182,36 +167,37 @@ namespace Mastersign.WinMan
             return item;
         }
 
-        private void ReloadWindowListHandler(object sender, EventArgs e)
-        {
-            _windows = LoadWindows();
-            RefreshWindowListHandler(sender, e);
-        }
-
         private void RefreshWindowListHandler(object sender, EventArgs e)
         {
             listWindows.Items.Clear();
-            listWindows.Items.AddRange(_windows.Select(ListViewItemFromWindow).ToArray());
+            if (!HasCore || Core.WindowWrappers == null) return;
+            listWindows.Items.AddRange(Core.WindowWrappers.Select(ListViewItemFromWindow).ToArray());
             listWindows.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
         private WindowWrapper SelectedWindow
+            => listWindows.SelectedItems.Count > 0
+                ? listWindows.SelectedItems[0].Tag as WindowWrapper
+                : null;
+
+        private void ReloadWindowListHandler(object sender, EventArgs e)
         {
-            get
-            {
-                if (listWindows.SelectedItems.Count == 0) return null;
-                return listWindows.SelectedItems[0].Tag as WindowWrapper;
-            }
+            if (!HasCore) return;
+            Core.ReloadWindows();
         }
 
         #endregion
 
         #region Window Patterns
 
-        private WindowPattern SelectedWindowPattern => windowPatternsBindingSource.Current as WindowPattern;
+        private WindowPattern SelectedWindowPattern
+            => windowPatternsBindingSource.Position >= 0
+                ? windowPatternsBindingSource.Current as WindowPattern
+                : null;
 
         private void NewWindowPatternHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var selectedWindow = SelectedWindow;
             WindowPattern windowPattern;
             if (selectedWindow != null)
@@ -222,14 +208,15 @@ namespace Mastersign.WinMan
             {
                 windowPattern = new WindowPattern();
             }
-            _workspace.WindowPatterns.Add(windowPattern);
+            Core.Workspace.WindowPatterns.Add(windowPattern);
         }
 
         private void DeleteWindowPatternHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var selectedWindowPattern = SelectedWindowPattern;
             if (selectedWindowPattern == null) return;
-            _workspace.WindowPatterns.Remove(selectedWindowPattern);
+            Core.Workspace.WindowPatterns.Remove(selectedWindowPattern);
         }
 
         private void CurrentWindowPatternChangedHandler(object sender, EventArgs e)
@@ -240,9 +227,9 @@ namespace Mastersign.WinMan
 
         private void WindowPatternListChangedHandler(object sender, ListChangedEventArgs e)
         {
-            if (_workspace == null) return;
+            if (!HasCore || Core.Workspace == null) return;
             cmbWindowActionWindow.Items.Clear();
-            cmbWindowActionWindow.Items.AddRange(_workspace.WindowPatterns.Select(p => p.Name).ToArray());
+            cmbWindowActionWindow.Items.AddRange(Core.Workspace.WindowPatterns.Select(p => p.Name).ToArray());
         }
 
         #endregion
@@ -250,27 +237,30 @@ namespace Mastersign.WinMan
         #region ConfigurationPatterns
 
         private ConfigurationPattern SelectedConfigurationPattern
-            => configurationPatternsBindingSource.Current as ConfigurationPattern;
+            => configurationPatternsBindingSource.Position >= 0
+                ? configurationPatternsBindingSource.Current as ConfigurationPattern
+                : null;
 
         private void RecordConfigurationHandler(object sender, EventArgs e)
         {
-            if (_workspace == null) return;
-            _workspace.ConfigurationPatterns.Add(ConfigurationPattern.FromConfiguration(
+            if (!HasCore || Core.Workspace == null) return;
+            Core.Workspace.ConfigurationPatterns.Add(ConfigurationPattern.FromConfiguration(
                 Screen.AllScreens, VirtualDesktop.GetDesktops().Length));
         }
 
         private void DeleteConfigurationHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var selectedConfigPattern = SelectedConfigurationPattern;
             if (selectedConfigPattern == null) return;
-            _workspace.ConfigurationPatterns.Remove(selectedConfigPattern);
+            Core.Workspace.ConfigurationPatterns.Remove(selectedConfigPattern);
         }
 
         private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e)
         {
-            if (_workspace == null) return;
+            if (!HasCore || Core.Workspace == null) return;
             cmbLayoutConfiguration.Items.Clear();
-            cmbLayoutConfiguration.Items.AddRange(_workspace.ConfigurationPatterns.Select(p => p.Name).ToArray());
+            cmbLayoutConfiguration.Items.AddRange(Core.Workspace.ConfigurationPatterns.Select(p => p.Name).ToArray());
         }
 
         private void SelectedConfigurationPatternChanged(object sender, EventArgs e)
@@ -285,8 +275,8 @@ namespace Mastersign.WinMan
 
         private void ConfigurationPreviewPaintHandler(object sender, PaintEventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var canvas = (Control)sender;
-            if (_workspace == null) return;
             var configPattern = SelectedConfigurationPattern;
             if (configPattern == null) return;
             _previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configPattern, SelectedScreenPattern);
@@ -296,11 +286,14 @@ namespace Mastersign.WinMan
 
         #region Screen Pattern
 
-        private ScreenPattern SelectedScreenPattern => screensPatternsBindingSource.Current as ScreenPattern;
+        private ScreenPattern SelectedScreenPattern
+            => screensPatternsBindingSource.Position >= 0
+                ? screensPatternsBindingSource.Current as ScreenPattern
+                : null;
 
         private void SelectedScreenPatternChanged(object sender, EventArgs e)
         {
-            var screenPattern = screensPatternsBindingSource.Current as ScreenPattern;
+            var screenPattern = SelectedScreenPattern;
             if (screenPattern == null)
             {
                 numScreenLeft.Value = 0;
@@ -322,11 +315,15 @@ namespace Mastersign.WinMan
 
         #region Layouts
 
-        private Layout SelectedLayout => layoutsBindingSource.Current as Layout;
+        private Layout SelectedLayout
+            => layoutsBindingSource.Position >= 0
+                ? layoutsBindingSource.Current as Layout
+                : null;
 
         private void NewLayoutHandler(object sender, EventArgs e)
         {
-            _workspace.Layouts.Add(new Layout()
+            if (!HasCore || Core.Workspace == null) return;
+            Core.Workspace.Layouts.Add(new Layout()
             {
                 Windows = new BindingList<WindowAction>(),
             });
@@ -334,27 +331,31 @@ namespace Mastersign.WinMan
 
         private void DeleteLayoutHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
-            _workspace.Layouts.Remove(selectedLayout);
+            Core.Workspace.Layouts.Remove(selectedLayout);
         }
 
         private void ApplyCurrentLayoutHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Apply(_workspace);
+            selectedLayout.Apply(Core.Workspace);
         }
 
         private void SelectedLayoutChangedHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             RefreshLayoutPreview();
             cmbWindowActionScreen.Items.Clear();
             var selectedLayout = SelectedLayout;
-            if (selectedLayout != null) {
-                var configuration = _workspace.FindConfigurationPattern(selectedLayout.Configuration);
+            if (selectedLayout != null)
+            {
+                var configuration = Core.Workspace.FindConfigurationPattern(selectedLayout.Configuration);
                 if (configuration != null)
                 {
                     cmbWindowActionScreen.Items.AddRange(configuration.Screens.Select(s => s.Name).ToArray());
@@ -369,18 +370,18 @@ namespace Mastersign.WinMan
 
         private void LayoutPreviewPaintHandler(object sender, PaintEventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var canvas = (Control)sender;
-            if (_workspace == null) return;
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction != null)
             {
-                _previewPainter.PaintWindowActions(e.Graphics, canvas.ClientSize, _workspace, selectedLayout, selectedWindowAction);
+                _previewPainter.PaintWindowActions(e.Graphics, canvas.ClientSize, Core.Workspace, selectedLayout, selectedWindowAction);
             }
             else
             {
-                var configuration = _workspace.FindConfigurationPattern(selectedLayout.Configuration);
+                var configuration = Core.Workspace.FindConfigurationPattern(selectedLayout.Configuration);
                 if (configuration == null) return;
                 _previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configuration);
             }
@@ -390,7 +391,10 @@ namespace Mastersign.WinMan
 
         #region Window Action
 
-        private WindowAction SelectedWindowAction => windowActionsBindingSource.Current as WindowAction;
+        private WindowAction SelectedWindowAction
+            => windowActionsBindingSource.Position >= 0
+                ? windowActionsBindingSource.Current as WindowAction
+                : null;
 
         private void NewWindowActionHandler(object sender, EventArgs e)
         {
@@ -409,13 +413,14 @@ namespace Mastersign.WinMan
 
         private void ApplyWindowActionHandler(object sender, EventArgs e)
         {
+            if (!HasCore || Core.Workspace == null) return;
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Apply(_workspace, selectedLayout);
+            selectedWindowAction.Apply(Core.Workspace, selectedLayout);
         }
 
         private void SelectedWindowActionChangedHandler(object sender, EventArgs e)

@@ -5,6 +5,7 @@
 
   <ReferencedTypes>
     <ReferencedType id="rect" name="System.Drawing.Rectangle" kind="Struct" immutable="true" />
+    <ReferencedType id="WindowWrapper" name="WindowWrapper" kind="Class" />
   </ReferencedTypes>
 
   <Configuration modelType="ChangeTracking">
@@ -138,5 +139,11 @@
       <Property name="Layouts" type="Layout" isCollection="true" />
     </Class>
 
+    <Class name="Core">
+      <Property name="Workspace" type="Workspace" />
+      <Property name="WindowWrappers" type="WindowWrapper[]" />
+      <Property name="WorkspaceFileName" type="string" />
+    </Class>
+    
   </Types>
 </Model>

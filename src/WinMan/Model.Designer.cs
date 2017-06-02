@@ -1832,5 +1832,155 @@ namespace Mastersign.WinMan
         #endregion
     }
     
+    public partial class Core : IEquatable<Core>, INotifyPropertyChanged
+    {
+        public Core()
+        {
+            this._windowWrappers = new WindowWrapper[0];
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Core o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return object.ReferenceEquals(this, o);
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Core)))
+            {
+                return false;
+            }
+            return this.Equals((Core)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return this.GetType().GetHashCode();
+        }
+        
+        #endregion
+        
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property Workspace
+        
+        private Workspace _workspace;
+        
+        public event EventHandler WorkspaceChanged;
+        
+        protected virtual void OnWorkspaceChanged()
+        {
+            EventHandler handler = WorkspaceChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Workspace");
+        }
+        
+        public virtual Workspace Workspace
+        {
+            get { return _workspace; }
+            set
+            {
+                if ((value == _workspace))
+                {
+                    return;
+                }
+                _workspace = value;
+                this.OnWorkspaceChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property WindowWrappers
+        
+        private WindowWrapper[] _windowWrappers;
+        
+        public event EventHandler WindowWrappersChanged;
+        
+        protected virtual void OnWindowWrappersChanged()
+        {
+            EventHandler handler = WindowWrappersChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WindowWrappers");
+        }
+        
+        public virtual WindowWrapper[] WindowWrappers
+        {
+            get { return _windowWrappers; }
+            set
+            {
+                if ((value == _windowWrappers))
+                {
+                    return;
+                }
+                _windowWrappers = value;
+                this.OnWindowWrappersChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property WorkspaceFileName
+        
+        private string _workspaceFileName;
+        
+        public event EventHandler WorkspaceFileNameChanged;
+        
+        protected virtual void OnWorkspaceFileNameChanged()
+        {
+            EventHandler handler = WorkspaceFileNameChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"WorkspaceFileName");
+        }
+        
+        public virtual string WorkspaceFileName
+        {
+            get { return _workspaceFileName; }
+            set
+            {
+                if (string.Equals(value, _workspaceFileName))
+                {
+                    return;
+                }
+                _workspaceFileName = value;
+                this.OnWorkspaceFileNameChanged();
+            }
+        }
+        
+        #endregion
+    }
+    
     #endregion
 }
