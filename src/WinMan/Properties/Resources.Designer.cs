@@ -63,9 +63,29 @@ namespace Mastersign.WinMan.Gui.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
         /// </summary>
-        internal static System.Drawing.Icon Apply {
+        internal static System.Drawing.Icon ApplyLayout {
             get {
-                object obj = ResourceManager.GetObject("Apply", resourceCulture);
+                object obj = ResourceManager.GetObject("ApplyLayout", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon ApplyWindow {
+            get {
+                object obj = ResourceManager.GetObject("ApplyWindow", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon ApplyWorkspace {
+            get {
+                object obj = ResourceManager.GetObject("ApplyWorkspace", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

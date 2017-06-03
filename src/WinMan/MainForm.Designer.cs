@@ -660,7 +660,7 @@
             tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableWindowPatterns.Size = new System.Drawing.Size(970, 582);
+            tableWindowPatterns.Size = new System.Drawing.Size(970, 580);
             tableWindowPatterns.TabIndex = 30;
             // 
             // listWindows
@@ -681,7 +681,7 @@
             this.listWindows.Location = new System.Drawing.Point(3, 3);
             this.listWindows.MultiSelect = false;
             this.listWindows.Name = "listWindows";
-            this.listWindows.Size = new System.Drawing.Size(964, 218);
+            this.listWindows.Size = new System.Drawing.Size(964, 216);
             this.listWindows.TabIndex = 3;
             this.listWindows.UseCompatibleStateImageBehavior = false;
             this.listWindows.View = System.Windows.Forms.View.Details;
@@ -729,7 +729,7 @@
             // btnReloadWindowList
             // 
             this.btnReloadWindowList.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnReloadWindowList.Location = new System.Drawing.Point(852, 227);
+            this.btnReloadWindowList.Location = new System.Drawing.Point(852, 225);
             this.btnReloadWindowList.Name = "btnReloadWindowList";
             this.btnReloadWindowList.Size = new System.Drawing.Size(115, 23);
             this.btnReloadWindowList.TabIndex = 1;
@@ -740,7 +740,7 @@
             // btnDeleteWindowPattern
             // 
             this.btnDeleteWindowPattern.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteWindowPattern.Location = new System.Drawing.Point(124, 256);
+            this.btnDeleteWindowPattern.Location = new System.Drawing.Point(124, 254);
             this.btnDeleteWindowPattern.Name = "btnDeleteWindowPattern";
             this.btnDeleteWindowPattern.Size = new System.Drawing.Size(115, 23);
             this.btnDeleteWindowPattern.TabIndex = 26;
@@ -752,7 +752,7 @@
             // 
             this.lblRestoreCommandArgs.AutoSize = true;
             this.lblRestoreCommandArgs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRestoreCommandArgs.Location = new System.Drawing.Point(245, 488);
+            this.lblRestoreCommandArgs.Location = new System.Drawing.Point(245, 486);
             this.lblRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(3);
             this.lblRestoreCommandArgs.Name = "lblRestoreCommandArgs";
             this.lblRestoreCommandArgs.Size = new System.Drawing.Size(139, 20);
@@ -764,7 +764,7 @@
             // 
             this.lblWindowPatternsCaption.AutoSize = true;
             this.lblWindowPatternsCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblWindowPatternsCaption.Location = new System.Drawing.Point(3, 227);
+            this.lblWindowPatternsCaption.Location = new System.Drawing.Point(3, 225);
             this.lblWindowPatternsCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowPatternsCaption.Name = "lblWindowPatternsCaption";
             this.lblWindowPatternsCaption.Size = new System.Drawing.Size(115, 23);
@@ -775,7 +775,7 @@
             // lblMatchCount
             // 
             this.lblMatchCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMatchCount.Location = new System.Drawing.Point(390, 436);
+            this.lblMatchCount.Location = new System.Drawing.Point(390, 434);
             this.lblMatchCount.Margin = new System.Windows.Forms.Padding(3);
             this.lblMatchCount.Name = "lblMatchCount";
             this.lblMatchCount.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
@@ -788,7 +788,7 @@
             // 
             this.lblRestoreWorkingDir.AutoSize = true;
             this.lblRestoreWorkingDir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRestoreWorkingDir.Location = new System.Drawing.Point(245, 514);
+            this.lblRestoreWorkingDir.Location = new System.Drawing.Point(245, 512);
             this.lblRestoreWorkingDir.Margin = new System.Windows.Forms.Padding(3);
             this.lblRestoreWorkingDir.Name = "lblRestoreWorkingDir";
             this.lblRestoreWorkingDir.Size = new System.Drawing.Size(139, 20);
@@ -801,7 +801,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtRestoreWorkingDir, 3);
             this.txtRestoreWorkingDir.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "WorkingDir", true));
             this.txtRestoreWorkingDir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRestoreWorkingDir.Location = new System.Drawing.Point(390, 514);
+            this.txtRestoreWorkingDir.Location = new System.Drawing.Point(390, 512);
             this.txtRestoreWorkingDir.Name = "txtRestoreWorkingDir";
             this.txtRestoreWorkingDir.Size = new System.Drawing.Size(577, 20);
             this.txtRestoreWorkingDir.TabIndex = 17;
@@ -821,7 +821,7 @@
             this.listWindowPatterns.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listWindowPatterns.FormattingEnabled = true;
             this.listWindowPatterns.IntegralHeight = false;
-            this.listWindowPatterns.Location = new System.Drawing.Point(3, 330);
+            this.listWindowPatterns.Location = new System.Drawing.Point(3, 328);
             this.listWindowPatterns.Name = "listWindowPatterns";
             tableWindowPatterns.SetRowSpan(this.listWindowPatterns, 9);
             this.listWindowPatterns.Size = new System.Drawing.Size(236, 249);
@@ -830,7 +830,7 @@
             // lblWindowPatternName
             // 
             this.lblWindowPatternName.AutoSize = true;
-            this.lblWindowPatternName.Location = new System.Drawing.Point(3, 285);
+            this.lblWindowPatternName.Location = new System.Drawing.Point(3, 283);
             this.lblWindowPatternName.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowPatternName.Name = "lblWindowPatternName";
             this.lblWindowPatternName.Size = new System.Drawing.Size(38, 13);
@@ -842,7 +842,7 @@
             this.chkWindowClassIgnoreCase.AutoSize = true;
             this.chkWindowClassIgnoreCase.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowPatternsBindingSource, "WindowClassIgnoreCase", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkWindowClassIgnoreCase.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkWindowClassIgnoreCase.Location = new System.Drawing.Point(535, 383);
+            this.chkWindowClassIgnoreCase.Location = new System.Drawing.Point(535, 381);
             this.chkWindowClassIgnoreCase.Name = "chkWindowClassIgnoreCase";
             this.chkWindowClassIgnoreCase.Size = new System.Drawing.Size(139, 21);
             this.chkWindowClassIgnoreCase.TabIndex = 22;
@@ -854,7 +854,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtRestoreCommandArgs, 3);
             this.txtRestoreCommandArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "CommandArgs", true));
             this.txtRestoreCommandArgs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRestoreCommandArgs.Location = new System.Drawing.Point(390, 488);
+            this.txtRestoreCommandArgs.Location = new System.Drawing.Point(390, 486);
             this.txtRestoreCommandArgs.Name = "txtRestoreCommandArgs";
             this.txtRestoreCommandArgs.Size = new System.Drawing.Size(577, 20);
             this.txtRestoreCommandArgs.TabIndex = 17;
@@ -864,7 +864,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtWindowPatternName, 2);
             this.txtWindowPatternName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.txtWindowPatternName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtWindowPatternName.Location = new System.Drawing.Point(3, 304);
+            this.txtWindowPatternName.Location = new System.Drawing.Point(3, 302);
             this.txtWindowPatternName.Name = "txtWindowPatternName";
             this.txtWindowPatternName.Size = new System.Drawing.Size(236, 20);
             this.txtWindowPatternName.TabIndex = 18;
@@ -874,7 +874,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtRestoreCommand, 3);
             this.txtRestoreCommand.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "Command", true));
             this.txtRestoreCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRestoreCommand.Location = new System.Drawing.Point(390, 462);
+            this.txtRestoreCommand.Location = new System.Drawing.Point(390, 460);
             this.txtRestoreCommand.Name = "txtRestoreCommand";
             this.txtRestoreCommand.Size = new System.Drawing.Size(577, 20);
             this.txtRestoreCommand.TabIndex = 17;
@@ -883,7 +883,7 @@
             // 
             this.lblRestoreCommand.AutoSize = true;
             this.lblRestoreCommand.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRestoreCommand.Location = new System.Drawing.Point(245, 462);
+            this.lblRestoreCommand.Location = new System.Drawing.Point(245, 460);
             this.lblRestoreCommand.Margin = new System.Windows.Forms.Padding(3);
             this.lblRestoreCommand.Name = "lblRestoreCommand";
             this.lblRestoreCommand.Size = new System.Drawing.Size(139, 20);
@@ -896,7 +896,7 @@
             this.chkTitleIgnoreCase.AutoSize = true;
             this.chkTitleIgnoreCase.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowPatternsBindingSource, "TitleIgnoreCase", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkTitleIgnoreCase.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkTitleIgnoreCase.Location = new System.Drawing.Point(535, 330);
+            this.chkTitleIgnoreCase.Location = new System.Drawing.Point(535, 328);
             this.chkTitleIgnoreCase.Name = "chkTitleIgnoreCase";
             this.chkTitleIgnoreCase.Size = new System.Drawing.Size(139, 21);
             this.chkTitleIgnoreCase.TabIndex = 23;
@@ -909,7 +909,7 @@
             this.cmbWindowClassPatternType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowClassPatternType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowClassPatternType.FormattingEnabled = true;
-            this.cmbWindowClassPatternType.Location = new System.Drawing.Point(390, 383);
+            this.cmbWindowClassPatternType.Location = new System.Drawing.Point(390, 381);
             this.cmbWindowClassPatternType.Name = "cmbWindowClassPatternType";
             this.cmbWindowClassPatternType.Size = new System.Drawing.Size(139, 21);
             this.cmbWindowClassPatternType.TabIndex = 20;
@@ -919,7 +919,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtTitlePattern, 2);
             this.txtTitlePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "TitlePattern", true));
             this.txtTitlePattern.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtTitlePattern.Location = new System.Drawing.Point(390, 304);
+            this.txtTitlePattern.Location = new System.Drawing.Point(390, 302);
             this.txtTitlePattern.Name = "txtTitlePattern";
             this.txtTitlePattern.Size = new System.Drawing.Size(284, 20);
             this.txtTitlePattern.TabIndex = 19;
@@ -928,7 +928,7 @@
             // 
             this.lblMatchCountCaption.AutoSize = true;
             this.lblMatchCountCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMatchCountCaption.Location = new System.Drawing.Point(245, 436);
+            this.lblMatchCountCaption.Location = new System.Drawing.Point(245, 434);
             this.lblMatchCountCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblMatchCountCaption.Name = "lblMatchCountCaption";
             this.lblMatchCountCaption.Size = new System.Drawing.Size(139, 20);
@@ -941,7 +941,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtProcessFileName, 3);
             this.txtProcessFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "ProcessFileName", true));
             this.txtProcessFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtProcessFileName.Location = new System.Drawing.Point(390, 410);
+            this.txtProcessFileName.Location = new System.Drawing.Point(390, 408);
             this.txtProcessFileName.Name = "txtProcessFileName";
             this.txtProcessFileName.Size = new System.Drawing.Size(577, 20);
             this.txtProcessFileName.TabIndex = 17;
@@ -950,7 +950,7 @@
             // 
             this.lblProcessFileName.AutoSize = true;
             this.lblProcessFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblProcessFileName.Location = new System.Drawing.Point(245, 410);
+            this.lblProcessFileName.Location = new System.Drawing.Point(245, 408);
             this.lblProcessFileName.Margin = new System.Windows.Forms.Padding(3);
             this.lblProcessFileName.Name = "lblProcessFileName";
             this.lblProcessFileName.Size = new System.Drawing.Size(139, 20);
@@ -962,7 +962,7 @@
             // 
             this.lblTitlePatternCaption.AutoSize = true;
             this.lblTitlePatternCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitlePatternCaption.Location = new System.Drawing.Point(245, 304);
+            this.lblTitlePatternCaption.Location = new System.Drawing.Point(245, 302);
             this.lblTitlePatternCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitlePatternCaption.Name = "lblTitlePatternCaption";
             this.lblTitlePatternCaption.Size = new System.Drawing.Size(139, 20);
@@ -976,7 +976,7 @@
             this.cmbTitlePatternType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbTitlePatternType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTitlePatternType.FormattingEnabled = true;
-            this.cmbTitlePatternType.Location = new System.Drawing.Point(390, 330);
+            this.cmbTitlePatternType.Location = new System.Drawing.Point(390, 328);
             this.cmbTitlePatternType.Name = "cmbTitlePatternType";
             this.cmbTitlePatternType.Size = new System.Drawing.Size(139, 21);
             this.cmbTitlePatternType.TabIndex = 21;
@@ -986,7 +986,7 @@
             tableWindowPatterns.SetColumnSpan(this.txtWindowClassPattern, 3);
             this.txtWindowClassPattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.windowPatternsBindingSource, "WindowClassPattern", true));
             this.txtWindowClassPattern.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtWindowClassPattern.Location = new System.Drawing.Point(390, 357);
+            this.txtWindowClassPattern.Location = new System.Drawing.Point(390, 355);
             this.txtWindowClassPattern.Name = "txtWindowClassPattern";
             this.txtWindowClassPattern.Size = new System.Drawing.Size(577, 20);
             this.txtWindowClassPattern.TabIndex = 17;
@@ -995,7 +995,7 @@
             // 
             this.lblWindowClassPatternCaption.AutoSize = true;
             this.lblWindowClassPatternCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblWindowClassPatternCaption.Location = new System.Drawing.Point(245, 357);
+            this.lblWindowClassPatternCaption.Location = new System.Drawing.Point(245, 355);
             this.lblWindowClassPatternCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowClassPatternCaption.Name = "lblWindowClassPatternCaption";
             this.lblWindowClassPatternCaption.Size = new System.Drawing.Size(139, 20);
@@ -1006,7 +1006,7 @@
             // btnNewWindowPattern
             // 
             this.btnNewWindowPattern.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnNewWindowPattern.Location = new System.Drawing.Point(3, 256);
+            this.btnNewWindowPattern.Location = new System.Drawing.Point(3, 254);
             this.btnNewWindowPattern.Name = "btnNewWindowPattern";
             this.btnNewWindowPattern.Size = new System.Drawing.Size(115, 23);
             this.btnNewWindowPattern.TabIndex = 24;
@@ -1028,7 +1028,7 @@
             tableLayouts.RowCount = 2;
             tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
-            tableLayouts.Size = new System.Drawing.Size(970, 582);
+            tableLayouts.Size = new System.Drawing.Size(970, 580);
             tableLayouts.TabIndex = 73;
             // 
             // previewLayout
@@ -1066,7 +1066,7 @@
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutList.Size = new System.Drawing.Size(236, 576);
+            tableLayoutList.Size = new System.Drawing.Size(236, 574);
             tableLayoutList.TabIndex = 32;
             // 
             // btnNewLayout
@@ -1163,7 +1163,7 @@
             this.listLayouts.IntegralHeight = false;
             this.listLayouts.Location = new System.Drawing.Point(3, 146);
             this.listLayouts.Name = "listLayouts";
-            this.listLayouts.Size = new System.Drawing.Size(230, 427);
+            this.listLayouts.Size = new System.Drawing.Size(230, 425);
             this.listLayouts.TabIndex = 0;
             // 
             // tableLayoutDetails
@@ -1221,7 +1221,7 @@
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutDetails.Size = new System.Drawing.Size(722, 315);
+            tableLayoutDetails.Size = new System.Drawing.Size(722, 313);
             tableLayoutDetails.TabIndex = 33;
             // 
             // lblWindowActionsCaption
@@ -1337,7 +1337,7 @@
             this.listWindowAction.Location = new System.Drawing.Point(3, 52);
             this.listWindowAction.Name = "listWindowAction";
             tableLayoutDetails.SetRowSpan(this.listWindowAction, 10);
-            this.listWindowAction.Size = new System.Drawing.Size(234, 260);
+            this.listWindowAction.Size = new System.Drawing.Size(234, 258);
             this.listWindowAction.TabIndex = 43;
             // 
             // cmbWindowActionBottomUnit
@@ -1654,7 +1654,7 @@
             this.tpWindowPatterns.Location = new System.Drawing.Point(4, 22);
             this.tpWindowPatterns.Name = "tpWindowPatterns";
             this.tpWindowPatterns.Padding = new System.Windows.Forms.Padding(3);
-            this.tpWindowPatterns.Size = new System.Drawing.Size(976, 588);
+            this.tpWindowPatterns.Size = new System.Drawing.Size(976, 586);
             this.tpWindowPatterns.TabIndex = 0;
             this.tpWindowPatterns.Text = "Window Patterns";
             this.tpWindowPatterns.UseVisualStyleBackColor = true;
@@ -1665,7 +1665,7 @@
             this.tpLayouts.Location = new System.Drawing.Point(4, 22);
             this.tpLayouts.Name = "tpLayouts";
             this.tpLayouts.Padding = new System.Windows.Forms.Padding(3);
-            this.tpLayouts.Size = new System.Drawing.Size(976, 588);
+            this.tpLayouts.Size = new System.Drawing.Size(976, 586);
             this.tpLayouts.TabIndex = 1;
             this.tpLayouts.Text = "Layouts";
             this.tpLayouts.UseVisualStyleBackColor = true;
@@ -1695,6 +1695,7 @@
             this.tsbNewWorkspace.Name = "tsbNewWorkspace";
             this.tsbNewWorkspace.Size = new System.Drawing.Size(51, 20);
             this.tsbNewWorkspace.Text = "New";
+            this.tsbNewWorkspace.ToolTipText = "Create new WinMan workspace";
             this.tsbNewWorkspace.Click += new System.EventHandler(this.NewWorkspaceHandler);
             // 
             // tsbOpenWorkspace
@@ -1704,6 +1705,7 @@
             this.tsbOpenWorkspace.Name = "tsbOpenWorkspace";
             this.tsbOpenWorkspace.Size = new System.Drawing.Size(56, 20);
             this.tsbOpenWorkspace.Text = "Open";
+            this.tsbOpenWorkspace.ToolTipText = "Open WinMan workspace file";
             this.tsbOpenWorkspace.Click += new System.EventHandler(this.OpenWorkspaceHandler);
             // 
             // tsbSaveWorkspace
@@ -1713,6 +1715,7 @@
             this.tsbSaveWorkspace.Name = "tsbSaveWorkspace";
             this.tsbSaveWorkspace.Size = new System.Drawing.Size(51, 20);
             this.tsbSaveWorkspace.Text = "Save";
+            this.tsbSaveWorkspace.ToolTipText = "Save current workspace";
             this.tsbSaveWorkspace.Click += new System.EventHandler(this.SaveWorkspaceHandler);
             // 
             // tsbSaveWorkspaceAs
@@ -1722,6 +1725,7 @@
             this.tsbSaveWorkspaceAs.Name = "tsbSaveWorkspaceAs";
             this.tsbSaveWorkspaceAs.Size = new System.Drawing.Size(76, 20);
             this.tsbSaveWorkspaceAs.Text = "Save As...";
+            this.tsbSaveWorkspaceAs.ToolTipText = "Save current workspace in a specific file";
             this.tsbSaveWorkspaceAs.Click += new System.EventHandler(this.SaveWorkspaceAsHandler);
             // 
             // tsbApplyWorkspace
@@ -1731,6 +1735,7 @@
             this.tsbApplyWorkspace.Name = "tsbApplyWorkspace";
             this.tsbApplyWorkspace.Size = new System.Drawing.Size(58, 20);
             this.tsbApplyWorkspace.Text = "Apply";
+            this.tsbApplyWorkspace.ToolTipText = "Apply all default layouts from the current workspace";
             this.tsbApplyWorkspace.Click += new System.EventHandler(this.ApplyWorkspaceHandler);
             // 
             // tsbApplyCurrentLayout
@@ -1740,6 +1745,7 @@
             this.tsbApplyCurrentLayout.Name = "tsbApplyCurrentLayout";
             this.tsbApplyCurrentLayout.Size = new System.Drawing.Size(97, 20);
             this.tsbApplyCurrentLayout.Text = "Apply Layout";
+            this.tsbApplyCurrentLayout.ToolTipText = "Apply the selected layout";
             this.tsbApplyCurrentLayout.Click += new System.EventHandler(this.ApplyCurrentLayoutHandler);
             // 
             // tsbApplyWindowAction
@@ -1749,6 +1755,7 @@
             this.tsbApplyWindowAction.Name = "tsbApplyWindowAction";
             this.tsbApplyWindowAction.Size = new System.Drawing.Size(143, 20);
             this.tsbApplyWindowAction.Text = "Apply Window Action";
+            this.tsbApplyWindowAction.ToolTipText = "Apply the selected window action";
             this.tsbApplyWindowAction.Click += new System.EventHandler(this.ApplyWindowActionHandler);
             // 
             // statusStrip
@@ -1776,6 +1783,7 @@
             this.Controls.Add(this.tabMain);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "WinMan";
             this.Load += new System.EventHandler(this.FormLoadHandler);

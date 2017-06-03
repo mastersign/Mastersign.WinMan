@@ -38,6 +38,9 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>WinManGui.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -115,7 +118,10 @@
     <None Include="Resources\NewFile.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Apply.ico" />
+    <None Include="Resources\ApplyWorkspace.ico" />
+    <None Include="Resources\ApplyWindow.ico" />
+    <None Include="Resources\ApplyLayout.ico" />
+    <Content Include="WinManGui.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

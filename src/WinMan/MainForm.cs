@@ -46,9 +46,9 @@ namespace Mastersign.WinMan
             tsbOpenWorkspace.Image = new Icon(Resources.Open, size).ToBitmap();
             tsbSaveWorkspace.Image = new Icon(Resources.Save, size).ToBitmap();
             tsbSaveWorkspaceAs.Image = tsbSaveWorkspace.Image;
-            tsbApplyWorkspace.Image = new Icon(Resources.Apply, size).ToBitmap();
-            tsbApplyCurrentLayout.Image = tsbApplyWorkspace.Image;
-            tsbApplyWindowAction.Image = tsbApplyWorkspace.Image;
+            tsbApplyWorkspace.Image = new Icon(Resources.ApplyWorkspace, size).ToBitmap();
+            tsbApplyCurrentLayout.Image = new Icon(Resources.ApplyLayout, size).ToBitmap();
+            tsbApplyWindowAction.Image = new Icon(Resources.ApplyWindow, size).ToBitmap();
         }
 
         #region Core
