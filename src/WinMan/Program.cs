@@ -33,7 +33,15 @@ namespace Mastersign.WinMan
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-            _core.WriteWorkspaceToFile();
+
+            if (_core.WorkspaceFileName == null && File.Exists(Core.DefaultWorkspaceFilePath))
+            {
+                _core.ShowSaveWorkspaceFileDialog(null, "Save Workspace...");
+            }
+            else
+            {
+                _core.WriteWorkspaceToFile();
+            }
         }
     }
 }
