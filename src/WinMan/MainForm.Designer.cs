@@ -60,7 +60,7 @@
             this.lblScreensCaption = new System.Windows.Forms.Label();
             this.lblScreenNameCaption = new System.Windows.Forms.Label();
             this.txtScreenName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblScreenDeviceNameCaption = new System.Windows.Forms.Label();
             this.lblScreenLeftCaption = new System.Windows.Forms.Label();
             this.txtDeviceName = new System.Windows.Forms.TextBox();
             this.listWindows = new System.Windows.Forms.ListView();
@@ -208,7 +208,7 @@
             tableConfigurationPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             tableConfigurationPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
             tableConfigurationPatterns.Size = new System.Drawing.Size(970, 580);
-            tableConfigurationPatterns.TabIndex = 59;
+            tableConfigurationPatterns.TabIndex = 0;
             // 
             // tableConfigurationPatternList
             // 
@@ -248,7 +248,7 @@
             this.chkRespectVirtualDesktopCount.Location = new System.Drawing.Point(3, 122);
             this.chkRespectVirtualDesktopCount.Name = "chkRespectVirtualDesktopCount";
             this.chkRespectVirtualDesktopCount.Size = new System.Drawing.Size(230, 17);
-            this.chkRespectVirtualDesktopCount.TabIndex = 57;
+            this.chkRespectVirtualDesktopCount.TabIndex = 6;
             this.chkRespectVirtualDesktopCount.Text = "Respect VD Count";
             this.chkRespectVirtualDesktopCount.UseVisualStyleBackColor = true;
             // 
@@ -277,7 +277,7 @@
             0});
             this.numVirtualDesktopCount.Name = "numVirtualDesktopCount";
             this.numVirtualDesktopCount.Size = new System.Drawing.Size(230, 20);
-            this.numVirtualDesktopCount.TabIndex = 52;
+            this.numVirtualDesktopCount.TabIndex = 5;
             this.numVirtualDesktopCount.Value = new decimal(new int[] {
             1,
             0,
@@ -291,7 +291,7 @@
             this.lblVirtualDesktopsCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblVirtualDesktopsCaption.Name = "lblVirtualDesktopsCaption";
             this.lblVirtualDesktopsCaption.Size = new System.Drawing.Size(87, 13);
-            this.lblVirtualDesktopsCaption.TabIndex = 51;
+            this.lblVirtualDesktopsCaption.TabIndex = 4;
             this.lblVirtualDesktopsCaption.Text = "Virtual Desktops:";
             // 
             // btnRecordConfiguration
@@ -300,7 +300,7 @@
             this.btnRecordConfiguration.Location = new System.Drawing.Point(3, 3);
             this.btnRecordConfiguration.Name = "btnRecordConfiguration";
             this.btnRecordConfiguration.Size = new System.Drawing.Size(112, 23);
-            this.btnRecordConfiguration.TabIndex = 49;
+            this.btnRecordConfiguration.TabIndex = 0;
             this.btnRecordConfiguration.Text = "Record";
             this.btnRecordConfiguration.UseVisualStyleBackColor = true;
             this.btnRecordConfiguration.Click += new System.EventHandler(this.RecordConfigurationHandler);
@@ -311,7 +311,7 @@
             this.btnDeleteConfiguration.Location = new System.Drawing.Point(121, 3);
             this.btnDeleteConfiguration.Name = "btnDeleteConfiguration";
             this.btnDeleteConfiguration.Size = new System.Drawing.Size(112, 23);
-            this.btnDeleteConfiguration.TabIndex = 50;
+            this.btnDeleteConfiguration.TabIndex = 1;
             this.btnDeleteConfiguration.Text = "Delete";
             this.btnDeleteConfiguration.UseVisualStyleBackColor = true;
             this.btnDeleteConfiguration.Click += new System.EventHandler(this.DeleteConfigurationHandler);
@@ -324,7 +324,7 @@
             this.lblConfigurationNameCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblConfigurationNameCaption.Name = "lblConfigurationNameCaption";
             this.lblConfigurationNameCaption.Size = new System.Drawing.Size(38, 13);
-            this.lblConfigurationNameCaption.TabIndex = 41;
+            this.lblConfigurationNameCaption.TabIndex = 2;
             this.lblConfigurationNameCaption.Text = "Name:";
             // 
             // txtConfigurationName
@@ -335,7 +335,7 @@
             this.txtConfigurationName.Location = new System.Drawing.Point(3, 51);
             this.txtConfigurationName.Name = "txtConfigurationName";
             this.txtConfigurationName.Size = new System.Drawing.Size(230, 20);
-            this.txtConfigurationName.TabIndex = 40;
+            this.txtConfigurationName.TabIndex = 3;
             // 
             // listConfigurationPatterns
             // 
@@ -347,7 +347,7 @@
             this.listConfigurationPatterns.Location = new System.Drawing.Point(3, 145);
             this.listConfigurationPatterns.Name = "listConfigurationPatterns";
             this.listConfigurationPatterns.Size = new System.Drawing.Size(230, 426);
-            this.listConfigurationPatterns.TabIndex = 37;
+            this.listConfigurationPatterns.TabIndex = 7;
             // 
             // previewConfiguration
             // 
@@ -356,7 +356,7 @@
             this.previewConfiguration.Location = new System.Drawing.Point(245, 3);
             this.previewConfiguration.Name = "previewConfiguration";
             this.previewConfiguration.Size = new System.Drawing.Size(722, 255);
-            this.previewConfiguration.TabIndex = 58;
+            this.previewConfiguration.TabIndex = 1;
             this.previewConfiguration.Paint += new System.Windows.Forms.PaintEventHandler(this.ConfigurationPreviewPaintHandler);
             // 
             // tableConfigurationPatternDetails
@@ -377,7 +377,7 @@
             tableConfigurationPatternDetails.Controls.Add(this.lblScreensCaption, 0, 0);
             tableConfigurationPatternDetails.Controls.Add(this.lblScreenNameCaption, 1, 1);
             tableConfigurationPatternDetails.Controls.Add(this.txtScreenName, 2, 1);
-            tableConfigurationPatternDetails.Controls.Add(this.label1, 1, 2);
+            tableConfigurationPatternDetails.Controls.Add(this.lblScreenDeviceNameCaption, 1, 2);
             tableConfigurationPatternDetails.Controls.Add(this.lblScreenLeftCaption, 1, 3);
             tableConfigurationPatternDetails.Controls.Add(this.txtDeviceName, 2, 2);
             tableConfigurationPatternDetails.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -394,7 +394,7 @@
             tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableConfigurationPatternDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableConfigurationPatternDetails.Size = new System.Drawing.Size(722, 313);
-            tableConfigurationPatternDetails.TabIndex = 59;
+            tableConfigurationPatternDetails.TabIndex = 2;
             // 
             // numScreenHeight
             // 
@@ -414,7 +414,7 @@
             this.numScreenHeight.Name = "numScreenHeight";
             this.numScreenHeight.ReadOnly = true;
             this.numScreenHeight.Size = new System.Drawing.Size(207, 20);
-            this.numScreenHeight.TabIndex = 55;
+            this.numScreenHeight.TabIndex = 13;
             // 
             // listScreenPatterns
             // 
@@ -426,7 +426,7 @@
             this.listScreenPatterns.Name = "listScreenPatterns";
             tableConfigurationPatternDetails.SetRowSpan(this.listScreenPatterns, 7);
             this.listScreenPatterns.Size = new System.Drawing.Size(207, 288);
-            this.listScreenPatterns.TabIndex = 57;
+            this.listScreenPatterns.TabIndex = 1;
             // 
             // screensPatternsBindingSource
             // 
@@ -444,7 +444,7 @@
             this.lblScreenHeightCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblScreenHeightCaption.Name = "lblScreenHeightCaption";
             this.lblScreenHeightCaption.Size = new System.Drawing.Size(75, 20);
-            this.lblScreenHeightCaption.TabIndex = 47;
+            this.lblScreenHeightCaption.TabIndex = 12;
             this.lblScreenHeightCaption.Text = "Height:";
             this.lblScreenHeightCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -466,7 +466,7 @@
             this.numScreenWidth.Name = "numScreenWidth";
             this.numScreenWidth.ReadOnly = true;
             this.numScreenWidth.Size = new System.Drawing.Size(207, 20);
-            this.numScreenWidth.TabIndex = 54;
+            this.numScreenWidth.TabIndex = 11;
             // 
             // lblScreenTopCaption
             // 
@@ -477,7 +477,7 @@
             this.lblScreenTopCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblScreenTopCaption.Name = "lblScreenTopCaption";
             this.lblScreenTopCaption.Size = new System.Drawing.Size(75, 20);
-            this.lblScreenTopCaption.TabIndex = 48;
+            this.lblScreenTopCaption.TabIndex = 8;
             this.lblScreenTopCaption.Text = "Top:";
             this.lblScreenTopCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -490,7 +490,7 @@
             this.lblScreenWidthCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblScreenWidthCaption.Name = "lblScreenWidthCaption";
             this.lblScreenWidthCaption.Size = new System.Drawing.Size(75, 20);
-            this.lblScreenWidthCaption.TabIndex = 46;
+            this.lblScreenWidthCaption.TabIndex = 10;
             this.lblScreenWidthCaption.Text = "Width:";
             this.lblScreenWidthCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -512,7 +512,7 @@
             this.numScreenTop.Name = "numScreenTop";
             this.numScreenTop.ReadOnly = true;
             this.numScreenTop.Size = new System.Drawing.Size(207, 20);
-            this.numScreenTop.TabIndex = 53;
+            this.numScreenTop.TabIndex = 9;
             // 
             // numScreenLeft
             // 
@@ -532,7 +532,7 @@
             this.numScreenLeft.Name = "numScreenLeft";
             this.numScreenLeft.ReadOnly = true;
             this.numScreenLeft.Size = new System.Drawing.Size(207, 20);
-            this.numScreenLeft.TabIndex = 52;
+            this.numScreenLeft.TabIndex = 7;
             // 
             // lblScreensCaption
             // 
@@ -541,7 +541,7 @@
             this.lblScreensCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblScreensCaption.Name = "lblScreensCaption";
             this.lblScreensCaption.Size = new System.Drawing.Size(49, 13);
-            this.lblScreensCaption.TabIndex = 43;
+            this.lblScreensCaption.TabIndex = 0;
             this.lblScreensCaption.Text = "Screens:";
             // 
             // lblScreenNameCaption
@@ -552,7 +552,7 @@
             this.lblScreenNameCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblScreenNameCaption.Name = "lblScreenNameCaption";
             this.lblScreenNameCaption.Size = new System.Drawing.Size(75, 20);
-            this.lblScreenNameCaption.TabIndex = 44;
+            this.lblScreenNameCaption.TabIndex = 2;
             this.lblScreenNameCaption.Text = "Name:";
             this.lblScreenNameCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -563,20 +563,20 @@
             this.txtScreenName.Location = new System.Drawing.Point(297, 22);
             this.txtScreenName.Name = "txtScreenName";
             this.txtScreenName.Size = new System.Drawing.Size(207, 20);
-            this.txtScreenName.TabIndex = 38;
+            this.txtScreenName.TabIndex = 3;
             // 
-            // label1
+            // lblScreenDeviceNameCaption
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Enabled = false;
-            this.label1.Location = new System.Drawing.Point(216, 48);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 20);
-            this.label1.TabIndex = 44;
-            this.label1.Text = "Device Name:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblScreenDeviceNameCaption.AutoSize = true;
+            this.lblScreenDeviceNameCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblScreenDeviceNameCaption.Enabled = false;
+            this.lblScreenDeviceNameCaption.Location = new System.Drawing.Point(216, 48);
+            this.lblScreenDeviceNameCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblScreenDeviceNameCaption.Name = "lblScreenDeviceNameCaption";
+            this.lblScreenDeviceNameCaption.Size = new System.Drawing.Size(75, 20);
+            this.lblScreenDeviceNameCaption.TabIndex = 4;
+            this.lblScreenDeviceNameCaption.Text = "Device Name:";
+            this.lblScreenDeviceNameCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblScreenLeftCaption
             // 
@@ -587,7 +587,7 @@
             this.lblScreenLeftCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblScreenLeftCaption.Name = "lblScreenLeftCaption";
             this.lblScreenLeftCaption.Size = new System.Drawing.Size(75, 20);
-            this.lblScreenLeftCaption.TabIndex = 45;
+            this.lblScreenLeftCaption.TabIndex = 6;
             this.lblScreenLeftCaption.Text = "Left:";
             this.lblScreenLeftCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -600,7 +600,7 @@
             this.txtDeviceName.Name = "txtDeviceName";
             this.txtDeviceName.ReadOnly = true;
             this.txtDeviceName.Size = new System.Drawing.Size(207, 20);
-            this.txtDeviceName.TabIndex = 39;
+            this.txtDeviceName.TabIndex = 5;
             // 
             // tableWindowPatterns
             // 
@@ -661,7 +661,7 @@
             tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableWindowPatterns.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableWindowPatterns.Size = new System.Drawing.Size(970, 580);
-            tableWindowPatterns.TabIndex = 30;
+            tableWindowPatterns.TabIndex = 0;
             // 
             // listWindows
             // 
@@ -682,7 +682,7 @@
             this.listWindows.MultiSelect = false;
             this.listWindows.Name = "listWindows";
             this.listWindows.Size = new System.Drawing.Size(964, 216);
-            this.listWindows.TabIndex = 3;
+            this.listWindows.TabIndex = 0;
             this.listWindows.UseCompatibleStateImageBehavior = false;
             this.listWindows.View = System.Windows.Forms.View.Details;
             // 
@@ -732,7 +732,7 @@
             this.btnReloadWindowList.Location = new System.Drawing.Point(852, 225);
             this.btnReloadWindowList.Name = "btnReloadWindowList";
             this.btnReloadWindowList.Size = new System.Drawing.Size(115, 23);
-            this.btnReloadWindowList.TabIndex = 1;
+            this.btnReloadWindowList.TabIndex = 25;
             this.btnReloadWindowList.Text = "Refresh Window List";
             this.btnReloadWindowList.UseVisualStyleBackColor = true;
             this.btnReloadWindowList.Click += new System.EventHandler(this.ReloadWindowListHandler);
@@ -743,7 +743,7 @@
             this.btnDeleteWindowPattern.Location = new System.Drawing.Point(124, 254);
             this.btnDeleteWindowPattern.Name = "btnDeleteWindowPattern";
             this.btnDeleteWindowPattern.Size = new System.Drawing.Size(115, 23);
-            this.btnDeleteWindowPattern.TabIndex = 26;
+            this.btnDeleteWindowPattern.TabIndex = 3;
             this.btnDeleteWindowPattern.Text = "Delete";
             this.btnDeleteWindowPattern.UseVisualStyleBackColor = true;
             this.btnDeleteWindowPattern.Click += new System.EventHandler(this.DeleteWindowPatternHandler);
@@ -756,7 +756,7 @@
             this.lblRestoreCommandArgs.Margin = new System.Windows.Forms.Padding(3);
             this.lblRestoreCommandArgs.Name = "lblRestoreCommandArgs";
             this.lblRestoreCommandArgs.Size = new System.Drawing.Size(139, 20);
-            this.lblRestoreCommandArgs.TabIndex = 29;
+            this.lblRestoreCommandArgs.TabIndex = 21;
             this.lblRestoreCommandArgs.Text = "Command Args:";
             this.lblRestoreCommandArgs.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -768,7 +768,7 @@
             this.lblWindowPatternsCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowPatternsCaption.Name = "lblWindowPatternsCaption";
             this.lblWindowPatternsCaption.Size = new System.Drawing.Size(115, 23);
-            this.lblWindowPatternsCaption.TabIndex = 27;
+            this.lblWindowPatternsCaption.TabIndex = 1;
             this.lblWindowPatternsCaption.Text = "Window Patterns:";
             this.lblWindowPatternsCaption.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
@@ -780,7 +780,7 @@
             this.lblMatchCount.Name = "lblMatchCount";
             this.lblMatchCount.Padding = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.lblMatchCount.Size = new System.Drawing.Size(139, 20);
-            this.lblMatchCount.TabIndex = 28;
+            this.lblMatchCount.TabIndex = 18;
             this.lblMatchCount.Text = "0";
             this.lblMatchCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -792,7 +792,7 @@
             this.lblRestoreWorkingDir.Margin = new System.Windows.Forms.Padding(3);
             this.lblRestoreWorkingDir.Name = "lblRestoreWorkingDir";
             this.lblRestoreWorkingDir.Size = new System.Drawing.Size(139, 20);
-            this.lblRestoreWorkingDir.TabIndex = 15;
+            this.lblRestoreWorkingDir.TabIndex = 23;
             this.lblRestoreWorkingDir.Text = "Working Directory:";
             this.lblRestoreWorkingDir.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -804,7 +804,7 @@
             this.txtRestoreWorkingDir.Location = new System.Drawing.Point(390, 512);
             this.txtRestoreWorkingDir.Name = "txtRestoreWorkingDir";
             this.txtRestoreWorkingDir.Size = new System.Drawing.Size(577, 20);
-            this.txtRestoreWorkingDir.TabIndex = 17;
+            this.txtRestoreWorkingDir.TabIndex = 24;
             // 
             // windowPatternsBindingSource
             // 
@@ -825,7 +825,7 @@
             this.listWindowPatterns.Name = "listWindowPatterns";
             tableWindowPatterns.SetRowSpan(this.listWindowPatterns, 9);
             this.listWindowPatterns.Size = new System.Drawing.Size(236, 249);
-            this.listWindowPatterns.TabIndex = 14;
+            this.listWindowPatterns.TabIndex = 6;
             // 
             // lblWindowPatternName
             // 
@@ -834,7 +834,7 @@
             this.lblWindowPatternName.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowPatternName.Name = "lblWindowPatternName";
             this.lblWindowPatternName.Size = new System.Drawing.Size(38, 13);
-            this.lblWindowPatternName.TabIndex = 25;
+            this.lblWindowPatternName.TabIndex = 4;
             this.lblWindowPatternName.Text = "Name:";
             // 
             // chkWindowClassIgnoreCase
@@ -845,7 +845,7 @@
             this.chkWindowClassIgnoreCase.Location = new System.Drawing.Point(535, 381);
             this.chkWindowClassIgnoreCase.Name = "chkWindowClassIgnoreCase";
             this.chkWindowClassIgnoreCase.Size = new System.Drawing.Size(139, 21);
-            this.chkWindowClassIgnoreCase.TabIndex = 22;
+            this.chkWindowClassIgnoreCase.TabIndex = 14;
             this.chkWindowClassIgnoreCase.Text = "Ignore Case";
             this.chkWindowClassIgnoreCase.UseVisualStyleBackColor = true;
             // 
@@ -857,7 +857,7 @@
             this.txtRestoreCommandArgs.Location = new System.Drawing.Point(390, 486);
             this.txtRestoreCommandArgs.Name = "txtRestoreCommandArgs";
             this.txtRestoreCommandArgs.Size = new System.Drawing.Size(577, 20);
-            this.txtRestoreCommandArgs.TabIndex = 17;
+            this.txtRestoreCommandArgs.TabIndex = 22;
             // 
             // txtWindowPatternName
             // 
@@ -867,7 +867,7 @@
             this.txtWindowPatternName.Location = new System.Drawing.Point(3, 302);
             this.txtWindowPatternName.Name = "txtWindowPatternName";
             this.txtWindowPatternName.Size = new System.Drawing.Size(236, 20);
-            this.txtWindowPatternName.TabIndex = 18;
+            this.txtWindowPatternName.TabIndex = 5;
             // 
             // txtRestoreCommand
             // 
@@ -877,7 +877,7 @@
             this.txtRestoreCommand.Location = new System.Drawing.Point(390, 460);
             this.txtRestoreCommand.Name = "txtRestoreCommand";
             this.txtRestoreCommand.Size = new System.Drawing.Size(577, 20);
-            this.txtRestoreCommand.TabIndex = 17;
+            this.txtRestoreCommand.TabIndex = 20;
             // 
             // lblRestoreCommand
             // 
@@ -887,7 +887,7 @@
             this.lblRestoreCommand.Margin = new System.Windows.Forms.Padding(3);
             this.lblRestoreCommand.Name = "lblRestoreCommand";
             this.lblRestoreCommand.Size = new System.Drawing.Size(139, 20);
-            this.lblRestoreCommand.TabIndex = 15;
+            this.lblRestoreCommand.TabIndex = 19;
             this.lblRestoreCommand.Text = "Command:";
             this.lblRestoreCommand.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -899,7 +899,7 @@
             this.chkTitleIgnoreCase.Location = new System.Drawing.Point(535, 328);
             this.chkTitleIgnoreCase.Name = "chkTitleIgnoreCase";
             this.chkTitleIgnoreCase.Size = new System.Drawing.Size(139, 21);
-            this.chkTitleIgnoreCase.TabIndex = 23;
+            this.chkTitleIgnoreCase.TabIndex = 10;
             this.chkTitleIgnoreCase.Text = "Ignore Case";
             this.chkTitleIgnoreCase.UseVisualStyleBackColor = true;
             // 
@@ -912,7 +912,7 @@
             this.cmbWindowClassPatternType.Location = new System.Drawing.Point(390, 381);
             this.cmbWindowClassPatternType.Name = "cmbWindowClassPatternType";
             this.cmbWindowClassPatternType.Size = new System.Drawing.Size(139, 21);
-            this.cmbWindowClassPatternType.TabIndex = 20;
+            this.cmbWindowClassPatternType.TabIndex = 13;
             // 
             // txtTitlePattern
             // 
@@ -922,7 +922,7 @@
             this.txtTitlePattern.Location = new System.Drawing.Point(390, 302);
             this.txtTitlePattern.Name = "txtTitlePattern";
             this.txtTitlePattern.Size = new System.Drawing.Size(284, 20);
-            this.txtTitlePattern.TabIndex = 19;
+            this.txtTitlePattern.TabIndex = 8;
             // 
             // lblMatchCountCaption
             // 
@@ -932,7 +932,7 @@
             this.lblMatchCountCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblMatchCountCaption.Name = "lblMatchCountCaption";
             this.lblMatchCountCaption.Size = new System.Drawing.Size(139, 20);
-            this.lblMatchCountCaption.TabIndex = 15;
+            this.lblMatchCountCaption.TabIndex = 17;
             this.lblMatchCountCaption.Text = "Matching:";
             this.lblMatchCountCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -944,7 +944,7 @@
             this.txtProcessFileName.Location = new System.Drawing.Point(390, 408);
             this.txtProcessFileName.Name = "txtProcessFileName";
             this.txtProcessFileName.Size = new System.Drawing.Size(577, 20);
-            this.txtProcessFileName.TabIndex = 17;
+            this.txtProcessFileName.TabIndex = 16;
             // 
             // lblProcessFileName
             // 
@@ -966,7 +966,7 @@
             this.lblTitlePatternCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblTitlePatternCaption.Name = "lblTitlePatternCaption";
             this.lblTitlePatternCaption.Size = new System.Drawing.Size(139, 20);
-            this.lblTitlePatternCaption.TabIndex = 16;
+            this.lblTitlePatternCaption.TabIndex = 7;
             this.lblTitlePatternCaption.Text = "Window Title:";
             this.lblTitlePatternCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -979,7 +979,7 @@
             this.cmbTitlePatternType.Location = new System.Drawing.Point(390, 328);
             this.cmbTitlePatternType.Name = "cmbTitlePatternType";
             this.cmbTitlePatternType.Size = new System.Drawing.Size(139, 21);
-            this.cmbTitlePatternType.TabIndex = 21;
+            this.cmbTitlePatternType.TabIndex = 9;
             // 
             // txtWindowClassPattern
             // 
@@ -989,7 +989,7 @@
             this.txtWindowClassPattern.Location = new System.Drawing.Point(390, 355);
             this.txtWindowClassPattern.Name = "txtWindowClassPattern";
             this.txtWindowClassPattern.Size = new System.Drawing.Size(577, 20);
-            this.txtWindowClassPattern.TabIndex = 17;
+            this.txtWindowClassPattern.TabIndex = 12;
             // 
             // lblWindowClassPatternCaption
             // 
@@ -999,7 +999,7 @@
             this.lblWindowClassPatternCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowClassPatternCaption.Name = "lblWindowClassPatternCaption";
             this.lblWindowClassPatternCaption.Size = new System.Drawing.Size(139, 20);
-            this.lblWindowClassPatternCaption.TabIndex = 15;
+            this.lblWindowClassPatternCaption.TabIndex = 11;
             this.lblWindowClassPatternCaption.Text = "Window Class:";
             this.lblWindowClassPatternCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1009,7 +1009,7 @@
             this.btnNewWindowPattern.Location = new System.Drawing.Point(3, 254);
             this.btnNewWindowPattern.Name = "btnNewWindowPattern";
             this.btnNewWindowPattern.Size = new System.Drawing.Size(115, 23);
-            this.btnNewWindowPattern.TabIndex = 24;
+            this.btnNewWindowPattern.TabIndex = 2;
             this.btnNewWindowPattern.Text = "New";
             this.btnNewWindowPattern.UseVisualStyleBackColor = true;
             this.btnNewWindowPattern.Click += new System.EventHandler(this.NewWindowPatternHandler);
@@ -1029,7 +1029,7 @@
             tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
             tableLayouts.Size = new System.Drawing.Size(970, 580);
-            tableLayouts.TabIndex = 73;
+            tableLayouts.TabIndex = 0;
             // 
             // previewLayout
             // 
@@ -1038,7 +1038,7 @@
             this.previewLayout.Location = new System.Drawing.Point(245, 3);
             this.previewLayout.Name = "previewLayout";
             this.previewLayout.Size = new System.Drawing.Size(722, 255);
-            this.previewLayout.TabIndex = 31;
+            this.previewLayout.TabIndex = 1;
             this.previewLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutPreviewPaintHandler);
             // 
             // tableLayoutList
@@ -1067,7 +1067,7 @@
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutList.Size = new System.Drawing.Size(236, 574);
-            tableLayoutList.TabIndex = 32;
+            tableLayoutList.TabIndex = 0;
             // 
             // btnNewLayout
             // 
@@ -1075,7 +1075,7 @@
             this.btnNewLayout.Location = new System.Drawing.Point(3, 3);
             this.btnNewLayout.Name = "btnNewLayout";
             this.btnNewLayout.Size = new System.Drawing.Size(112, 23);
-            this.btnNewLayout.TabIndex = 1;
+            this.btnNewLayout.TabIndex = 0;
             this.btnNewLayout.Text = "New";
             this.btnNewLayout.UseVisualStyleBackColor = true;
             this.btnNewLayout.Click += new System.EventHandler(this.NewLayoutHandler);
@@ -1086,7 +1086,7 @@
             this.btnDeleteLayout.Location = new System.Drawing.Point(121, 3);
             this.btnDeleteLayout.Name = "btnDeleteLayout";
             this.btnDeleteLayout.Size = new System.Drawing.Size(112, 23);
-            this.btnDeleteLayout.TabIndex = 27;
+            this.btnDeleteLayout.TabIndex = 1;
             this.btnDeleteLayout.Text = "Delete";
             this.btnDeleteLayout.UseVisualStyleBackColor = true;
             this.btnDeleteLayout.Click += new System.EventHandler(this.DeleteLayoutHandler);
@@ -1099,7 +1099,7 @@
             this.lblLayoutNameCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblLayoutNameCaption.Name = "lblLayoutNameCaption";
             this.lblLayoutNameCaption.Size = new System.Drawing.Size(38, 13);
-            this.lblLayoutNameCaption.TabIndex = 29;
+            this.lblLayoutNameCaption.TabIndex = 2;
             this.lblLayoutNameCaption.Text = "Name:";
             // 
             // txtLayoutName
@@ -1110,7 +1110,7 @@
             this.txtLayoutName.Location = new System.Drawing.Point(3, 51);
             this.txtLayoutName.Name = "txtLayoutName";
             this.txtLayoutName.Size = new System.Drawing.Size(230, 20);
-            this.txtLayoutName.TabIndex = 28;
+            this.txtLayoutName.TabIndex = 3;
             // 
             // layoutsBindingSource
             // 
@@ -1128,7 +1128,7 @@
             this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 77);
             this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
             this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(230, 17);
-            this.chkLayoutIsDefaultLayout.TabIndex = 32;
+            this.chkLayoutIsDefaultLayout.TabIndex = 4;
             this.chkLayoutIsDefaultLayout.Text = "Default Layout";
             this.chkLayoutIsDefaultLayout.UseVisualStyleBackColor = true;
             // 
@@ -1140,7 +1140,7 @@
             this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
             this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(109, 13);
-            this.lblConfigurationPatternCaption.TabIndex = 29;
+            this.lblConfigurationPatternCaption.TabIndex = 5;
             this.lblConfigurationPatternCaption.Text = "Configuration Pattern:";
             // 
             // cmbLayoutConfiguration
@@ -1152,7 +1152,7 @@
             this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 119);
             this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
             this.cmbLayoutConfiguration.Size = new System.Drawing.Size(230, 21);
-            this.cmbLayoutConfiguration.TabIndex = 68;
+            this.cmbLayoutConfiguration.TabIndex = 6;
             // 
             // listLayouts
             // 
@@ -1164,7 +1164,7 @@
             this.listLayouts.Location = new System.Drawing.Point(3, 146);
             this.listLayouts.Name = "listLayouts";
             this.listLayouts.Size = new System.Drawing.Size(230, 425);
-            this.listLayouts.TabIndex = 0;
+            this.listLayouts.TabIndex = 7;
             // 
             // tableLayoutDetails
             // 
@@ -1222,7 +1222,7 @@
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutDetails.Size = new System.Drawing.Size(722, 313);
-            tableLayoutDetails.TabIndex = 33;
+            tableLayoutDetails.TabIndex = 2;
             // 
             // lblWindowActionsCaption
             // 
@@ -1233,7 +1233,7 @@
             this.lblWindowActionsCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionsCaption.Name = "lblWindowActionsCaption";
             this.lblWindowActionsCaption.Size = new System.Drawing.Size(234, 13);
-            this.lblWindowActionsCaption.TabIndex = 70;
+            this.lblWindowActionsCaption.TabIndex = 0;
             this.lblWindowActionsCaption.Text = "Window Actions:";
             this.lblWindowActionsCaption.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
@@ -1245,7 +1245,7 @@
             this.chkWindowActionBottomInvert.Location = new System.Drawing.Point(603, 240);
             this.chkWindowActionBottomInvert.Name = "chkWindowActionBottomInvert";
             this.chkWindowActionBottomInvert.Size = new System.Drawing.Size(116, 21);
-            this.chkWindowActionBottomInvert.TabIndex = 71;
+            this.chkWindowActionBottomInvert.TabIndex = 28;
             this.chkWindowActionBottomInvert.Text = "from Bottom";
             this.chkWindowActionBottomInvert.UseVisualStyleBackColor = true;
             // 
@@ -1265,7 +1265,7 @@
             this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(363, 267);
             this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
             this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(234, 17);
-            this.chkWindowActionCompensateOsMargin.TabIndex = 72;
+            this.chkWindowActionCompensateOsMargin.TabIndex = 29;
             this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
             this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
             // 
@@ -1277,7 +1277,7 @@
             this.chkWindowActionRightInvert.Location = new System.Drawing.Point(603, 213);
             this.chkWindowActionRightInvert.Name = "chkWindowActionRightInvert";
             this.chkWindowActionRightInvert.Size = new System.Drawing.Size(116, 21);
-            this.chkWindowActionRightInvert.TabIndex = 71;
+            this.chkWindowActionRightInvert.TabIndex = 24;
             this.chkWindowActionRightInvert.Text = "from Right";
             this.chkWindowActionRightInvert.UseVisualStyleBackColor = true;
             // 
@@ -1287,7 +1287,7 @@
             this.btnNewWindowAction.Location = new System.Drawing.Point(3, 22);
             this.btnNewWindowAction.Name = "btnNewWindowAction";
             this.btnNewWindowAction.Size = new System.Drawing.Size(114, 24);
-            this.btnNewWindowAction.TabIndex = 66;
+            this.btnNewWindowAction.TabIndex = 1;
             this.btnNewWindowAction.Text = "New";
             this.btnNewWindowAction.UseVisualStyleBackColor = true;
             this.btnNewWindowAction.Click += new System.EventHandler(this.NewWindowActionHandler);
@@ -1300,7 +1300,7 @@
             this.chkWindowActionTopInvert.Location = new System.Drawing.Point(603, 186);
             this.chkWindowActionTopInvert.Name = "chkWindowActionTopInvert";
             this.chkWindowActionTopInvert.Size = new System.Drawing.Size(116, 21);
-            this.chkWindowActionTopInvert.TabIndex = 71;
+            this.chkWindowActionTopInvert.TabIndex = 20;
             this.chkWindowActionTopInvert.Text = "from Bottom";
             this.chkWindowActionTopInvert.UseVisualStyleBackColor = true;
             // 
@@ -1310,7 +1310,7 @@
             this.btnDeleteWindowAction.Location = new System.Drawing.Point(123, 22);
             this.btnDeleteWindowAction.Name = "btnDeleteWindowAction";
             this.btnDeleteWindowAction.Size = new System.Drawing.Size(114, 24);
-            this.btnDeleteWindowAction.TabIndex = 44;
+            this.btnDeleteWindowAction.TabIndex = 2;
             this.btnDeleteWindowAction.Text = "Delete";
             this.btnDeleteWindowAction.UseVisualStyleBackColor = true;
             this.btnDeleteWindowAction.Click += new System.EventHandler(this.DeleteWindowActionHandler);
@@ -1323,7 +1323,7 @@
             this.chkWindowActionLeftInvert.Location = new System.Drawing.Point(603, 159);
             this.chkWindowActionLeftInvert.Name = "chkWindowActionLeftInvert";
             this.chkWindowActionLeftInvert.Size = new System.Drawing.Size(116, 21);
-            this.chkWindowActionLeftInvert.TabIndex = 71;
+            this.chkWindowActionLeftInvert.TabIndex = 16;
             this.chkWindowActionLeftInvert.Text = "from Right";
             this.chkWindowActionLeftInvert.UseVisualStyleBackColor = true;
             // 
@@ -1338,7 +1338,7 @@
             this.listWindowAction.Name = "listWindowAction";
             tableLayoutDetails.SetRowSpan(this.listWindowAction, 10);
             this.listWindowAction.Size = new System.Drawing.Size(234, 258);
-            this.listWindowAction.TabIndex = 43;
+            this.listWindowAction.TabIndex = 3;
             // 
             // cmbWindowActionBottomUnit
             // 
@@ -1349,7 +1349,7 @@
             this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(483, 240);
             this.cmbWindowActionBottomUnit.Name = "cmbWindowActionBottomUnit";
             this.cmbWindowActionBottomUnit.Size = new System.Drawing.Size(114, 21);
-            this.cmbWindowActionBottomUnit.TabIndex = 51;
+            this.cmbWindowActionBottomUnit.TabIndex = 27;
             // 
             // numWindowActionBottom
             // 
@@ -1368,7 +1368,7 @@
             -2147483648});
             this.numWindowActionBottom.Name = "numWindowActionBottom";
             this.numWindowActionBottom.Size = new System.Drawing.Size(114, 20);
-            this.numWindowActionBottom.TabIndex = 64;
+            this.numWindowActionBottom.TabIndex = 26;
             // 
             // cmbWindowActionRightUnit
             // 
@@ -1379,7 +1379,7 @@
             this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(483, 213);
             this.cmbWindowActionRightUnit.Name = "cmbWindowActionRightUnit";
             this.cmbWindowActionRightUnit.Size = new System.Drawing.Size(114, 21);
-            this.cmbWindowActionRightUnit.TabIndex = 50;
+            this.cmbWindowActionRightUnit.TabIndex = 23;
             // 
             // cmbWindowActionTopUnit
             // 
@@ -1390,7 +1390,7 @@
             this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(483, 186);
             this.cmbWindowActionTopUnit.Name = "cmbWindowActionTopUnit";
             this.cmbWindowActionTopUnit.Size = new System.Drawing.Size(114, 21);
-            this.cmbWindowActionTopUnit.TabIndex = 49;
+            this.cmbWindowActionTopUnit.TabIndex = 19;
             // 
             // numWindowActionRight
             // 
@@ -1409,7 +1409,7 @@
             -2147483648});
             this.numWindowActionRight.Name = "numWindowActionRight";
             this.numWindowActionRight.Size = new System.Drawing.Size(114, 20);
-            this.numWindowActionRight.TabIndex = 63;
+            this.numWindowActionRight.TabIndex = 22;
             // 
             // cmbWindowActionLeftUnit
             // 
@@ -1420,7 +1420,7 @@
             this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(483, 159);
             this.cmbWindowActionLeftUnit.Name = "cmbWindowActionLeftUnit";
             this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(114, 21);
-            this.cmbWindowActionLeftUnit.TabIndex = 48;
+            this.cmbWindowActionLeftUnit.TabIndex = 15;
             // 
             // chkWindowActionRestore
             // 
@@ -1430,7 +1430,7 @@
             this.chkWindowActionRestore.Location = new System.Drawing.Point(363, 22);
             this.chkWindowActionRestore.Name = "chkWindowActionRestore";
             this.chkWindowActionRestore.Size = new System.Drawing.Size(114, 24);
-            this.chkWindowActionRestore.TabIndex = 69;
+            this.chkWindowActionRestore.TabIndex = 4;
             this.chkWindowActionRestore.Text = "Restore";
             this.chkWindowActionRestore.UseVisualStyleBackColor = true;
             // 
@@ -1451,7 +1451,7 @@
             -2147483648});
             this.numWindowActionTop.Name = "numWindowActionTop";
             this.numWindowActionTop.Size = new System.Drawing.Size(114, 20);
-            this.numWindowActionTop.TabIndex = 62;
+            this.numWindowActionTop.TabIndex = 18;
             // 
             // cmbWindowActionWindow
             // 
@@ -1462,7 +1462,7 @@
             this.cmbWindowActionWindow.Location = new System.Drawing.Point(363, 52);
             this.cmbWindowActionWindow.Name = "cmbWindowActionWindow";
             this.cmbWindowActionWindow.Size = new System.Drawing.Size(234, 21);
-            this.cmbWindowActionWindow.TabIndex = 68;
+            this.cmbWindowActionWindow.TabIndex = 6;
             // 
             // numWindowActionLeft
             // 
@@ -1481,7 +1481,7 @@
             -2147483648});
             this.numWindowActionLeft.Name = "numWindowActionLeft";
             this.numWindowActionLeft.Size = new System.Drawing.Size(114, 20);
-            this.numWindowActionLeft.TabIndex = 61;
+            this.numWindowActionLeft.TabIndex = 14;
             // 
             // lblWindowActionCaption
             // 
@@ -1491,7 +1491,7 @@
             this.lblWindowActionCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionCaption.Name = "lblWindowActionCaption";
             this.lblWindowActionCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionCaption.TabIndex = 67;
+            this.lblWindowActionCaption.TabIndex = 5;
             this.lblWindowActionCaption.Text = "Window Pattern:";
             this.lblWindowActionCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1503,7 +1503,7 @@
             this.lblWindowActionVirtualDesktop.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionVirtualDesktop.Name = "lblWindowActionVirtualDesktop";
             this.lblWindowActionVirtualDesktop.Size = new System.Drawing.Size(114, 20);
-            this.lblWindowActionVirtualDesktop.TabIndex = 52;
+            this.lblWindowActionVirtualDesktop.TabIndex = 7;
             this.lblWindowActionVirtualDesktop.Text = "Virtual Desktop:";
             this.lblWindowActionVirtualDesktop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1519,7 +1519,7 @@
             0});
             this.numWindowActionVirtualDesktop.Name = "numWindowActionVirtualDesktop";
             this.numWindowActionVirtualDesktop.Size = new System.Drawing.Size(114, 20);
-            this.numWindowActionVirtualDesktop.TabIndex = 60;
+            this.numWindowActionVirtualDesktop.TabIndex = 8;
             this.numWindowActionVirtualDesktop.Value = new decimal(new int[] {
             1,
             0,
@@ -1534,7 +1534,7 @@
             this.lblWindowActionBottomCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionBottomCaption.Name = "lblWindowActionBottomCaption";
             this.lblWindowActionBottomCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionBottomCaption.TabIndex = 59;
+            this.lblWindowActionBottomCaption.TabIndex = 25;
             this.lblWindowActionBottomCaption.Text = "Bottom:";
             this.lblWindowActionBottomCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1546,7 +1546,7 @@
             this.lblWindowActionScreenCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionScreenCaption.Name = "lblWindowActionScreenCaption";
             this.lblWindowActionScreenCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionScreenCaption.TabIndex = 53;
+            this.lblWindowActionScreenCaption.TabIndex = 9;
             this.lblWindowActionScreenCaption.Text = "Screen:";
             this.lblWindowActionScreenCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1558,7 +1558,7 @@
             this.lblWindowActionRightCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionRightCaption.Name = "lblWindowActionRightCaption";
             this.lblWindowActionRightCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionRightCaption.TabIndex = 58;
+            this.lblWindowActionRightCaption.TabIndex = 21;
             this.lblWindowActionRightCaption.Text = "Right:";
             this.lblWindowActionRightCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1572,7 +1572,7 @@
             this.cmbWindowActionScreen.Location = new System.Drawing.Point(363, 105);
             this.cmbWindowActionScreen.Name = "cmbWindowActionScreen";
             this.cmbWindowActionScreen.Size = new System.Drawing.Size(234, 21);
-            this.cmbWindowActionScreen.TabIndex = 45;
+            this.cmbWindowActionScreen.TabIndex = 10;
             this.cmbWindowActionScreen.ValueMember = "Name";
             // 
             // lblWindowActionTopCaption
@@ -1583,7 +1583,7 @@
             this.lblWindowActionTopCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionTopCaption.Name = "lblWindowActionTopCaption";
             this.lblWindowActionTopCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionTopCaption.TabIndex = 57;
+            this.lblWindowActionTopCaption.TabIndex = 17;
             this.lblWindowActionTopCaption.Text = "Top:";
             this.lblWindowActionTopCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1595,7 +1595,7 @@
             this.lblWindowStateCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowStateCaption.Name = "lblWindowStateCaption";
             this.lblWindowStateCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowStateCaption.TabIndex = 54;
+            this.lblWindowStateCaption.TabIndex = 11;
             this.lblWindowStateCaption.Text = "Window State:";
             this.lblWindowStateCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1607,7 +1607,7 @@
             this.lblWindowActionLeftCaption.Margin = new System.Windows.Forms.Padding(3);
             this.lblWindowActionLeftCaption.Name = "lblWindowActionLeftCaption";
             this.lblWindowActionLeftCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionLeftCaption.TabIndex = 56;
+            this.lblWindowActionLeftCaption.TabIndex = 13;
             this.lblWindowActionLeftCaption.Text = "Left:";
             this.lblWindowActionLeftCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -1622,7 +1622,7 @@
             this.cmbWindowState.Location = new System.Drawing.Point(363, 132);
             this.cmbWindowState.Name = "cmbWindowState";
             this.cmbWindowState.Size = new System.Drawing.Size(234, 21);
-            this.cmbWindowState.TabIndex = 46;
+            this.cmbWindowState.TabIndex = 12;
             this.cmbWindowState.ValueMember = "Name";
             // 
             // tabMain
@@ -1635,7 +1635,8 @@
             this.tabMain.Name = "tabMain";
             this.tabMain.SelectedIndex = 0;
             this.tabMain.Size = new System.Drawing.Size(984, 612);
-            this.tabMain.TabIndex = 17;
+            this.tabMain.TabIndex = 1;
+            this.tabMain.SelectedIndexChanged += new System.EventHandler(this.MainTabPageChangedHandler);
             // 
             // tpConfigurationPatterns
             // 
@@ -1685,7 +1686,7 @@
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
             this.toolStrip.Size = new System.Drawing.Size(984, 27);
-            this.toolStrip.TabIndex = 18;
+            this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip";
             // 
             // tsbNewWorkspace
@@ -1766,7 +1767,7 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 639);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(984, 22);
-            this.statusStrip.TabIndex = 73;
+            this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip1";
             // 
             // tsslFileName
@@ -1895,7 +1896,7 @@
         private System.Windows.Forms.Label lblScreenHeightCaption;
         private System.Windows.Forms.Label lblScreenWidthCaption;
         private System.Windows.Forms.Label lblScreenLeftCaption;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblScreenDeviceNameCaption;
         private System.Windows.Forms.Label lblScreensCaption;
         private System.Windows.Forms.Label lblConfigurationNameCaption;
         private System.Windows.Forms.TextBox txtDeviceName;
