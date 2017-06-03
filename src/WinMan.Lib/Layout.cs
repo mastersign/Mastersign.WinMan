@@ -21,8 +21,16 @@ namespace Mastersign.WinMan
         {
             var screens = Screen.AllScreens;
             var vdCount = VirtualDesktop.GetDesktops().Length;
-            if (!IsMatch(workspace, screens, vdCount)) return false;
-            return Windows.All(wa => wa.Apply(workspace, this));
+            if (!IsMatch(workspace, screens, vdCount))
+            {
+                return false;
+            }
+            var success = true;
+            foreach (var windowAction in Windows)
+            {
+                if (!windowAction.Apply(workspace, this)) success = false;
+            }
+            return success;
         }
 
         public override string ToString() => Name + " - " + Configuration;
