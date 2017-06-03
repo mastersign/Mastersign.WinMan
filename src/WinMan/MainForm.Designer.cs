@@ -128,7 +128,7 @@
             this.numWindowActionTop = new System.Windows.Forms.NumericUpDown();
             this.cmbWindowActionWindow = new System.Windows.Forms.ComboBox();
             this.numWindowActionLeft = new System.Windows.Forms.NumericUpDown();
-            this.lblWindowActionCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionWindowCaption = new System.Windows.Forms.Label();
             this.lblWindowActionVirtualDesktop = new System.Windows.Forms.Label();
             this.numWindowActionVirtualDesktop = new System.Windows.Forms.NumericUpDown();
             this.lblWindowActionBottomCaption = new System.Windows.Forms.Label();
@@ -136,9 +136,9 @@
             this.lblWindowActionRightCaption = new System.Windows.Forms.Label();
             this.cmbWindowActionScreen = new System.Windows.Forms.ComboBox();
             this.lblWindowActionTopCaption = new System.Windows.Forms.Label();
-            this.lblWindowStateCaption = new System.Windows.Forms.Label();
+            this.lblWindowActionWindowStateCaption = new System.Windows.Forms.Label();
             this.lblWindowActionLeftCaption = new System.Windows.Forms.Label();
-            this.cmbWindowState = new System.Windows.Forms.ComboBox();
+            this.cmbWindowActionWindowState = new System.Windows.Forms.ComboBox();
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tpConfigurationPatterns = new System.Windows.Forms.TabPage();
             this.tpWindowPatterns = new System.Windows.Forms.TabPage();
@@ -256,7 +256,7 @@
             // 
             this.configurationPatternsBindingSource.DataMember = "ConfigurationPatterns";
             this.configurationPatternsBindingSource.DataSource = this.workspaceBindingSource;
-            this.configurationPatternsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedConfigurationPatternChanged);
+            this.configurationPatternsBindingSource.CurrentChanged += new System.EventHandler(this.ConfigurationPatternSelectionChangedHandler);
             this.configurationPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedConfigurationPatternChanged);
             this.configurationPatternsBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.ConfigurationPatternsListChangedHandler);
             // 
@@ -432,7 +432,7 @@
             // 
             this.screensPatternsBindingSource.DataMember = "Screens";
             this.screensPatternsBindingSource.DataSource = this.configurationPatternsBindingSource;
-            this.screensPatternsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedScreenPatternChanged);
+            this.screensPatternsBindingSource.CurrentChanged += new System.EventHandler(this.ScreenPatternSelectionChanged);
             this.screensPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedScreenPatternChanged);
             // 
             // lblScreenHeightCaption
@@ -810,8 +810,8 @@
             // 
             this.windowPatternsBindingSource.DataMember = "WindowPatterns";
             this.windowPatternsBindingSource.DataSource = this.workspaceBindingSource;
-            this.windowPatternsBindingSource.CurrentChanged += new System.EventHandler(this.CurrentWindowPatternChangedHandler);
-            this.windowPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.CurrentWindowPatternChangedHandler);
+            this.windowPatternsBindingSource.CurrentChanged += new System.EventHandler(this.WindowPatternSelectionChangedHandler);
+            this.windowPatternsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedWindowPatternChangedHandler);
             this.windowPatternsBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.WindowPatternListChangedHandler);
             // 
             // listWindowPatterns
@@ -1116,7 +1116,7 @@
             // 
             this.layoutsBindingSource.DataMember = "Layouts";
             this.layoutsBindingSource.DataSource = this.workspaceBindingSource;
-            this.layoutsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedLayoutChangedHandler);
+            this.layoutsBindingSource.CurrentChanged += new System.EventHandler(this.LayoutSelectionChangedHandler);
             this.layoutsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedLayoutChangedHandler);
             // 
             // chkLayoutIsDefaultLayout
@@ -1194,7 +1194,7 @@
             tableLayoutDetails.Controls.Add(this.numWindowActionTop, 3, 7);
             tableLayoutDetails.Controls.Add(this.cmbWindowActionWindow, 3, 2);
             tableLayoutDetails.Controls.Add(this.numWindowActionLeft, 3, 6);
-            tableLayoutDetails.Controls.Add(this.lblWindowActionCaption, 2, 2);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionWindowCaption, 2, 2);
             tableLayoutDetails.Controls.Add(this.lblWindowActionVirtualDesktop, 2, 3);
             tableLayoutDetails.Controls.Add(this.numWindowActionVirtualDesktop, 3, 3);
             tableLayoutDetails.Controls.Add(this.lblWindowActionBottomCaption, 2, 9);
@@ -1202,9 +1202,9 @@
             tableLayoutDetails.Controls.Add(this.lblWindowActionRightCaption, 2, 8);
             tableLayoutDetails.Controls.Add(this.cmbWindowActionScreen, 3, 4);
             tableLayoutDetails.Controls.Add(this.lblWindowActionTopCaption, 2, 7);
-            tableLayoutDetails.Controls.Add(this.lblWindowStateCaption, 2, 5);
+            tableLayoutDetails.Controls.Add(this.lblWindowActionWindowStateCaption, 2, 5);
             tableLayoutDetails.Controls.Add(this.lblWindowActionLeftCaption, 2, 6);
-            tableLayoutDetails.Controls.Add(this.cmbWindowState, 3, 5);
+            tableLayoutDetails.Controls.Add(this.cmbWindowActionWindowState, 3, 5);
             tableLayoutDetails.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutDetails.Location = new System.Drawing.Point(245, 264);
             tableLayoutDetails.Name = "tableLayoutDetails";
@@ -1253,7 +1253,7 @@
             // 
             this.windowActionsBindingSource.DataMember = "Windows";
             this.windowActionsBindingSource.DataSource = this.layoutsBindingSource;
-            this.windowActionsBindingSource.CurrentChanged += new System.EventHandler(this.SelectedWindowActionChangedHandler);
+            this.windowActionsBindingSource.CurrentChanged += new System.EventHandler(this.WindowActionSelectionChangedHandler);
             this.windowActionsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedWindowActionChangedHandler);
             // 
             // chkWindowActionCompensateOsMargin
@@ -1483,17 +1483,17 @@
             this.numWindowActionLeft.Size = new System.Drawing.Size(114, 20);
             this.numWindowActionLeft.TabIndex = 14;
             // 
-            // lblWindowActionCaption
+            // lblWindowActionWindowCaption
             // 
-            this.lblWindowActionCaption.AutoSize = true;
-            this.lblWindowActionCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblWindowActionCaption.Location = new System.Drawing.Point(243, 52);
-            this.lblWindowActionCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowActionCaption.Name = "lblWindowActionCaption";
-            this.lblWindowActionCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowActionCaption.TabIndex = 5;
-            this.lblWindowActionCaption.Text = "Window Pattern:";
-            this.lblWindowActionCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblWindowActionWindowCaption.AutoSize = true;
+            this.lblWindowActionWindowCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionWindowCaption.Location = new System.Drawing.Point(243, 52);
+            this.lblWindowActionWindowCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionWindowCaption.Name = "lblWindowActionWindowCaption";
+            this.lblWindowActionWindowCaption.Size = new System.Drawing.Size(114, 21);
+            this.lblWindowActionWindowCaption.TabIndex = 5;
+            this.lblWindowActionWindowCaption.Text = "Window Pattern:";
+            this.lblWindowActionWindowCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblWindowActionVirtualDesktop
             // 
@@ -1587,17 +1587,17 @@
             this.lblWindowActionTopCaption.Text = "Top:";
             this.lblWindowActionTopCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblWindowStateCaption
+            // lblWIndowActionWindowStateCaption
             // 
-            this.lblWindowStateCaption.AutoSize = true;
-            this.lblWindowStateCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblWindowStateCaption.Location = new System.Drawing.Point(243, 132);
-            this.lblWindowStateCaption.Margin = new System.Windows.Forms.Padding(3);
-            this.lblWindowStateCaption.Name = "lblWindowStateCaption";
-            this.lblWindowStateCaption.Size = new System.Drawing.Size(114, 21);
-            this.lblWindowStateCaption.TabIndex = 11;
-            this.lblWindowStateCaption.Text = "Window State:";
-            this.lblWindowStateCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblWindowActionWindowStateCaption.AutoSize = true;
+            this.lblWindowActionWindowStateCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblWindowActionWindowStateCaption.Location = new System.Drawing.Point(243, 132);
+            this.lblWindowActionWindowStateCaption.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWindowActionWindowStateCaption.Name = "lblWIndowActionWindowStateCaption";
+            this.lblWindowActionWindowStateCaption.Size = new System.Drawing.Size(114, 21);
+            this.lblWindowActionWindowStateCaption.TabIndex = 11;
+            this.lblWindowActionWindowStateCaption.Text = "Window State:";
+            this.lblWindowActionWindowStateCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblWindowActionLeftCaption
             // 
@@ -1611,19 +1611,19 @@
             this.lblWindowActionLeftCaption.Text = "Left:";
             this.lblWindowActionLeftCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cmbWindowState
+            // cmbWindowActionWindowState
             // 
-            tableLayoutDetails.SetColumnSpan(this.cmbWindowState, 2);
-            this.cmbWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.cmbWindowState.DisplayMember = "Name";
-            this.cmbWindowState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cmbWindowState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbWindowState.FormattingEnabled = true;
-            this.cmbWindowState.Location = new System.Drawing.Point(363, 132);
-            this.cmbWindowState.Name = "cmbWindowState";
-            this.cmbWindowState.Size = new System.Drawing.Size(234, 21);
-            this.cmbWindowState.TabIndex = 12;
-            this.cmbWindowState.ValueMember = "Name";
+            tableLayoutDetails.SetColumnSpan(this.cmbWindowActionWindowState, 2);
+            this.cmbWindowActionWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionWindowState.DisplayMember = "Name";
+            this.cmbWindowActionWindowState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cmbWindowActionWindowState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWindowActionWindowState.FormattingEnabled = true;
+            this.cmbWindowActionWindowState.Location = new System.Drawing.Point(363, 132);
+            this.cmbWindowActionWindowState.Name = "cmbWindowActionWindowState";
+            this.cmbWindowActionWindowState.Size = new System.Drawing.Size(234, 21);
+            this.cmbWindowActionWindowState.TabIndex = 12;
+            this.cmbWindowActionWindowState.ValueMember = "Name";
             // 
             // tabMain
             // 
@@ -1906,7 +1906,7 @@
         private System.Windows.Forms.CheckBox chkWindowActionRestore;
         private System.Windows.Forms.ComboBox cmbLayoutConfiguration;
         private System.Windows.Forms.ComboBox cmbWindowActionWindow;
-        private System.Windows.Forms.Label lblWindowActionCaption;
+        private System.Windows.Forms.Label lblWindowActionWindowCaption;
         private System.Windows.Forms.Button btnNewWindowAction;
         private System.Windows.Forms.NumericUpDown numWindowActionBottom;
         private System.Windows.Forms.NumericUpDown numWindowActionRight;
@@ -1919,12 +1919,12 @@
         private System.Windows.Forms.Label lblWindowActionLeftCaption;
         private System.Windows.Forms.ComboBox cmbWindowActionBottomUnit;
         private System.Windows.Forms.ComboBox cmbWindowActionRightUnit;
-        private System.Windows.Forms.Label lblWindowStateCaption;
+        private System.Windows.Forms.Label lblWindowActionWindowStateCaption;
         private System.Windows.Forms.Label lblWindowActionScreenCaption;
         private System.Windows.Forms.ComboBox cmbWindowActionTopUnit;
         private System.Windows.Forms.Label lblWindowActionVirtualDesktop;
         private System.Windows.Forms.ComboBox cmbWindowActionLeftUnit;
-        private System.Windows.Forms.ComboBox cmbWindowState;
+        private System.Windows.Forms.ComboBox cmbWindowActionWindowState;
         private System.Windows.Forms.ComboBox cmbWindowActionScreen;
         private System.Windows.Forms.Button btnDeleteWindowAction;
         private System.Windows.Forms.ListBox listWindowAction;

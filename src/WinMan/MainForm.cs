@@ -30,12 +30,13 @@ namespace Mastersign.WinMan
 
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
-            cmbWindowState.DataSource = Enum.GetValues(typeof(WindowState));
+            cmbWindowActionWindowState.DataSource = Enum.GetValues(typeof(WindowState));
             cmbWindowActionLeftUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionTopUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionRightUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
             cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
+            UpdateControlActivation();
             Core = Program.Core;
         }
 
@@ -49,6 +50,103 @@ namespace Mastersign.WinMan
             tsbApplyWorkspace.Image = new Icon(Resources.ApplyWorkspace, size).ToBitmap();
             tsbApplyCurrentLayout.Image = new Icon(Resources.ApplyLayout, size).ToBitmap();
             tsbApplyWindowAction.Image = new Icon(Resources.ApplyWindow, size).ToBitmap();
+        }
+
+        private void UpdateControlActivation()
+        {
+            SuspendLayout();
+            tsbApplyCurrentLayout.Enabled =
+            tsbApplyWindowAction.Enabled =
+                tabMain.SelectedTab == tpLayouts;
+
+            btnDeleteConfiguration.Enabled =
+            lblConfigurationNameCaption.Enabled =
+            txtConfigurationName.Enabled =
+            lblVirtualDesktopsCaption.Enabled =
+            numVirtualDesktopCount.Enabled =
+            chkRespectVirtualDesktopCount.Enabled =
+            lblScreensCaption.Enabled =
+            listScreenPatterns.Enabled =
+                SelectedConfigurationPattern != null;
+
+            lblScreenNameCaption.Enabled =
+            txtScreenName.Enabled =
+            lblScreenDeviceNameCaption.Enabled =
+            lblScreenLeftCaption.Enabled =
+            lblScreenTopCaption.Enabled =
+            lblScreenWidthCaption.Enabled =
+            lblScreenHeightCaption.Enabled =
+                SelectedScreenPattern != null;
+
+            btnDeleteWindowPattern.Enabled =
+            lblWindowPatternName.Enabled =
+            txtWindowPatternName.Enabled =
+            lblTitlePatternCaption.Enabled =
+            txtTitlePattern.Enabled =
+            cmbTitlePatternType.Enabled =
+            chkTitleIgnoreCase.Enabled =
+            lblWindowClassPatternCaption.Enabled =
+            txtWindowClassPattern.Enabled =
+            cmbWindowClassPatternType.Enabled =
+            chkWindowClassIgnoreCase.Enabled =
+            lblProcessFileName.Enabled =
+            txtProcessFileName.Enabled =
+            lblMatchCountCaption.Enabled =
+            lblMatchCount.Enabled =
+            lblRestoreCommand.Enabled =
+            txtRestoreCommand.Enabled =
+            lblRestoreCommandArgs.Enabled =
+            txtRestoreCommandArgs.Enabled =
+            lblRestoreWorkingDir.Enabled =
+            txtRestoreWorkingDir.Enabled =
+                SelectedWindowPattern != null;
+
+            btnDeleteLayout.Enabled =
+            lblLayoutNameCaption.Enabled =
+            txtLayoutName.Enabled =
+            chkLayoutIsDefaultLayout.Enabled =
+            lblConfigurationPatternCaption.Enabled =
+            cmbLayoutConfiguration.Enabled =
+            lblWindowActionsCaption.Enabled =
+            btnNewWindowAction.Enabled =
+            listWindowAction.Enabled =
+                SelectedLayout != null;
+
+            btnDeleteWindowAction.Enabled =
+            chkWindowActionRestore.Enabled =
+            lblWindowActionWindowCaption.Enabled =
+            cmbWindowActionWindow.Enabled =
+            lblWindowActionVirtualDesktop.Enabled =
+            numWindowActionVirtualDesktop.Enabled =
+            lblWindowActionScreenCaption.Enabled =
+            cmbWindowActionScreen.Enabled =
+            lblWindowActionWindowStateCaption.Enabled =
+            cmbWindowActionWindowState.Enabled =
+            lblWindowActionLeftCaption.Enabled =
+            numWindowActionLeft.Enabled =
+            cmbWindowActionLeftUnit.Enabled =
+            chkWindowActionLeftInvert.Enabled =
+            lblWindowActionTopCaption.Enabled =
+            numWindowActionTop.Enabled =
+            cmbWindowActionTopUnit.Enabled =
+            chkWindowActionTopInvert.Enabled =
+            lblWindowActionRightCaption.Enabled =
+            numWindowActionRight.Enabled =
+            cmbWindowActionRightUnit.Enabled = 
+            chkWindowActionRightInvert.Enabled =
+            lblWindowActionBottomCaption.Enabled =
+            numWindowActionBottom.Enabled =
+            cmbWindowActionBottomUnit.Enabled = 
+            chkWindowActionBottomInvert.Enabled =
+            chkWindowActionCompensateOsMargin.Enabled =
+                SelectedWindowAction != null;
+
+            ResumeLayout();
+        }
+
+        private void MainTabPageChangedHandler(object sender, EventArgs e)
+        {
+            UpdateControlActivation();
         }
 
         #region Core
@@ -85,6 +183,7 @@ namespace Mastersign.WinMan
             CoreWorkspaceChangedHandler(this, EventArgs.Empty);
             CoreWorkspaceFileNameChangedHandler(this, EventArgs.Empty);
             CoreWindowWrappersChangedHandler(this, EventArgs.Empty);
+            UpdateControlActivation();
         }
 
         private void CoreWorkspaceChangedHandler(object sender, EventArgs e)
@@ -231,17 +330,22 @@ namespace Mastersign.WinMan
             Core.Workspace.WindowPatterns.Remove(selectedWindowPattern);
         }
 
-        private void CurrentWindowPatternChangedHandler(object sender, EventArgs e)
-        {
-            RefreshWindowListHandler(sender, e);
-            listWindowPatterns.DataSource = listWindowPatterns.DataSource;
-        }
-
         private void WindowPatternListChangedHandler(object sender, ListChangedEventArgs e)
         {
             if (!HasCore || Core.Workspace == null) return;
             cmbWindowActionWindow.Items.Clear();
             cmbWindowActionWindow.Items.AddRange(Core.Workspace.WindowPatterns.Select(p => p.Name).ToArray());
+        }
+
+        private void WindowPatternSelectionChangedHandler(object sender, EventArgs e)
+        {
+            RefreshWindowListHandler(sender, e);
+            UpdateControlActivation();
+        }
+
+        private void SelectedWindowPatternChangedHandler(object sender, EventArgs e)
+        {
+            RefreshWindowListHandler(sender, e);
         }
 
         #endregion
@@ -275,6 +379,12 @@ namespace Mastersign.WinMan
             cmbLayoutConfiguration.Items.AddRange(Core.Workspace.ConfigurationPatterns.Select(p => p.Name).ToArray());
         }
 
+        private void ConfigurationPatternSelectionChangedHandler(object sender, EventArgs e)
+        {
+            RefreshConfigurationPreview();
+            UpdateControlActivation();
+        }
+
         private void SelectedConfigurationPatternChanged(object sender, EventArgs e)
         {
             RefreshConfigurationPreview();
@@ -302,6 +412,12 @@ namespace Mastersign.WinMan
             => screensPatternsBindingSource.Position >= 0
                 ? screensPatternsBindingSource.Current as ScreenPattern
                 : null;
+
+        private void ScreenPatternSelectionChanged(object sender, EventArgs e)
+        {
+            SelectedScreenPatternChanged(sender, e);
+            UpdateControlActivation();
+        }
 
         private void SelectedScreenPatternChanged(object sender, EventArgs e)
         {
@@ -359,10 +475,22 @@ namespace Mastersign.WinMan
             selectedLayout.Apply(Core.Workspace);
         }
 
+        private void LayoutSelectionChangedHandler(object sender, EventArgs e)
+        {
+            RefreshLayoutPreview();
+            RefreshWindowActionScreens();
+            UpdateControlActivation();
+        }
+
         private void SelectedLayoutChangedHandler(object sender, EventArgs e)
         {
-            if (!HasCore || Core.Workspace == null) return;
             RefreshLayoutPreview();
+            RefreshWindowActionScreens();
+        }
+
+        private void RefreshWindowActionScreens()
+        {
+            if (!HasCore || Core.Workspace == null) return;
             cmbWindowActionScreen.Items.Clear();
             var selectedLayout = SelectedLayout;
             if (selectedLayout != null)
@@ -433,6 +561,12 @@ namespace Mastersign.WinMan
 
             WindowWrapper.ClearCaches();
             selectedWindowAction.Apply(Core.Workspace, selectedLayout);
+        }
+
+        private void WindowActionSelectionChangedHandler(object sender, EventArgs e)
+        {
+            RefreshLayoutPreview();
+            UpdateControlActivation();
         }
 
         private void SelectedWindowActionChangedHandler(object sender, EventArgs e)
