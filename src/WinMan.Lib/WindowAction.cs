@@ -54,8 +54,10 @@ namespace Mastersign.WinMan
         {
             try
             {
-                var startInfo = new ProcessStartInfo(windowPattern.Command, windowPattern.CommandArgs);
-                startInfo.UseShellExecute = true;
+                var startInfo = new ProcessStartInfo("cmd", 
+                    $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {windowPattern.CommandArgs}");
+                startInfo.UseShellExecute = false;
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (!string.IsNullOrWhiteSpace(windowPattern.WorkingDir) &&
                     Directory.Exists(windowPattern.WorkingDir))
                 {
