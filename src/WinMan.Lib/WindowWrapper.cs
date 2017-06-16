@@ -156,10 +156,7 @@ namespace Mastersign.WinMan
         {
             get
             {
-                if (!_placementLoaded)
-                {
-                    ReadPlacement();
-                }
+                if (!_placementLoaded) ReadPlacement();
                 return _placement.NormalPosition;
             }
             set
@@ -170,14 +167,29 @@ namespace Mastersign.WinMan
             }
         }
 
+        public POINT MaximizedPosition
+        {
+            get
+            {
+                if (!_placementLoaded) ReadPlacement();
+                return _placement.MaxPosition;
+            }
+        }
+
+        public POINT MinimizedPosition
+        {
+            get
+            {
+                if (!_placementLoaded) ReadPlacement();
+                return _placement.MinPosition;
+            }
+        }
+
         public ShowWindowCommands ShowCommand
         {
             get
             {
-                if (!_placementLoaded)
-                {
-                    ReadPlacement();
-                }
+                if (!_placementLoaded) ReadPlacement();
                 return _placement.ShowCmd;
             }
             set
