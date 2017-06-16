@@ -112,11 +112,11 @@ namespace Mastersign.WinMan
             switch (WindowState)
             {
                 case WindowState.Minimized:
-                    return ShowWindowCommands.ShowMinimized;
+                    return ShowWindowCommands.ShowMinNoActive;
                 case WindowState.Normal:
-                    return ShowWindowCommands.Normal;
+                    return ShowWindowCommands.ShowNA;
                 case WindowState.Maximized:
-                    return ShowWindowCommands.ShowMaximized;
+                    return ShowWindowCommands.Maximize;
                 default:
                     throw new NotSupportedException();
             }
@@ -125,6 +125,8 @@ namespace Mastersign.WinMan
         public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
         {
             var targetBounds = CalculateTargetBounds(screen.WorkingArea);
+            targetBounds.X = targetBounds.X + (screen.Bounds.X - screen.WorkingArea.X);
+            targetBounds.Y = targetBounds.Y + (screen.Bounds.Y - screen.WorkingArea.Y);
             if (CompensateOsMargin)
             {
                 targetBounds = new Rectangle(
@@ -133,8 +135,10 @@ namespace Mastersign.WinMan
                     targetBounds.Width + OS_MARGIN_LEFT + OS_MARGIN_RIGHT,
                     targetBounds.Height + OS_MARGIN_TOP + OS_MARGIN_BOTTOM);
             }
-            w.SetPlacement(new RECT(targetBounds), WindowStateAsShowWindowCommand());
+            w.ShowCommand = ShowWindowCommands.ShowNA;
             virtualDesktop.MoveWindowHere(w.Handle);
+            w.NormalPosition = new RECT(targetBounds);
+            w.ShowCommand = WindowStateAsShowWindowCommand();
         }
 
         public override string ToString() => Window;
