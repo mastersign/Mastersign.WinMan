@@ -135,7 +135,7 @@ namespace Mastersign.WinMan
                     targetBounds.Width + OS_MARGIN_LEFT + OS_MARGIN_RIGHT,
                     targetBounds.Height + OS_MARGIN_TOP + OS_MARGIN_BOTTOM);
             }
-            w.ShowCommand = ShowWindowCommands.ShowNA;
+            w.ShowCommand = ShowWindowCommands.ShowNoActivate;
             virtualDesktop.MoveWindowHere(w.Handle);
             w.NormalPosition = new RECT(targetBounds);
             w.ShowCommand = WindowStateAsShowWindowCommand();
