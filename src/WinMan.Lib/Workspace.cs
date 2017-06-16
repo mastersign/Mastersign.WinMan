@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Mastersign.WinMan
         public Layout FindLayout(string layoutName)
             => Layouts.FirstOrDefault(l => l.Name == layoutName);
 
+        [JsonIgnore]
         public Layout[] DefaultLayouts => Layouts.Where(l => l.DefaultLayout).ToArray();
 
         public void Apply()
