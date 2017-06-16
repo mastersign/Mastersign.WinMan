@@ -67,7 +67,7 @@ namespace Mastersign.WinMan
         private delegate bool EnumWindowStationsDelegate(string windowsStation, IntPtr lParam);
     }
 
-    struct POINT
+    public struct POINT
     {
         public int x;
         public int y;
