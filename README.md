@@ -1,7 +1,7 @@
 Mastersign WinMan
 =================
 
-> Window Manager for Windows 10.
+> Manager for window layouts on Windows 10.
 
 ## License
 

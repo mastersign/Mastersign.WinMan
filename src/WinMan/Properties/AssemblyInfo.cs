@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("Mastersign WinMan GUI")]
-[assembly: AssemblyDescription("Window Manager for Windows 10")]
+[assembly: AssemblyDescription("Manager for window layouts on Windows 10")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tobias Kiertscher")]
 [assembly: AssemblyProduct("Mastersign WinMan")]
