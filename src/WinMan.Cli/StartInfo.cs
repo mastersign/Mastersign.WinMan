@@ -16,13 +16,20 @@ namespace Mastersign.WinMan
 
         public bool IncludeDefaultLayouts { get; private set; }
 
-        public StartInfo(StartMode startMode, string workspaceFile,
-            string[] targetLayouts, bool includeDefaultLayouts)
+        public int TargetVirtualDesktop { get; private set; }
+
+        public StartInfo(
+            StartMode startMode, 
+            string workspaceFile,
+            string[] targetLayouts, 
+            bool includeDefaultLayouts,
+            int targetVirtualDesktop)
         {
             StartMode = startMode;
             WorkspaceFile = workspaceFile;
             TargetLayouts = targetLayouts;
             IncludeDefaultLayouts = includeDefaultLayouts;
+            TargetVirtualDesktop = targetVirtualDesktop;
         }
 
         public bool IsTargetingSpecificLayouts => TargetLayouts != null && TargetLayouts.Length > 0;

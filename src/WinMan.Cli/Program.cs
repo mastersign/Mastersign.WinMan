@@ -14,22 +14,27 @@ namespace Mastersign.WinMan.Cli
         static int Main(string[] argv)
         {
             var startInfo = ArgumentParser.ParseArgs(argv);
-            switch (startInfo.StartMode)
+            var success = true;
+            if (startInfo.StartMode.HasFlag(StartMode.Help))
             {
-                case StartMode.Help:
-                    PrintHelp();
-                    return 0;
-                case StartMode.VersionInfo:
-                    PrintVersionInfo();
-                    return 0;
-                case StartMode.ApplyWorkspace:
-                    return ApplyWorkspace(startInfo.WorkspaceFile,
+                PrintHelp();
+            }
+            if (startInfo.StartMode.HasFlag(StartMode.VersionInfo))
+            {
+                PrintVersionInfo();
+            }
+            if (startInfo.StartMode.HasFlag(StartMode.SwitchVirtualDesktop))
+            {
+                success = success && SwitchVirtualDesktop(startInfo.TargetVirtualDesktop);
+            }
+            if (startInfo.StartMode.HasFlag(StartMode.ApplyWorkspace))
+            {
+                success = success && ApplyWorkspace(startInfo.WorkspaceFile,
                        startInfo.IsTargetingSpecificLayouts,
                        startInfo.TargetLayouts,
                        startInfo.IncludeDefaultLayouts);
-                default:
-                    return -1;
             }
+            return success ? 0 : -1;
         }
 
         private static void PrintVersionInfo()
@@ -51,6 +56,8 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine("If the workspace file is not specified, the default workspace file is used.");
             Console.WriteLine("  " + Core.DefaultWorkspaceFilePath);
             Console.WriteLine();
+            Console.WriteLine("If no option is used, the default layouts are targeted.");
+            Console.WriteLine();
             Console.WriteLine("Options:");
             Console.WriteLine();
             Console.WriteLine("  -h, --help, -?, /?");
@@ -59,36 +66,62 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine("  -v, --version");
             Console.WriteLine("      Prints version information. Ignores all other options.");
             Console.WriteLine();
+            Console.WriteLine("  -svd, --switch-virtual-desktop <no>");
+            Console.WriteLine("      Switch to the specified virtual desktop before applying the workspace.");
+            Console.WriteLine();
             Console.WriteLine("  -l, --layouts <layout-name>*");
             Console.WriteLine("      Target a specific set of layouts when applying the workspace.");
             Console.WriteLine();
             Console.WriteLine("  -d, --default-layouts");
-            Console.WriteLine("      Include the default layouts when targeting specific layouts.");
-            Console.WriteLine("      Is ignored without the --layouts option.");
+            Console.WriteLine("      Target the default layouts when applying the workspace.");
         }
 
-        private static int ApplyWorkspace(string workspaceFile, bool specificLayouts, string[] layoutNames, bool includeDefaultLayout)
+        private static bool SwitchVirtualDesktop(int targetVirtualDesktop)
+        {
+            var vd = VirtualDesktopHelper.GetVirtualDesktop(targetVirtualDesktop - 1);
+            if (vd == null)
+            {
+                Console.Error.WriteLine($"Could not find the virtual desktop {targetVirtualDesktop}.");
+                return false;
+            }
+            try
+            {
+                vd.Switch();
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                Console.Error.WriteLine(e);
+#else
+                Console.Error.WriteLine(e.Message);
+#endif
+                return false;
+            }
+            return true;
+        }
+
+        private static bool ApplyWorkspace(string workspaceFile, bool specificLayouts, string[] layoutNames, bool includeDefaultLayout)
         {
             if (!File.Exists(workspaceFile))
             {
                 Console.Error.WriteLine($"The workspace file '{workspaceFile}' does not exist.");
-                return -1;
+                return false;
             }
             var core = new Core();
             core.LoadWorkspaceFromFile(workspaceFile);
             if (core.Workspace == null)
             {
                 Console.Error.WriteLine($"Failed to load the workspace file '{workspaceFile}'.");
-                return -1;
+                return false;
             }
             if (!specificLayouts)
             {
                 core.ApplyWorkspace();
-                return 0;
+                return true;
             }
             else
             {
-                var result = 0;
+                var result = true;
                 var layouts = new List<Layout>();
                 if (includeDefaultLayout)
                 {
@@ -100,7 +133,7 @@ namespace Mastersign.WinMan.Cli
                     if (layout == null)
                     {
                         Console.Error.WriteLine($"Could not find layout '{layoutName}'.");
-                        result = 1;
+                        result = false;
                     }
                     else if (!layouts.Contains(layout))
                     {
@@ -111,7 +144,7 @@ namespace Mastersign.WinMan.Cli
                 {
                     if (!layout.Apply(core.Workspace))
                     {
-                        result = 2;
+                        result = false;
                     }
                 }
                 return result;

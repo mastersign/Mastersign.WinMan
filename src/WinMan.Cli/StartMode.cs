@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Mastersign.WinMan
 {
+    [Flags]
     enum StartMode
     {
-        Help,
-        VersionInfo,
-        ApplyWorkspace,
+        None = 0,
+        Help = 1,
+        VersionInfo = 2,
+        ApplyWorkspace = 4,
+        SwitchVirtualDesktop = 8,
     }
 }
