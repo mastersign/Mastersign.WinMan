@@ -10,10 +10,11 @@ namespace Mastersign.WinMan.Cli
     {
         public static StartInfo ParseArgs(string[] argv)
         {
-            var startMode = StartMode.ApplyWorkspace;
+            var startMode = StartMode.None;
             var workspaceFile = Core.DefaultWorkspaceFilePath;
             var layoutNames = new List<string>();
             var includeDefaultLayouts = false;
+            var targetVirtualDesktop = 0;
 
             for (var i = 0; i < argv.Length; i++)
             {
@@ -30,6 +31,7 @@ namespace Mastersign.WinMan.Cli
                 }
                 else if (arg == "-d" || arg == "--default-layouts")
                 {
+                    startMode |= StartMode.ApplyWorkspace;
                     includeDefaultLayouts = true;
                 }
                 else if (arg == "-l" || arg == "--layouts")
@@ -37,14 +39,35 @@ namespace Mastersign.WinMan.Cli
                     i++;
                     for (; i < argv.Length && !argv[i].StartsWith("-"); i++)
                     {
+                        startMode |= StartMode.ApplyWorkspace;
                         layoutNames.Add(argv[i]);
                     }
                     i--;
                 }
+                else if (arg == "-svd" || arg == "--switch-virtual-desktop")
+                {
+                    i++;
+                    if (i < argv.Length && !argv[i].StartsWith("-"))
+                    {
+                        if (int.TryParse(argv[i], out targetVirtualDesktop))
+                        {
+                            startMode |= StartMode.SwitchVirtualDesktop;
+                        }
+                    }
+                }
             }
 
-            return new StartInfo(startMode, workspaceFile, 
-                layoutNames.ToArray(), includeDefaultLayouts);
+            if (startMode == StartMode.None)
+            {
+                startMode = StartMode.ApplyWorkspace;
+            }
+
+            return new StartInfo(
+                startMode, 
+                workspaceFile, 
+                layoutNames.ToArray(), 
+                includeDefaultLayouts,
+                targetVirtualDesktop);
         }
     }
 }
