@@ -4,7 +4,6 @@
        xsi:schemaLocation="http://scaleton.mastersign.de/2014/model http://scaleton.mastersign.de/Scaleton_Model_2014.xsd">
 
   <ReferencedTypes>
-    <ReferencedType id="rect" name="System.Drawing.Rectangle" kind="Struct" immutable="true" />
     <ReferencedType id="WindowWrapper" name="WindowWrapper" kind="Class" />
   </ReferencedTypes>
 
@@ -22,6 +21,16 @@
       <Member name="Wildcard" />
       <Member name="Regex" />
     </Enum>
+
+    <Class name="Rect">
+      <Configuration>
+        <IsEquatable value="true" overrideOperators="false" />
+      </Configuration>
+      <Property name="X" type="int" definesEquality="true" immutable="true" />
+      <Property name="Y" type="int" definesEquality="true" immutable="true" />
+      <Property name="Width" type="int" definesEquality="true" immutable="true" />
+      <Property name="Height" type="int" definesEquality="true" immutable="true" />
+    </Class>
 
     <Class name="WindowPattern">
       <Property name="Name" type="string">
@@ -50,7 +59,7 @@
       <Property name="Name" type="string">
         <DefaultValue>Screen</DefaultValue>
       </Property>
-      <Property name="Bounds" type="rect" />
+      <Property name="Bounds" type="Rect" />
       <Property name="DeviceName" type="string" />
     </Class>
 

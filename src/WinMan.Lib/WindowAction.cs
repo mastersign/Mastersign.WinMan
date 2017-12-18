@@ -97,13 +97,13 @@ namespace Mastersign.WinMan
             }
         }
 
-        public Rectangle CalculateTargetBounds(Rectangle screenBounds)
+        public Rect CalculateTargetBounds(Rect screenBounds)
         {
             var left = ResolveValue(screenBounds.Left, screenBounds.Width, Left, LeftUnit, LeftInvert);
             var top = ResolveValue(screenBounds.Top, screenBounds.Height, Top, TopUnit, TopInvert);
             var right = ResolveValue(screenBounds.Left, screenBounds.Width, Right, RightUnit, RightInvert);
             var bottom = ResolveValue(screenBounds.Top, screenBounds.Height, Bottom, BottomUnit, BottomInvert);
-            var targetBounds = new Rectangle(left, top, right - left, bottom - top);
+            var targetBounds = new Rect(left, top, right - left, bottom - top);
             return targetBounds;
         }
 
@@ -125,11 +125,12 @@ namespace Mastersign.WinMan
         public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
         {
             var targetBounds = CalculateTargetBounds(screen.WorkingArea);
-            targetBounds.X = targetBounds.X + (screen.Bounds.X - screen.WorkingArea.X);
-            targetBounds.Y = targetBounds.Y + (screen.Bounds.Y - screen.WorkingArea.Y);
+            var newX = targetBounds.X + (screen.Bounds.X - screen.WorkingArea.X);
+            var newY = targetBounds.Y + (screen.Bounds.Y - screen.WorkingArea.Y);
+            targetBounds = new Rect(newX, newY, targetBounds.Width, targetBounds.Height);
             if (CompensateOsMargin)
             {
-                targetBounds = new Rectangle(
+                targetBounds = new Rect(
                     targetBounds.Left - OS_MARGIN_LEFT,
                     targetBounds.Top - OS_MARGIN_TOP,
                     targetBounds.Width + OS_MARGIN_LEFT + OS_MARGIN_RIGHT,

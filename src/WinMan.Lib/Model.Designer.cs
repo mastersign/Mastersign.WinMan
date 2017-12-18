@@ -26,6 +26,104 @@ namespace Mastersign.WinMan
         Percent,
     }
     
+    public partial class Rect : IEquatable<Rect>
+    {
+        public Rect()
+        {
+        }
+        
+        public Rect(int x, int y, int width, int height)
+        {
+            this._x = x;
+            this._y = y;
+            this._width = width;
+            this._height = height;
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Rect o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return (
+                (this._x == o._x) && 
+                (this._y == o._y) && 
+                (this._width == o._width) && 
+                (this._height == o._height));
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Rect)))
+            {
+                return false;
+            }
+            return this.Equals((Rect)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return (this.GetType().GetHashCode() ^ 
+                this._x.GetHashCode() ^ 
+                this._y.GetHashCode() ^ 
+                this._width.GetHashCode() ^ 
+                this._height.GetHashCode());
+        }
+        
+        #endregion
+        
+        #region Property X
+        
+        private int _x;
+        
+        public virtual int X
+        {
+            get { return _x; }
+        }
+        
+        #endregion
+        
+        #region Property Y
+        
+        private int _y;
+        
+        public virtual int Y
+        {
+            get { return _y; }
+        }
+        
+        #endregion
+        
+        #region Property Width
+        
+        private int _width;
+        
+        public virtual int Width
+        {
+            get { return _width; }
+        }
+        
+        #endregion
+        
+        #region Property Height
+        
+        private int _height;
+        
+        public virtual int Height
+        {
+            get { return _height; }
+        }
+        
+        #endregion
+    }
+    
     public partial class WindowPattern : IEquatable<WindowPattern>, INotifyPropertyChanged
     {
         public WindowPattern()
@@ -565,7 +663,7 @@ namespace Mastersign.WinMan
         
         #region Property Bounds
         
-        private global::System.Drawing.Rectangle _bounds;
+        private Rect _bounds;
         
         public event EventHandler BoundsChanged;
         
@@ -579,12 +677,12 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Bounds");
         }
         
-        public virtual global::System.Drawing.Rectangle Bounds
+        public virtual Rect Bounds
         {
             get { return _bounds; }
             set
             {
-                if (value.Equals(_bounds))
+                if ((value == _bounds))
                 {
                     return;
                 }
