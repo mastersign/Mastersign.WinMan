@@ -22,6 +22,16 @@
       <Member name="Regex" />
     </Enum>
 
+    <Class name="Margin">
+      <Configuration>
+        <IsEquatable value="true" overrideOperators="false" />
+      </Configuration>
+      <Property name="Left" type="int" definesEquality="true" immutable="true" />
+      <Property name="Top" type="int" definesEquality="true" immutable="true" />
+      <Property name="Right" type="int" definesEquality="true" immutable="true" />
+      <Property name="Bottom" type="int" definesEquality="true" immutable="true" />
+    </Class>
+
     <Class name="Rect">
       <Configuration>
         <IsEquatable value="true" overrideOperators="false" />
@@ -142,7 +152,12 @@
       <Property name="Windows" type="WindowAction" isCollection="true" />
     </Class>
 
+    <Class name="Options">
+      <Property name="OsWindowMargin" type="Margin" />
+    </Class>
+
     <Class name="Workspace">
+      <Property name="Options" type="Options" />
       <Property name="WindowPatterns" type="WindowPattern" isCollection="true" />
       <Property name="ConfigurationPatterns" type="ConfigurationPattern" isCollection="true" />
       <Property name="Layouts" type="Layout" isCollection="true" />

@@ -14,10 +14,6 @@ namespace Mastersign.WinMan
 {
     partial class WindowAction
     {
-        public const int OS_MARGIN_LEFT = 8;
-        public const int OS_MARGIN_TOP = 0;
-        public const int OS_MARGIN_RIGHT = 8;
-        public const int OS_MARGIN_BOTTOM = 8;
         public const int RESTORE_CHECK_INTERVAL_MS = 500;
         public const int WAIT_FOR_RESTORE_MS = 20000;
 
@@ -35,14 +31,14 @@ namespace Mastersign.WinMan
             var windowWrappers = windowPattern.Discover();
             if (windowWrappers.Length > 0)
             {
-                Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop));
+                Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop, workspace.Options));
                 return true;
             }
             else if (Restore && !string.IsNullOrWhiteSpace(windowPattern.Command))
             {
                 if (TryRestoreWindow(windowPattern, ref windowWrappers))
                 {
-                    Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop));
+                    Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop, workspace.Options));
                     return true;
                 }
                 else return false;
@@ -122,7 +118,7 @@ namespace Mastersign.WinMan
             }
         }
 
-        public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop)
+        public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop, Options options)
         {
             var targetBounds = CalculateTargetBounds(screen.WorkingArea);
             var newX = targetBounds.X + (screen.Bounds.X - screen.WorkingArea.X);
@@ -130,11 +126,7 @@ namespace Mastersign.WinMan
             targetBounds = new Rect(newX, newY, targetBounds.Width, targetBounds.Height);
             if (CompensateOsMargin)
             {
-                targetBounds = new Rect(
-                    targetBounds.Left - OS_MARGIN_LEFT,
-                    targetBounds.Top - OS_MARGIN_TOP,
-                    targetBounds.Width + OS_MARGIN_LEFT + OS_MARGIN_RIGHT,
-                    targetBounds.Height + OS_MARGIN_TOP + OS_MARGIN_BOTTOM);
+                targetBounds = targetBounds.Expand(options.OsWindowMargin);
             }
             w.ShowCommand = ShowWindowCommands.ShowNoActivate;
             virtualDesktop.MoveWindowHere(w.Handle);

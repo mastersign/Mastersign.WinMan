@@ -26,6 +26,104 @@ namespace Mastersign.WinMan
         Percent,
     }
     
+    public partial class Margin : IEquatable<Margin>
+    {
+        public Margin()
+        {
+        }
+        
+        public Margin(int left, int top, int right, int bottom)
+        {
+            this._left = left;
+            this._top = top;
+            this._right = right;
+            this._bottom = bottom;
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Margin o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return (
+                (this._left == o._left) && 
+                (this._top == o._top) && 
+                (this._right == o._right) && 
+                (this._bottom == o._bottom));
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Margin)))
+            {
+                return false;
+            }
+            return this.Equals((Margin)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return (this.GetType().GetHashCode() ^ 
+                this._left.GetHashCode() ^ 
+                this._top.GetHashCode() ^ 
+                this._right.GetHashCode() ^ 
+                this._bottom.GetHashCode());
+        }
+        
+        #endregion
+        
+        #region Property Left
+        
+        private int _left;
+        
+        public virtual int Left
+        {
+            get { return _left; }
+        }
+        
+        #endregion
+        
+        #region Property Top
+        
+        private int _top;
+        
+        public virtual int Top
+        {
+            get { return _top; }
+        }
+        
+        #endregion
+        
+        #region Property Right
+        
+        private int _right;
+        
+        public virtual int Right
+        {
+            get { return _right; }
+        }
+        
+        #endregion
+        
+        #region Property Bottom
+        
+        private int _bottom;
+        
+        public virtual int Bottom
+        {
+            get { return _bottom; }
+        }
+        
+        #endregion
+    }
+    
     public partial class Rect : IEquatable<Rect>
     {
         public Rect()
@@ -1781,6 +1879,91 @@ namespace Mastersign.WinMan
         #endregion
     }
     
+    public partial class Options : IEquatable<Options>, INotifyPropertyChanged
+    {
+        public Options()
+        {
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Options o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return object.ReferenceEquals(this, o);
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Options)))
+            {
+                return false;
+            }
+            return this.Equals((Options)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return this.GetType().GetHashCode();
+        }
+        
+        #endregion
+        
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property OsWindowMargin
+        
+        private Margin _osWindowMargin;
+        
+        public event EventHandler OsWindowMarginChanged;
+        
+        protected virtual void OnOsWindowMarginChanged()
+        {
+            EventHandler handler = OsWindowMarginChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"OsWindowMargin");
+        }
+        
+        public virtual Margin OsWindowMargin
+        {
+            get { return _osWindowMargin; }
+            set
+            {
+                if ((value == _osWindowMargin))
+                {
+                    return;
+                }
+                _osWindowMargin = value;
+                this.OnOsWindowMarginChanged();
+            }
+        }
+        
+        #endregion
+    }
+    
     public partial class Workspace : IEquatable<Workspace>, INotifyPropertyChanged
     {
         public Workspace()
@@ -1828,6 +2011,38 @@ namespace Mastersign.WinMan
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property Options
+        
+        private Options _options;
+        
+        public event EventHandler OptionsChanged;
+        
+        protected virtual void OnOptionsChanged()
+        {
+            EventHandler handler = OptionsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Options");
+        }
+        
+        public virtual Options Options
+        {
+            get { return _options; }
+            set
+            {
+                if ((value == _options))
+                {
+                    return;
+                }
+                _options = value;
+                this.OnOptionsChanged();
             }
         }
         

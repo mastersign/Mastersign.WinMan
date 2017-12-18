@@ -28,5 +28,10 @@ namespace Mastersign.WinMan
                 layout.Apply(this);
             }
         }
+
+        public void Upgrade()
+        {
+            if (Options == null) Options = Options.Default();
+        }
     }
 }

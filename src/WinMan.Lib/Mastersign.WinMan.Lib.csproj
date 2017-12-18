@@ -49,11 +49,13 @@
     <Compile Include="ConfigurationPattern.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Layout.cs" />
+    <Compile Include="Margin.cs" />
     <Compile Include="Model.Designer.cs">
       <DependentUpon>Model.xml</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="ScreenPattern.cs" />
