@@ -194,6 +194,8 @@ namespace Mastersign.WinMan
                 return;
             }
             workspaceBindingSource.DataSource = Core?.Workspace;
+            ReleaseOptions();
+            BindOptions(Core?.Workspace?.Options);
         }
 
         private void CoreWorkspaceFileNameChangedHandler(object sender, EventArgs e)
@@ -572,6 +574,72 @@ namespace Mastersign.WinMan
         private void SelectedWindowActionChangedHandler(object sender, EventArgs e)
         {
             RefreshLayoutPreview();
+        }
+
+        #endregion
+
+        #region Options
+
+        private Options _options;
+
+        private void BindOptions(Options options)
+        {
+            _options = options;
+            if (_options == null) return;
+            _options.OsWindowMarginChanged += OsWindowMarginChangedHandler;
+            numOsWindowMarginLeft.ValueChanged += NumOsWindowMarginLeftValueChangedHandler;
+            numOsWindowMarginTop.ValueChanged += NumOsWindowMarginTopValueChangedHandler;
+            numOsWindowMarginRight.ValueChanged += NumOsWindowMarginRightValueChangedHandler;
+            numOsWindowMarginBottom.ValueChanged += NumOsWindowMarginBottomValueChangedHandler;
+            OsWindowMarginChangedHandler(_options, EventArgs.Empty);
+        }
+
+        private void ReleaseOptions()
+        {
+            if (_options == null) return;
+            numOsWindowMarginLeft.ValueChanged -= NumOsWindowMarginLeftValueChangedHandler;
+            numOsWindowMarginTop.ValueChanged -= NumOsWindowMarginTopValueChangedHandler;
+            numOsWindowMarginRight.ValueChanged -= NumOsWindowMarginRightValueChangedHandler;
+            numOsWindowMarginBottom.ValueChanged -= NumOsWindowMarginBottomValueChangedHandler;
+            _options.OsWindowMarginChanged -= OsWindowMarginChangedHandler;
+            _options = null;
+        }
+
+        private void OsWindowMarginChangedHandler(object sender, EventArgs e)
+        {
+            var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
+            numOsWindowMarginLeft.Value = m.Left;
+            numOsWindowMarginTop.Value = m.Top;
+            numOsWindowMarginRight.Value = m.Right;
+            numOsWindowMarginBottom.Value = m.Bottom;
+        }
+
+        private void NumOsWindowMarginLeftValueChangedHandler(object sender, EventArgs e)
+        {
+            if (_options == null) return;
+            var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
+            _options.OsWindowMargin = new Margin((int)numOsWindowMarginLeft.Value, m.Top, m.Right, m.Bottom);
+        }
+
+        private void NumOsWindowMarginTopValueChangedHandler(object sender, EventArgs e)
+        {
+            if (_options == null) return;
+            var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
+            _options.OsWindowMargin = new Margin(m.Left, (int)numOsWindowMarginTop.Value, m.Right, m.Bottom);
+        }
+
+        private void NumOsWindowMarginRightValueChangedHandler(object sender, EventArgs e)
+        {
+            if (_options == null) return;
+            var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
+            _options.OsWindowMargin = new Margin(m.Left, m.Top, (int)numOsWindowMarginRight.Value, m.Bottom);
+        }
+
+        private void NumOsWindowMarginBottomValueChangedHandler(object sender, EventArgs e)
+        {
+            if (_options == null) return;
+            var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
+            _options.OsWindowMargin = new Margin(m.Left, m.Top, m.Right, (int)numOsWindowMarginBottom.Value);
         }
 
         #endregion
