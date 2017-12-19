@@ -29,8 +29,8 @@ namespace Mastersign.WinMan
 
         public override string ToString() => $"{X}, {Y}, {Width}, {Height}";
 
-        public Rect Expand(Margin m) => new Rect(X - m.Left, Y - m.Top, Width + m.Right, Height + m.Bottom);
-        public Rect Shrink(Margin m) => new Rect(X + m.Left, Y + m.Top, Width - m.Right, Height - m.Bottom);
+        public Rect Expand(Margin m) => new Rect(X - m.Left, Y - m.Top, Width + m.Left + m.Right, Height + m.Top + m.Bottom);
+        public Rect Shrink(Margin m) => new Rect(X + m.Left, Y + m.Top, Width - m.Left - m.Right, Height - m.Top - m.Bottom);
 
         public static implicit operator Rectangle(Rect r) => new Rectangle(r.X, r.Y, r.Width, r.Height);
         public static implicit operator Rect(Rectangle r) => new Rect(r.X, r.Y, r.Width, r.Height);
