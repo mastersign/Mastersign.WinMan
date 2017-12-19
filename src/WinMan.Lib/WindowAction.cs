@@ -46,6 +46,20 @@ namespace Mastersign.WinMan
             else return true;
         }
 
+        public bool RecordPosition(Workspace workspace, Layout layout)
+        {
+            var windowPattern = workspace.FindWindowPattern(Window);
+            if (windowPattern == null) return false;
+
+            var windowWrappers = windowPattern.Discover();
+            if (windowWrappers.Length > 0)
+            {
+                RecordPosition(windowWrappers[0], workspace.Options);
+                return true;
+            }
+            return false;
+        }
+
         private bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers)
         {
             try
@@ -132,6 +146,12 @@ namespace Mastersign.WinMan
             virtualDesktop.MoveWindowHere(w.Handle);
             w.NormalPosition = new RECT(targetBounds);
             w.ShowCommand = WindowStateAsShowWindowCommand();
+        }
+
+        public void RecordPosition(WindowWrapper w, Options options)
+        {
+            // TODO implement window position recording
+            MessageBox.Show("This feature is not implemented yet");
         }
 
         public override string ToString() => Window;

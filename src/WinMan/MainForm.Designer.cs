@@ -1724,8 +1724,9 @@
             this.btnRecordWindowPosition.Name = "btnRecordWindowPosition";
             this.btnRecordWindowPosition.Size = new System.Drawing.Size(119, 25);
             this.btnRecordWindowPosition.TabIndex = 30;
-            this.btnRecordWindowPosition.Text = "button1";
+            this.btnRecordWindowPosition.Text = "Record Position";
             this.btnRecordWindowPosition.UseVisualStyleBackColor = true;
+            this.btnRecordWindowPosition.Click += new System.EventHandler(this.RecordWindowPositionHandler);
             // 
             // tableLayoutOptions
             // 

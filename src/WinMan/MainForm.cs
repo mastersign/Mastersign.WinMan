@@ -576,6 +576,15 @@ namespace Mastersign.WinMan
             RefreshLayoutPreview();
         }
 
+        private void RecordWindowPositionHandler(object sender, EventArgs e)
+        {
+            var wa = SelectedWindowAction;
+            if (wa == null) return;
+            var layout = SelectedLayout;
+            if (layout == null) return;
+            wa.RecordPosition(Core.Workspace, SelectedLayout);
+        }
+
         #endregion
 
         #region Options
