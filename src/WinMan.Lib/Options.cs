@@ -8,7 +8,7 @@ namespace Mastersign.WinMan
 {
     partial class Options
     {
-        public static readonly Margin DEFAULT_OS_WINDOW_MARGIN = new Margin(8, 0, 8, 8);
+        public static readonly Margin DEFAULT_OS_WINDOW_MARGIN = new Margin(6, 0, 7, 8);
 
         public static Options Default() => new Options
         {
