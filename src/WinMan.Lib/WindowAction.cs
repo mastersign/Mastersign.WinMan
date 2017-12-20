@@ -50,11 +50,13 @@ namespace Mastersign.WinMan
         {
             var windowPattern = workspace.FindWindowPattern(Window);
             if (windowPattern == null) return false;
+            var configurationPattern = workspace.FindConfigurationPattern(layout.Configuration);
+            if (configurationPattern == null) return false;
 
             var windowWrappers = windowPattern.Discover();
             if (windowWrappers.Length > 0)
             {
-                RecordPosition(windowWrappers[0], workspace.Options);
+                RecordPosition(configurationPattern, windowWrappers[0], workspace.Options);
                 return true;
             }
             return false;
@@ -132,6 +134,23 @@ namespace Mastersign.WinMan
             }
         }
 
+        private static WindowState ShowCommandAsWindowState(ShowWindowCommands showCommand)
+        {
+            switch (showCommand)
+            {
+                case ShowWindowCommands.Hide:
+                case ShowWindowCommands.Minimize:
+                case ShowWindowCommands.ShowMinimized:
+                case ShowWindowCommands.ShowMinNoActive:
+                case ShowWindowCommands.ForceMinimize:
+                    return WindowState.Minimized;
+                case ShowWindowCommands.ShowMaximized:
+                    return WindowState.Maximized;
+                default:
+                    return WindowState.Normal;
+            }
+        }
+
         public void Apply(WindowWrapper w, Screen screen, VirtualDesktop virtualDesktop, Options options)
         {
             var targetBounds = CalculateTargetBounds(screen.WorkingArea);
@@ -148,10 +167,30 @@ namespace Mastersign.WinMan
             w.ShowCommand = WindowStateAsShowWindowCommand();
         }
 
-        public void RecordPosition(WindowWrapper w, Options options)
+        public void RecordPosition(ConfigurationPattern configurationPattern, WindowWrapper w, Options options)
         {
-            // TODO implement window position recording
-            MessageBox.Show("This feature is not implemented yet");
+            var vd = w.VirtualDesktop;
+            VirtualDesktop = VirtualDesktopHelper.GetVirtualDesktopNumber(vd.Id) + 1;
+
+            WindowState = ShowCommandAsWindowState(w.ShowCommand);
+
+            var screen = configurationPattern.Screens.FirstOrDefault(s => s.DeviceName == w.Screen.DeviceName);
+            Screen = screen.Name;
+            var screenBounds = screen.Bounds;
+
+            var p = w.NormalPosition;
+            LeftUnit = ScreenUnit.Pixel;
+            LeftInvert = false;
+            Left = p.Left - screenBounds.Left;
+            TopUnit = ScreenUnit.Pixel;
+            TopInvert = false;
+            Top = p.Top - screenBounds.Top;
+            RightUnit = ScreenUnit.Pixel;
+            RightInvert = false;
+            Right = p.Right - screenBounds.Left;
+            BottomUnit = ScreenUnit.Pixel;
+            BottomInvert = false;
+            Bottom = p.Bottom - screenBounds.Top;
         }
 
         public override string ToString() => Window;

@@ -578,6 +578,8 @@ namespace Mastersign.WinMan
 
         private void RecordWindowPositionHandler(object sender, EventArgs e)
         {
+            if (!HasCore) return;
+            Core.ReloadWindows();
             var wa = SelectedWindowAction;
             if (wa == null) return;
             var layout = SelectedLayout;
