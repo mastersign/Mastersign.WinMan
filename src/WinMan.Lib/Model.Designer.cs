@@ -295,7 +295,7 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Name");
         }
         
-        private const string DEF_NAME = @"No Name";
+        private const string DEF_NAME = @"New Window Pattern";
         
         [DefaultValue(DEF_NAME)]
         public virtual string Name
@@ -898,7 +898,7 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Name");
         }
         
-        private const string DEF_NAME = @"Configuration";
+        private const string DEF_NAME = @"New Configuration Pattern";
         
         [DefaultValue(DEF_NAME)]
         public virtual string Name
@@ -1024,6 +1024,7 @@ namespace Mastersign.WinMan
     {
         public WindowAction()
         {
+            this._window = DEF_WINDOW;
             this._virtualDesktop = DEF_VIRTUALDESKTOP;
             this._windowState = DEF_WINDOWSTATE;
             this._left = DEF_LEFT;
@@ -1099,6 +1100,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Window");
         }
         
+        private const string DEF_WINDOW = @"Not Set";
+        
+        [DefaultValue(DEF_WINDOW)]
         public virtual string Window
         {
             get { return _window; }
@@ -1797,7 +1801,7 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Name");
         }
         
-        private const string DEF_NAME = @"Layout";
+        private const string DEF_NAME = @"New Layout";
         
         [DefaultValue(DEF_NAME)]
         public virtual string Name

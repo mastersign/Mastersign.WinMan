@@ -44,7 +44,7 @@
 
     <Class name="WindowPattern">
       <Property name="Name" type="string">
-        <DefaultValue>No Name</DefaultValue>
+        <DefaultValue>New Window Pattern</DefaultValue>
       </Property>
 
       <Property name="TitlePattern" type="string" />
@@ -75,7 +75,7 @@
 
     <Class name="ConfigurationPattern">
       <Property name="Name" type="string">
-        <DefaultValue>Configuration</DefaultValue>
+        <DefaultValue>New Configuration Pattern</DefaultValue>
       </Property>
       <Property name="Screens" type="ScreenPattern" isCollection="true" />
       <Property name="VirtualDesktopCount" type="int">
@@ -98,7 +98,9 @@
     </Enum>
 
     <Class name="WindowAction">
-      <Property name="Window" type="string" />
+      <Property name="Window" type="string">
+        <DefaultValue>Not Set</DefaultValue>
+      </Property>
 
       <Property name="Restore" type="bool" />
       <Property name="OverrideVirtualDesktop" type="bool" />
@@ -144,7 +146,7 @@
 
     <Class name="Layout">
       <Property name="Name" type="string">
-        <DefaultValue>Layout</DefaultValue>
+        <DefaultValue>New Layout</DefaultValue>
       </Property>
       <Property name="DefaultLayout" type="bool">
         <DefaultValue>true</DefaultValue>

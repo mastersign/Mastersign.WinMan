@@ -382,11 +382,13 @@ namespace Mastersign.WinMan
         {
             if (!HasCore || Core.Workspace == null) return;
             var selectedWindow = SelectedWindow;
-            var windowPattern = selectedWindow != null
+            var newWindowPattern = selectedWindow != null
                 ? WindowPattern.FromWindow(selectedWindow)
                 : new WindowPattern();
-            Core.Workspace.WindowPatterns.Add(windowPattern);
-            SelectedWindowPattern = windowPattern;
+            Core.Workspace.WindowPatterns.Add(newWindowPattern);
+            SelectedWindowPattern = newWindowPattern;
+            txtWindowPatternName.Focus();
+            txtWindowPatternName.SelectAll();
         }
 
         private void DuplicateWindowPatternHandler(object sender, EventArgs e)
@@ -425,14 +427,14 @@ namespace Mastersign.WinMan
 
         private void WindowPatternSelectionChangedHandler(object sender, EventArgs e)
         {
-            RefreshWindowListHandler(sender, e);
+            //RefreshWindowListHandler(sender, e);
             UpdateControlActivation();
             WatchedWindowPattern = SelectedWindowPattern;
         }
 
         private void SelectedWindowPatternChangedHandler(object sender, EventArgs e)
         {
-            RefreshWindowListHandler(sender, e);
+            //RefreshWindowListHandler(sender, e);
         }
 
         #region Automatic Reference Update
@@ -481,15 +483,23 @@ namespace Mastersign.WinMan
         #region ConfigurationPatterns
 
         private ConfigurationPattern SelectedConfigurationPattern
-            => configurationPatternsBindingSource.Position >= 0
+        {
+            get => configurationPatternsBindingSource.Position >= 0
                 ? configurationPatternsBindingSource.Current as ConfigurationPattern
                 : null;
+            set => configurationPatternsBindingSource.Position
+                = Core?.Workspace?.ConfigurationPatterns.IndexOf(value) ?? -1;
+        }
 
         private void RecordConfigurationHandler(object sender, EventArgs e)
         {
             if (!HasCore || Core.Workspace == null) return;
-            Core.Workspace.ConfigurationPatterns.Add(ConfigurationPattern.FromConfiguration(
-                Screen.AllScreens, VirtualDesktop.GetDesktops().Length));
+            var newConfigurationPattern = ConfigurationPattern.FromConfiguration(
+                Screen.AllScreens, VirtualDesktop.GetDesktops().Length);
+            Core.Workspace.ConfigurationPatterns.Add(newConfigurationPattern);
+            SelectedConfigurationPattern = newConfigurationPattern;
+            txtConfigurationName.Focus();
+            txtConfigurationName.SelectAll();
         }
 
         private void MoveUpConfigurationHandler(object sender, EventArgs e)
@@ -667,10 +677,11 @@ namespace Mastersign.WinMan
         private void NewLayoutHandler(object sender, EventArgs e)
         {
             if (!HasCore || Core.Workspace == null) return;
-            Core.Workspace.Layouts.Add(new Layout()
-            {
-                Windows = new BindingList<WindowAction>(),
-            });
+            var newLayout = new Layout();
+            Core.Workspace.Layouts.Add(newLayout);
+            SelectedLayout = newLayout;
+            txtLayoutName.Focus();
+            txtLayoutName.SelectAll();
         }
 
         private void DuplicateLayoutHandler(object sender, EventArgs e)
@@ -781,10 +792,13 @@ namespace Mastersign.WinMan
 
         private void NewWindowActionHandler(object sender, EventArgs e)
         {
-            windowActionsBindingSource.Add(new WindowAction()
-            {
-                Window = "Unknown"
-            });
+            if (SelectedLayout == null) return;
+            var newWindowAction = new WindowAction();
+            SelectedLayout.Windows.Add(newWindowAction);
+            SelectedWindowAction = newWindowAction;
+            cmbWindowActionWindow.Focus();
+            cmbWindowActionWindow.SelectAll();
+            cmbWindowActionWindow.DroppedDown = true;
         }
 
         private void DuplicateWindowActionHandler(object sender, EventArgs e)
@@ -800,6 +814,7 @@ namespace Mastersign.WinMan
             SelectedWindowAction = copy;
             cmbWindowActionWindow.Focus();
             cmbWindowActionWindow.SelectAll();
+            cmbWindowActionWindow.DroppedDown = true;
         }
 
         private void DeleteWindowActionHandler(object sender, EventArgs e)
