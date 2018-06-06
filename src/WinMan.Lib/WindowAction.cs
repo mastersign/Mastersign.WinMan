@@ -17,6 +17,9 @@ namespace Mastersign.WinMan
         public const int RESTORE_CHECK_INTERVAL_MS = 500;
         public const int WAIT_FOR_RESTORE_MS = 20000;
 
+        public int GetVirtualDesktop(Layout layout)
+            => OverrideVirtualDesktop ? VirtualDesktop : layout.DefaultVirtualDesktop;
+
         public bool Apply(Workspace workspace, Layout layout)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
@@ -25,7 +28,7 @@ namespace Mastersign.WinMan
             if (configurationPattern == null) return false;
             var screen = configurationPattern.FindScreenPattern(Screen)?.Discover();
             if (screen == null) return false;
-            var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(VirtualDesktop - 1);
+            var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(GetVirtualDesktop(layout) - 1);
             if (virtualDesktop == null) return false;
 
             var windowWrappers = windowPattern.Discover();
@@ -56,7 +59,7 @@ namespace Mastersign.WinMan
             var windowWrappers = windowPattern.Discover();
             if (windowWrappers.Length > 0)
             {
-                RecordPosition(configurationPattern, windowWrappers[0], workspace.Options);
+                RecordPosition(configurationPattern, windowWrappers[0], workspace.Options, layout);
                 return true;
             }
             return false;
@@ -167,10 +170,20 @@ namespace Mastersign.WinMan
             w.ShowCommand = WindowStateAsShowWindowCommand();
         }
 
-        public void RecordPosition(ConfigurationPattern configurationPattern, WindowWrapper w, Options options)
+        public void RecordPosition(ConfigurationPattern configurationPattern, WindowWrapper w, Options options, Layout layout)
         {
             var vd = w.VirtualDesktop;
-            VirtualDesktop = VirtualDesktopHelper.GetVirtualDesktopNumber(vd.Id) + 1;
+            var recordedVirtualDesktop = VirtualDesktopHelper.GetVirtualDesktopNumber(vd.Id) + 1;
+            if (recordedVirtualDesktop == layout.DefaultVirtualDesktop)
+            {
+                VirtualDesktop = 1;
+                OverrideVirtualDesktop = false;
+            }
+            else
+            {
+                VirtualDesktop = recordedVirtualDesktop;
+                OverrideVirtualDesktop = false;
+            }
 
             WindowState = ShowCommandAsWindowState(w.ShowCommand);
 

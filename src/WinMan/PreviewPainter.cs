@@ -192,7 +192,7 @@ namespace Mastersign.WinMan
             foreach (var a in l.Windows)
             {
                 if (a == selectedWindowAction) continue;
-                if (a.VirtualDesktop != selectedWindowAction.VirtualDesktop) continue;
+                if (a.GetVirtualDesktop(l) != selectedWindowAction.GetVirtualDesktop(l)) continue;
                 PaintWindowAction(g, c, a, false);
             }
             PaintWindowAction(g, c, selectedWindowAction, true);

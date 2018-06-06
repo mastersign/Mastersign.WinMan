@@ -6,6 +6,8 @@ namespace Mastersign.WinMan
 {
     #region Scaleton Model Designer generated code
     
+    // Scaleton Version: 0.2.5
+    
     public enum StringPatternType
     {
         Exact,
@@ -829,6 +831,7 @@ namespace Mastersign.WinMan
         public ConfigurationPattern()
         {
             this._name = DEF_NAME;
+            this._screens = new BindingList<ScreenPattern>();
             this._virtualDesktopCount = DEF_VIRTUALDESKTOPCOUNT;
             this._respectVirtualDesktopCount = DEF_RESPECTVIRTUALDESKTOPCOUNT;
         }
@@ -1139,6 +1142,38 @@ namespace Mastersign.WinMan
                 }
                 _restore = value;
                 this.OnRestoreChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property OverrideVirtualDesktop
+        
+        private bool _overrideVirtualDesktop;
+        
+        public event EventHandler OverrideVirtualDesktopChanged;
+        
+        protected virtual void OnOverrideVirtualDesktopChanged()
+        {
+            EventHandler handler = OverrideVirtualDesktopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"OverrideVirtualDesktop");
+        }
+        
+        public virtual bool OverrideVirtualDesktop
+        {
+            get { return _overrideVirtualDesktop; }
+            set
+            {
+                if ((value == _overrideVirtualDesktop))
+                {
+                    return;
+                }
+                _overrideVirtualDesktop = value;
+                this.OnOverrideVirtualDesktopChanged();
             }
         }
         
@@ -1696,6 +1731,8 @@ namespace Mastersign.WinMan
         {
             this._name = DEF_NAME;
             this._defaultLayout = DEF_DEFAULTLAYOUT;
+            this._defaultVirtualDesktop = DEF_DEFAULTVIRTUALDESKTOP;
+            this._windows = new BindingList<WindowAction>();
         }
         
         #region Equatability
@@ -1846,6 +1883,41 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property DefaultVirtualDesktop
+        
+        private int _defaultVirtualDesktop;
+        
+        public event EventHandler DefaultVirtualDesktopChanged;
+        
+        protected virtual void OnDefaultVirtualDesktopChanged()
+        {
+            EventHandler handler = DefaultVirtualDesktopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"DefaultVirtualDesktop");
+        }
+        
+        private const int DEF_DEFAULTVIRTUALDESKTOP = 1;
+        
+        [DefaultValue(DEF_DEFAULTVIRTUALDESKTOP)]
+        public virtual int DefaultVirtualDesktop
+        {
+            get { return _defaultVirtualDesktop; }
+            set
+            {
+                if ((value == _defaultVirtualDesktop))
+                {
+                    return;
+                }
+                _defaultVirtualDesktop = value;
+                this.OnDefaultVirtualDesktopChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Windows
         
         private BindingList<WindowAction> _windows;
@@ -1968,6 +2040,9 @@ namespace Mastersign.WinMan
     {
         public Workspace()
         {
+            this._windowPatterns = new BindingList<WindowPattern>();
+            this._configurationPatterns = new BindingList<ConfigurationPattern>();
+            this._layouts = new BindingList<Layout>();
         }
         
         #region Equatability

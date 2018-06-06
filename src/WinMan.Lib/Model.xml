@@ -101,6 +101,7 @@
       <Property name="Window" type="string" />
 
       <Property name="Restore" type="bool" />
+      <Property name="OverrideVirtualDesktop" type="bool" />
       <Property name="VirtualDesktop" type="int">
         <DefaultValue>1</DefaultValue>
       </Property>
@@ -149,6 +150,9 @@
         <DefaultValue>true</DefaultValue>
       </Property>
       <Property name="Configuration" type="string" />
+      <Property name="DefaultVirtualDesktop" type="int">
+        <DefaultValue>1</DefaultValue>
+      </Property>
       <Property name="Windows" type="WindowAction" isCollection="true" />
     </Class>
 

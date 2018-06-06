@@ -119,14 +119,17 @@
             this.lblConfigurationPatternCaption = new System.Windows.Forms.Label();
             this.cmbLayoutConfiguration = new System.Windows.Forms.ComboBox();
             this.listLayouts = new System.Windows.Forms.ListBox();
+            this.lblLayoutDefaultVirtualDesktopCaption = new System.Windows.Forms.Label();
+            this.numLayoutDefaultVirtualDesktop = new System.Windows.Forms.NumericUpDown();
             this.btnMoveUpLayout = new System.Windows.Forms.Button();
             this.btnMoveDownLayout = new System.Windows.Forms.Button();
             this.btnSortLayouts = new System.Windows.Forms.Button();
             this.btnDuplicateLayout = new System.Windows.Forms.Button();
             this.btnDeleteLayout = new System.Windows.Forms.Button();
+            this.chkOverrideDefaultVirtualDesktop = new System.Windows.Forms.CheckBox();
+            this.windowActionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblWindowActionsCaption = new System.Windows.Forms.Label();
             this.chkWindowActionBottomInvert = new System.Windows.Forms.CheckBox();
-            this.windowActionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
             this.chkWindowActionRightInvert = new System.Windows.Forms.CheckBox();
             this.btnNewWindowAction = new System.Windows.Forms.Button();
@@ -216,6 +219,7 @@
             tableLayouts.SuspendLayout();
             tableLayoutList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLayoutDefaultVirtualDesktop)).BeginInit();
             flowLayoutActions.SuspendLayout();
             tableLayoutDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.windowActionsBindingSource)).BeginInit();
@@ -1204,8 +1208,8 @@
             tableLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tableLayouts.Name = "tableLayouts";
             tableLayouts.RowCount = 2;
-            tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
-            tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55F));
+            tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            tableLayouts.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             tableLayouts.Size = new System.Drawing.Size(967, 648);
             tableLayouts.TabIndex = 0;
             // 
@@ -1216,7 +1220,7 @@
             this.previewLayout.Location = new System.Drawing.Point(244, 4);
             this.previewLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.previewLayout.Name = "previewLayout";
-            this.previewLayout.Size = new System.Drawing.Size(720, 283);
+            this.previewLayout.Size = new System.Drawing.Size(720, 251);
             this.previewLayout.TabIndex = 1;
             this.previewLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutPreviewPaintHandler);
             // 
@@ -1225,20 +1229,21 @@
             tableLayoutList.ColumnCount = 2;
             tableLayoutList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            tableLayoutList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutList.Controls.Add(this.btnNewLayout, 0, 0);
             tableLayoutList.Controls.Add(this.lblLayoutNameCaption, 0, 1);
             tableLayoutList.Controls.Add(this.txtLayoutName, 0, 2);
             tableLayoutList.Controls.Add(this.chkLayoutIsDefaultLayout, 0, 3);
             tableLayoutList.Controls.Add(this.lblConfigurationPatternCaption, 0, 4);
             tableLayoutList.Controls.Add(this.cmbLayoutConfiguration, 0, 5);
-            tableLayoutList.Controls.Add(this.listLayouts, 0, 6);
-            tableLayoutList.Controls.Add(flowLayoutActions, 1, 6);
+            tableLayoutList.Controls.Add(this.listLayouts, 0, 8);
+            tableLayoutList.Controls.Add(this.lblLayoutDefaultVirtualDesktopCaption, 0, 6);
+            tableLayoutList.Controls.Add(this.numLayoutDefaultVirtualDesktop, 0, 7);
+            tableLayoutList.Controls.Add(flowLayoutActions, 1, 8);
             tableLayoutList.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutList.Location = new System.Drawing.Point(3, 4);
             tableLayoutList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tableLayoutList.Name = "tableLayoutList";
-            tableLayoutList.RowCount = 7;
+            tableLayoutList.RowCount = 9;
             tableLayouts.SetRowSpan(tableLayoutList, 2);
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -1246,7 +1251,10 @@
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutList.Size = new System.Drawing.Size(235, 640);
             tableLayoutList.TabIndex = 0;
             // 
@@ -1330,11 +1338,43 @@
             this.listLayouts.FormattingEnabled = true;
             this.listLayouts.IntegralHeight = false;
             this.listLayouts.ItemHeight = 16;
-            this.listLayouts.Location = new System.Drawing.Point(3, 177);
+            this.listLayouts.Location = new System.Drawing.Point(3, 231);
             this.listLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listLayouts.Name = "listLayouts";
-            this.listLayouts.Size = new System.Drawing.Size(196, 459);
+            this.listLayouts.Size = new System.Drawing.Size(196, 405);
             this.listLayouts.TabIndex = 7;
+            // 
+            // lblLayoutDefaultVirtualDesktopCaption
+            // 
+            this.lblLayoutDefaultVirtualDesktopCaption.AutoSize = true;
+            this.lblLayoutDefaultVirtualDesktopCaption.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLayoutDefaultVirtualDesktopCaption.Location = new System.Drawing.Point(3, 177);
+            this.lblLayoutDefaultVirtualDesktopCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.lblLayoutDefaultVirtualDesktopCaption.Name = "lblLayoutDefaultVirtualDesktopCaption";
+            this.lblLayoutDefaultVirtualDesktopCaption.Size = new System.Drawing.Size(196, 16);
+            this.lblLayoutDefaultVirtualDesktopCaption.TabIndex = 32;
+            this.lblLayoutDefaultVirtualDesktopCaption.Text = "Standard Virtual Desktop:";
+            this.lblLayoutDefaultVirtualDesktopCaption.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numLayoutDefaultVirtualDesktop
+            // 
+            this.numLayoutDefaultVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.layoutsBindingSource, "DefaultVirtualDesktop", true));
+            this.numLayoutDefaultVirtualDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numLayoutDefaultVirtualDesktop.Location = new System.Drawing.Point(3, 201);
+            this.numLayoutDefaultVirtualDesktop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.numLayoutDefaultVirtualDesktop.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numLayoutDefaultVirtualDesktop.Name = "numLayoutDefaultVirtualDesktop";
+            this.numLayoutDefaultVirtualDesktop.Size = new System.Drawing.Size(196, 22);
+            this.numLayoutDefaultVirtualDesktop.TabIndex = 33;
+            this.numLayoutDefaultVirtualDesktop.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // flowLayoutActions
             // 
@@ -1344,10 +1384,10 @@
             flowLayoutActions.Controls.Add(this.btnDuplicateLayout);
             flowLayoutActions.Controls.Add(this.btnDeleteLayout);
             flowLayoutActions.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutActions.Location = new System.Drawing.Point(202, 173);
+            flowLayoutActions.Location = new System.Drawing.Point(202, 227);
             flowLayoutActions.Margin = new System.Windows.Forms.Padding(0);
             flowLayoutActions.Name = "flowLayoutActions";
-            flowLayoutActions.Size = new System.Drawing.Size(33, 467);
+            flowLayoutActions.Size = new System.Drawing.Size(33, 413);
             flowLayoutActions.TabIndex = 30;
             // 
             // btnMoveUpLayout
@@ -1412,9 +1452,10 @@
             tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28F));
             tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
-            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
+            tableLayoutDetails.Controls.Add(this.chkOverrideDefaultVirtualDesktop, 4, 3);
             tableLayoutDetails.Controls.Add(this.lblWindowActionsCaption, 0, 0);
             tableLayoutDetails.Controls.Add(this.chkWindowActionBottomInvert, 5, 9);
             tableLayoutDetails.Controls.Add(this.chkWindowActionCompensateOsMargin, 3, 10);
@@ -1447,7 +1488,7 @@
             tableLayoutDetails.Controls.Add(this.btnRecordWindowPosition, 5, 1);
             tableLayoutDetails.Controls.Add(flowWindowActionActions, 1, 2);
             tableLayoutDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutDetails.Location = new System.Drawing.Point(244, 295);
+            tableLayoutDetails.Location = new System.Drawing.Point(244, 263);
             tableLayoutDetails.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tableLayoutDetails.Name = "tableLayoutDetails";
             tableLayoutDetails.RowCount = 12;
@@ -1463,8 +1504,30 @@
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutDetails.Size = new System.Drawing.Size(720, 349);
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutDetails.Size = new System.Drawing.Size(720, 381);
             tableLayoutDetails.TabIndex = 2;
+            // 
+            // chkOverrideDefaultVirtualDesktop
+            // 
+            this.chkOverrideDefaultVirtualDesktop.AutoSize = true;
+            tableLayoutDetails.SetColumnSpan(this.chkOverrideDefaultVirtualDesktop, 2);
+            this.chkOverrideDefaultVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "OverrideVirtualDesktop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkOverrideDefaultVirtualDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkOverrideDefaultVirtualDesktop.Location = new System.Drawing.Point(454, 95);
+            this.chkOverrideDefaultVirtualDesktop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkOverrideDefaultVirtualDesktop.Name = "chkOverrideDefaultVirtualDesktop";
+            this.chkOverrideDefaultVirtualDesktop.Size = new System.Drawing.Size(263, 22);
+            this.chkOverrideDefaultVirtualDesktop.TabIndex = 34;
+            this.chkOverrideDefaultVirtualDesktop.Text = "Override Default";
+            this.chkOverrideDefaultVirtualDesktop.UseVisualStyleBackColor = true;
+            // 
+            // windowActionsBindingSource
+            // 
+            this.windowActionsBindingSource.DataMember = "Windows";
+            this.windowActionsBindingSource.DataSource = this.layoutsBindingSource;
+            this.windowActionsBindingSource.CurrentChanged += new System.EventHandler(this.WindowActionSelectionChangedHandler);
+            this.windowActionsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedWindowActionChangedHandler);
             // 
             // lblWindowActionsCaption
             // 
@@ -1483,20 +1546,13 @@
             this.chkWindowActionBottomInvert.AutoSize = true;
             this.chkWindowActionBottomInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "BottomInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkWindowActionBottomInvert.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkWindowActionBottomInvert.Location = new System.Drawing.Point(597, 279);
+            this.chkWindowActionBottomInvert.Location = new System.Drawing.Point(557, 279);
             this.chkWindowActionBottomInvert.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkWindowActionBottomInvert.Name = "chkWindowActionBottomInvert";
-            this.chkWindowActionBottomInvert.Size = new System.Drawing.Size(120, 22);
+            this.chkWindowActionBottomInvert.Size = new System.Drawing.Size(160, 22);
             this.chkWindowActionBottomInvert.TabIndex = 28;
             this.chkWindowActionBottomInvert.Text = "from Bottom";
             this.chkWindowActionBottomInvert.UseVisualStyleBackColor = true;
-            // 
-            // windowActionsBindingSource
-            // 
-            this.windowActionsBindingSource.DataMember = "Windows";
-            this.windowActionsBindingSource.DataSource = this.layoutsBindingSource;
-            this.windowActionsBindingSource.CurrentChanged += new System.EventHandler(this.WindowActionSelectionChangedHandler);
-            this.windowActionsBindingSource.CurrentItemChanged += new System.EventHandler(this.SelectedWindowActionChangedHandler);
             // 
             // chkWindowActionCompensateOsMargin
             // 
@@ -1507,7 +1563,7 @@
             this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(351, 309);
             this.chkWindowActionCompensateOsMargin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
-            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(240, 20);
+            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(200, 20);
             this.chkWindowActionCompensateOsMargin.TabIndex = 29;
             this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
             this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
@@ -1517,10 +1573,10 @@
             this.chkWindowActionRightInvert.AutoSize = true;
             this.chkWindowActionRightInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "RightInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkWindowActionRightInvert.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkWindowActionRightInvert.Location = new System.Drawing.Point(597, 249);
+            this.chkWindowActionRightInvert.Location = new System.Drawing.Point(557, 249);
             this.chkWindowActionRightInvert.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkWindowActionRightInvert.Name = "chkWindowActionRightInvert";
-            this.chkWindowActionRightInvert.Size = new System.Drawing.Size(120, 22);
+            this.chkWindowActionRightInvert.Size = new System.Drawing.Size(160, 22);
             this.chkWindowActionRightInvert.TabIndex = 24;
             this.chkWindowActionRightInvert.Text = "from Right";
             this.chkWindowActionRightInvert.UseVisualStyleBackColor = true;
@@ -1542,10 +1598,10 @@
             this.chkWindowActionTopInvert.AutoSize = true;
             this.chkWindowActionTopInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "TopInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkWindowActionTopInvert.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkWindowActionTopInvert.Location = new System.Drawing.Point(597, 219);
+            this.chkWindowActionTopInvert.Location = new System.Drawing.Point(557, 219);
             this.chkWindowActionTopInvert.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkWindowActionTopInvert.Name = "chkWindowActionTopInvert";
-            this.chkWindowActionTopInvert.Size = new System.Drawing.Size(120, 22);
+            this.chkWindowActionTopInvert.Size = new System.Drawing.Size(160, 22);
             this.chkWindowActionTopInvert.TabIndex = 20;
             this.chkWindowActionTopInvert.Text = "from Bottom";
             this.chkWindowActionTopInvert.UseVisualStyleBackColor = true;
@@ -1555,10 +1611,10 @@
             this.chkWindowActionLeftInvert.AutoSize = true;
             this.chkWindowActionLeftInvert.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "LeftInvert", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkWindowActionLeftInvert.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkWindowActionLeftInvert.Location = new System.Drawing.Point(597, 189);
+            this.chkWindowActionLeftInvert.Location = new System.Drawing.Point(557, 189);
             this.chkWindowActionLeftInvert.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkWindowActionLeftInvert.Name = "chkWindowActionLeftInvert";
-            this.chkWindowActionLeftInvert.Size = new System.Drawing.Size(120, 22);
+            this.chkWindowActionLeftInvert.Size = new System.Drawing.Size(160, 22);
             this.chkWindowActionLeftInvert.TabIndex = 16;
             this.chkWindowActionLeftInvert.Text = "from Right";
             this.chkWindowActionLeftInvert.UseVisualStyleBackColor = true;
@@ -1574,7 +1630,7 @@
             this.listWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listWindowAction.Name = "listWindowAction";
             tableLayoutDetails.SetRowSpan(this.listWindowAction, 10);
-            this.listWindowAction.Size = new System.Drawing.Size(186, 282);
+            this.listWindowAction.Size = new System.Drawing.Size(186, 314);
             this.listWindowAction.TabIndex = 3;
             // 
             // cmbWindowActionBottomUnit
@@ -1583,10 +1639,10 @@
             this.cmbWindowActionBottomUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionBottomUnit.FormattingEnabled = true;
-            this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(474, 279);
+            this.cmbWindowActionBottomUnit.Location = new System.Drawing.Point(454, 279);
             this.cmbWindowActionBottomUnit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionBottomUnit.Name = "cmbWindowActionBottomUnit";
-            this.cmbWindowActionBottomUnit.Size = new System.Drawing.Size(117, 24);
+            this.cmbWindowActionBottomUnit.Size = new System.Drawing.Size(97, 24);
             this.cmbWindowActionBottomUnit.TabIndex = 27;
             // 
             // numWindowActionBottom
@@ -1606,7 +1662,7 @@
             0,
             -2147483648});
             this.numWindowActionBottom.Name = "numWindowActionBottom";
-            this.numWindowActionBottom.Size = new System.Drawing.Size(117, 22);
+            this.numWindowActionBottom.Size = new System.Drawing.Size(97, 22);
             this.numWindowActionBottom.TabIndex = 26;
             // 
             // cmbWindowActionRightUnit
@@ -1615,10 +1671,10 @@
             this.cmbWindowActionRightUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionRightUnit.FormattingEnabled = true;
-            this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(474, 249);
+            this.cmbWindowActionRightUnit.Location = new System.Drawing.Point(454, 249);
             this.cmbWindowActionRightUnit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionRightUnit.Name = "cmbWindowActionRightUnit";
-            this.cmbWindowActionRightUnit.Size = new System.Drawing.Size(117, 24);
+            this.cmbWindowActionRightUnit.Size = new System.Drawing.Size(97, 24);
             this.cmbWindowActionRightUnit.TabIndex = 23;
             // 
             // cmbWindowActionTopUnit
@@ -1627,10 +1683,10 @@
             this.cmbWindowActionTopUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionTopUnit.FormattingEnabled = true;
-            this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(474, 219);
+            this.cmbWindowActionTopUnit.Location = new System.Drawing.Point(454, 219);
             this.cmbWindowActionTopUnit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionTopUnit.Name = "cmbWindowActionTopUnit";
-            this.cmbWindowActionTopUnit.Size = new System.Drawing.Size(117, 24);
+            this.cmbWindowActionTopUnit.Size = new System.Drawing.Size(97, 24);
             this.cmbWindowActionTopUnit.TabIndex = 19;
             // 
             // numWindowActionRight
@@ -1650,7 +1706,7 @@
             0,
             -2147483648});
             this.numWindowActionRight.Name = "numWindowActionRight";
-            this.numWindowActionRight.Size = new System.Drawing.Size(117, 22);
+            this.numWindowActionRight.Size = new System.Drawing.Size(97, 22);
             this.numWindowActionRight.TabIndex = 22;
             // 
             // cmbWindowActionLeftUnit
@@ -1659,10 +1715,10 @@
             this.cmbWindowActionLeftUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionLeftUnit.FormattingEnabled = true;
-            this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(474, 189);
+            this.cmbWindowActionLeftUnit.Location = new System.Drawing.Point(454, 189);
             this.cmbWindowActionLeftUnit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionLeftUnit.Name = "cmbWindowActionLeftUnit";
-            this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(117, 24);
+            this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(97, 24);
             this.cmbWindowActionLeftUnit.TabIndex = 15;
             // 
             // chkWindowActionRestore
@@ -1673,7 +1729,7 @@
             this.chkWindowActionRestore.Location = new System.Drawing.Point(351, 28);
             this.chkWindowActionRestore.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkWindowActionRestore.Name = "chkWindowActionRestore";
-            this.chkWindowActionRestore.Size = new System.Drawing.Size(117, 27);
+            this.chkWindowActionRestore.Size = new System.Drawing.Size(97, 27);
             this.chkWindowActionRestore.TabIndex = 4;
             this.chkWindowActionRestore.Text = "Restore";
             this.chkWindowActionRestore.UseVisualStyleBackColor = true;
@@ -1695,7 +1751,7 @@
             0,
             -2147483648});
             this.numWindowActionTop.Name = "numWindowActionTop";
-            this.numWindowActionTop.Size = new System.Drawing.Size(117, 22);
+            this.numWindowActionTop.Size = new System.Drawing.Size(97, 22);
             this.numWindowActionTop.TabIndex = 18;
             // 
             // cmbWindowActionWindow
@@ -1707,7 +1763,7 @@
             this.cmbWindowActionWindow.Location = new System.Drawing.Point(351, 63);
             this.cmbWindowActionWindow.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionWindow.Name = "cmbWindowActionWindow";
-            this.cmbWindowActionWindow.Size = new System.Drawing.Size(240, 24);
+            this.cmbWindowActionWindow.Size = new System.Drawing.Size(200, 24);
             this.cmbWindowActionWindow.TabIndex = 6;
             // 
             // numWindowActionLeft
@@ -1727,7 +1783,7 @@
             0,
             -2147483648});
             this.numWindowActionLeft.Name = "numWindowActionLeft";
-            this.numWindowActionLeft.Size = new System.Drawing.Size(117, 22);
+            this.numWindowActionLeft.Size = new System.Drawing.Size(97, 22);
             this.numWindowActionLeft.TabIndex = 14;
             // 
             // lblWindowActionWindowCaption
@@ -1757,6 +1813,7 @@
             // numWindowActionVirtualDesktop
             // 
             this.numWindowActionVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.windowActionsBindingSource, "VirtualDesktop", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numWindowActionVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", this.windowActionsBindingSource, "OverrideVirtualDesktop", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.numWindowActionVirtualDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numWindowActionVirtualDesktop.Location = new System.Drawing.Point(351, 95);
             this.numWindowActionVirtualDesktop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1766,7 +1823,7 @@
             0,
             0});
             this.numWindowActionVirtualDesktop.Name = "numWindowActionVirtualDesktop";
-            this.numWindowActionVirtualDesktop.Size = new System.Drawing.Size(117, 22);
+            this.numWindowActionVirtualDesktop.Size = new System.Drawing.Size(97, 22);
             this.numWindowActionVirtualDesktop.TabIndex = 8;
             this.numWindowActionVirtualDesktop.Value = new decimal(new int[] {
             1,
@@ -1820,7 +1877,7 @@
             this.cmbWindowActionScreen.Location = new System.Drawing.Point(351, 125);
             this.cmbWindowActionScreen.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionScreen.Name = "cmbWindowActionScreen";
-            this.cmbWindowActionScreen.Size = new System.Drawing.Size(240, 24);
+            this.cmbWindowActionScreen.Size = new System.Drawing.Size(200, 24);
             this.cmbWindowActionScreen.TabIndex = 10;
             this.cmbWindowActionScreen.ValueMember = "Name";
             // 
@@ -1871,16 +1928,16 @@
             this.cmbWindowActionWindowState.Location = new System.Drawing.Point(351, 157);
             this.cmbWindowActionWindowState.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbWindowActionWindowState.Name = "cmbWindowActionWindowState";
-            this.cmbWindowActionWindowState.Size = new System.Drawing.Size(240, 24);
+            this.cmbWindowActionWindowState.Size = new System.Drawing.Size(200, 24);
             this.cmbWindowActionWindowState.TabIndex = 12;
             this.cmbWindowActionWindowState.ValueMember = "Name";
             // 
             // btnRecordWindowPosition
             // 
             this.btnRecordWindowPosition.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRecordWindowPosition.Location = new System.Drawing.Point(597, 27);
+            this.btnRecordWindowPosition.Location = new System.Drawing.Point(557, 27);
             this.btnRecordWindowPosition.Name = "btnRecordWindowPosition";
-            this.btnRecordWindowPosition.Size = new System.Drawing.Size(120, 29);
+            this.btnRecordWindowPosition.Size = new System.Drawing.Size(160, 29);
             this.btnRecordWindowPosition.TabIndex = 30;
             this.btnRecordWindowPosition.Text = "Record Position";
             this.btnRecordWindowPosition.UseVisualStyleBackColor = true;
@@ -1898,7 +1955,7 @@
             flowWindowActionActions.Margin = new System.Windows.Forms.Padding(0);
             flowWindowActionActions.Name = "flowWindowActionActions";
             tableLayoutDetails.SetRowSpan(flowWindowActionActions, 10);
-            flowWindowActionActions.Size = new System.Drawing.Size(33, 290);
+            flowWindowActionActions.Size = new System.Drawing.Size(33, 322);
             flowWindowActionActions.TabIndex = 31;
             // 
             // btnMoveUpWindowAction
@@ -2337,6 +2394,7 @@
             tableLayoutList.ResumeLayout(false);
             tableLayoutList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLayoutDefaultVirtualDesktop)).EndInit();
             flowLayoutActions.ResumeLayout(false);
             tableLayoutDetails.ResumeLayout(false);
             tableLayoutDetails.PerformLayout();
@@ -2515,6 +2573,9 @@
         private System.Windows.Forms.Button btnMoveUpConfiguration;
         private System.Windows.Forms.Button btnMoveDownConfiguration;
         private System.Windows.Forms.Button btnSortConfigurations;
+        private System.Windows.Forms.NumericUpDown numLayoutDefaultVirtualDesktop;
+        private System.Windows.Forms.Label lblLayoutDefaultVirtualDesktopCaption;
+        private System.Windows.Forms.CheckBox chkOverrideDefaultVirtualDesktop;
     }
 }
 

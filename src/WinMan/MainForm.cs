@@ -179,7 +179,6 @@ namespace Mastersign.WinMan
             lblWindowActionWindowCaption.Enabled = windowActionSelected;
             cmbWindowActionWindow.Enabled = windowActionSelected;
             lblWindowActionVirtualDesktop.Enabled = windowActionSelected;
-            numWindowActionVirtualDesktop.Enabled = windowActionSelected;
             lblWindowActionScreenCaption.Enabled = windowActionSelected;
             cmbWindowActionScreen.Enabled = windowActionSelected;
             lblWindowActionWindowStateCaption.Enabled = windowActionSelected;
