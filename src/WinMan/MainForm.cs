@@ -422,22 +422,60 @@ namespace Mastersign.WinMan
             => SortItems(windowPatternsBindingSource, Core?.Workspace?.WindowPatterns);
 
         private void WindowPatternListChangedHandler(object sender, ListChangedEventArgs e)
-        {
-            if (!HasCore || Core.Workspace == null) return;
-            cmbWindowActionWindow.Items.Clear();
-            cmbWindowActionWindow.Items.AddRange(Core.Workspace.WindowPatterns.Select(p => p.Name).ToArray());
-        }
+            => UpdateWindowPatternReferenceList();
 
         private void WindowPatternSelectionChangedHandler(object sender, EventArgs e)
         {
             RefreshWindowListHandler(sender, e);
             UpdateControlActivation();
+            WatchedWindowPattern = SelectedWindowPattern;
         }
 
         private void SelectedWindowPatternChangedHandler(object sender, EventArgs e)
         {
             RefreshWindowListHandler(sender, e);
         }
+
+        #region Automatic Reference Update
+
+        private WindowPattern _watchedWindowPattern;
+        private string _lastWindowPatternName;
+
+        private WindowPattern WatchedWindowPattern
+        {
+            get => _watchedWindowPattern;
+            set
+            {
+                if (value == _watchedWindowPattern) return;
+                if (_watchedWindowPattern != null)
+                {
+                    _watchedWindowPattern.NameChanged -= WatchedWindowPatternNameChangedHandler;
+                    _lastWindowPatternName = null;
+                }
+                _watchedWindowPattern = value;
+                if (_watchedWindowPattern != null)
+                {
+                    _lastWindowPatternName = _watchedWindowPattern.Name;
+                    _watchedWindowPattern.NameChanged += WatchedWindowPatternNameChangedHandler;
+                }
+            }
+        }
+
+        private void WatchedWindowPatternNameChangedHandler(object sender, EventArgs e)
+        {
+            Core?.Workspace?.UpdateWindowPatternReferences(_lastWindowPatternName, _watchedWindowPattern.Name);
+            _lastWindowPatternName = _watchedWindowPattern.Name;
+            UpdateWindowPatternReferenceList();
+        }
+
+        private void UpdateWindowPatternReferenceList()
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            cmbWindowActionWindow.Items.Clear();
+            cmbWindowActionWindow.Items.AddRange(Core.Workspace.WindowPatterns.Select(p => p.Name).ToArray());
+        }
+
+        #endregion
 
         #endregion
 
@@ -472,12 +510,8 @@ namespace Mastersign.WinMan
             Core.Workspace.ConfigurationPatterns.Remove(selectedConfigPattern);
         }
 
-        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e)
-        {
-            if (!HasCore || Core.Workspace == null) return;
-            cmbLayoutConfiguration.Items.Clear();
-            cmbLayoutConfiguration.Items.AddRange(Core.Workspace.ConfigurationPatterns.Select(p => p.Name).ToArray());
-        }
+        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e) 
+            => UpdateConfigurationPatternReferenceList();
 
         private void ConfigurationPatternSelectionChangedHandler(object sender, EventArgs e)
         {
@@ -488,6 +522,7 @@ namespace Mastersign.WinMan
         private void SelectedConfigurationPatternChanged(object sender, EventArgs e)
         {
             RefreshConfigurationPreview();
+            WatchedConfigurationPattern = SelectedConfigurationPattern;
         }
 
         private void RefreshConfigurationPreview()
@@ -504,6 +539,47 @@ namespace Mastersign.WinMan
             _previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configPattern, SelectedScreenPattern);
         }
 
+        #region Automatic Reference Update
+
+        private ConfigurationPattern _watchedConfigurationPattern;
+        private string _lastConfigurationPatternName;
+
+        private ConfigurationPattern WatchedConfigurationPattern
+        {
+            get => _watchedConfigurationPattern;
+            set
+            {
+                if (value == _watchedConfigurationPattern) return;
+                if (_watchedConfigurationPattern != null)
+                {
+                    _watchedConfigurationPattern.NameChanged -= WatchedConfigurationPatternNameChangedHandler;
+                    _lastConfigurationPatternName = null;
+                }
+                _watchedConfigurationPattern = value;
+                if (_watchedConfigurationPattern != null)
+                {
+                    _lastConfigurationPatternName = _watchedConfigurationPattern.Name;
+                    _watchedConfigurationPattern.NameChanged += WatchedConfigurationPatternNameChangedHandler;
+                }
+            }
+        }
+
+        private void WatchedConfigurationPatternNameChangedHandler(object sender, EventArgs e)
+        {
+            Core?.Workspace?.UpdateConfigurationReferences(_lastConfigurationPatternName, _watchedConfigurationPattern.Name);
+            _lastConfigurationPatternName = _watchedConfigurationPattern.Name;
+            UpdateConfigurationPatternReferenceList();
+        }
+
+        private void UpdateConfigurationPatternReferenceList()
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            cmbLayoutConfiguration.Items.Clear();
+            cmbLayoutConfiguration.Items.AddRange(Core.Workspace.ConfigurationPatterns.Select(p => p.Name).ToArray());
+        }
+
+        #endregion
+
         #endregion
 
         #region Screen Pattern
@@ -517,6 +593,7 @@ namespace Mastersign.WinMan
         {
             SelectedScreenPatternChanged(sender, e);
             UpdateControlActivation();
+            WatchedScreenPattern = SelectedScreenPattern;
         }
 
         private void SelectedScreenPatternChanged(object sender, EventArgs e)
@@ -538,6 +615,42 @@ namespace Mastersign.WinMan
             }
             RefreshConfigurationPreview();
         }
+
+
+        #region Automatic Reference Update
+
+        private ScreenPattern _watchedScreenPattern;
+        private string _lastScreenPatternName;
+
+        private ScreenPattern WatchedScreenPattern
+        {
+            get => _watchedScreenPattern;
+            set
+            {
+                if (value == _watchedScreenPattern) return;
+                if (_watchedScreenPattern != null)
+                {
+                    _watchedScreenPattern.NameChanged -= WatchedScreenPatternNameChangedHandler;
+                    _lastScreenPatternName = null;
+                }
+                _watchedScreenPattern = value;
+                if (_watchedScreenPattern != null)
+                {
+                    _lastScreenPatternName = _watchedScreenPattern.Name;
+                    _watchedScreenPattern.NameChanged += WatchedScreenPatternNameChangedHandler;
+                }
+            }
+        }
+
+        private void WatchedScreenPatternNameChangedHandler(object sender, EventArgs e)
+        {
+            Core?.Workspace?.UpdateScreenPatternReferences(SelectedConfigurationPattern?.Name,
+                _lastScreenPatternName, _watchedScreenPattern.Name);
+            _lastScreenPatternName = _watchedScreenPattern.Name;
+            RefreshWindowActionScreens();
+        }
+
+        #endregion
 
         #endregion
 

@@ -33,5 +33,41 @@ namespace Mastersign.WinMan
         {
             if (Options == null) Options = Options.Default();
         }
+
+        public void UpdateConfigurationReferences(string oldName, string newName)
+        {
+            if (oldName == null || newName == null) return;
+            foreach (var layout in Layouts)
+            {
+                if (layout.Configuration == oldName) layout.Configuration = newName;
+            }
+        }
+
+        public void UpdateScreenPatternReferences(string configuration, string oldName, string newName)
+        {
+            if (configuration == null || oldName == null || newName == null) return;
+            foreach (var layout in Layouts)
+            {
+                if (layout.Configuration == configuration)
+                {
+                    foreach (var windowAction in layout.Windows)
+                    {
+                        if (windowAction.Screen == oldName) windowAction.Screen = newName;
+                    }
+                }
+            }
+        }
+
+        public void UpdateWindowPatternReferences(string oldName, string newName)
+        {
+            if (oldName == null || newName == null) return;
+            foreach (var layout in Layouts)
+            {
+                foreach (var windowAction in layout.Windows)
+                {
+                    if (windowAction.Window == oldName) windowAction.Window = newName;
+                }
+            }
+        }
     }
 }
