@@ -1232,13 +1232,13 @@
             tableLayoutList.Controls.Add(this.btnNewLayout, 0, 0);
             tableLayoutList.Controls.Add(this.lblLayoutNameCaption, 0, 1);
             tableLayoutList.Controls.Add(this.txtLayoutName, 0, 2);
-            tableLayoutList.Controls.Add(this.chkLayoutIsDefaultLayout, 0, 3);
-            tableLayoutList.Controls.Add(this.lblConfigurationPatternCaption, 0, 4);
-            tableLayoutList.Controls.Add(this.cmbLayoutConfiguration, 0, 5);
-            tableLayoutList.Controls.Add(this.listLayouts, 0, 8);
-            tableLayoutList.Controls.Add(this.lblLayoutDefaultVirtualDesktopCaption, 0, 6);
-            tableLayoutList.Controls.Add(this.numLayoutDefaultVirtualDesktop, 0, 7);
-            tableLayoutList.Controls.Add(flowLayoutActions, 1, 8);
+            tableLayoutList.Controls.Add(this.chkLayoutIsDefaultLayout, 0, 4);
+            tableLayoutList.Controls.Add(this.lblConfigurationPatternCaption, 0, 5);
+            tableLayoutList.Controls.Add(this.cmbLayoutConfiguration, 0, 6);
+            tableLayoutList.Controls.Add(this.listLayouts, 0, 3);
+            tableLayoutList.Controls.Add(this.lblLayoutDefaultVirtualDesktopCaption, 0, 7);
+            tableLayoutList.Controls.Add(this.numLayoutDefaultVirtualDesktop, 0, 8);
+            tableLayoutList.Controls.Add(flowLayoutActions, 1, 3);
             tableLayoutList.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutList.Location = new System.Drawing.Point(3, 4);
             tableLayoutList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1248,12 +1248,12 @@
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutList.Size = new System.Drawing.Size(235, 640);
             tableLayoutList.TabIndex = 0;
@@ -1302,7 +1302,7 @@
             this.chkLayoutIsDefaultLayout.AutoSize = true;
             this.chkLayoutIsDefaultLayout.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "DefaultLayout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLayoutIsDefaultLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 93);
+            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 506);
             this.chkLayoutIsDefaultLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
             this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(196, 20);
@@ -1313,7 +1313,7 @@
             // lblConfigurationPatternCaption
             // 
             this.lblConfigurationPatternCaption.AutoSize = true;
-            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 121);
+            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 534);
             this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
             this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(134, 16);
@@ -1325,7 +1325,7 @@
             this.cmbLayoutConfiguration.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Configuration", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbLayoutConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbLayoutConfiguration.FormattingEnabled = true;
-            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 145);
+            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 558);
             this.cmbLayoutConfiguration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
             this.cmbLayoutConfiguration.Size = new System.Drawing.Size(196, 24);
@@ -1338,7 +1338,7 @@
             this.listLayouts.FormattingEnabled = true;
             this.listLayouts.IntegralHeight = false;
             this.listLayouts.ItemHeight = 16;
-            this.listLayouts.Location = new System.Drawing.Point(3, 231);
+            this.listLayouts.Location = new System.Drawing.Point(3, 93);
             this.listLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listLayouts.Name = "listLayouts";
             this.listLayouts.Size = new System.Drawing.Size(196, 405);
@@ -1348,7 +1348,7 @@
             // 
             this.lblLayoutDefaultVirtualDesktopCaption.AutoSize = true;
             this.lblLayoutDefaultVirtualDesktopCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLayoutDefaultVirtualDesktopCaption.Location = new System.Drawing.Point(3, 177);
+            this.lblLayoutDefaultVirtualDesktopCaption.Location = new System.Drawing.Point(3, 590);
             this.lblLayoutDefaultVirtualDesktopCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblLayoutDefaultVirtualDesktopCaption.Name = "lblLayoutDefaultVirtualDesktopCaption";
             this.lblLayoutDefaultVirtualDesktopCaption.Size = new System.Drawing.Size(196, 16);
@@ -1360,7 +1360,7 @@
             // 
             this.numLayoutDefaultVirtualDesktop.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.layoutsBindingSource, "DefaultVirtualDesktop", true));
             this.numLayoutDefaultVirtualDesktop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numLayoutDefaultVirtualDesktop.Location = new System.Drawing.Point(3, 201);
+            this.numLayoutDefaultVirtualDesktop.Location = new System.Drawing.Point(3, 614);
             this.numLayoutDefaultVirtualDesktop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.numLayoutDefaultVirtualDesktop.Minimum = new decimal(new int[] {
             1,
@@ -1384,7 +1384,7 @@
             flowLayoutActions.Controls.Add(this.btnDuplicateLayout);
             flowLayoutActions.Controls.Add(this.btnDeleteLayout);
             flowLayoutActions.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutActions.Location = new System.Drawing.Point(202, 227);
+            flowLayoutActions.Location = new System.Drawing.Point(202, 89);
             flowLayoutActions.Margin = new System.Windows.Forms.Padding(0);
             flowLayoutActions.Name = "flowLayoutActions";
             flowLayoutActions.Size = new System.Drawing.Size(33, 413);
