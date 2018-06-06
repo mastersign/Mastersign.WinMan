@@ -66,7 +66,7 @@ namespace Mastersign.WinMan
         {
             try
             {
-                var startInfo = new ProcessStartInfo("cmd", 
+                var startInfo = new ProcessStartInfo("cmd",
                     $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {windowPattern.CommandArgs}");
                 startInfo.UseShellExecute = false;
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -194,5 +194,7 @@ namespace Mastersign.WinMan
         }
 
         public override string ToString() => Window;
+
+        public WindowAction Clone() => (WindowAction)MemberwiseClone();
     }
 }

@@ -16,7 +16,7 @@ namespace Mastersign.WinMan
     public partial class MainForm : ImprovedForm
     {
         private Core _core;
-        private PreviewPainter _previewPainter;
+        private readonly PreviewPainter _previewPainter;
 
         public MainForm()
         {
@@ -43,103 +43,164 @@ namespace Mastersign.WinMan
         private void InitializeIcons()
         {
             var size = toolStrip.ImageScalingSize;
-            tsbNewWorkspace.Image = new Icon(Resources.New, size).ToBitmap();
-            tsbOpenWorkspace.Image = new Icon(Resources.Open, size).ToBitmap();
-            tsbSaveWorkspace.Image = new Icon(Resources.Save, size).ToBitmap();
+            SetIcon(tsbNewWorkspace, Resources.New, size);
+            SetIcon(tsbOpenWorkspace, Resources.Open, size);
+            SetIcon(tsbSaveWorkspace, Resources.Save, size);
             tsbSaveWorkspaceAs.Image = tsbSaveWorkspace.Image;
-            tsbApplyWorkspace.Image = new Icon(Resources.ApplyWorkspace, size).ToBitmap();
-            tsbApplyCurrentLayout.Image = new Icon(Resources.ApplyLayout, size).ToBitmap();
-            tsbApplyWindowAction.Image = new Icon(Resources.ApplyWindow, size).ToBitmap();
+            SetIcon(tsbApplyWorkspace, Resources.ApplyWorkspace, size);
+            SetIcon(tsbApplyCurrentLayout, Resources.ApplyLayout, size);
+            SetIcon(tsbApplyWindowAction, Resources.ApplyWindow, size);
+
+            SetIcon(btnRecordConfiguration, Resources.NewItem, size);
+            SetIcon(btnMoveUpConfiguration, Resources.Up, size);
+            SetIcon(btnMoveDownConfiguration, Resources.Down, size);
+            SetIcon(btnSortConfigurations, Resources.Sort, size);
+            SetIcon(btnDeleteConfiguration, Resources.DeleteItem, size);
+
+            SetIcon(btnReloadWindowList, Resources.Refresh, size);
+            SetIcon(btnNewWindowPattern, Resources.NewItem, size);
+            SetIcon(btnMoveUpWindowPattern, Resources.Up, size);
+            SetIcon(btnMoveDownWindowPattern, Resources.Down, size);
+            SetIcon(btnSortWindowPatterns, Resources.Sort, size);
+            SetIcon(btnDuplicateWindowPattern, Resources.DuplicateItem, size);
+            SetIcon(btnDeleteWindowPattern, Resources.DeleteItem, size);
+
+            SetIcon(btnNewLayout, Resources.NewItem, size);
+            SetIcon(btnMoveUpLayout, Resources.Up, size);
+            SetIcon(btnMoveDownLayout, Resources.Down, size);
+            SetIcon(btnSortLayouts, Resources.Sort, size);
+            SetIcon(btnDuplicateLayout, Resources.DuplicateItem, size);
+            SetIcon(btnDeleteLayout, Resources.DeleteItem, size);
+
+            SetIcon(btnNewWindowAction, Resources.NewItem, size);
+            SetIcon(btnMoveUpWindowAction, Resources.Up, size);
+            SetIcon(btnMoveDownWindowAction, Resources.Down, size);
+            SetIcon(btnSortWindowActions, Resources.Sort, size);
+            SetIcon(btnDuplicateWindowAction, Resources.DuplicateItem, size);
+            SetIcon(btnDeleteWindowAction, Resources.DeleteItem, size);
+        }
+
+        private static void SetIcon(ToolStripItem tsi, Icon icon, Size size)
+            => tsi.Image = new Icon(icon, size).ToBitmap();
+
+        private static void SetIcon(Button btn, Icon icon, Size size)
+        {
+            btn.Image = new Icon(icon, size).ToBitmap();
+            if (btn.Text.Length == 1)
+                btn.Text = string.Empty;
+            else
+                btn.TextImageRelation = TextImageRelation.ImageBeforeText;
         }
 
         private void UpdateControlActivation()
         {
             SuspendLayout();
-            tsbApplyCurrentLayout.Enabled =
-            tsbApplyWindowAction.Enabled =
-                tabMain.SelectedTab == tpLayouts;
+            var workspaceAvailable = HasCore && Core.Workspace != null;
+            var layoutTab = workspaceAvailable && tabMain.SelectedTab == tpLayouts;
+            tsbApplyCurrentLayout.Enabled = layoutTab;
+            tsbApplyWindowAction.Enabled = layoutTab;
 
-            btnDeleteConfiguration.Enabled =
-            lblConfigurationNameCaption.Enabled =
-            txtConfigurationName.Enabled =
-            lblVirtualDesktopsCaption.Enabled =
-            numVirtualDesktopCount.Enabled =
-            chkRespectVirtualDesktopCount.Enabled =
-            lblScreensCaption.Enabled =
-            listScreenPatterns.Enabled =
-                SelectedConfigurationPattern != null;
+            var configPatternSelected = workspaceAvailable && SelectedConfigurationPattern != null;
+            btnDeleteConfiguration.Enabled = configPatternSelected;
+            lblConfigurationNameCaption.Enabled = configPatternSelected;
+            txtConfigurationName.Enabled = configPatternSelected;
+            lblVirtualDesktopsCaption.Enabled = configPatternSelected;
+            numVirtualDesktopCount.Enabled = configPatternSelected;
+            chkRespectVirtualDesktopCount.Enabled = configPatternSelected;
+            lblScreensCaption.Enabled = configPatternSelected;
+            listScreenPatterns.Enabled = configPatternSelected;
 
-            lblScreenNameCaption.Enabled =
-            txtScreenName.Enabled =
-            lblScreenDeviceNameCaption.Enabled =
-            lblScreenLeftCaption.Enabled =
-            lblScreenTopCaption.Enabled =
-            lblScreenWidthCaption.Enabled =
-            lblScreenHeightCaption.Enabled =
-                SelectedScreenPattern != null;
+            var screenPatternSelected = workspaceAvailable && SelectedScreenPattern != null;
+            lblScreenNameCaption.Enabled = screenPatternSelected;
+            txtScreenName.Enabled = screenPatternSelected;
+            lblScreenDeviceNameCaption.Enabled = screenPatternSelected;
+            lblScreenLeftCaption.Enabled = screenPatternSelected;
+            lblScreenTopCaption.Enabled = screenPatternSelected;
+            lblScreenWidthCaption.Enabled = screenPatternSelected;
+            lblScreenHeightCaption.Enabled = screenPatternSelected;
 
-            btnDeleteWindowPattern.Enabled =
-            lblWindowPatternName.Enabled =
-            txtWindowPatternName.Enabled =
-            lblTitlePatternCaption.Enabled =
-            txtTitlePattern.Enabled =
-            cmbTitlePatternType.Enabled =
-            chkTitleIgnoreCase.Enabled =
-            lblWindowClassPatternCaption.Enabled =
-            txtWindowClassPattern.Enabled =
-            cmbWindowClassPatternType.Enabled =
-            chkWindowClassIgnoreCase.Enabled =
-            lblProcessFileName.Enabled =
-            txtProcessFileName.Enabled =
-            lblMatchCountCaption.Enabled =
-            lblMatchCount.Enabled =
-            lblRestoreCommand.Enabled =
-            txtRestoreCommand.Enabled =
-            lblRestoreCommandArgs.Enabled =
-            txtRestoreCommandArgs.Enabled =
-            lblRestoreWorkingDir.Enabled =
-            txtRestoreWorkingDir.Enabled =
-                SelectedWindowPattern != null;
+            var windowPatternSelected = workspaceAvailable && SelectedWindowPattern != null;
+            btnDuplicateWindowPattern.Enabled = windowPatternSelected;
+            btnMoveUpWindowPattern.Enabled =
+                windowPatternSelected && windowPatternsBindingSource.Position > 0;
+            btnMoveDownWindowPattern.Enabled =
+                windowPatternSelected && windowPatternsBindingSource.Position < windowPatternsBindingSource.Count - 1;
+            btnSortWindowPatterns.Enabled
+                = workspaceAvailable && windowPatternsBindingSource.Count > 1;
+            btnDeleteWindowPattern.Enabled = windowPatternSelected;
+            lblWindowPatternName.Enabled = windowPatternSelected;
+            txtWindowPatternName.Enabled = windowPatternSelected;
+            lblTitlePatternCaption.Enabled = windowPatternSelected;
+            txtTitlePattern.Enabled = windowPatternSelected;
+            cmbTitlePatternType.Enabled = windowPatternSelected;
+            chkTitleIgnoreCase.Enabled = windowPatternSelected;
+            lblWindowClassPatternCaption.Enabled = windowPatternSelected;
+            txtWindowClassPattern.Enabled = windowPatternSelected;
+            cmbWindowClassPatternType.Enabled = windowPatternSelected;
+            chkWindowClassIgnoreCase.Enabled = windowPatternSelected;
+            lblProcessFileName.Enabled = windowPatternSelected;
+            txtProcessFileName.Enabled = windowPatternSelected;
+            lblMatchCountCaption.Enabled = windowPatternSelected;
+            lblMatchCount.Enabled = windowPatternSelected;
+            lblRestoreCommand.Enabled = windowPatternSelected;
+            txtRestoreCommand.Enabled = windowPatternSelected;
+            lblRestoreCommandArgs.Enabled = windowPatternSelected;
+            txtRestoreCommandArgs.Enabled = windowPatternSelected;
+            lblRestoreWorkingDir.Enabled = windowPatternSelected;
+            txtRestoreWorkingDir.Enabled = windowPatternSelected;
 
-            btnDeleteLayout.Enabled =
-            lblLayoutNameCaption.Enabled =
-            txtLayoutName.Enabled =
-            chkLayoutIsDefaultLayout.Enabled =
-            lblConfigurationPatternCaption.Enabled =
-            cmbLayoutConfiguration.Enabled =
-            lblWindowActionsCaption.Enabled =
-            btnNewWindowAction.Enabled =
-            listWindowAction.Enabled =
-                SelectedLayout != null;
+            var layoutSelected = workspaceAvailable && SelectedLayout != null;
+            btnDuplicateLayout.Enabled = layoutSelected;
+            btnMoveUpLayout.Enabled
+                = layoutSelected && layoutsBindingSource.Position > 0;
+            btnMoveDownLayout.Enabled
+                = layoutSelected && layoutsBindingSource.Position < layoutsBindingSource.Count - 1;
+            btnSortLayouts.Enabled
+                = workspaceAvailable && layoutsBindingSource.Count > 1;
+            btnDeleteLayout.Enabled = layoutSelected;
+            lblLayoutNameCaption.Enabled = layoutSelected;
+            txtLayoutName.Enabled = layoutSelected;
+            chkLayoutIsDefaultLayout.Enabled = layoutSelected;
+            lblConfigurationPatternCaption.Enabled = layoutSelected;
+            cmbLayoutConfiguration.Enabled = layoutSelected;
+            lblWindowActionsCaption.Enabled = layoutSelected;
+            btnNewWindowAction.Enabled = layoutSelected;
+            listWindowAction.Enabled = layoutSelected;
 
-            btnDeleteWindowAction.Enabled =
-            chkWindowActionRestore.Enabled =
-            lblWindowActionWindowCaption.Enabled =
-            cmbWindowActionWindow.Enabled =
-            lblWindowActionVirtualDesktop.Enabled =
-            numWindowActionVirtualDesktop.Enabled =
-            lblWindowActionScreenCaption.Enabled =
-            cmbWindowActionScreen.Enabled =
-            lblWindowActionWindowStateCaption.Enabled =
-            cmbWindowActionWindowState.Enabled =
-            lblWindowActionLeftCaption.Enabled =
-            numWindowActionLeft.Enabled =
-            cmbWindowActionLeftUnit.Enabled =
-            chkWindowActionLeftInvert.Enabled =
-            lblWindowActionTopCaption.Enabled =
-            numWindowActionTop.Enabled =
-            cmbWindowActionTopUnit.Enabled =
-            chkWindowActionTopInvert.Enabled =
-            lblWindowActionRightCaption.Enabled =
-            numWindowActionRight.Enabled =
-            cmbWindowActionRightUnit.Enabled = 
-            chkWindowActionRightInvert.Enabled =
-            lblWindowActionBottomCaption.Enabled =
-            numWindowActionBottom.Enabled =
-            cmbWindowActionBottomUnit.Enabled = 
-            chkWindowActionBottomInvert.Enabled =
-            chkWindowActionCompensateOsMargin.Enabled =
-                SelectedWindowAction != null;
+            var windowActionSelected = workspaceAvailable && SelectedWindowAction != null;
+            btnMoveUpWindowAction.Enabled
+                = windowActionSelected && windowActionsBindingSource.Position > 0;
+            btnMoveDownWindowAction.Enabled
+                = windowActionSelected && windowActionsBindingSource.Position < windowActionsBindingSource.Count - 1;
+            btnSortLayouts.Enabled
+                = workspaceAvailable && windowActionsBindingSource.Count > 1;
+            btnDeleteWindowAction.Enabled = windowActionSelected;
+            chkWindowActionRestore.Enabled = windowActionSelected;
+            lblWindowActionWindowCaption.Enabled = windowActionSelected;
+            cmbWindowActionWindow.Enabled = windowActionSelected;
+            lblWindowActionVirtualDesktop.Enabled = windowActionSelected;
+            numWindowActionVirtualDesktop.Enabled = windowActionSelected;
+            lblWindowActionScreenCaption.Enabled = windowActionSelected;
+            cmbWindowActionScreen.Enabled = windowActionSelected;
+            lblWindowActionWindowStateCaption.Enabled = windowActionSelected;
+            cmbWindowActionWindowState.Enabled = windowActionSelected;
+            lblWindowActionLeftCaption.Enabled = windowActionSelected;
+            numWindowActionLeft.Enabled = windowActionSelected;
+            cmbWindowActionLeftUnit.Enabled = windowActionSelected;
+            chkWindowActionLeftInvert.Enabled = windowActionSelected;
+            lblWindowActionTopCaption.Enabled = windowActionSelected;
+            numWindowActionTop.Enabled = windowActionSelected;
+            cmbWindowActionTopUnit.Enabled = windowActionSelected;
+            chkWindowActionTopInvert.Enabled = windowActionSelected;
+            lblWindowActionRightCaption.Enabled = windowActionSelected;
+            numWindowActionRight.Enabled = windowActionSelected;
+            cmbWindowActionRightUnit.Enabled = windowActionSelected;
+            chkWindowActionRightInvert.Enabled = windowActionSelected;
+            lblWindowActionBottomCaption.Enabled = windowActionSelected;
+            numWindowActionBottom.Enabled = windowActionSelected;
+            cmbWindowActionBottomUnit.Enabled = windowActionSelected;
+            chkWindowActionBottomInvert.Enabled = windowActionSelected;
+            chkWindowActionCompensateOsMargin.Enabled = windowActionSelected;
 
             ResumeLayout();
         }
@@ -180,6 +241,7 @@ namespace Mastersign.WinMan
                 Core.WorkspaceFileNameChanged += CoreWorkspaceFileNameChangedHandler;
                 Core.WindowWrappersChanged += CoreWindowWrappersChangedHandler;
             }
+
             CoreWorkspaceChangedHandler(this, EventArgs.Empty);
             CoreWorkspaceFileNameChangedHandler(this, EventArgs.Empty);
             CoreWindowWrappersChangedHandler(this, EventArgs.Empty);
@@ -193,6 +255,7 @@ namespace Mastersign.WinMan
                 Invoke((EventHandler)CoreWorkspaceChangedHandler, sender, e);
                 return;
             }
+
             workspaceBindingSource.DataSource = Core?.Workspace;
             ReleaseOptions();
             BindOptions(Core?.Workspace?.Options);
@@ -205,6 +268,7 @@ namespace Mastersign.WinMan
                 Invoke((EventHandler)CoreWorkspaceFileNameChangedHandler, sender, e);
                 return;
             }
+
             tsslFileName.Text = Core?.WorkspaceFileName;
         }
 
@@ -215,6 +279,7 @@ namespace Mastersign.WinMan
                 Invoke((EventHandler)CoreWindowWrappersChangedHandler, sender, e);
                 return;
             }
+
             RefreshWindowListHandler(sender, e);
         }
 
@@ -265,18 +330,20 @@ namespace Mastersign.WinMan
         private ListViewItem ListViewItemFromWindow(WindowWrapper w)
         {
             var selectedPattern = SelectedWindowPattern;
-            var item = new ListViewItem(new string[]
-                    {
-                        selectedPattern != null ? (selectedPattern.IsMatch(w) ? "Yes" : "No") : string.Empty,
-                        w.Title,
-                        w.WindowClass,
-                        Path.GetFileName(w.ProcessFileName),
-                        w.Screen.DeviceName,
-                        (VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1).ToString(),
-                        w.NormalPosition.ToString(),
-                        w.ShowCommand.ToString(),
-                    });
-            item.Tag = w;
+            var item = new ListViewItem(new[]
+            {
+                selectedPattern != null ? (selectedPattern.IsMatch(w) ? "Yes" : "No") : string.Empty,
+                w.Title,
+                w.WindowClass,
+                Path.GetFileName(w.ProcessFileName),
+                w.Screen.DeviceName,
+                (VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1).ToString(),
+                w.NormalPosition.ToString(),
+                w.ShowCommand.ToString(),
+            })
+            {
+                Tag = w
+            };
             return item;
         }
 
@@ -304,24 +371,37 @@ namespace Mastersign.WinMan
         #region Window Patterns
 
         private WindowPattern SelectedWindowPattern
-            => windowPatternsBindingSource.Position >= 0
+        {
+            get => windowPatternsBindingSource.Position >= 0
                 ? windowPatternsBindingSource.Current as WindowPattern
                 : null;
+            set => windowPatternsBindingSource.Position
+                = Core.Workspace.WindowPatterns.IndexOf(value);
+        }
 
         private void NewWindowPatternHandler(object sender, EventArgs e)
         {
             if (!HasCore || Core.Workspace == null) return;
             var selectedWindow = SelectedWindow;
-            WindowPattern windowPattern;
-            if (selectedWindow != null)
-            {
-                windowPattern = WindowPattern.FromWindow(selectedWindow);
-            }
-            else
-            {
-                windowPattern = new WindowPattern();
-            }
+            var windowPattern = selectedWindow != null
+                ? WindowPattern.FromWindow(selectedWindow)
+                : new WindowPattern();
             Core.Workspace.WindowPatterns.Add(windowPattern);
+            SelectedWindowPattern = windowPattern;
+        }
+
+        private void DuplicateWindowPatternHandler(object sender, EventArgs e)
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedWindowPattern = SelectedWindowPattern;
+            if (selectedWindowPattern == null) return;
+            var position = Core.Workspace.WindowPatterns.IndexOf(selectedWindowPattern) + 1;
+            var copy = selectedWindowPattern.Clone();
+            copy.Name += " Copy";
+            Core.Workspace.WindowPatterns.Insert(position, copy);
+            SelectedWindowPattern = copy;
+            txtWindowPatternName.Focus();
+            txtWindowPatternName.SelectAll();
         }
 
         private void DeleteWindowPatternHandler(object sender, EventArgs e)
@@ -331,6 +411,15 @@ namespace Mastersign.WinMan
             if (selectedWindowPattern == null) return;
             Core.Workspace.WindowPatterns.Remove(selectedWindowPattern);
         }
+
+        private void MoveUpWindowPatternHandler(object sender, EventArgs e)
+            => MoveItemUp(windowPatternsBindingSource, Core?.Workspace?.WindowPatterns);
+
+        private void MoveDownWindowPatternHandler(object sender, EventArgs e)
+            => MoveItemDown(windowPatternsBindingSource, Core?.Workspace?.WindowPatterns);
+
+        private void SortWindowPatternsHandler(object sender, EventArgs e)
+            => SortItems(windowPatternsBindingSource, Core?.Workspace?.WindowPatterns);
 
         private void WindowPatternListChangedHandler(object sender, ListChangedEventArgs e)
         {
@@ -365,6 +454,15 @@ namespace Mastersign.WinMan
             Core.Workspace.ConfigurationPatterns.Add(ConfigurationPattern.FromConfiguration(
                 Screen.AllScreens, VirtualDesktop.GetDesktops().Length));
         }
+
+        private void MoveUpConfigurationHandler(object sender, EventArgs e)
+            => MoveItemUp(configurationPatternsBindingSource, Core?.Workspace?.ConfigurationPatterns);
+
+        private void MoveDownConfigurationHandler(object sender, EventArgs e)
+            => MoveItemDown(configurationPatternsBindingSource, Core?.Workspace?.ConfigurationPatterns);
+
+        private void SortConfigurationsHandler(object sender, EventArgs e)
+            => SortItems(configurationPatternsBindingSource, Core?.Workspace?.ConfigurationPatterns);
 
         private void DeleteConfigurationHandler(object sender, EventArgs e)
         {
@@ -446,9 +544,13 @@ namespace Mastersign.WinMan
         #region Layouts
 
         private Layout SelectedLayout
-            => layoutsBindingSource.Position >= 0
+        {
+            get => layoutsBindingSource.Position >= 0
                 ? layoutsBindingSource.Current as Layout
                 : null;
+            set => layoutsBindingSource.Position
+                = Core.Workspace.Layouts.IndexOf(value);
+        }
 
         private void NewLayoutHandler(object sender, EventArgs e)
         {
@@ -459,6 +561,20 @@ namespace Mastersign.WinMan
             });
         }
 
+        private void DuplicateLayoutHandler(object sender, EventArgs e)
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            var position = Core.Workspace.Layouts.IndexOf(selectedLayout) + 1;
+            var copy = selectedLayout.Clone();
+            copy.Name += " Copy";
+            Core.Workspace.Layouts.Insert(position, copy);
+            SelectedLayout = copy;
+            txtLayoutName.Focus();
+            txtLayoutName.SelectAll();
+        }
+
         private void DeleteLayoutHandler(object sender, EventArgs e)
         {
             if (!HasCore || Core.Workspace == null) return;
@@ -466,6 +582,15 @@ namespace Mastersign.WinMan
             if (selectedLayout == null) return;
             Core.Workspace.Layouts.Remove(selectedLayout);
         }
+
+        private void MoveUpLayoutHandler(object sender, EventArgs e)
+            => MoveItemUp(layoutsBindingSource, Core?.Workspace?.Layouts);
+
+        private void MoveDownLayoutHandler(object sender, EventArgs e)
+            => MoveItemDown(layoutsBindingSource, Core?.Workspace?.Layouts);
+
+        private void SortLayoutsHandler(object sender, EventArgs e)
+            => SortItems(layoutsBindingSource, Core?.Workspace?.Layouts);
 
         private void ApplyCurrentLayoutHandler(object sender, EventArgs e)
         {
@@ -534,9 +659,13 @@ namespace Mastersign.WinMan
         #region Window Action
 
         private WindowAction SelectedWindowAction
-            => windowActionsBindingSource.Position >= 0
+        {
+            get => windowActionsBindingSource.Position >= 0
                 ? windowActionsBindingSource.Current as WindowAction
                 : null;
+            set => windowActionsBindingSource.Position
+                = SelectedLayout?.Windows.IndexOf(value) ?? -1;
+        }
 
         private void NewWindowActionHandler(object sender, EventArgs e)
         {
@@ -546,12 +675,36 @@ namespace Mastersign.WinMan
             });
         }
 
+        private void DuplicateWindowActionHandler(object sender, EventArgs e)
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            var selectedWindowAction = SelectedWindowAction;
+            if (selectedWindowAction == null) return;
+            var position = selectedLayout.Windows.IndexOf(selectedWindowAction) + 1;
+            var copy = selectedWindowAction.Clone();
+            selectedLayout.Windows.Insert(position, copy);
+            SelectedWindowAction = copy;
+            cmbWindowActionWindow.Focus();
+            cmbWindowActionWindow.SelectAll();
+        }
+
         private void DeleteWindowActionHandler(object sender, EventArgs e)
         {
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction == null) return;
             windowActionsBindingSource.Remove(selectedWindowAction);
         }
+
+        private void MoveUpWindowActionHandler(object sender, EventArgs e)
+            => MoveItemUp(windowActionsBindingSource, SelectedLayout?.Windows);
+
+        private void MoveDownWindowActionHandler(object sender, EventArgs e)
+            => MoveItemDown(windowActionsBindingSource, SelectedLayout?.Windows);
+
+        private void SortWindowActionsHandler(object sender, EventArgs e)
+            => SortItems(windowActionsBindingSource, SelectedLayout?.Windows);
 
         private void ApplyWindowActionHandler(object sender, EventArgs e)
         {
@@ -651,6 +804,42 @@ namespace Mastersign.WinMan
             if (_options == null) return;
             var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
             _options.OsWindowMargin = new Margin(m.Left, m.Top, m.Right, (int)numOsWindowMarginBottom.Value);
+        }
+
+        #endregion
+
+        #region Helper
+
+        private static void MoveItemUp<T>(BindingSource bindingSource, IList<T> list)
+        {
+            if (list == null) return;
+            var pos = bindingSource.Position;
+            if (pos < 1) return;
+            var item = list[pos];
+            list.RemoveAt(pos);
+            list.Insert(pos - 1, item);
+            bindingSource.Position = pos - 1;
+        }
+
+        private static void MoveItemDown<T>(BindingSource bindingSource, IList<T> list)
+        {
+            if (list == null) return;
+            var pos = bindingSource.Position;
+            if (pos >= list.Count - 1) return;
+            var item = list[pos];
+            list.RemoveAt(pos);
+            list.Insert(pos + 1, item);
+            bindingSource.Position = pos + 1;
+        }
+
+        private static void SortItems<T>(BindingSource bindingSource, IList<T> list)
+        {
+            if (list == null) return;
+            var selectedItem = (T)bindingSource.Current;
+            var sortedItems = list.OrderBy(o => o.ToString()).ToList();
+            list.Clear();
+            foreach (var item in sortedItems) list.Add(item);
+            bindingSource.Position = list.IndexOf(selectedItem);
         }
 
         #endregion

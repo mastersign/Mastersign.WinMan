@@ -101,5 +101,7 @@ namespace Mastersign.WinMan
         public WindowWrapper[] Discover() => WindowWrapper.AllWindows().Where(w => IsMatch(w)).ToArray();
 
         public override string ToString() => Name;
+
+        public WindowPattern Clone() => (WindowPattern)MemberwiseClone();
     }
 }
