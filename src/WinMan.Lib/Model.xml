@@ -4,7 +4,6 @@
        xsi:schemaLocation="http://scaleton.mastersign.de/2014/model http://scaleton.mastersign.de/Scaleton_Model_2014.xsd">
 
   <ReferencedTypes>
-    <ReferencedType id="rect" name="System.Drawing.Rectangle" kind="Struct" immutable="true" />
     <ReferencedType id="WindowWrapper" name="WindowWrapper" kind="Class" />
   </ReferencedTypes>
 
@@ -23,9 +22,29 @@
       <Member name="Regex" />
     </Enum>
 
+    <Class name="Margin">
+      <Configuration>
+        <IsEquatable value="true" overrideOperators="false" />
+      </Configuration>
+      <Property name="Left" type="int" definesEquality="true" immutable="true" />
+      <Property name="Top" type="int" definesEquality="true" immutable="true" />
+      <Property name="Right" type="int" definesEquality="true" immutable="true" />
+      <Property name="Bottom" type="int" definesEquality="true" immutable="true" />
+    </Class>
+
+    <Class name="Rect">
+      <Configuration>
+        <IsEquatable value="true" overrideOperators="false" />
+      </Configuration>
+      <Property name="X" type="int" definesEquality="true" immutable="true" />
+      <Property name="Y" type="int" definesEquality="true" immutable="true" />
+      <Property name="Width" type="int" definesEquality="true" immutable="true" />
+      <Property name="Height" type="int" definesEquality="true" immutable="true" />
+    </Class>
+
     <Class name="WindowPattern">
       <Property name="Name" type="string">
-        <DefaultValue>No Name</DefaultValue>
+        <DefaultValue>New Window Pattern</DefaultValue>
       </Property>
 
       <Property name="TitlePattern" type="string" />
@@ -50,13 +69,13 @@
       <Property name="Name" type="string">
         <DefaultValue>Screen</DefaultValue>
       </Property>
-      <Property name="Bounds" type="rect" />
+      <Property name="Bounds" type="Rect" />
       <Property name="DeviceName" type="string" />
     </Class>
 
     <Class name="ConfigurationPattern">
       <Property name="Name" type="string">
-        <DefaultValue>Configuration</DefaultValue>
+        <DefaultValue>New Configuration Pattern</DefaultValue>
       </Property>
       <Property name="Screens" type="ScreenPattern" isCollection="true" />
       <Property name="VirtualDesktopCount" type="int">
@@ -79,9 +98,12 @@
     </Enum>
 
     <Class name="WindowAction">
-      <Property name="Window" type="string" />
+      <Property name="Window" type="string">
+        <DefaultValue>Not Set</DefaultValue>
+      </Property>
 
       <Property name="Restore" type="bool" />
+      <Property name="OverrideVirtualDesktop" type="bool" />
       <Property name="VirtualDesktop" type="int">
         <DefaultValue>1</DefaultValue>
       </Property>
@@ -124,16 +146,24 @@
 
     <Class name="Layout">
       <Property name="Name" type="string">
-        <DefaultValue>Layout</DefaultValue>
+        <DefaultValue>New Layout</DefaultValue>
       </Property>
       <Property name="DefaultLayout" type="bool">
         <DefaultValue>true</DefaultValue>
       </Property>
       <Property name="Configuration" type="string" />
+      <Property name="DefaultVirtualDesktop" type="int">
+        <DefaultValue>1</DefaultValue>
+      </Property>
       <Property name="Windows" type="WindowAction" isCollection="true" />
     </Class>
 
+    <Class name="Options">
+      <Property name="OsWindowMargin" type="Margin" />
+    </Class>
+
     <Class name="Workspace">
+      <Property name="Options" type="Options" />
       <Property name="WindowPatterns" type="WindowPattern" isCollection="true" />
       <Property name="ConfigurationPatterns" type="ConfigurationPattern" isCollection="true" />
       <Property name="Layouts" type="Layout" isCollection="true" />

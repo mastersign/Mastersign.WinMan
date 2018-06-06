@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,13 @@ namespace Mastersign.WinMan
             return success;
         }
 
-        public override string ToString() => Name + " - " + Configuration;
+        public override string ToString() => $"{Configuration}: {Name}";
+
+        public Layout Clone()
+        {
+            var result = (Layout)MemberwiseClone();
+            result.Windows = new BindingList<WindowAction>(Windows.Select(wa => wa.Clone()).ToList());
+            return result;
+        }
     }
 }

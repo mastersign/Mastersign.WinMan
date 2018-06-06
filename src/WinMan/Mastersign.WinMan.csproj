@@ -121,6 +121,13 @@
     <None Include="Resources\ApplyWorkspace.ico" />
     <None Include="Resources\ApplyWindow.ico" />
     <None Include="Resources\ApplyLayout.ico" />
+    <None Include="Resources\Down.ico" />
+    <None Include="Resources\Up.ico" />
+    <None Include="Resources\DeleteItem.ico" />
+    <None Include="Resources\DuplicateItem.ico" />
+    <None Include="Resources\NewItem.ico" />
+    <None Include="Resources\Refresh.ico" />
+    <None Include="Resources\Sort.ico" />
     <Content Include="WinManGui.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

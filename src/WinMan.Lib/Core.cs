@@ -47,12 +47,14 @@ namespace Mastersign.WinMan
                     ConfigurationPatterns = new BindingList<ConfigurationPattern>(),
                     WindowPatterns = new BindingList<WindowPattern>(),
                     Layouts = new BindingList<Layout>(),
+                    Options = Options.Default(),
                 };
             }
             else
             {
                 var json = File.ReadAllText(fileName, new UTF8Encoding(false));
                 Workspace = JsonConvert.DeserializeObject<Workspace>(json, CreateJsonSerializerSettings());
+                Workspace.Upgrade();
             }
             WorkspaceFileName = fileName;
         }
@@ -116,6 +118,7 @@ namespace Mastersign.WinMan
                 ConfigurationPatterns = new BindingList<ConfigurationPattern>(),
                 WindowPatterns = new BindingList<WindowPattern>(),
                 Layouts = new BindingList<Layout>(),
+                Options = Options.Default(),
             };
             WorkspaceFileName = null;
         }

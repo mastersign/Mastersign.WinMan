@@ -52,7 +52,7 @@ namespace Mastersign.WinMan
             g.TranslateTransform(s.Width * 0.5f, s.Height * 0.5f);
 
             var screens = c.Screens;
-            var outerBounds = screens[0].Bounds;
+            Rectangle outerBounds = screens[0].Bounds;
             for (int i = 1; i < screens.Count; i++)
             {
                 outerBounds = Rectangle.Union(outerBounds, screens[i].Bounds);
@@ -70,7 +70,7 @@ namespace Mastersign.WinMan
         private void TransformToScreen(Graphics g, ScreenPattern s)
         {
             var outerBounds = s.Bounds;
-            var innerBounds = outerBounds;
+            Rectangle innerBounds = outerBounds;
             innerBounds.Inflate(-ScreenBorderStrength, -ScreenBorderStrength);
             g.TranslateTransform(innerBounds.Left, innerBounds.Top);
             var sx = (float)innerBounds.Width / (float)outerBounds.Width;
@@ -80,7 +80,7 @@ namespace Mastersign.WinMan
 
         private void PaintScreen(Graphics g, ScreenPattern s, bool selected)
         {
-            var r = s.Bounds;
+            Rectangle r = s.Bounds;
             g.FillRectangle(ScreenBorderBrush, r);
             r.Inflate(-ScreenBorderStrength, -ScreenBorderStrength);
             g.FillRectangle(selected ? ScreenSelectedBrush : ScreenBrush, r);
@@ -192,7 +192,7 @@ namespace Mastersign.WinMan
             foreach (var a in l.Windows)
             {
                 if (a == selectedWindowAction) continue;
-                if (a.VirtualDesktop != selectedWindowAction.VirtualDesktop) continue;
+                if (a.GetVirtualDesktop(l) != selectedWindowAction.GetVirtualDesktop(l)) continue;
                 PaintWindowAction(g, c, a, false);
             }
             PaintWindowAction(g, c, selectedWindowAction, true);

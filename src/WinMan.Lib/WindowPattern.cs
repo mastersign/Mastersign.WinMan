@@ -18,7 +18,7 @@ namespace Mastersign.WinMan
             if (!StringMatching.IsMatch(TitlePattern, TitlePatternType, TitleIgnoreCase, window.Title)) return false;
             if (!StringMatching.IsMatch(WindowClassPattern, WindowClassPatternType, WindowClassIgnoreCase, window.WindowClass)) return false;
 
-            if (ProcessFileName != null)
+            if (!string.IsNullOrWhiteSpace(ProcessFileName))
             {
                 var processPattern = NormalizePath(ProcessFileName);
                 var processMainModule = window.ProcessFileName;
@@ -101,5 +101,7 @@ namespace Mastersign.WinMan
         public WindowWrapper[] Discover() => WindowWrapper.AllWindows().Where(w => IsMatch(w)).ToArray();
 
         public override string ToString() => Name;
+
+        public WindowPattern Clone() => (WindowPattern)MemberwiseClone();
     }
 }

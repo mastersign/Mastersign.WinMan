@@ -6,6 +6,8 @@ namespace Mastersign.WinMan
 {
     #region Scaleton Model Designer generated code
     
+    // Scaleton Version: 0.2.5
+    
     public enum StringPatternType
     {
         Exact,
@@ -24,6 +26,202 @@ namespace Mastersign.WinMan
     {
         Pixel,
         Percent,
+    }
+    
+    public partial class Margin : IEquatable<Margin>
+    {
+        public Margin()
+        {
+        }
+        
+        public Margin(int left, int top, int right, int bottom)
+        {
+            this._left = left;
+            this._top = top;
+            this._right = right;
+            this._bottom = bottom;
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Margin o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return (
+                (this._left == o._left) && 
+                (this._top == o._top) && 
+                (this._right == o._right) && 
+                (this._bottom == o._bottom));
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Margin)))
+            {
+                return false;
+            }
+            return this.Equals((Margin)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return (this.GetType().GetHashCode() ^ 
+                this._left.GetHashCode() ^ 
+                this._top.GetHashCode() ^ 
+                this._right.GetHashCode() ^ 
+                this._bottom.GetHashCode());
+        }
+        
+        #endregion
+        
+        #region Property Left
+        
+        private int _left;
+        
+        public virtual int Left
+        {
+            get { return _left; }
+        }
+        
+        #endregion
+        
+        #region Property Top
+        
+        private int _top;
+        
+        public virtual int Top
+        {
+            get { return _top; }
+        }
+        
+        #endregion
+        
+        #region Property Right
+        
+        private int _right;
+        
+        public virtual int Right
+        {
+            get { return _right; }
+        }
+        
+        #endregion
+        
+        #region Property Bottom
+        
+        private int _bottom;
+        
+        public virtual int Bottom
+        {
+            get { return _bottom; }
+        }
+        
+        #endregion
+    }
+    
+    public partial class Rect : IEquatable<Rect>
+    {
+        public Rect()
+        {
+        }
+        
+        public Rect(int x, int y, int width, int height)
+        {
+            this._x = x;
+            this._y = y;
+            this._width = width;
+            this._height = height;
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Rect o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return (
+                (this._x == o._x) && 
+                (this._y == o._y) && 
+                (this._width == o._width) && 
+                (this._height == o._height));
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Rect)))
+            {
+                return false;
+            }
+            return this.Equals((Rect)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return (this.GetType().GetHashCode() ^ 
+                this._x.GetHashCode() ^ 
+                this._y.GetHashCode() ^ 
+                this._width.GetHashCode() ^ 
+                this._height.GetHashCode());
+        }
+        
+        #endregion
+        
+        #region Property X
+        
+        private int _x;
+        
+        public virtual int X
+        {
+            get { return _x; }
+        }
+        
+        #endregion
+        
+        #region Property Y
+        
+        private int _y;
+        
+        public virtual int Y
+        {
+            get { return _y; }
+        }
+        
+        #endregion
+        
+        #region Property Width
+        
+        private int _width;
+        
+        public virtual int Width
+        {
+            get { return _width; }
+        }
+        
+        #endregion
+        
+        #region Property Height
+        
+        private int _height;
+        
+        public virtual int Height
+        {
+            get { return _height; }
+        }
+        
+        #endregion
     }
     
     public partial class WindowPattern : IEquatable<WindowPattern>, INotifyPropertyChanged
@@ -97,7 +295,7 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Name");
         }
         
-        private const string DEF_NAME = @"No Name";
+        private const string DEF_NAME = @"New Window Pattern";
         
         [DefaultValue(DEF_NAME)]
         public virtual string Name
@@ -565,7 +763,7 @@ namespace Mastersign.WinMan
         
         #region Property Bounds
         
-        private global::System.Drawing.Rectangle _bounds;
+        private Rect _bounds;
         
         public event EventHandler BoundsChanged;
         
@@ -579,12 +777,12 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Bounds");
         }
         
-        public virtual global::System.Drawing.Rectangle Bounds
+        public virtual Rect Bounds
         {
             get { return _bounds; }
             set
             {
-                if (value.Equals(_bounds))
+                if ((value == _bounds))
                 {
                     return;
                 }
@@ -633,6 +831,7 @@ namespace Mastersign.WinMan
         public ConfigurationPattern()
         {
             this._name = DEF_NAME;
+            this._screens = new BindingList<ScreenPattern>();
             this._virtualDesktopCount = DEF_VIRTUALDESKTOPCOUNT;
             this._respectVirtualDesktopCount = DEF_RESPECTVIRTUALDESKTOPCOUNT;
         }
@@ -699,7 +898,7 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Name");
         }
         
-        private const string DEF_NAME = @"Configuration";
+        private const string DEF_NAME = @"New Configuration Pattern";
         
         [DefaultValue(DEF_NAME)]
         public virtual string Name
@@ -825,6 +1024,7 @@ namespace Mastersign.WinMan
     {
         public WindowAction()
         {
+            this._window = DEF_WINDOW;
             this._virtualDesktop = DEF_VIRTUALDESKTOP;
             this._windowState = DEF_WINDOWSTATE;
             this._left = DEF_LEFT;
@@ -900,6 +1100,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Window");
         }
         
+        private const string DEF_WINDOW = @"Not Set";
+        
+        [DefaultValue(DEF_WINDOW)]
         public virtual string Window
         {
             get { return _window; }
@@ -943,6 +1146,38 @@ namespace Mastersign.WinMan
                 }
                 _restore = value;
                 this.OnRestoreChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property OverrideVirtualDesktop
+        
+        private bool _overrideVirtualDesktop;
+        
+        public event EventHandler OverrideVirtualDesktopChanged;
+        
+        protected virtual void OnOverrideVirtualDesktopChanged()
+        {
+            EventHandler handler = OverrideVirtualDesktopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"OverrideVirtualDesktop");
+        }
+        
+        public virtual bool OverrideVirtualDesktop
+        {
+            get { return _overrideVirtualDesktop; }
+            set
+            {
+                if ((value == _overrideVirtualDesktop))
+                {
+                    return;
+                }
+                _overrideVirtualDesktop = value;
+                this.OnOverrideVirtualDesktopChanged();
             }
         }
         
@@ -1500,6 +1735,8 @@ namespace Mastersign.WinMan
         {
             this._name = DEF_NAME;
             this._defaultLayout = DEF_DEFAULTLAYOUT;
+            this._defaultVirtualDesktop = DEF_DEFAULTVIRTUALDESKTOP;
+            this._windows = new BindingList<WindowAction>();
         }
         
         #region Equatability
@@ -1564,7 +1801,7 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"Name");
         }
         
-        private const string DEF_NAME = @"Layout";
+        private const string DEF_NAME = @"New Layout";
         
         [DefaultValue(DEF_NAME)]
         public virtual string Name
@@ -1650,6 +1887,41 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property DefaultVirtualDesktop
+        
+        private int _defaultVirtualDesktop;
+        
+        public event EventHandler DefaultVirtualDesktopChanged;
+        
+        protected virtual void OnDefaultVirtualDesktopChanged()
+        {
+            EventHandler handler = DefaultVirtualDesktopChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"DefaultVirtualDesktop");
+        }
+        
+        private const int DEF_DEFAULTVIRTUALDESKTOP = 1;
+        
+        [DefaultValue(DEF_DEFAULTVIRTUALDESKTOP)]
+        public virtual int DefaultVirtualDesktop
+        {
+            get { return _defaultVirtualDesktop; }
+            set
+            {
+                if ((value == _defaultVirtualDesktop))
+                {
+                    return;
+                }
+                _defaultVirtualDesktop = value;
+                this.OnDefaultVirtualDesktopChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Windows
         
         private BindingList<WindowAction> _windows;
@@ -1683,10 +1955,98 @@ namespace Mastersign.WinMan
         #endregion
     }
     
+    public partial class Options : IEquatable<Options>, INotifyPropertyChanged
+    {
+        public Options()
+        {
+        }
+        
+        #region Equatability
+        
+        public bool Equals(Options o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            return object.ReferenceEquals(this, o);
+        }
+        
+        public override bool Equals(object o)
+        {
+            if (ReferenceEquals(o, null))
+            {
+                return false;
+            }
+            if (!(o.GetType() == typeof(Options)))
+            {
+                return false;
+            }
+            return this.Equals((Options)o);
+        }
+        
+        public override int GetHashCode()
+        {
+            return this.GetType().GetHashCode();
+        }
+        
+        #endregion
+        
+        #region Change Tracking
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property OsWindowMargin
+        
+        private Margin _osWindowMargin;
+        
+        public event EventHandler OsWindowMarginChanged;
+        
+        protected virtual void OnOsWindowMarginChanged()
+        {
+            EventHandler handler = OsWindowMarginChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"OsWindowMargin");
+        }
+        
+        public virtual Margin OsWindowMargin
+        {
+            get { return _osWindowMargin; }
+            set
+            {
+                if ((value == _osWindowMargin))
+                {
+                    return;
+                }
+                _osWindowMargin = value;
+                this.OnOsWindowMarginChanged();
+            }
+        }
+        
+        #endregion
+    }
+    
     public partial class Workspace : IEquatable<Workspace>, INotifyPropertyChanged
     {
         public Workspace()
         {
+            this._windowPatterns = new BindingList<WindowPattern>();
+            this._configurationPatterns = new BindingList<ConfigurationPattern>();
+            this._layouts = new BindingList<Layout>();
         }
         
         #region Equatability
@@ -1730,6 +2090,38 @@ namespace Mastersign.WinMan
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+        
+        #endregion
+        
+        #region Property Options
+        
+        private Options _options;
+        
+        public event EventHandler OptionsChanged;
+        
+        protected virtual void OnOptionsChanged()
+        {
+            EventHandler handler = OptionsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Options");
+        }
+        
+        public virtual Options Options
+        {
+            get { return _options; }
+            set
+            {
+                if ((value == _options))
+                {
+                    return;
+                }
+                _options = value;
+                this.OnOptionsChanged();
             }
         }
         
