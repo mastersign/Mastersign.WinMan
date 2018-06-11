@@ -39,7 +39,7 @@ namespace Mastersign.WinMan
             cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
             UpdateControlActivation();
-            Core = Program.Core;
+            Core = Core.DefaultCore;
         }
 
         private void InitializeWindowTitle()

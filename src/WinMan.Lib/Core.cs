@@ -15,6 +15,8 @@ namespace Mastersign.WinMan
     {
         private const string DEFAULT_WORKSPACE_FILENAME = "winman_workspace.json";
 
+        public static Core DefaultCore { get; set; }
+
         public static string DefaultWorkspaceFilePath =>
             Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
