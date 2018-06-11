@@ -15,6 +15,7 @@ namespace Mastersign.WinMan.Cli
         {
             var startInfo = ArgumentParser.ParseArgs(argv);
             var success = true;
+            _verbose = startInfo.Verbose;
             if (startInfo.StartMode.HasFlag(StartMode.Help))
             {
                 PrintHelp();
@@ -34,7 +35,17 @@ namespace Mastersign.WinMan.Cli
                     startInfo.TargetLayouts,
                     startInfo.IncludeDefaultLayouts);
             }
+            Console.WriteLine("Press any key to exit...");
+            Console.ReadKey(true);
             return success ? 0 : -1;
+        }
+
+        private static bool _verbose;
+
+        private static void PrintVerbose(string format, params object[] args)
+        {
+            if (!_verbose) return;
+            Console.WriteLine(format, args);
         }
 
         private static void PrintVersionInfo()
@@ -84,6 +95,7 @@ namespace Mastersign.WinMan.Cli
                 Console.Error.WriteLine($"Could not find the virtual desktop {targetVirtualDesktop}.");
                 return false;
             }
+            PrintVerbose("Switching to desktop {0}...", targetVirtualDesktop);
             try
             {
                 vd.Switch();
@@ -97,6 +109,7 @@ namespace Mastersign.WinMan.Cli
 #endif
                 return false;
             }
+            PrintVerbose("Finished successfully.");
             return true;
         }
 
@@ -107,6 +120,8 @@ namespace Mastersign.WinMan.Cli
                 Console.Error.WriteLine($"The workspace file '{workspaceFile}' does not exist.");
                 return false;
             }
+            PrintVerbose("Loading workspace file:");
+            PrintVerbose("- {0}", workspaceFile);
             var core = new Core();
             core.LoadWorkspaceFromFile(workspaceFile);
             if (core.Workspace == null)
@@ -116,6 +131,7 @@ namespace Mastersign.WinMan.Cli
             }
             Core.DefaultCore = core;
 
+            PrintVerbose("Matching screen configurations:");
             var matchingConfigurations = new List<string>(
                 core.Workspace.ConfigurationPatterns
                     .Where(cp => cp.Matches)
@@ -124,17 +140,22 @@ namespace Mastersign.WinMan.Cli
             bool IsMatch(Layout l) => matchingConfigurations.Contains(l.Configuration);
             if (!specificLayouts)
             {
+                PrintVerbose("Applying all default layouts:");
+                foreach (var l in core.Workspace.DefaultLayouts.Where(IsMatch)) PrintVerbose("- {0}", l.Name);
                 core.ApplyWorkspace();
+                PrintVerbose("Finished.");
                 return true;
             }
             else
             {
                 var result = true;
                 var layouts = new List<Layout>();
+                PrintVerbose("Selecting layouts:");
                 if (includeDefaultLayout)
                 {
                     foreach (var layout in core.Workspace.DefaultLayouts.Where(IsMatch))
                     {
+                        PrintVerbose("- {0} (default)", layout.Name);
                         layouts.Add(layout);
                     }
                 }
@@ -157,13 +178,20 @@ namespace Mastersign.WinMan.Cli
                         result = false;
                     }
                 }
+                PrintVerbose("Applying layouts:");
                 foreach (var layout in layouts)
                 {
                     if (!layout.Apply(core.Workspace))
                     {
+                        PrintVerbose("- {0}: {1} (failed)", layout.Configuration, layout.Name);
                         result = false;
                     }
+                    else
+                    {
+                        PrintVerbose("- {0}: {1}", layout.Configuration, layout.Name);
+                    }
                 }
+                if (result) PrintVerbose("Finished successfully");
                 return result;
             }
         }

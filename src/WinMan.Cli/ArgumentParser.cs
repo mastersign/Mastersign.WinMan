@@ -12,6 +12,7 @@ namespace Mastersign.WinMan.Cli
         {
             var startMode = StartMode.None;
             var workspaceFile = Core.DefaultWorkspaceFilePath;
+            var verbose = false;
             var layoutNames = new List<string>();
             var includeDefaultLayouts = false;
             var targetVirtualDesktop = 0;
@@ -28,6 +29,10 @@ namespace Mastersign.WinMan.Cli
                 {
                     startMode = StartMode.VersionInfo;
                     break;
+                }
+                if (arg == "-V" || arg == "--verbose")
+                {
+                    verbose = true;
                 }
                 else if (arg == "-d" || arg == "--default-layouts")
                 {
@@ -63,9 +68,10 @@ namespace Mastersign.WinMan.Cli
             }
 
             return new StartInfo(
-                startMode, 
-                workspaceFile, 
-                layoutNames.ToArray(), 
+                startMode,
+                workspaceFile,
+                verbose,
+                layoutNames.ToArray(),
                 includeDefaultLayouts,
                 targetVirtualDesktop);
         }

@@ -18,15 +18,19 @@ namespace Mastersign.WinMan
 
         public bool IncludeDefaultLayouts { get; }
 
+        public int TargetVirtualDesktop { get; }
+
         public StartInfo(
             StartMode startMode, 
             string workspaceFile,
+            bool verbose,
             string[] targetLayouts, 
             bool includeDefaultLayouts,
             int targetVirtualDesktop)
         {
             StartMode = startMode;
             WorkspaceFile = workspaceFile;
+            Verbose = verbose;
             TargetLayouts = targetLayouts;
             IncludeDefaultLayouts = includeDefaultLayouts;
             TargetVirtualDesktop = targetVirtualDesktop;
