@@ -59,7 +59,10 @@
       <Property name="WindowClassIgnoreCase" type="bool" />
       <Property name="ProcessFileName" type="string" />
 
-      <Property name="Restore" type="bool" />
+      <Property name="OverrideRestorationTimeout" type="bool" />
+      <Property name="RestorationTimeout" type="int">
+        <DefaultValue>30</DefaultValue>
+      </Property>
       <Property name="Command" type="string" />
       <Property name="CommandArgs" type="string" />
       <Property name="WorkingDir" type="string" />
@@ -167,6 +170,7 @@
 
     <Class name="Options">
       <Property name="OsWindowMargin" type="Margin" />
+      <Property name="RestorationTimeout" type="int" />
     </Class>
 
     <Class name="Workspace">

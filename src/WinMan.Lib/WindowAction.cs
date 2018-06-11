@@ -15,7 +15,6 @@ namespace Mastersign.WinMan
     partial class WindowAction
     {
         public const int RESTORE_CHECK_INTERVAL_MS = 500;
-        public const int WAIT_FOR_RESTORE_MS = 20000;
 
         public int GetVirtualDesktop(Layout layout)
             => OverrideVirtualDesktop ? VirtualDesktop : layout.DefaultVirtualDesktop;
@@ -39,7 +38,7 @@ namespace Mastersign.WinMan
             }
             else if (Restore && !string.IsNullOrWhiteSpace(windowPattern.Command))
             {
-                if (TryRestoreWindow(windowPattern, ref windowWrappers))
+                if (TryRestoreWindow(windowPattern, ref windowWrappers, workspace.Options.RestorationTimeout))
                 {
                     Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop, workspace.Options));
                     return true;
@@ -65,7 +64,7 @@ namespace Mastersign.WinMan
             return false;
         }
 
-        private bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers)
+        private static bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers, int defaultTimeout)
         {
             try
             {
@@ -78,8 +77,11 @@ namespace Mastersign.WinMan
                 {
                     startInfo.WorkingDirectory = windowPattern.WorkingDir;
                 }
-                var p = Process.Start(startInfo);
-                var tCancel = DateTime.Now + new TimeSpan(0, 0, 0, 0, WAIT_FOR_RESTORE_MS);
+                Process.Start(startInfo);
+                var tCancel = DateTime.Now + new TimeSpan(0, 0, 0,
+                    windowPattern.OverrideRestorationTimeout
+                        ? windowPattern.RestorationTimeout
+                        : defaultTimeout);
                 do
                 {
                     Thread.Sleep(RESTORE_CHECK_INTERVAL_MS);
@@ -95,7 +97,7 @@ namespace Mastersign.WinMan
             }
         }
 
-        private int ResolveValue(int reference, int range, int value, ScreenUnit unit, bool invert)
+        private static int ResolveValue(int reference, int range, int value, ScreenUnit unit, bool invert)
         {
             switch (unit)
             {

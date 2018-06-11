@@ -231,6 +231,7 @@ namespace Mastersign.WinMan
             this._name = DEF_NAME;
             this._titlePatternType = DEF_TITLEPATTERNTYPE;
             this._windowClassPatternType = DEF_WINDOWCLASSPATTERNTYPE;
+            this._restorationTimeout = DEF_RESTORATIONTIMEOUT;
         }
         
         #region Equatability
@@ -544,33 +545,68 @@ namespace Mastersign.WinMan
         
         #endregion
         
-        #region Property Restore
+        #region Property OverrideRestorationTimeout
         
-        private bool _restore;
+        private bool _overrideRestorationTimeout;
         
-        public event EventHandler RestoreChanged;
+        public event EventHandler OverrideRestorationTimeoutChanged;
         
-        protected virtual void OnRestoreChanged()
+        protected virtual void OnOverrideRestorationTimeoutChanged()
         {
-            EventHandler handler = RestoreChanged;
+            EventHandler handler = OverrideRestorationTimeoutChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
-            this.OnPropertyChanged(@"Restore");
+            this.OnPropertyChanged(@"OverrideRestorationTimeout");
         }
         
-        public virtual bool Restore
+        public virtual bool OverrideRestorationTimeout
         {
-            get { return _restore; }
+            get { return _overrideRestorationTimeout; }
             set
             {
-                if ((value == _restore))
+                if ((value == _overrideRestorationTimeout))
                 {
                     return;
                 }
-                _restore = value;
-                this.OnRestoreChanged();
+                _overrideRestorationTimeout = value;
+                this.OnOverrideRestorationTimeoutChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property RestorationTimeout
+        
+        private int _restorationTimeout;
+        
+        public event EventHandler RestorationTimeoutChanged;
+        
+        protected virtual void OnRestorationTimeoutChanged()
+        {
+            EventHandler handler = RestorationTimeoutChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RestorationTimeout");
+        }
+        
+        private const int DEF_RESTORATIONTIMEOUT = 30;
+        
+        [DefaultValue(DEF_RESTORATIONTIMEOUT)]
+        public virtual int RestorationTimeout
+        {
+            get { return _restorationTimeout; }
+            set
+            {
+                if ((value == _restorationTimeout))
+                {
+                    return;
+                }
+                _restorationTimeout = value;
+                this.OnRestorationTimeoutChanged();
             }
         }
         
@@ -2107,6 +2143,38 @@ namespace Mastersign.WinMan
                 }
                 _osWindowMargin = value;
                 this.OnOsWindowMarginChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property RestorationTimeout
+        
+        private int _restorationTimeout;
+        
+        public event EventHandler RestorationTimeoutChanged;
+        
+        protected virtual void OnRestorationTimeoutChanged()
+        {
+            EventHandler handler = RestorationTimeoutChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RestorationTimeout");
+        }
+        
+        public virtual int RestorationTimeout
+        {
+            get { return _restorationTimeout; }
+            set
+            {
+                if ((value == _restorationTimeout))
+                {
+                    return;
+                }
+                _restorationTimeout = value;
+                this.OnRestorationTimeoutChanged();
             }
         }
         

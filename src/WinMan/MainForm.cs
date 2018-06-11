@@ -1005,12 +1005,16 @@ namespace Mastersign.WinMan
             numOsWindowMarginTop.ValueChanged += NumOsWindowMarginTopValueChangedHandler;
             numOsWindowMarginRight.ValueChanged += NumOsWindowMarginRightValueChangedHandler;
             numOsWindowMarginBottom.ValueChanged += NumOsWindowMarginBottomValueChangedHandler;
+            _options.RestorationTimeoutChanged += RestorationTimeoutChangedHandler;
+            numRestorationTimeout.ValueChanged += NumRestorationTimeoutValueChangedHandler;
             OsWindowMarginChangedHandler(_options, EventArgs.Empty);
         }
 
         private void ReleaseOptions()
         {
             if (_options == null) return;
+            numRestorationTimeout.ValueChanged -= NumRestorationTimeoutValueChangedHandler;
+            _options.RestorationTimeoutChanged -= RestorationTimeoutChangedHandler;
             numOsWindowMarginLeft.ValueChanged -= NumOsWindowMarginLeftValueChangedHandler;
             numOsWindowMarginTop.ValueChanged -= NumOsWindowMarginTopValueChangedHandler;
             numOsWindowMarginRight.ValueChanged -= NumOsWindowMarginRightValueChangedHandler;
@@ -1055,6 +1059,18 @@ namespace Mastersign.WinMan
             var m = _options.OsWindowMargin ?? Options.DEFAULT_OS_WINDOW_MARGIN;
             _options.OsWindowMargin = new Margin(m.Left, m.Top, m.Right, (int)numOsWindowMarginBottom.Value);
         }
+
+        private void RestorationTimeoutChangedHandler(object sender, EventArgs e)
+        {
+            numRestorationTimeout.Value = _options.RestorationTimeout;
+        }
+
+        private void NumRestorationTimeoutValueChangedHandler(object sender, EventArgs e)
+        {
+            if (_options == null) return;
+            _options.RestorationTimeout = (int)numRestorationTimeout.Value;
+        }
+
 
         #endregion
 
