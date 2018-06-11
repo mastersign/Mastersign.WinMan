@@ -1093,5 +1093,11 @@ namespace Mastersign.WinMan
         }
 
         #endregion
+
+        private void cmbWindowActionLeftUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cmb = (ComboBox) sender;
+            
+        }
     }
 }

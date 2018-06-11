@@ -37,9 +37,9 @@
             System.Windows.Forms.TableLayoutPanel tableLayouts;
             System.Windows.Forms.TableLayoutPanel tableLayoutList;
             System.Windows.Forms.TableLayoutPanel tableLayoutDetails;
+            System.Windows.Forms.TableLayoutPanel tblWindowActionActions;
             System.Windows.Forms.TableLayoutPanel tableLayoutOptions;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TableLayoutPanel tblWindowActionActions;
             this.btnDeleteConfiguration = new System.Windows.Forms.Button();
             this.btnSortConfigurations = new System.Windows.Forms.Button();
             this.btnMoveDownConfiguration = new System.Windows.Forms.Button();
@@ -115,6 +115,11 @@
             this.btnMoveDownWindowPattern = new System.Windows.Forms.Button();
             this.btnMoveUpWindowPattern = new System.Windows.Forms.Button();
             this.previewLayout = new Mastersign.WinMan.PreviewCanvas();
+            this.btnDeleteLayout = new System.Windows.Forms.Button();
+            this.btnDuplicateLayout = new System.Windows.Forms.Button();
+            this.btnSortLayouts = new System.Windows.Forms.Button();
+            this.btnMoveDownLayout = new System.Windows.Forms.Button();
+            this.btnMoveUpLayout = new System.Windows.Forms.Button();
             this.btnNewLayout = new System.Windows.Forms.Button();
             this.lblLayoutNameCaption = new System.Windows.Forms.Label();
             this.txtLayoutName = new System.Windows.Forms.TextBox();
@@ -125,11 +130,6 @@
             this.listLayouts = new System.Windows.Forms.ListBox();
             this.lblLayoutDefaultVirtualDesktopCaption = new System.Windows.Forms.Label();
             this.numLayoutDefaultVirtualDesktop = new System.Windows.Forms.NumericUpDown();
-            this.btnMoveUpLayout = new System.Windows.Forms.Button();
-            this.btnMoveDownLayout = new System.Windows.Forms.Button();
-            this.btnSortLayouts = new System.Windows.Forms.Button();
-            this.btnDuplicateLayout = new System.Windows.Forms.Button();
-            this.btnDeleteLayout = new System.Windows.Forms.Button();
             this.chkOverrideDefaultVirtualDesktop = new System.Windows.Forms.CheckBox();
             this.windowActionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblWindowActionsCaption = new System.Windows.Forms.Label();
@@ -162,11 +162,11 @@
             this.lblWindowActionLeftCaption = new System.Windows.Forms.Label();
             this.cmbWindowActionWindowState = new System.Windows.Forms.ComboBox();
             this.btnRecordWindowPosition = new System.Windows.Forms.Button();
-            this.btnMoveUpWindowAction = new System.Windows.Forms.Button();
-            this.btnMoveDownWindowAction = new System.Windows.Forms.Button();
-            this.btnSortWindowActions = new System.Windows.Forms.Button();
-            this.btnDuplicateWindowAction = new System.Windows.Forms.Button();
             this.btnDeleteWindowAction = new System.Windows.Forms.Button();
+            this.btnDuplicateWindowAction = new System.Windows.Forms.Button();
+            this.btnSortWindowActions = new System.Windows.Forms.Button();
+            this.btnMoveDownWindowAction = new System.Windows.Forms.Button();
+            this.btnMoveUpWindowAction = new System.Windows.Forms.Button();
             this.tableLayoutOsWindowMargin = new System.Windows.Forms.TableLayoutPanel();
             this.numOsWindowMarginBottom = new System.Windows.Forms.NumericUpDown();
             this.numOsWindowMarginRight = new System.Windows.Forms.NumericUpDown();
@@ -201,8 +201,8 @@
             tableLayouts = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutList = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutDetails = new System.Windows.Forms.TableLayoutPanel();
-            tableLayoutOptions = new System.Windows.Forms.TableLayoutPanel();
             tblWindowActionActions = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutOptions = new System.Windows.Forms.TableLayoutPanel();
             tableConfigurationPatterns.SuspendLayout();
             tableConfigurationPatternList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationPatternsBindingSource)).BeginInit();
@@ -228,6 +228,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionTop)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).BeginInit();
+            tblWindowActionActions.SuspendLayout();
             tableLayoutOptions.SuspendLayout();
             this.tableLayoutOsWindowMargin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginBottom)).BeginInit();
@@ -242,7 +243,6 @@
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.windowsBindingSource)).BeginInit();
-            tblWindowActionActions.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableConfigurationPatterns
@@ -1390,6 +1390,77 @@
             tableLayoutList.Size = new System.Drawing.Size(235, 640);
             tableLayoutList.TabIndex = 0;
             // 
+            // btnDeleteLayout
+            // 
+            this.btnDeleteLayout.AutoSize = true;
+            this.btnDeleteLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeleteLayout.Location = new System.Drawing.Point(200, 232);
+            this.btnDeleteLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnDeleteLayout.Name = "btnDeleteLayout";
+            this.btnDeleteLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnDeleteLayout.Size = new System.Drawing.Size(32, 30);
+            this.btnDeleteLayout.TabIndex = 1;
+            this.btnDeleteLayout.Text = "x";
+            this.btnDeleteLayout.UseVisualStyleBackColor = true;
+            this.btnDeleteLayout.Click += new System.EventHandler(this.DeleteLayoutHandler);
+            // 
+            // btnDuplicateLayout
+            // 
+            this.btnDuplicateLayout.AutoSize = true;
+            this.btnDuplicateLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDuplicateLayout.Enabled = false;
+            this.btnDuplicateLayout.Location = new System.Drawing.Point(200, 198);
+            this.btnDuplicateLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnDuplicateLayout.Name = "btnDuplicateLayout";
+            this.btnDuplicateLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnDuplicateLayout.Size = new System.Drawing.Size(32, 30);
+            this.btnDuplicateLayout.TabIndex = 29;
+            this.btnDuplicateLayout.Text = "d";
+            this.btnDuplicateLayout.UseVisualStyleBackColor = true;
+            this.btnDuplicateLayout.Click += new System.EventHandler(this.DuplicateLayoutHandler);
+            // 
+            // btnSortLayouts
+            // 
+            this.btnSortLayouts.AutoSize = true;
+            this.btnSortLayouts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSortLayouts.Location = new System.Drawing.Point(200, 164);
+            this.btnSortLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnSortLayouts.Name = "btnSortLayouts";
+            this.btnSortLayouts.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnSortLayouts.Size = new System.Drawing.Size(32, 30);
+            this.btnSortLayouts.TabIndex = 30;
+            this.btnSortLayouts.Text = "s";
+            this.btnSortLayouts.UseVisualStyleBackColor = true;
+            this.btnSortLayouts.Click += new System.EventHandler(this.SortLayoutsHandler);
+            // 
+            // btnMoveDownLayout
+            // 
+            this.btnMoveDownLayout.AutoSize = true;
+            this.btnMoveDownLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMoveDownLayout.Location = new System.Drawing.Point(200, 130);
+            this.btnMoveDownLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnMoveDownLayout.Name = "btnMoveDownLayout";
+            this.btnMoveDownLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnMoveDownLayout.Size = new System.Drawing.Size(32, 30);
+            this.btnMoveDownLayout.TabIndex = 28;
+            this.btnMoveDownLayout.Text = "v";
+            this.btnMoveDownLayout.UseVisualStyleBackColor = true;
+            this.btnMoveDownLayout.Click += new System.EventHandler(this.MoveDownLayoutHandler);
+            // 
+            // btnMoveUpLayout
+            // 
+            this.btnMoveUpLayout.AutoSize = true;
+            this.btnMoveUpLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMoveUpLayout.Location = new System.Drawing.Point(200, 96);
+            this.btnMoveUpLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnMoveUpLayout.Name = "btnMoveUpLayout";
+            this.btnMoveUpLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnMoveUpLayout.Size = new System.Drawing.Size(32, 30);
+            this.btnMoveUpLayout.TabIndex = 27;
+            this.btnMoveUpLayout.Text = "^";
+            this.btnMoveUpLayout.UseVisualStyleBackColor = true;
+            this.btnMoveUpLayout.Click += new System.EventHandler(this.MoveUpLayoutHandler);
+            // 
             // btnNewLayout
             // 
             this.btnNewLayout.AutoSize = true;
@@ -1510,77 +1581,6 @@
             0,
             0,
             0});
-            // 
-            // btnMoveUpLayout
-            // 
-            this.btnMoveUpLayout.AutoSize = true;
-            this.btnMoveUpLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMoveUpLayout.Location = new System.Drawing.Point(200, 96);
-            this.btnMoveUpLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnMoveUpLayout.Name = "btnMoveUpLayout";
-            this.btnMoveUpLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnMoveUpLayout.Size = new System.Drawing.Size(32, 30);
-            this.btnMoveUpLayout.TabIndex = 27;
-            this.btnMoveUpLayout.Text = "^";
-            this.btnMoveUpLayout.UseVisualStyleBackColor = true;
-            this.btnMoveUpLayout.Click += new System.EventHandler(this.MoveUpLayoutHandler);
-            // 
-            // btnMoveDownLayout
-            // 
-            this.btnMoveDownLayout.AutoSize = true;
-            this.btnMoveDownLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMoveDownLayout.Location = new System.Drawing.Point(200, 130);
-            this.btnMoveDownLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnMoveDownLayout.Name = "btnMoveDownLayout";
-            this.btnMoveDownLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnMoveDownLayout.Size = new System.Drawing.Size(32, 30);
-            this.btnMoveDownLayout.TabIndex = 28;
-            this.btnMoveDownLayout.Text = "v";
-            this.btnMoveDownLayout.UseVisualStyleBackColor = true;
-            this.btnMoveDownLayout.Click += new System.EventHandler(this.MoveDownLayoutHandler);
-            // 
-            // btnSortLayouts
-            // 
-            this.btnSortLayouts.AutoSize = true;
-            this.btnSortLayouts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortLayouts.Location = new System.Drawing.Point(200, 164);
-            this.btnSortLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnSortLayouts.Name = "btnSortLayouts";
-            this.btnSortLayouts.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnSortLayouts.Size = new System.Drawing.Size(32, 30);
-            this.btnSortLayouts.TabIndex = 30;
-            this.btnSortLayouts.Text = "s";
-            this.btnSortLayouts.UseVisualStyleBackColor = true;
-            this.btnSortLayouts.Click += new System.EventHandler(this.SortLayoutsHandler);
-            // 
-            // btnDuplicateLayout
-            // 
-            this.btnDuplicateLayout.AutoSize = true;
-            this.btnDuplicateLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDuplicateLayout.Enabled = false;
-            this.btnDuplicateLayout.Location = new System.Drawing.Point(200, 198);
-            this.btnDuplicateLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnDuplicateLayout.Name = "btnDuplicateLayout";
-            this.btnDuplicateLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnDuplicateLayout.Size = new System.Drawing.Size(32, 30);
-            this.btnDuplicateLayout.TabIndex = 29;
-            this.btnDuplicateLayout.Text = "d";
-            this.btnDuplicateLayout.UseVisualStyleBackColor = true;
-            this.btnDuplicateLayout.Click += new System.EventHandler(this.DuplicateLayoutHandler);
-            // 
-            // btnDeleteLayout
-            // 
-            this.btnDeleteLayout.AutoSize = true;
-            this.btnDeleteLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteLayout.Location = new System.Drawing.Point(200, 232);
-            this.btnDeleteLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnDeleteLayout.Name = "btnDeleteLayout";
-            this.btnDeleteLayout.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnDeleteLayout.Size = new System.Drawing.Size(32, 30);
-            this.btnDeleteLayout.TabIndex = 1;
-            this.btnDeleteLayout.Text = "x";
-            this.btnDeleteLayout.UseVisualStyleBackColor = true;
-            this.btnDeleteLayout.Click += new System.EventHandler(this.DeleteLayoutHandler);
             // 
             // tableLayoutDetails
             // 
@@ -1773,6 +1773,7 @@
             // 
             // cmbWindowActionBottomUnit
             // 
+            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "BottomUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "BottomUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionBottomUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1805,6 +1806,7 @@
             // 
             // cmbWindowActionRightUnit
             // 
+            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "RightUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "RightUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionRightUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1817,6 +1819,7 @@
             // 
             // cmbWindowActionTopUnit
             // 
+            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "TopUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "TopUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionTopUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1849,6 +1852,7 @@
             // 
             // cmbWindowActionLeftUnit
             // 
+            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "LeftUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "LeftUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionLeftUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1858,6 +1862,7 @@
             this.cmbWindowActionLeftUnit.Name = "cmbWindowActionLeftUnit";
             this.cmbWindowActionLeftUnit.Size = new System.Drawing.Size(96, 24);
             this.cmbWindowActionLeftUnit.TabIndex = 15;
+            this.cmbWindowActionLeftUnit.SelectedIndexChanged += new System.EventHandler(this.cmbWindowActionLeftUnit_SelectedIndexChanged);
             // 
             // chkWindowActionRestore
             // 
@@ -2058,7 +2063,7 @@
             // cmbWindowActionWindowState
             // 
             tableLayoutDetails.SetColumnSpan(this.cmbWindowActionWindowState, 2);
-            this.cmbWindowActionWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionWindowState.DisplayMember = "Name";
             this.cmbWindowActionWindowState.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionWindowState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2083,47 +2088,44 @@
             this.btnRecordWindowPosition.UseVisualStyleBackColor = true;
             this.btnRecordWindowPosition.Click += new System.EventHandler(this.RecordWindowPositionHandler);
             // 
-            // btnMoveUpWindowAction
+            // tblWindowActionActions
             // 
-            this.btnMoveUpWindowAction.AutoSize = true;
-            this.btnMoveUpWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMoveUpWindowAction.Location = new System.Drawing.Point(3, 4);
-            this.btnMoveUpWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnMoveUpWindowAction.Name = "btnMoveUpWindowAction";
-            this.btnMoveUpWindowAction.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnMoveUpWindowAction.Size = new System.Drawing.Size(32, 30);
-            this.btnMoveUpWindowAction.TabIndex = 3;
-            this.btnMoveUpWindowAction.Text = "^";
-            this.btnMoveUpWindowAction.UseVisualStyleBackColor = true;
-            this.btnMoveUpWindowAction.Click += new System.EventHandler(this.MoveUpWindowActionHandler);
+            tblWindowActionActions.AutoSize = true;
+            tblWindowActionActions.ColumnCount = 1;
+            tblWindowActionActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tblWindowActionActions.Controls.Add(this.btnDeleteWindowAction, 0, 4);
+            tblWindowActionActions.Controls.Add(this.btnDuplicateWindowAction, 0, 3);
+            tblWindowActionActions.Controls.Add(this.btnSortWindowActions, 0, 2);
+            tblWindowActionActions.Controls.Add(this.btnMoveDownWindowAction, 0, 1);
+            tblWindowActionActions.Controls.Add(this.btnMoveUpWindowAction, 0, 0);
+            tblWindowActionActions.Dock = System.Windows.Forms.DockStyle.Fill;
+            tblWindowActionActions.Location = new System.Drawing.Point(190, 62);
+            tblWindowActionActions.Margin = new System.Windows.Forms.Padding(0);
+            tblWindowActionActions.Name = "tblWindowActionActions";
+            tblWindowActionActions.RowCount = 6;
+            tableLayoutDetails.SetRowSpan(tblWindowActionActions, 10);
+            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tblWindowActionActions.Size = new System.Drawing.Size(38, 319);
+            tblWindowActionActions.TabIndex = 35;
             // 
-            // btnMoveDownWindowAction
+            // btnDeleteWindowAction
             // 
-            this.btnMoveDownWindowAction.AutoSize = true;
-            this.btnMoveDownWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMoveDownWindowAction.Location = new System.Drawing.Point(3, 38);
-            this.btnMoveDownWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnMoveDownWindowAction.Name = "btnMoveDownWindowAction";
-            this.btnMoveDownWindowAction.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnMoveDownWindowAction.Size = new System.Drawing.Size(32, 30);
-            this.btnMoveDownWindowAction.TabIndex = 4;
-            this.btnMoveDownWindowAction.Text = "v";
-            this.btnMoveDownWindowAction.UseVisualStyleBackColor = true;
-            this.btnMoveDownWindowAction.Click += new System.EventHandler(this.MoveDownWindowActionHandler);
-            // 
-            // btnSortWindowActions
-            // 
-            this.btnSortWindowActions.AutoSize = true;
-            this.btnSortWindowActions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSortWindowActions.Location = new System.Drawing.Point(3, 72);
-            this.btnSortWindowActions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnSortWindowActions.Name = "btnSortWindowActions";
-            this.btnSortWindowActions.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnSortWindowActions.Size = new System.Drawing.Size(32, 30);
-            this.btnSortWindowActions.TabIndex = 29;
-            this.btnSortWindowActions.Text = "s";
-            this.btnSortWindowActions.UseVisualStyleBackColor = true;
-            this.btnSortWindowActions.Click += new System.EventHandler(this.SortWindowActionsHandler);
+            this.btnDeleteWindowAction.AutoSize = true;
+            this.btnDeleteWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDeleteWindowAction.Location = new System.Drawing.Point(3, 140);
+            this.btnDeleteWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnDeleteWindowAction.Name = "btnDeleteWindowAction";
+            this.btnDeleteWindowAction.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnDeleteWindowAction.Size = new System.Drawing.Size(32, 30);
+            this.btnDeleteWindowAction.TabIndex = 2;
+            this.btnDeleteWindowAction.Text = "x";
+            this.btnDeleteWindowAction.UseVisualStyleBackColor = true;
+            this.btnDeleteWindowAction.Click += new System.EventHandler(this.DeleteWindowActionHandler);
             // 
             // btnDuplicateWindowAction
             // 
@@ -2139,19 +2141,47 @@
             this.btnDuplicateWindowAction.UseVisualStyleBackColor = true;
             this.btnDuplicateWindowAction.Click += new System.EventHandler(this.DuplicateWindowActionHandler);
             // 
-            // btnDeleteWindowAction
+            // btnSortWindowActions
             // 
-            this.btnDeleteWindowAction.AutoSize = true;
-            this.btnDeleteWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDeleteWindowAction.Location = new System.Drawing.Point(3, 140);
-            this.btnDeleteWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
-            this.btnDeleteWindowAction.Name = "btnDeleteWindowAction";
-            this.btnDeleteWindowAction.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
-            this.btnDeleteWindowAction.Size = new System.Drawing.Size(32, 30);
-            this.btnDeleteWindowAction.TabIndex = 2;
-            this.btnDeleteWindowAction.Text = "x";
-            this.btnDeleteWindowAction.UseVisualStyleBackColor = true;
-            this.btnDeleteWindowAction.Click += new System.EventHandler(this.DeleteWindowActionHandler);
+            this.btnSortWindowActions.AutoSize = true;
+            this.btnSortWindowActions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSortWindowActions.Location = new System.Drawing.Point(3, 72);
+            this.btnSortWindowActions.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnSortWindowActions.Name = "btnSortWindowActions";
+            this.btnSortWindowActions.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnSortWindowActions.Size = new System.Drawing.Size(32, 30);
+            this.btnSortWindowActions.TabIndex = 29;
+            this.btnSortWindowActions.Text = "s";
+            this.btnSortWindowActions.UseVisualStyleBackColor = true;
+            this.btnSortWindowActions.Click += new System.EventHandler(this.SortWindowActionsHandler);
+            // 
+            // btnMoveDownWindowAction
+            // 
+            this.btnMoveDownWindowAction.AutoSize = true;
+            this.btnMoveDownWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMoveDownWindowAction.Location = new System.Drawing.Point(3, 38);
+            this.btnMoveDownWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnMoveDownWindowAction.Name = "btnMoveDownWindowAction";
+            this.btnMoveDownWindowAction.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnMoveDownWindowAction.Size = new System.Drawing.Size(32, 30);
+            this.btnMoveDownWindowAction.TabIndex = 4;
+            this.btnMoveDownWindowAction.Text = "v";
+            this.btnMoveDownWindowAction.UseVisualStyleBackColor = true;
+            this.btnMoveDownWindowAction.Click += new System.EventHandler(this.MoveDownWindowActionHandler);
+            // 
+            // btnMoveUpWindowAction
+            // 
+            this.btnMoveUpWindowAction.AutoSize = true;
+            this.btnMoveUpWindowAction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMoveUpWindowAction.Location = new System.Drawing.Point(3, 4);
+            this.btnMoveUpWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.btnMoveUpWindowAction.Name = "btnMoveUpWindowAction";
+            this.btnMoveUpWindowAction.Padding = new System.Windows.Forms.Padding(3, 1, 3, 1);
+            this.btnMoveUpWindowAction.Size = new System.Drawing.Size(32, 30);
+            this.btnMoveUpWindowAction.TabIndex = 3;
+            this.btnMoveUpWindowAction.Text = "^";
+            this.btnMoveUpWindowAction.UseVisualStyleBackColor = true;
+            this.btnMoveUpWindowAction.Click += new System.EventHandler(this.MoveUpWindowActionHandler);
             // 
             // tableLayoutOptions
             // 
@@ -2498,31 +2528,6 @@
             this.tsslFileName.Size = new System.Drawing.Size(60, 17);
             this.tsslFileName.Text = "File Name";
             // 
-            // tblWindowActionActions
-            // 
-            tblWindowActionActions.AutoSize = true;
-            tblWindowActionActions.ColumnCount = 1;
-            tblWindowActionActions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tblWindowActionActions.Controls.Add(this.btnDeleteWindowAction, 0, 4);
-            tblWindowActionActions.Controls.Add(this.btnDuplicateWindowAction, 0, 3);
-            tblWindowActionActions.Controls.Add(this.btnSortWindowActions, 0, 2);
-            tblWindowActionActions.Controls.Add(this.btnMoveDownWindowAction, 0, 1);
-            tblWindowActionActions.Controls.Add(this.btnMoveUpWindowAction, 0, 0);
-            tblWindowActionActions.Dock = System.Windows.Forms.DockStyle.Fill;
-            tblWindowActionActions.Location = new System.Drawing.Point(190, 62);
-            tblWindowActionActions.Margin = new System.Windows.Forms.Padding(0);
-            tblWindowActionActions.Name = "tblWindowActionActions";
-            tblWindowActionActions.RowCount = 6;
-            tableLayoutDetails.SetRowSpan(tblWindowActionActions, 10);
-            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tblWindowActionActions.Size = new System.Drawing.Size(38, 319);
-            tblWindowActionActions.TabIndex = 35;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2568,6 +2573,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionTop)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numWindowActionVirtualDesktop)).EndInit();
+            tblWindowActionActions.ResumeLayout(false);
+            tblWindowActionActions.PerformLayout();
             tableLayoutOptions.ResumeLayout(false);
             tableLayoutOptions.PerformLayout();
             this.tableLayoutOsWindowMargin.ResumeLayout(false);
@@ -2586,8 +2593,6 @@
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.windowsBindingSource)).EndInit();
-            tblWindowActionActions.ResumeLayout(false);
-            tblWindowActionActions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
