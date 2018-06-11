@@ -35,8 +35,6 @@ namespace Mastersign.WinMan.Cli
                     startInfo.TargetLayouts,
                     startInfo.IncludeDefaultLayouts);
             }
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey(true);
             return success ? 0 : -1;
         }
 
