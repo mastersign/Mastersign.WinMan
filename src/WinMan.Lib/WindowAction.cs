@@ -188,6 +188,7 @@ namespace Mastersign.WinMan
             WindowState = ShowCommandAsWindowState(w.ShowCommand);
 
             var screen = configurationPattern.Screens.FirstOrDefault(s => s.DeviceName == w.Screen.DeviceName);
+            if (screen == null) return;
             Screen = screen.Name;
             var screenBounds = screen.Bounds;
 
