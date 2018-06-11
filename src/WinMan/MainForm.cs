@@ -612,21 +612,6 @@ namespace Mastersign.WinMan
 
         private void SelectedScreenPatternChanged(object sender, EventArgs e)
         {
-            var screenPattern = SelectedScreenPattern;
-            if (screenPattern == null)
-            {
-                numScreenLeft.Value = 0;
-                numScreenTop.Value = 0;
-                numScreenWidth.Value = 0;
-                numScreenHeight.Value = 0;
-            }
-            else
-            {
-                numScreenLeft.Value = screenPattern.Bounds.Left;
-                numScreenTop.Value = screenPattern.Bounds.Top;
-                numScreenWidth.Value = screenPattern.Bounds.Width;
-                numScreenHeight.Value = screenPattern.Bounds.Height;
-            }
             RefreshConfigurationPreview();
         }
 
