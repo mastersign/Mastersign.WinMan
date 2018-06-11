@@ -8,15 +8,15 @@ namespace Mastersign.WinMan
 {
     class StartInfo
     {
-        public StartMode StartMode { get; private set; }
+        public StartMode StartMode { get; }
 
-        public string WorkspaceFile { get; private set; }
+        public string WorkspaceFile { get; }
 
-        public string[] TargetLayouts { get; private set; }
+        public bool Verbose { get; }
 
-        public bool IncludeDefaultLayouts { get; private set; }
+        public string[] TargetLayouts { get; }
 
-        public int TargetVirtualDesktop { get; private set; }
+        public bool IncludeDefaultLayouts { get; }
 
         public StartInfo(
             StartMode startMode, 

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Mastersign.WinMan.Cli
 {
-    class Program
+    internal class Program
     {
         [STAThread]
-        static int Main(string[] argv)
+        private static int Main(string[] argv)
         {
             var startInfo = ArgumentParser.ParseArgs(argv);
             var success = true;
@@ -30,9 +30,9 @@ namespace Mastersign.WinMan.Cli
             if (startInfo.StartMode.HasFlag(StartMode.ApplyWorkspace))
             {
                 success = success && ApplyWorkspace(startInfo.WorkspaceFile,
-                       startInfo.IsTargetingSpecificLayouts,
-                       startInfo.TargetLayouts,
-                       startInfo.IncludeDefaultLayouts);
+                    startInfo.IsTargetingSpecificLayouts,
+                    startInfo.TargetLayouts,
+                    startInfo.IncludeDefaultLayouts);
             }
             return success ? 0 : -1;
         }
