@@ -12,12 +12,25 @@ namespace Mastersign.WinMan
         public void Initialize()
         {
             BoundsChanged += BoundsChangedHandler;
+            BoundsChanged += MatchesInvalidatedHandler;
+            RespectPositionChanged += MatchesInvalidatedHandler;
+            RespectSizeChanged += MatchesInvalidatedHandler;
+        }
+
+        public event EventHandler MatchesChanged;
+
+        private void MatchesInvalidatedHandler(object sender, EventArgs e)
+        {
+            MatchesChanged?.Invoke(this, EventArgs.Empty);
+            OnPropertyChanged(nameof(Matches));
         }
 
         public bool IsMatch(Screen screen)
             => (DeviceName == null || string.Equals(DeviceName, screen.DeviceName))
                 && (!RespectPosition || (Bounds.X == screen.Bounds.X && Bounds.Y == screen.Bounds.Y))
                 && (!RespectSize || (Bounds.Width == screen.Bounds.Width && Bounds.Height == screen.Bounds.Height));
+
+        public bool Matches => Screen.AllScreens.Any(IsMatch);
         
         public static ScreenPattern FromScreen(Screen screen)
             => new ScreenPattern

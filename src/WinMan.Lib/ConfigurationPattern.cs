@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
@@ -14,6 +15,8 @@ namespace Mastersign.WinMan
             => screens.Length == Screens.Count
                && Screens.All(p => screens.Any(p.IsMatch))
                && (!RespectVirtualDesktopCount || VirtualDesktopCount == virtualDesktopCount);
+
+        public bool Matches => IsMatch(Screen.AllScreens, VirtualDesktop.GetDesktops().Length);
 
         public static ConfigurationPattern FromConfiguration(Screen[] screens, int virtualDesktopCount)
             => new ConfigurationPattern()
