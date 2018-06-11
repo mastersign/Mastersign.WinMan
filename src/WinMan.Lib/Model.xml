@@ -71,6 +71,12 @@
       </Property>
       <Property name="Bounds" type="Rect" />
       <Property name="DeviceName" type="string" />
+      <Property name="RespectPosition" type="bool">
+        <DefaultValue>true</DefaultValue>
+      </Property>
+      <Property name="RespectSize" type="bool">
+        <DefaultValue>true</DefaultValue>
+      </Property>
     </Class>
 
     <Class name="ConfigurationPattern">

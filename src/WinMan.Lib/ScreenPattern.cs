@@ -11,7 +11,8 @@ namespace Mastersign.WinMan
     {
         public bool IsMatch(Screen screen)
             => (DeviceName == null || string.Equals(DeviceName, screen.DeviceName))
-                && Bounds == screen.Bounds;
+                && (!RespectPosition || (Bounds.X == screen.Bounds.X && Bounds.Y == screen.Bounds.Y))
+                && (!RespectSize || (Bounds.Width == screen.Bounds.Width && Bounds.Height == screen.Bounds.Height));
         
         public static ScreenPattern FromScreen(Screen screen)
             => new ScreenPattern()

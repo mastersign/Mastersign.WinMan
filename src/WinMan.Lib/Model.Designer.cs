@@ -678,6 +678,8 @@ namespace Mastersign.WinMan
         public ScreenPattern()
         {
             this._name = DEF_NAME;
+            this._respectPosition = DEF_RESPECTPOSITION;
+            this._respectSize = DEF_RESPECTSIZE;
         }
         
         #region Equatability
@@ -820,6 +822,76 @@ namespace Mastersign.WinMan
                 }
                 _deviceName = value;
                 this.OnDeviceNameChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property RespectPosition
+        
+        private bool _respectPosition;
+        
+        public event EventHandler RespectPositionChanged;
+        
+        protected virtual void OnRespectPositionChanged()
+        {
+            EventHandler handler = RespectPositionChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RespectPosition");
+        }
+        
+        private const bool DEF_RESPECTPOSITION = true;
+        
+        [DefaultValue(DEF_RESPECTPOSITION)]
+        public virtual bool RespectPosition
+        {
+            get { return _respectPosition; }
+            set
+            {
+                if ((value == _respectPosition))
+                {
+                    return;
+                }
+                _respectPosition = value;
+                this.OnRespectPositionChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property RespectSize
+        
+        private bool _respectSize;
+        
+        public event EventHandler RespectSizeChanged;
+        
+        protected virtual void OnRespectSizeChanged()
+        {
+            EventHandler handler = RespectSizeChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RespectSize");
+        }
+        
+        private const bool DEF_RESPECTSIZE = true;
+        
+        [DefaultValue(DEF_RESPECTSIZE)]
+        public virtual bool RespectSize
+        {
+            get { return _respectSize; }
+            set
+            {
+                if ((value == _respectSize))
+                {
+                    return;
+                }
+                _respectSize = value;
+                this.OnRespectSizeChanged();
             }
         }
         
