@@ -38,6 +38,8 @@ namespace Mastersign.WinMan
             return true;
         }
 
+        public int MatchingWindows => Core.DefaultCore.WindowWrappers.Where(IsMatch).Count();
+
         private static void GetCommandArgs(string commandLine, out string command, out string commandArgs)
         {
             command = null;
