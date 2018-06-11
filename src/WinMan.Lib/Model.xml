@@ -66,6 +66,7 @@
     </Class>
 
     <Class name="ScreenPattern">
+      <CustomInitializer>Initialize</CustomInitializer>
       <Property name="Name" type="string">
         <DefaultValue>Screen</DefaultValue>
       </Property>

@@ -680,6 +680,7 @@ namespace Mastersign.WinMan
             this._name = DEF_NAME;
             this._respectPosition = DEF_RESPECTPOSITION;
             this._respectSize = DEF_RESPECTSIZE;
+            this.Initialize();
         }
         
         #region Equatability
