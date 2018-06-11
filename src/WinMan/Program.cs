@@ -13,8 +13,6 @@ namespace Mastersign.WinMan
     {
         private static Core _core;
 
-        public static Core Core => _core;
-
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -30,6 +28,7 @@ namespace Mastersign.WinMan
             _core = new Core();
             _core.LoadWorkspaceFromFile(workspaceFile);
             _core.ReloadWindows();
+            Core.DefaultCore = _core;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

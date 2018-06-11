@@ -39,7 +39,7 @@ namespace Mastersign.WinMan
             cmbWindowActionBottomUnit.DataSource = Enum.GetValues(typeof(ScreenUnit));
 
             UpdateControlActivation();
-            Core = Program.Core;
+            Core = Core.DefaultCore;
         }
 
         private void InitializeWindowTitle()
@@ -524,7 +524,7 @@ namespace Mastersign.WinMan
             Core.Workspace.ConfigurationPatterns.Remove(selectedConfigPattern);
         }
 
-        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e) 
+        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e)
             => UpdateConfigurationPatternReferenceList();
 
         private void ConfigurationPatternSelectionChangedHandler(object sender, EventArgs e)
@@ -612,24 +612,8 @@ namespace Mastersign.WinMan
 
         private void SelectedScreenPatternChanged(object sender, EventArgs e)
         {
-            var screenPattern = SelectedScreenPattern;
-            if (screenPattern == null)
-            {
-                numScreenLeft.Value = 0;
-                numScreenTop.Value = 0;
-                numScreenWidth.Value = 0;
-                numScreenHeight.Value = 0;
-            }
-            else
-            {
-                numScreenLeft.Value = screenPattern.Bounds.Left;
-                numScreenTop.Value = screenPattern.Bounds.Top;
-                numScreenWidth.Value = screenPattern.Bounds.Width;
-                numScreenHeight.Value = screenPattern.Bounds.Height;
-            }
             RefreshConfigurationPreview();
         }
-
 
         #region Automatic Reference Update
 
@@ -854,6 +838,7 @@ namespace Mastersign.WinMan
         {
             RefreshLayoutPreview();
             UpdateControlActivation();
+            WatchedWindowAction = SelectedWindowAction;
         }
 
         private void SelectedWindowActionChangedHandler(object sender, EventArgs e)
@@ -872,6 +857,139 @@ namespace Mastersign.WinMan
             wa.RecordPosition(Core.Workspace, SelectedLayout);
         }
 
+        #region Unit Conversion
+
+        private WindowAction _watchedWindowAction;
+
+        private WindowAction WatchedWindowAction
+        {
+            get => _watchedWindowAction;
+            set
+            {
+                if (_watchedWindowAction == value) return;
+                if (_watchedWindowAction != null)
+                {
+                    _watchedWindowAction.LeftInvertChanged -= WatchedWindowActionLeftInvertChangedHandler;
+                    _watchedWindowAction.LeftUnitChanged -= WatchedWindowActionLeftUnitChangedHandler;
+                    _watchedWindowAction.TopInvertChanged -= WatchedWindowActionTopInvertChangedHandler;
+                    _watchedWindowAction.TopUnitChanged -= WatchedWindowActionTopUnitChangedHandler;
+                    _watchedWindowAction.RightInvertChanged -= WatchedWindowActionRightInvertChangedHandler;
+                    _watchedWindowAction.RightUnitChanged -= WatchedWindowActionRightUnitChangedHandler;
+                    _watchedWindowAction.BottomInvertChanged -= WatchedWindowActionBottomInvertChangedHandler;
+                    _watchedWindowAction.BottomUnitChanged -= WatchedWindowActionBottomUnitChangedHandler;
+                }
+                _watchedWindowAction = value;
+                if (_watchedWindowAction != null)
+                {
+                    _watchedWindowAction.LeftInvertChanged += WatchedWindowActionLeftInvertChangedHandler;
+                    _watchedWindowAction.LeftUnitChanged += WatchedWindowActionLeftUnitChangedHandler;
+                    _watchedWindowAction.TopInvertChanged += WatchedWindowActionTopInvertChangedHandler;
+                    _watchedWindowAction.TopUnitChanged += WatchedWindowActionTopUnitChangedHandler;
+                    _watchedWindowAction.RightInvertChanged += WatchedWindowActionRightInvertChangedHandler;
+                    _watchedWindowAction.RightUnitChanged += WatchedWindowActionRightUnitChangedHandler;
+                    _watchedWindowAction.BottomInvertChanged += WatchedWindowActionBottomInvertChangedHandler;
+                    _watchedWindowAction.BottomUnitChanged += WatchedWindowActionBottomUnitChangedHandler;
+                }
+            }
+        }
+
+        private Rect GetScreenBoundsForWindowAction(WindowAction windowAction)
+            => Core
+                ?.Workspace
+                ?.FindConfigurationPattern(SelectedLayout?.Configuration)
+                ?.FindScreenPattern(windowAction.Screen)
+                ?.Bounds;
+
+        private void WatchedWindowActionLeftInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.LeftUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Left = 100 - _watchedWindowAction.Left;
+            else
+                _watchedWindowAction.Left = bounds.Width - _watchedWindowAction.Left;
+        }
+
+        private void WatchedWindowActionLeftUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.LeftUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Left = (int)Math.Round(
+                    _watchedWindowAction.Left / (double)bounds.Width * 100.0);
+            else
+                _watchedWindowAction.Left = (int)Math.Round(
+                    _watchedWindowAction.Left / 100.0 * (double)bounds.Width);
+        }
+
+        private void WatchedWindowActionTopInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.TopUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Top = 100 - _watchedWindowAction.Top;
+            else
+                _watchedWindowAction.Top = bounds.Height - _watchedWindowAction.Top;
+        }
+
+        private void WatchedWindowActionTopUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.TopUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Top = (int)Math.Round(
+                    _watchedWindowAction.Top / (double)bounds.Height * 100.0);
+            else
+                _watchedWindowAction.Top = (int)Math.Round(
+                    _watchedWindowAction.Top / 100.0 * (double)bounds.Height);
+        }
+
+        private void WatchedWindowActionRightInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.RightUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Right = 100 - _watchedWindowAction.Right;
+            else
+                _watchedWindowAction.Right = bounds.Width - _watchedWindowAction.Right;
+        }
+
+        private void WatchedWindowActionRightUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.RightUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Right = (int)Math.Round(
+                    _watchedWindowAction.Right / (double)bounds.Width * 100.0);
+            else
+                _watchedWindowAction.Right = (int)Math.Round(
+                    _watchedWindowAction.Right / 100.0 * (double)bounds.Width);
+        }
+
+        private void WatchedWindowActionBottomInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.BottomUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Bottom = 100 - _watchedWindowAction.Bottom;
+            else
+                _watchedWindowAction.Bottom = bounds.Height - _watchedWindowAction.Bottom;
+        }
+
+        private void WatchedWindowActionBottomUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.BottomUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Bottom = (int)Math.Round(
+                    _watchedWindowAction.Bottom / (double)bounds.Height * 100.0);
+            else
+                _watchedWindowAction.Bottom = (int)Math.Round(
+                    _watchedWindowAction.Bottom / 100.0 * (double)bounds.Height);
+        }
+
+        #endregion
+
         #endregion
 
         #region Options
@@ -887,12 +1005,16 @@ namespace Mastersign.WinMan
             numOsWindowMarginTop.ValueChanged += NumOsWindowMarginTopValueChangedHandler;
             numOsWindowMarginRight.ValueChanged += NumOsWindowMarginRightValueChangedHandler;
             numOsWindowMarginBottom.ValueChanged += NumOsWindowMarginBottomValueChangedHandler;
+            _options.RestorationTimeoutChanged += RestorationTimeoutChangedHandler;
+            numRestorationTimeout.ValueChanged += NumRestorationTimeoutValueChangedHandler;
             OsWindowMarginChangedHandler(_options, EventArgs.Empty);
         }
 
         private void ReleaseOptions()
         {
             if (_options == null) return;
+            numRestorationTimeout.ValueChanged -= NumRestorationTimeoutValueChangedHandler;
+            _options.RestorationTimeoutChanged -= RestorationTimeoutChangedHandler;
             numOsWindowMarginLeft.ValueChanged -= NumOsWindowMarginLeftValueChangedHandler;
             numOsWindowMarginTop.ValueChanged -= NumOsWindowMarginTopValueChangedHandler;
             numOsWindowMarginRight.ValueChanged -= NumOsWindowMarginRightValueChangedHandler;
@@ -938,6 +1060,18 @@ namespace Mastersign.WinMan
             _options.OsWindowMargin = new Margin(m.Left, m.Top, m.Right, (int)numOsWindowMarginBottom.Value);
         }
 
+        private void RestorationTimeoutChangedHandler(object sender, EventArgs e)
+        {
+            numRestorationTimeout.Value = _options.RestorationTimeout;
+        }
+
+        private void NumRestorationTimeoutValueChangedHandler(object sender, EventArgs e)
+        {
+            if (_options == null) return;
+            _options.RestorationTimeout = (int)numRestorationTimeout.Value;
+        }
+
+
         #endregion
 
         #region Helper
@@ -975,5 +1109,11 @@ namespace Mastersign.WinMan
         }
 
         #endregion
+
+        private void cmbWindowActionLeftUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cmb = (ComboBox) sender;
+            
+        }
     }
 }

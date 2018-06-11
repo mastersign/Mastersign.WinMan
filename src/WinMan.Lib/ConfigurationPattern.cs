@@ -5,14 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsDesktop;
 
 namespace Mastersign.WinMan
 {
     partial class ConfigurationPattern
     {
         public bool IsMatch(Screen[] screens, int virtualDesktopCount)
-            => Screens.All(p => screens.Any(s => p.IsMatch(s)))
-                && (!RespectVirtualDesktopCount || VirtualDesktopCount == virtualDesktopCount);
+            => screens.Length == Screens.Count
+               && Screens.All(p => screens.Any(p.IsMatch))
+               && (!RespectVirtualDesktopCount || VirtualDesktopCount == virtualDesktopCount);
+
+        public bool Matches => IsMatch(Screen.AllScreens, VirtualDesktop.GetDesktops().Length);
 
         public static ConfigurationPattern FromConfiguration(Screen[] screens, int virtualDesktopCount)
             => new ConfigurationPattern()
