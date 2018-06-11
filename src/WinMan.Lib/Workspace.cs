@@ -15,8 +15,8 @@ namespace Mastersign.WinMan
         public ConfigurationPattern FindConfigurationPattern(string configurationPatternName)
             => ConfigurationPatterns.FirstOrDefault(p => p.Name == configurationPatternName);
 
-        public Layout FindLayout(string layoutName)
-            => Layouts.FirstOrDefault(l => l.Name == layoutName);
+        public IEnumerable<Layout> FindLayouts(string layoutName)
+            => Layouts.Where(l => l.Name == layoutName);
 
         [JsonIgnore]
         public Layout[] DefaultLayouts => Layouts.Where(l => l.DefaultLayout).ToArray();

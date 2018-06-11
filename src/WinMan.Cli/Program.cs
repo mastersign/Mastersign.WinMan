@@ -114,6 +114,14 @@ namespace Mastersign.WinMan.Cli
                 Console.Error.WriteLine($"Failed to load the workspace file '{workspaceFile}'.");
                 return false;
             }
+            Core.DefaultCore = core;
+
+            var matchingConfigurations = new List<string>(
+                core.Workspace.ConfigurationPatterns
+                    .Where(cp => cp.Matches)
+                    .Select(cp => cp.Name));
+            foreach (var n in matchingConfigurations) PrintVerbose("- {0}", n);
+            bool IsMatch(Layout l) => matchingConfigurations.Contains(l.Configuration);
             if (!specificLayouts)
             {
                 core.ApplyWorkspace();
@@ -125,19 +133,28 @@ namespace Mastersign.WinMan.Cli
                 var layouts = new List<Layout>();
                 if (includeDefaultLayout)
                 {
-                    layouts.AddRange(core.Workspace.DefaultLayouts);
+                    foreach (var layout in core.Workspace.DefaultLayouts.Where(IsMatch))
+                    {
+                        layouts.Add(layout);
+                    }
                 }
                 foreach (var layoutName in layoutNames)
                 {
-                    var layout = core.Workspace.FindLayout(layoutName);
-                    if (layout == null)
+                    var found = false;
+                    foreach (var layout in core.Workspace.FindLayouts(layoutName))
+                    {
+                        found = true;
+                        if (!IsMatch(layout)) continue;
+                        if (!layouts.Contains(layout))
+                        {
+                            PrintVerbose("- {0}", layout.Name);
+                            layouts.Add(layout);
+                        }
+                    }
+                    if (!found)
                     {
                         Console.Error.WriteLine($"Could not find layout '{layoutName}'.");
                         result = false;
-                    }
-                    else if (!layouts.Contains(layout))
-                    {
-                        layouts.Add(layout);
                     }
                 }
                 foreach (var layout in layouts)
