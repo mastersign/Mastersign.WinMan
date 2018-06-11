@@ -1734,7 +1734,7 @@
             // 
             // cmbWindowActionBottomUnit
             // 
-            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "BottomUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionBottomUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "BottomUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionBottomUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionBottomUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionBottomUnit.FormattingEnabled = true;
@@ -1766,7 +1766,7 @@
             // 
             // cmbWindowActionRightUnit
             // 
-            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "RightUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionRightUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "RightUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionRightUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionRightUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionRightUnit.FormattingEnabled = true;
@@ -1778,7 +1778,7 @@
             // 
             // cmbWindowActionTopUnit
             // 
-            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "TopUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionTopUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "TopUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionTopUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionTopUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionTopUnit.FormattingEnabled = true;
@@ -1810,7 +1810,7 @@
             // 
             // cmbWindowActionLeftUnit
             // 
-            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "LeftUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionLeftUnit.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "LeftUnit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionLeftUnit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionLeftUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWindowActionLeftUnit.FormattingEnabled = true;
@@ -2019,7 +2019,7 @@
             // cmbWindowActionWindowState
             // 
             tableLayoutDetails.SetColumnSpan(this.cmbWindowActionWindowState, 2);
-            this.cmbWindowActionWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbWindowActionWindowState.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.windowActionsBindingSource, "WindowState", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbWindowActionWindowState.DisplayMember = "Name";
             this.cmbWindowActionWindowState.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbWindowActionWindowState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;

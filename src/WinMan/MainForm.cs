@@ -524,7 +524,7 @@ namespace Mastersign.WinMan
             Core.Workspace.ConfigurationPatterns.Remove(selectedConfigPattern);
         }
 
-        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e) 
+        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs e)
             => UpdateConfigurationPatternReferenceList();
 
         private void ConfigurationPatternSelectionChangedHandler(object sender, EventArgs e)
@@ -614,7 +614,6 @@ namespace Mastersign.WinMan
         {
             RefreshConfigurationPreview();
         }
-
 
         #region Automatic Reference Update
 
@@ -839,6 +838,7 @@ namespace Mastersign.WinMan
         {
             RefreshLayoutPreview();
             UpdateControlActivation();
+            WatchedWindowAction = SelectedWindowAction;
         }
 
         private void SelectedWindowActionChangedHandler(object sender, EventArgs e)
@@ -856,6 +856,139 @@ namespace Mastersign.WinMan
             if (layout == null) return;
             wa.RecordPosition(Core.Workspace, SelectedLayout);
         }
+
+        #region Unit Conversion
+
+        private WindowAction _watchedWindowAction;
+
+        private WindowAction WatchedWindowAction
+        {
+            get => _watchedWindowAction;
+            set
+            {
+                if (_watchedWindowAction == value) return;
+                if (_watchedWindowAction != null)
+                {
+                    _watchedWindowAction.LeftInvertChanged -= WatchedWindowActionLeftInvertChangedHandler;
+                    _watchedWindowAction.LeftUnitChanged -= WatchedWindowActionLeftUnitChangedHandler;
+                    _watchedWindowAction.TopInvertChanged -= WatchedWindowActionTopInvertChangedHandler;
+                    _watchedWindowAction.TopUnitChanged -= WatchedWindowActionTopUnitChangedHandler;
+                    _watchedWindowAction.RightInvertChanged -= WatchedWindowActionRightInvertChangedHandler;
+                    _watchedWindowAction.RightUnitChanged -= WatchedWindowActionRightUnitChangedHandler;
+                    _watchedWindowAction.BottomInvertChanged -= WatchedWindowActionBottomInvertChangedHandler;
+                    _watchedWindowAction.BottomUnitChanged -= WatchedWindowActionBottomUnitChangedHandler;
+                }
+                _watchedWindowAction = value;
+                if (_watchedWindowAction != null)
+                {
+                    _watchedWindowAction.LeftInvertChanged += WatchedWindowActionLeftInvertChangedHandler;
+                    _watchedWindowAction.LeftUnitChanged += WatchedWindowActionLeftUnitChangedHandler;
+                    _watchedWindowAction.TopInvertChanged += WatchedWindowActionTopInvertChangedHandler;
+                    _watchedWindowAction.TopUnitChanged += WatchedWindowActionTopUnitChangedHandler;
+                    _watchedWindowAction.RightInvertChanged += WatchedWindowActionRightInvertChangedHandler;
+                    _watchedWindowAction.RightUnitChanged += WatchedWindowActionRightUnitChangedHandler;
+                    _watchedWindowAction.BottomInvertChanged += WatchedWindowActionBottomInvertChangedHandler;
+                    _watchedWindowAction.BottomUnitChanged += WatchedWindowActionBottomUnitChangedHandler;
+                }
+            }
+        }
+
+        private Rect GetScreenBoundsForWindowAction(WindowAction windowAction)
+            => Core
+                ?.Workspace
+                ?.FindConfigurationPattern(SelectedLayout?.Configuration)
+                ?.FindScreenPattern(windowAction.Screen)
+                ?.Bounds;
+
+        private void WatchedWindowActionLeftInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.LeftUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Left = 100 - _watchedWindowAction.Left;
+            else
+                _watchedWindowAction.Left = bounds.Width - _watchedWindowAction.Left;
+        }
+
+        private void WatchedWindowActionLeftUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.LeftUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Left = (int)Math.Round(
+                    _watchedWindowAction.Left / (double)bounds.Width * 100.0);
+            else
+                _watchedWindowAction.Left = (int)Math.Round(
+                    _watchedWindowAction.Left / 100.0 * (double)bounds.Width);
+        }
+
+        private void WatchedWindowActionTopInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.TopUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Top = 100 - _watchedWindowAction.Top;
+            else
+                _watchedWindowAction.Top = bounds.Height - _watchedWindowAction.Top;
+        }
+
+        private void WatchedWindowActionTopUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.TopUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Top = (int)Math.Round(
+                    _watchedWindowAction.Top / (double)bounds.Height * 100.0);
+            else
+                _watchedWindowAction.Top = (int)Math.Round(
+                    _watchedWindowAction.Top / 100.0 * (double)bounds.Height);
+        }
+
+        private void WatchedWindowActionRightInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.RightUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Right = 100 - _watchedWindowAction.Right;
+            else
+                _watchedWindowAction.Right = bounds.Width - _watchedWindowAction.Right;
+        }
+
+        private void WatchedWindowActionRightUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.RightUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Right = (int)Math.Round(
+                    _watchedWindowAction.Right / (double)bounds.Width * 100.0);
+            else
+                _watchedWindowAction.Right = (int)Math.Round(
+                    _watchedWindowAction.Right / 100.0 * (double)bounds.Width);
+        }
+
+        private void WatchedWindowActionBottomInvertChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.BottomUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Bottom = 100 - _watchedWindowAction.Bottom;
+            else
+                _watchedWindowAction.Bottom = bounds.Height - _watchedWindowAction.Bottom;
+        }
+
+        private void WatchedWindowActionBottomUnitChangedHandler(object sender, EventArgs e)
+        {
+            var bounds = GetScreenBoundsForWindowAction(_watchedWindowAction);
+            if (bounds == null) return;
+            if (_watchedWindowAction.BottomUnit == ScreenUnit.Percent)
+                _watchedWindowAction.Bottom = (int)Math.Round(
+                    _watchedWindowAction.Bottom / (double)bounds.Height * 100.0);
+            else
+                _watchedWindowAction.Bottom = (int)Math.Round(
+                    _watchedWindowAction.Bottom / 100.0 * (double)bounds.Height);
+        }
+
+        #endregion
 
         #endregion
 
