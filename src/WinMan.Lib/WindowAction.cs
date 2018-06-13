@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -64,12 +65,21 @@ namespace Mastersign.WinMan
             return false;
         }
 
+        private static readonly Regex CommandArgsMetaPattern = new Regex("[()%!^\"<>&|;, ]", RegexOptions.Singleline);
+
+        private static string EscapeCommandLineArguments(string commandArgs)
+            => string.IsNullOrEmpty(commandArgs)
+                ? commandArgs
+                : CommandArgsMetaPattern.Replace(commandArgs, "^$&");
+
         private static bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers, int defaultTimeout)
         {
+            // Escaping the command line arguments is necessary, because the arguments are passed to and therefore interpreted by CMD
+            var commandArgs = EscapeCommandLineArguments(windowPattern.CommandArgs);
             try
             {
                 var startInfo = new ProcessStartInfo("cmd",
-                    $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {windowPattern.CommandArgs}");
+                    $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {commandArgs}");
                 startInfo.UseShellExecute = false;
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 if (!string.IsNullOrWhiteSpace(windowPattern.WorkingDir) &&
