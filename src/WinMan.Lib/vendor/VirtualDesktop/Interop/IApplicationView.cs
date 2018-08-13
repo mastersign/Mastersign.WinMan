@@ -4,8 +4,8 @@ using System.Runtime.InteropServices;
 namespace WindowsDesktop.Interop
 {
 	[ComImport]
-	[Guid("9ac0b5c8-1484-4c5b-9533-4134a0f97cea")]
-	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+	[Guid("871F602A-2B58-42B4-8C4B-6C43D642C06F")]
+	[InterfaceType(ComInterfaceType.InterfaceIsIInspectable)]
 	public interface IApplicationView
 	{
 		int SetFocus();
@@ -62,17 +62,11 @@ namespace WindowsDesktop.Interop
 
 		int SetCompatibilityPolicyType(APPLICATION_VIEW_COMPATIBILITY_POLICY flags);
 
-		int GetPositionPriority(out IntPtr /* IShellPositionerPriority** */ priority);
-
-		int SetPositionPriority(IntPtr /* IShellPositionerPriority* */ priority);
-
 		int GetSizeConstraints(IntPtr /* IImmersiveMonitor* */ monitor, out Size size1, out Size size2);
 
 		int GetSizeConstraintsForDpi(uint uint1, out Size size1, out Size size2);
 
 		int SetSizeConstraintsForDpi(ref uint uint1, ref Size size1, ref Size size2);
-
-		int QuerySizeConstraintsFromApp();
 
 		int OnMinSizePreferencesUpdated(IntPtr hwnd);
 
