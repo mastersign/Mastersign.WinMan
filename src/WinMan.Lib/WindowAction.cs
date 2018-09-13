@@ -37,7 +37,7 @@ namespace Mastersign.WinMan
                 Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop, workspace.Options));
                 return true;
             }
-            else if (Restore && !string.IsNullOrWhiteSpace(windowPattern.Command))
+            else if (Restore && windowPattern.IsRestorable)
             {
                 if (TryRestoreWindow(windowPattern, ref windowWrappers, workspace.Options.RestorationTimeout))
                 {
@@ -78,15 +78,26 @@ namespace Mastersign.WinMan
             var commandArgs = EscapeCommandLineArguments(windowPattern.CommandArgs);
             try
             {
-                var startInfo = new ProcessStartInfo("cmd",
-                    $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {commandArgs}");
-                startInfo.UseShellExecute = false;
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                ProcessStartInfo startInfo;
+                if (windowPattern.ModernApp)
+                {
+                    startInfo = new ProcessStartInfo("explorer.exe",
+                        @"shell:appsFolder\" + windowPattern.AppId);
+                    startInfo.UseShellExecute = false;
+                }
+                else
+                {
+                    startInfo = new ProcessStartInfo("cmd",
+                        $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {commandArgs}");
+                    startInfo.UseShellExecute = false;
+                    startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                }
                 if (!string.IsNullOrWhiteSpace(windowPattern.WorkingDir) &&
                     Directory.Exists(windowPattern.WorkingDir))
                 {
                     startInfo.WorkingDirectory = windowPattern.WorkingDir;
                 }
+
                 Process.Start(startInfo);
                 var tCancel = DateTime.Now + new TimeSpan(0, 0, 0,
                     windowPattern.OverrideRestorationTimeout

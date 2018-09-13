@@ -143,6 +143,11 @@ namespace Mastersign.WinMan
 
         public string AppId => Handle.GetAppId();
 
+        public bool IsModernAppWindow
+            => ProcessFileName != null
+               && Path.GetFileName(ProcessFileName).ToLower() == "applicationframehost.exe"
+               && WindowClass == "ApplicationFrameWindow";
+
         private WINDOWPLACEMENT _placement = WINDOWPLACEMENT.Default;
         private bool _placementLoaded;
 

@@ -612,6 +612,38 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property ModernApp
+        
+        private bool _modernApp;
+        
+        public event EventHandler ModernAppChanged;
+        
+        protected virtual void OnModernAppChanged()
+        {
+            EventHandler handler = ModernAppChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"ModernApp");
+        }
+        
+        public virtual bool ModernApp
+        {
+            get { return _modernApp; }
+            set
+            {
+                if ((value == _modernApp))
+                {
+                    return;
+                }
+                _modernApp = value;
+                this.OnModernAppChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Command
         
         private string _command;
@@ -703,6 +735,38 @@ namespace Mastersign.WinMan
                 }
                 _workingDir = value;
                 this.OnWorkingDirChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property AppId
+        
+        private string _appId;
+        
+        public event EventHandler AppIdChanged;
+        
+        protected virtual void OnAppIdChanged()
+        {
+            EventHandler handler = AppIdChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"AppId");
+        }
+        
+        public virtual string AppId
+        {
+            get { return _appId; }
+            set
+            {
+                if (string.Equals(value, _appId))
+                {
+                    return;
+                }
+                _appId = value;
+                this.OnAppIdChanged();
             }
         }
         

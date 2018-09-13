@@ -63,9 +63,11 @@
       <Property name="RestorationTimeout" type="int">
         <DefaultValue>30</DefaultValue>
       </Property>
+      <Property name="ModernApp" type="bool" />
       <Property name="Command" type="string" />
       <Property name="CommandArgs" type="string" />
       <Property name="WorkingDir" type="string" />
+      <Property name="AppId" type="string" />
     </Class>
 
     <Class name="ScreenPattern">
