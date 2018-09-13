@@ -1077,8 +1077,7 @@ namespace Mastersign.WinMan
             if (_options == null) return;
             _options.RestorationTimeout = (int)numRestorationTimeout.Value;
         }
-
-
+        
         #endregion
 
         #region Helper
@@ -1121,6 +1120,32 @@ namespace Mastersign.WinMan
         {
             var cmb = (ComboBox) sender;
             
+        }
+
+        private void ClosingHandler(object sender, FormClosingEventArgs e)
+        {
+            if (Core.WorkspaceFileName == null && File.Exists(Core.DefaultWorkspaceFilePath))
+            {
+                Core.ShowSaveWorkspaceFileDialog(null, "Save Workspace...");
+            }
+            else if (Core.Workspace.IsChanged)
+            {
+                var result = MessageBox.Show(
+                    "The workspace has unsaved changes.\n\nDo you want to save the workspace?",
+                    "Exit WinMan",
+                    e.CloseReason == CloseReason.UserClosing ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                if (result == DialogResult.Yes)
+                {
+                    Core.WriteWorkspaceToFile();
+                }
+            }
         }
     }
 }

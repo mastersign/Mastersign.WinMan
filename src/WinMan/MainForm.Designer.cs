@@ -2715,6 +2715,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "WinMan";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClosingHandler);
             this.Load += new System.EventHandler(this.FormLoadHandler);
             tableConfigurationPatterns.ResumeLayout(false);
             tableConfigurationPatternList.ResumeLayout(false);

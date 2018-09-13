@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace Mastersign.WinMan
 {
     #region Scaleton Model Designer generated code
     
-    // Scaleton Version: 0.2.5
+    // Scaleton Version: 0.2.6
     
     public enum StringPatternType
     {
@@ -68,6 +69,24 @@ namespace Mastersign.WinMan
                 return false;
             }
             return this.Equals((Margin)o);
+        }
+        
+        public static bool operator ==(Margin a, Margin b)
+        {
+            if ((ReferenceEquals(a, null) && ReferenceEquals(b, null)))
+            {
+                return true;
+            }
+            if ((ReferenceEquals(a, null) || ReferenceEquals(b, null)))
+            {
+                return false;
+            }
+            return a.Equals(b);
+        }
+        
+        public static bool operator !=(Margin a, Margin b)
+        {
+            return !(a == b);
         }
         
         public override int GetHashCode()
@@ -168,6 +187,24 @@ namespace Mastersign.WinMan
             return this.Equals((Rect)o);
         }
         
+        public static bool operator ==(Rect a, Rect b)
+        {
+            if ((ReferenceEquals(a, null) && ReferenceEquals(b, null)))
+            {
+                return true;
+            }
+            if ((ReferenceEquals(a, null) || ReferenceEquals(b, null)))
+            {
+                return false;
+            }
+            return a.Equals(b);
+        }
+        
+        public static bool operator !=(Rect a, Rect b)
+        {
+            return !(a == b);
+        }
+        
         public override int GetHashCode()
         {
             return (this.GetType().GetHashCode() ^ 
@@ -224,7 +261,7 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class WindowPattern : IEquatable<WindowPattern>, INotifyPropertyChanged
+    public partial class WindowPattern : IEquatable<WindowPattern>, INotifyPropertyChanged, IChangeTracking
     {
         public WindowPattern()
         {
@@ -232,6 +269,8 @@ namespace Mastersign.WinMan
             this._titlePatternType = DEF_TITLEPATTERNTYPE;
             this._windowClassPatternType = DEF_WINDOWCLASSPATTERNTYPE;
             this._restorationTimeout = DEF_RESTORATIONTIMEOUT;
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -278,6 +317,22 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Name
@@ -288,6 +343,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = NameChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -323,6 +379,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnTitlePatternChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = TitlePatternChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -355,6 +412,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnTitlePatternTypeChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = TitlePatternTypeChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -390,6 +448,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnTitleIgnoreCaseChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = TitleIgnoreCaseChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -422,6 +481,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowClassPatternChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowClassPatternChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -454,6 +514,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowClassPatternTypeChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowClassPatternTypeChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -489,6 +550,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowClassIgnoreCaseChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowClassIgnoreCaseChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -521,6 +583,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnProcessFileNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = ProcessFileNameChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -553,6 +616,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnOverrideRestorationTimeoutChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = OverrideRestorationTimeoutChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -585,6 +649,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRestorationTimeoutChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RestorationTimeoutChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -620,6 +685,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnModernAppChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = ModernAppChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -652,6 +718,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnCommandChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = CommandChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -684,6 +751,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnCommandArgsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = CommandArgsChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -716,6 +784,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWorkingDirChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WorkingDirChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -748,6 +817,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnAppIdChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = AppIdChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -773,7 +843,7 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class ScreenPattern : IEquatable<ScreenPattern>, INotifyPropertyChanged
+    public partial class ScreenPattern : IEquatable<ScreenPattern>, INotifyPropertyChanged, IChangeTracking
     {
         public ScreenPattern()
         {
@@ -781,6 +851,8 @@ namespace Mastersign.WinMan
             this._respectPosition = DEF_RESPECTPOSITION;
             this._respectSize = DEF_RESPECTSIZE;
             this.Initialize();
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -827,6 +899,22 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Name
@@ -837,6 +925,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = NameChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -872,6 +961,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnBoundsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = BoundsChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -904,6 +994,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnDeviceNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = DeviceNameChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -936,6 +1027,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRespectPositionChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RespectPositionChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -971,6 +1063,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRespectSizeChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RespectSizeChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -999,7 +1092,7 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class ConfigurationPattern : IEquatable<ConfigurationPattern>, INotifyPropertyChanged
+    public partial class ConfigurationPattern : IEquatable<ConfigurationPattern>, INotifyPropertyChanged, IChangeTracking
     {
         public ConfigurationPattern()
         {
@@ -1007,6 +1100,8 @@ namespace Mastersign.WinMan
             this._screens = new BindingList<ScreenPattern>();
             this._virtualDesktopCount = DEF_VIRTUALDESKTOPCOUNT;
             this._respectVirtualDesktopCount = DEF_RESPECTVIRTUALDESKTOPCOUNT;
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -1053,6 +1148,32 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            if (!ReferenceEquals(_screens, null))
+            {
+                foreach (ScreenPattern x in _screens)
+                {
+                    if (!ReferenceEquals(x, null))
+                    {
+                        x.AcceptChanges();
+                    }
+                }
+            }
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Name
@@ -1063,6 +1184,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = NameChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1098,12 +1220,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnScreensChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = ScreensChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"Screens");
+        }
+        
+        private void ScreensListChangedHandler(object sender, ListChangedEventArgs ea)
+        {
+            this.OnScreensChanged();
         }
         
         public virtual BindingList<ScreenPattern> Screens
@@ -1115,7 +1243,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_screens, null))
+                {
+                    _screens.ListChanged -= this.ScreensListChangedHandler;
+                }
                 _screens = value;
+                if (!ReferenceEquals(_screens, null))
+                {
+                    _screens.ListChanged += this.ScreensListChangedHandler;
+                }
                 this.OnScreensChanged();
             }
         }
@@ -1130,6 +1266,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnVirtualDesktopCountChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = VirtualDesktopCountChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1165,6 +1302,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRespectVirtualDesktopCountChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RespectVirtualDesktopCountChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1193,7 +1331,7 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class WindowAction : IEquatable<WindowAction>, INotifyPropertyChanged
+    public partial class WindowAction : IEquatable<WindowAction>, INotifyPropertyChanged, IChangeTracking
     {
         public WindowAction()
         {
@@ -1209,6 +1347,8 @@ namespace Mastersign.WinMan
             this._bottom = DEF_BOTTOM;
             this._bottomUnit = DEF_BOTTOMUNIT;
             this._compensateOsMargin = DEF_COMPENSATEOSMARGIN;
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -1255,6 +1395,22 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Window
@@ -1265,6 +1421,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1300,6 +1457,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRestoreChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RestoreChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1332,6 +1490,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnOverrideVirtualDesktopChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = OverrideVirtualDesktopChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1364,6 +1523,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnVirtualDesktopChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = VirtualDesktopChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1399,6 +1559,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnAllVirtualDesktopsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = AllVirtualDesktopsChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1431,6 +1592,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnScreenChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = ScreenChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1463,6 +1625,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowStateChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowStateChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1498,6 +1661,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnLeftChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = LeftChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1533,6 +1697,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnLeftUnitChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = LeftUnitChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1568,6 +1733,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnLeftInvertChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = LeftInvertChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1600,6 +1766,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnTopChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = TopChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1635,6 +1802,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnTopUnitChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = TopUnitChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1670,6 +1838,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnTopInvertChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = TopInvertChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1702,6 +1871,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRightChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RightChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1737,6 +1907,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRightUnitChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RightUnitChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1772,6 +1943,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRightInvertChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RightInvertChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1804,6 +1976,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnBottomChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = BottomChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1839,6 +2012,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnBottomUnitChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = BottomUnitChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1874,6 +2048,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnBottomInvertChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = BottomInvertChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1906,6 +2081,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnCompensateOsMarginChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = CompensateOsMarginChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -1934,7 +2110,7 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class Layout : IEquatable<Layout>, INotifyPropertyChanged
+    public partial class Layout : IEquatable<Layout>, INotifyPropertyChanged, IChangeTracking
     {
         public Layout()
         {
@@ -1942,6 +2118,8 @@ namespace Mastersign.WinMan
             this._defaultLayout = DEF_DEFAULTLAYOUT;
             this._defaultVirtualDesktop = DEF_DEFAULTVIRTUALDESKTOP;
             this._windows = new BindingList<WindowAction>();
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -1988,6 +2166,32 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            if (!ReferenceEquals(_windows, null))
+            {
+                foreach (WindowAction x in _windows)
+                {
+                    if (!ReferenceEquals(x, null))
+                    {
+                        x.AcceptChanges();
+                    }
+                }
+            }
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Name
@@ -1998,6 +2202,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = NameChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2033,6 +2238,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnDefaultLayoutChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = DefaultLayoutChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2068,6 +2274,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnConfigurationChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = ConfigurationChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2100,6 +2307,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnDefaultVirtualDesktopChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = DefaultVirtualDesktopChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2135,12 +2343,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowsChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"Windows");
+        }
+        
+        private void WindowsListChangedHandler(object sender, ListChangedEventArgs ea)
+        {
+            this.OnWindowsChanged();
         }
         
         public virtual BindingList<WindowAction> Windows
@@ -2152,7 +2366,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_windows, null))
+                {
+                    _windows.ListChanged -= this.WindowsListChangedHandler;
+                }
                 _windows = value;
+                if (!ReferenceEquals(_windows, null))
+                {
+                    _windows.ListChanged += this.WindowsListChangedHandler;
+                }
                 this.OnWindowsChanged();
             }
         }
@@ -2160,10 +2382,11 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class Options : IEquatable<Options>, INotifyPropertyChanged
+    public partial class Options : IEquatable<Options>, INotifyPropertyChanged, IChangeTracking
     {
         public Options()
         {
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -2210,6 +2433,22 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property OsWindowMargin
@@ -2220,6 +2459,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnOsWindowMarginChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = OsWindowMarginChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2252,6 +2492,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnRestorationTimeoutChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = RestorationTimeoutChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2277,13 +2518,15 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class Workspace : IEquatable<Workspace>, INotifyPropertyChanged
+    public partial class Workspace : IEquatable<Workspace>, INotifyPropertyChanged, IChangeTracking
     {
         public Workspace()
         {
             this._windowPatterns = new BindingList<WindowPattern>();
             this._configurationPatterns = new BindingList<ConfigurationPattern>();
             this._layouts = new BindingList<Layout>();
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -2330,6 +2573,56 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            if (!ReferenceEquals(_options, null))
+            {
+                _options.AcceptChanges();
+            }
+            if (!ReferenceEquals(_windowPatterns, null))
+            {
+                foreach (WindowPattern x in _windowPatterns)
+                {
+                    if (!ReferenceEquals(x, null))
+                    {
+                        x.AcceptChanges();
+                    }
+                }
+            }
+            if (!ReferenceEquals(_configurationPatterns, null))
+            {
+                foreach (ConfigurationPattern x in _configurationPatterns)
+                {
+                    if (!ReferenceEquals(x, null))
+                    {
+                        x.AcceptChanges();
+                    }
+                }
+            }
+            if (!ReferenceEquals(_layouts, null))
+            {
+                foreach (Layout x in _layouts)
+                {
+                    if (!ReferenceEquals(x, null))
+                    {
+                        x.AcceptChanges();
+                    }
+                }
+            }
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Options
@@ -2340,12 +2633,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnOptionsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = OptionsChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"Options");
+        }
+        
+        private void OptionsPropertyChangedHandler(object sender, PropertyChangedEventArgs ea)
+        {
+            this.OnOptionsChanged();
         }
         
         public virtual Options Options
@@ -2357,7 +2656,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_options, null))
+                {
+                    _options.PropertyChanged -= this.OptionsPropertyChangedHandler;
+                }
                 _options = value;
+                if (!ReferenceEquals(_options, null))
+                {
+                    _options.PropertyChanged += this.OptionsPropertyChangedHandler;
+                }
                 this.OnOptionsChanged();
             }
         }
@@ -2372,12 +2679,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowPatternsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowPatternsChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"WindowPatterns");
+        }
+        
+        private void WindowPatternsListChangedHandler(object sender, ListChangedEventArgs ea)
+        {
+            this.OnWindowPatternsChanged();
         }
         
         public virtual BindingList<WindowPattern> WindowPatterns
@@ -2389,7 +2702,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_windowPatterns, null))
+                {
+                    _windowPatterns.ListChanged -= this.WindowPatternsListChangedHandler;
+                }
                 _windowPatterns = value;
+                if (!ReferenceEquals(_windowPatterns, null))
+                {
+                    _windowPatterns.ListChanged += this.WindowPatternsListChangedHandler;
+                }
                 this.OnWindowPatternsChanged();
             }
         }
@@ -2404,12 +2725,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnConfigurationPatternsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = ConfigurationPatternsChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"ConfigurationPatterns");
+        }
+        
+        private void ConfigurationPatternsListChangedHandler(object sender, ListChangedEventArgs ea)
+        {
+            this.OnConfigurationPatternsChanged();
         }
         
         public virtual BindingList<ConfigurationPattern> ConfigurationPatterns
@@ -2421,7 +2748,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_configurationPatterns, null))
+                {
+                    _configurationPatterns.ListChanged -= this.ConfigurationPatternsListChangedHandler;
+                }
                 _configurationPatterns = value;
+                if (!ReferenceEquals(_configurationPatterns, null))
+                {
+                    _configurationPatterns.ListChanged += this.ConfigurationPatternsListChangedHandler;
+                }
                 this.OnConfigurationPatternsChanged();
             }
         }
@@ -2436,12 +2771,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnLayoutsChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = LayoutsChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"Layouts");
+        }
+        
+        private void LayoutsListChangedHandler(object sender, ListChangedEventArgs ea)
+        {
+            this.OnLayoutsChanged();
         }
         
         public virtual BindingList<Layout> Layouts
@@ -2453,7 +2794,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_layouts, null))
+                {
+                    _layouts.ListChanged -= this.LayoutsListChangedHandler;
+                }
                 _layouts = value;
+                if (!ReferenceEquals(_layouts, null))
+                {
+                    _layouts.ListChanged += this.LayoutsListChangedHandler;
+                }
                 this.OnLayoutsChanged();
             }
         }
@@ -2461,11 +2810,13 @@ namespace Mastersign.WinMan
         #endregion
     }
     
-    public partial class Core : IEquatable<Core>, INotifyPropertyChanged
+    public partial class Core : IEquatable<Core>, INotifyPropertyChanged, IChangeTracking
     {
         public Core()
         {
             this._windowWrappers = new WindowWrapper[0];
+            
+            this.IsChanged = false;
         }
         
         #region Equatability
@@ -2512,6 +2863,26 @@ namespace Mastersign.WinMan
             }
         }
         
+        [NonSerialized]
+        private bool _isChanged = false;
+        
+        [Browsable(false)]
+        [XmlIgnore]
+        public bool IsChanged
+        {
+            get { return this._isChanged; }
+            protected set { this._isChanged = value; }
+        }
+        
+        public virtual void AcceptChanges()
+        {
+            if (!ReferenceEquals(_workspace, null))
+            {
+                _workspace.AcceptChanges();
+            }
+            this.IsChanged = false;
+        }
+        
         #endregion
         
         #region Property Workspace
@@ -2522,12 +2893,18 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWorkspaceChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WorkspaceChanged;
             if (!ReferenceEquals(handler, null))
             {
                 handler(this, EventArgs.Empty);
             }
             this.OnPropertyChanged(@"Workspace");
+        }
+        
+        private void WorkspacePropertyChangedHandler(object sender, PropertyChangedEventArgs ea)
+        {
+            this.OnWorkspaceChanged();
         }
         
         public virtual Workspace Workspace
@@ -2539,7 +2916,15 @@ namespace Mastersign.WinMan
                 {
                     return;
                 }
+                if (!ReferenceEquals(_workspace, null))
+                {
+                    _workspace.PropertyChanged -= this.WorkspacePropertyChangedHandler;
+                }
                 _workspace = value;
+                if (!ReferenceEquals(_workspace, null))
+                {
+                    _workspace.PropertyChanged += this.WorkspacePropertyChangedHandler;
+                }
                 this.OnWorkspaceChanged();
             }
         }
@@ -2554,6 +2939,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWindowWrappersChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WindowWrappersChanged;
             if (!ReferenceEquals(handler, null))
             {
@@ -2586,6 +2972,7 @@ namespace Mastersign.WinMan
         
         protected virtual void OnWorkspaceFileNameChanged()
         {
+            this.IsChanged = true;
             EventHandler handler = WorkspaceFileNameChanged;
             if (!ReferenceEquals(handler, null))
             {

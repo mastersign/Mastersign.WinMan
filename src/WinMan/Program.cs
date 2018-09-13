@@ -9,15 +9,15 @@ using System.Windows.Forms;
 
 namespace Mastersign.WinMan
 {
-    static class Program
+    internal static class Program
     {
         private static Core _core;
 
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
+        /// Main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] argv)
+        private static void Main(string[] argv)
         {
             string workspaceFile = null;
             if (argv.Length == 1 && File.Exists(argv[0]))
@@ -32,15 +32,6 @@ namespace Mastersign.WinMan
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
-
-            if (_core.WorkspaceFileName == null && File.Exists(Core.DefaultWorkspaceFilePath))
-            {
-                _core.ShowSaveWorkspaceFileDialog(null, "Save Workspace...");
-            }
-            else
-            {
-                _core.WriteWorkspaceToFile();
-            }
         }
     }
 }
