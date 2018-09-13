@@ -45,17 +45,22 @@ namespace Mastersign.WinMan
             command = null;
             commandArgs = null;
             if (commandLine == null) return;
+            commandArgs = string.Empty;
             var respectSpace = true;
-            for (int i = 0; i < commandLine.Length; i++)
+            for (var i = 0; i < commandLine.Length; i++)
             {
                 if (commandLine[i] == '"') respectSpace = !respectSpace;
                 if (commandLine[i] == ' ' && respectSpace)
                 {
-                    command = commandLine.Substring(0, i - 1).Replace("\"", "");
-                    commandArgs = commandLine.Substring(i + 1);
-                    break;
+                    command = commandLine.Substring(0, i).Replace("\"", "");
+                    if (commandLine.Length > i)
+                    {
+                        commandArgs = commandLine.Substring(i + 1).TrimStart(' ');
+                    }
+                    return;
                 }
             }
+            command = commandLine.Trim('"');
         }
 
         public static WindowPattern FromWindow(WindowWrapper w)
