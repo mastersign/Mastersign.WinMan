@@ -138,6 +138,8 @@ namespace Mastersign.WinMan
             }
         }
 
+        public string AppId => Handle.GetAppId();
+
         private WINDOWPLACEMENT _placement = WINDOWPLACEMENT.Default;
         private bool _placementLoaded;
 

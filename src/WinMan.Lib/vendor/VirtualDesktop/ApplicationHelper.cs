@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using WindowsDesktop.Interop;
 
 namespace WindowsDesktop
@@ -9,18 +10,32 @@ namespace WindowsDesktop
 	{
 		internal static IApplicationView GetApplicationView(this IntPtr hWnd)
 		{
-			IApplicationView view;
-			ComObjects.ApplicationViewCollection.GetViewForHwnd(hWnd, out view);
+		    try
+		    {
+		        ComObjects.ApplicationViewCollection.GetViewForHwnd(hWnd, out var view);
+		        return view;
+		    }
+            catch (COMException e)
+            {
+                if (e.ErrorCode == -2147319765) return null;
+                throw;
+            }
+        }
 
-			return view;
-		}
-
-		public static string GetAppId(IntPtr hWnd)
+		public static string GetAppId(this IntPtr hWnd)
 		{
-			string appId;
-			hWnd.GetApplicationView().GetAppUserModelId(out appId);
-
-			return appId;
+            var appView = hWnd.GetApplicationView();
+		    if (appView == null) return null;
+		    try
+		    {
+		        appView.GetAppUserModelId(out var appId);
+		        return appId;
+		    }
+		    catch (COMException e)
+		    {
+		        if (e.ErrorCode == -2147023728) return null;
+		        throw;
+		    }
 		}
 	}
 }
