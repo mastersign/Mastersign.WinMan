@@ -1327,6 +1327,38 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property AllVirtualDesktops
+        
+        private bool _allVirtualDesktops;
+        
+        public event EventHandler AllVirtualDesktopsChanged;
+        
+        protected virtual void OnAllVirtualDesktopsChanged()
+        {
+            EventHandler handler = AllVirtualDesktopsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"AllVirtualDesktops");
+        }
+        
+        public virtual bool AllVirtualDesktops
+        {
+            get { return _allVirtualDesktops; }
+            set
+            {
+                if ((value == _allVirtualDesktops))
+                {
+                    return;
+                }
+                _allVirtualDesktops = value;
+                this.OnAllVirtualDesktopsChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Screen
         
         private string _screen;

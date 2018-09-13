@@ -334,6 +334,7 @@ namespace Mastersign.WinMan
         private ListViewItem ListViewItemFromWindow(WindowWrapper w)
         {
             var selectedPattern = SelectedWindowPattern;
+            var vd = VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1;
             var item = new ListViewItem(new[]
             {
                 selectedPattern != null ? (selectedPattern.IsMatch(w) ? "Yes" : "No") : string.Empty,
@@ -341,9 +342,10 @@ namespace Mastersign.WinMan
                 w.WindowClass,
                 Path.GetFileName(w.ProcessFileName),
                 w.Screen.DeviceName,
-                (VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1).ToString(),
+                vd == 0 ? "all" : vd.ToString(),
                 w.NormalPosition.ToString(),
                 w.ShowCommand.ToString(),
+                w.AppId,
             })
             {
                 Tag = w

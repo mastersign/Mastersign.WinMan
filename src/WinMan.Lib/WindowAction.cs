@@ -177,9 +177,11 @@ namespace Mastersign.WinMan
                 targetBounds = targetBounds.Expand(options.OsWindowMargin);
             }
             w.ShowCommand = ShowWindowCommands.ShowNoActivate;
+            w.Unpin();
             virtualDesktop.MoveWindowHere(w.Handle);
             w.NormalPosition = new RECT(targetBounds);
             w.ShowCommand = WindowStateAsShowWindowCommand();
+            if (OverrideVirtualDesktop && AllVirtualDesktops) w.Pin();
         }
 
         public void RecordPosition(ConfigurationPattern configurationPattern, WindowWrapper w, Options options, Layout layout)

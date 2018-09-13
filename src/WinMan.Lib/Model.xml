@@ -117,6 +117,7 @@
       <Property name="VirtualDesktop" type="int">
         <DefaultValue>1</DefaultValue>
       </Property>
+      <Property name="AllVirtualDesktops" type="bool" />
       <Property name="Screen" type="string" />
       <Property name="WindowState" type="WindowState">
         <DefaultValue>Normal</DefaultValue>
