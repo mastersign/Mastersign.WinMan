@@ -17,6 +17,7 @@ namespace Mastersign.WinMan
     public partial class MainForm : ImprovedForm
     {
         private Core _core;
+        private Workspace _changeObservationTarget;
         private readonly PreviewPainter _previewPainter;
 
         public MainForm()
@@ -42,8 +43,13 @@ namespace Mastersign.WinMan
             Core = Core.DefaultCore;
         }
 
+        private string WorkspaceState
+            => Core?.Workspace != null
+                ? (Core.Workspace.IsChanged ? " (changed)" : string.Empty)
+                : string.Empty;
+
         private void InitializeWindowTitle()
-            => Text = "WinMan " + Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+            => Text = "WinMan " + Assembly.GetExecutingAssembly().GetName().Version.ToString(3) + WorkspaceState;
 
         private void InitializeIcons()
         {
@@ -267,7 +273,26 @@ namespace Mastersign.WinMan
 
             workspaceBindingSource.DataSource = Core?.Workspace;
             ReleaseOptions();
+            ReleaseChangeObservationTarget();
+            BindChangeObservationTarget(Core?.Workspace);
             BindOptions(Core?.Workspace?.Options);
+        }
+
+        private void ReleaseChangeObservationTarget()
+        {
+            if (_changeObservationTarget == null) return;
+            _changeObservationTarget.PropertyChanged -= GlobalChangeHandler;
+        }
+        private void BindChangeObservationTarget(Workspace w)
+        {
+            _changeObservationTarget = w;
+            if (_changeObservationTarget == null) return;
+            _changeObservationTarget.PropertyChanged += GlobalChangeHandler;
+        }
+
+        private void GlobalChangeHandler(object sender, PropertyChangedEventArgs e)
+        {
+            InitializeWindowTitle();
         }
 
         private void CoreWorkspaceFileNameChangedHandler(object sender, EventArgs e)
