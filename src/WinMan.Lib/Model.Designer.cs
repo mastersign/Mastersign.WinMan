@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using System.Globalization;
 
 namespace Mastersign.WinMan
 {
     #region Scaleton Model Designer generated code
     
-    // Scaleton Version: 0.2.6
+    // Scaleton Version: 0.2.7
     
     public enum StringPatternType
     {
@@ -317,7 +319,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -325,7 +326,15 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
@@ -899,7 +908,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -907,7 +915,15 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
@@ -1104,6 +1120,15 @@ namespace Mastersign.WinMan
             this.IsChanged = false;
         }
         
+        [OnDeserialized]
+        internal void AfterDeserializingConfigurationPattern(StreamingContext serializationContext)
+        {
+            if (!ReferenceEquals(_screens, null))
+            {
+                _screens.ListChanged += this.ScreensListChangedHandler;
+            }
+        }
+        
         #region Equatability
         
         public bool Equals(ConfigurationPattern o)
@@ -1148,7 +1173,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -1156,18 +1180,26 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
         {
             if (!ReferenceEquals(_screens, null))
             {
-                foreach (ScreenPattern x in _screens)
+                foreach (ScreenPattern item in _screens)
                 {
-                    if (!ReferenceEquals(x, null))
+                    if (!ReferenceEquals(item, null))
                     {
-                        x.AcceptChanges();
+                        item.AcceptChanges();
                     }
                 }
             }
@@ -1395,7 +1427,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -1403,7 +1434,15 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
@@ -2122,6 +2161,15 @@ namespace Mastersign.WinMan
             this.IsChanged = false;
         }
         
+        [OnDeserialized]
+        internal void AfterDeserializingLayout(StreamingContext serializationContext)
+        {
+            if (!ReferenceEquals(_windows, null))
+            {
+                _windows.ListChanged += this.WindowsListChangedHandler;
+            }
+        }
+        
         #region Equatability
         
         public bool Equals(Layout o)
@@ -2166,7 +2214,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -2174,18 +2221,26 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
         {
             if (!ReferenceEquals(_windows, null))
             {
-                foreach (WindowAction x in _windows)
+                foreach (WindowAction item in _windows)
                 {
-                    if (!ReferenceEquals(x, null))
+                    if (!ReferenceEquals(item, null))
                     {
-                        x.AcceptChanges();
+                        item.AcceptChanges();
                     }
                 }
             }
@@ -2433,7 +2488,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -2441,7 +2495,15 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
@@ -2529,6 +2591,27 @@ namespace Mastersign.WinMan
             this.IsChanged = false;
         }
         
+        [OnDeserialized]
+        internal void AfterDeserializingWorkspace(StreamingContext serializationContext)
+        {
+            if (!ReferenceEquals(_options, null))
+            {
+                _options.PropertyChanged += this.OptionsPropertyChangedHandler;
+            }
+            if (!ReferenceEquals(_windowPatterns, null))
+            {
+                _windowPatterns.ListChanged += this.WindowPatternsListChangedHandler;
+            }
+            if (!ReferenceEquals(_configurationPatterns, null))
+            {
+                _configurationPatterns.ListChanged += this.ConfigurationPatternsListChangedHandler;
+            }
+            if (!ReferenceEquals(_layouts, null))
+            {
+                _layouts.ListChanged += this.LayoutsListChangedHandler;
+            }
+        }
+        
         #region Equatability
         
         public bool Equals(Workspace o)
@@ -2573,7 +2656,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -2581,7 +2663,15 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
@@ -2592,31 +2682,31 @@ namespace Mastersign.WinMan
             }
             if (!ReferenceEquals(_windowPatterns, null))
             {
-                foreach (WindowPattern x in _windowPatterns)
+                foreach (WindowPattern item in _windowPatterns)
                 {
-                    if (!ReferenceEquals(x, null))
+                    if (!ReferenceEquals(item, null))
                     {
-                        x.AcceptChanges();
+                        item.AcceptChanges();
                     }
                 }
             }
             if (!ReferenceEquals(_configurationPatterns, null))
             {
-                foreach (ConfigurationPattern x in _configurationPatterns)
+                foreach (ConfigurationPattern item in _configurationPatterns)
                 {
-                    if (!ReferenceEquals(x, null))
+                    if (!ReferenceEquals(item, null))
                     {
-                        x.AcceptChanges();
+                        item.AcceptChanges();
                     }
                 }
             }
             if (!ReferenceEquals(_layouts, null))
             {
-                foreach (Layout x in _layouts)
+                foreach (Layout item in _layouts)
                 {
-                    if (!ReferenceEquals(x, null))
+                    if (!ReferenceEquals(item, null))
                     {
-                        x.AcceptChanges();
+                        item.AcceptChanges();
                     }
                 }
             }
@@ -2644,7 +2734,10 @@ namespace Mastersign.WinMan
         
         private void OptionsPropertyChangedHandler(object sender, PropertyChangedEventArgs ea)
         {
-            this.OnOptionsChanged();
+            if (!string.Equals(ea.PropertyName, @"IsChanged"))
+            {
+                this.OnOptionsChanged();
+            }
         }
         
         public virtual Options Options
@@ -2819,6 +2912,15 @@ namespace Mastersign.WinMan
             this.IsChanged = false;
         }
         
+        [OnDeserialized]
+        internal void AfterDeserializingCore(StreamingContext serializationContext)
+        {
+            if (!ReferenceEquals(_workspace, null))
+            {
+                _workspace.PropertyChanged += this.WorkspacePropertyChangedHandler;
+            }
+        }
+        
         #region Equatability
         
         public bool Equals(Core o)
@@ -2863,7 +2965,6 @@ namespace Mastersign.WinMan
             }
         }
         
-        [NonSerialized]
         private bool _isChanged = false;
         
         [Browsable(false)]
@@ -2871,7 +2972,15 @@ namespace Mastersign.WinMan
         public bool IsChanged
         {
             get { return this._isChanged; }
-            protected set { this._isChanged = value; }
+            protected set
+            {
+                if ((this._isChanged == value))
+                {
+                    return;
+                }
+                this._isChanged = value;
+                this.OnPropertyChanged(@"IsChanged");
+            }
         }
         
         public virtual void AcceptChanges()
@@ -2904,7 +3013,10 @@ namespace Mastersign.WinMan
         
         private void WorkspacePropertyChangedHandler(object sender, PropertyChangedEventArgs ea)
         {
-            this.OnWorkspaceChanged();
+            if (!string.Equals(ea.PropertyName, @"IsChanged"))
+            {
+                this.OnWorkspaceChanged();
+            }
         }
         
         public virtual Workspace Workspace
