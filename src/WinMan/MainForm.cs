@@ -76,6 +76,11 @@ namespace Mastersign.WinMan
             SetIcon(btnDuplicateWindowPattern, Resources.DuplicateItem, size);
             SetIcon(btnDeleteWindowPattern, Resources.DeleteItem, size);
 
+            SetIcon(btnNewWindowPatternFromTemplate, Resources.Template, size);
+            SetIcon(tsmiNewExplorerWindow, Resources.Explorer, size);
+            SetIcon(tsmiNewCmdWindow, Resources.Cmd, size);
+            SetIcon(tsmiNewPowerShellWindow, Resources.PowerShell, size);
+
             SetIcon(btnNewLayout, Resources.NewItem, size);
             SetIcon(btnMoveUpLayout, Resources.Up, size);
             SetIcon(btnMoveDownLayout, Resources.Down, size);
@@ -426,6 +431,114 @@ namespace Mastersign.WinMan
             SelectedWindowPattern = newWindowPattern;
             txtWindowPatternName.Focus();
             txtWindowPatternName.SelectAll();
+        }
+
+
+        private void NewWindowPatternFromTemplateHandler(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            cmsWindowPatternTemplates.Show(btn, new Point(1, 1 + btn.Height), ToolStripDropDownDirection.BelowRight);
+        }
+
+        private void NewExplorerWindowPatternHandler(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select the location to open in the Explorer window.";
+            folderBrowser.ShowNewFolderButton = true;
+            if (folderBrowser.ShowDialog(this) != DialogResult.OK) return;
+            var name = Path.GetFileName(folderBrowser.SelectedPath);
+            if (string.IsNullOrWhiteSpace(name)) name = folderBrowser.SelectedPath;
+            var exe = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                "explorer.exe");
+            var pattern = new WindowPattern
+            {
+                Name = name + " - Explorer",
+                ModernApp = false,
+                TitlePattern = "*" + name,
+                TitleIgnoreCase = true,
+                TitlePatternType = StringPatternType.Wildcard,
+                WindowClassPattern = "CabinetWClass",
+                WindowClassIgnoreCase = false,
+                WindowClassPatternType = StringPatternType.Exact,
+                ProcessFileName = exe,
+                Command = exe,
+                CommandArgs = "/n, /e, \"" + folderBrowser.SelectedPath + "\"",
+                WorkingDir = folderBrowser.SelectedPath
+            };
+            Core.Workspace.WindowPatterns.Add(pattern);
+            SelectedWindowPattern = pattern;
+            txtWindowPatternName.SelectAll();
+            txtWindowPatternName.Focus();
+        }
+
+        private void NewCmdWindowPatternHandler(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select the location to open in the CMD console.";
+            folderBrowser.ShowNewFolderButton = true;
+            if (folderBrowser.ShowDialog(this) != DialogResult.OK) return;
+            var name = Path.GetFileName(folderBrowser.SelectedPath);
+            if (string.IsNullOrWhiteSpace(name)) name = folderBrowser.SelectedPath;
+            var title = StringForm.AskForString(this, "Window Title", "CMD - " + name);
+            if (title == null) return;
+            var exe = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                "System32", "cmd.exe");
+            var pattern = new WindowPattern
+            {
+                Name = name + " - CMD",
+                ModernApp = false,
+                TitlePattern = title,
+                TitleIgnoreCase = false,
+                TitlePatternType = StringPatternType.Exact,
+                WindowClassPattern = "ConsoleWindowClass",
+                WindowClassIgnoreCase = false,
+                WindowClassPatternType = StringPatternType.Exact,
+                ProcessFileName = Path.GetFileName(exe),
+                Command = exe,
+                CommandArgs = "/K \"@TITLE " + title + "\"",
+                WorkingDir = folderBrowser.SelectedPath
+            };
+            Core.Workspace.WindowPatterns.Add(pattern);
+            SelectedWindowPattern = pattern;
+            txtWindowPatternName.SelectAll();
+            txtWindowPatternName.Focus();
+        }
+
+        private void NewPowerShellWindowPatternHandler(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select the location to open in the Explorer window.";
+            folderBrowser.ShowNewFolderButton = true;
+            if (folderBrowser.ShowDialog(this) != DialogResult.OK) return;
+            var name = Path.GetFileName(folderBrowser.SelectedPath);
+            if (string.IsNullOrWhiteSpace(name)) name = folderBrowser.SelectedPath;
+            var title = StringForm.AskForString(this, "Window Title", "PowerShell - " + name);
+            if (title == null) return;
+            var exe = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                "System32", "WindowsPowerShell", "v1.0",
+                "powershell.exe");
+            var pattern = new WindowPattern
+            {
+                Name = name + " - PowerShell",
+                ModernApp = false,
+                TitlePattern = title,
+                TitleIgnoreCase = false,
+                TitlePatternType = StringPatternType.Exact,
+                WindowClassPattern = "ConsoleWindowClass",
+                WindowClassIgnoreCase = false,
+                WindowClassPatternType = StringPatternType.Exact,
+                ProcessFileName = Path.GetFileName(exe),
+                Command = exe,
+                CommandArgs = "-NoExit -ExecutionPolicy ByPass -Command \"$Host.UI.RawUI.WindowTitle = '" + title + "'\"",
+                WorkingDir = folderBrowser.SelectedPath
+            };
+            Core.Workspace.WindowPatterns.Add(pattern);
+            SelectedWindowPattern = pattern;
+            txtWindowPatternName.SelectAll();
+            txtWindowPatternName.Focus();
         }
 
         private void DuplicateWindowPatternHandler(object sender, EventArgs e)
@@ -1102,7 +1215,7 @@ namespace Mastersign.WinMan
             if (_options == null) return;
             _options.RestorationTimeout = (int)numRestorationTimeout.Value;
         }
-        
+
         #endregion
 
         #region Helper
@@ -1140,12 +1253,6 @@ namespace Mastersign.WinMan
         }
 
         #endregion
-
-        private void cmbWindowActionLeftUnit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var cmb = (ComboBox) sender;
-            
-        }
 
         private void ClosingHandler(object sender, FormClosingEventArgs e)
         {
