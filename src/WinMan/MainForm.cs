@@ -17,6 +17,7 @@ namespace Mastersign.WinMan
     public partial class MainForm : ImprovedForm
     {
         private Core _core;
+        private Workspace _changeObservationTarget;
         private readonly PreviewPainter _previewPainter;
 
         public MainForm()
@@ -42,8 +43,13 @@ namespace Mastersign.WinMan
             Core = Core.DefaultCore;
         }
 
+        private string WorkspaceState
+            => Core?.Workspace != null
+                ? (Core.Workspace.IsChanged ? " (changed)" : string.Empty)
+                : string.Empty;
+
         private void InitializeWindowTitle()
-            => Text = "WinMan " + Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
+            => Text = "WinMan " + Assembly.GetExecutingAssembly().GetName().Version.ToString(3) + WorkspaceState;
 
         private void InitializeIcons()
         {
@@ -69,6 +75,11 @@ namespace Mastersign.WinMan
             SetIcon(btnSortWindowPatterns, Resources.Sort, size);
             SetIcon(btnDuplicateWindowPattern, Resources.DuplicateItem, size);
             SetIcon(btnDeleteWindowPattern, Resources.DeleteItem, size);
+
+            SetIcon(btnNewWindowPatternFromTemplate, Resources.Template, size);
+            SetIcon(tsmiNewExplorerWindow, Resources.Explorer, size);
+            SetIcon(tsmiNewCmdWindow, Resources.Cmd, size);
+            SetIcon(tsmiNewPowerShellWindow, Resources.PowerShell, size);
 
             SetIcon(btnNewLayout, Resources.NewItem, size);
             SetIcon(btnMoveUpLayout, Resources.Up, size);
@@ -135,24 +146,26 @@ namespace Mastersign.WinMan
             btnDeleteWindowPattern.Enabled = windowPatternSelected;
             lblWindowPatternName.Enabled = windowPatternSelected;
             txtWindowPatternName.Enabled = windowPatternSelected;
-            lblTitlePatternCaption.Enabled = windowPatternSelected;
-            txtTitlePattern.Enabled = windowPatternSelected;
-            cmbTitlePatternType.Enabled = windowPatternSelected;
-            chkTitleIgnoreCase.Enabled = windowPatternSelected;
-            lblWindowClassPatternCaption.Enabled = windowPatternSelected;
-            txtWindowClassPattern.Enabled = windowPatternSelected;
-            cmbWindowClassPatternType.Enabled = windowPatternSelected;
-            chkWindowClassIgnoreCase.Enabled = windowPatternSelected;
-            lblProcessFileName.Enabled = windowPatternSelected;
-            txtProcessFileName.Enabled = windowPatternSelected;
-            lblMatchCountCaption.Enabled = windowPatternSelected;
-            lblMatchCount.Enabled = windowPatternSelected;
-            lblRestoreCommand.Enabled = windowPatternSelected;
-            txtRestoreCommand.Enabled = windowPatternSelected;
-            lblRestoreCommandArgs.Enabled = windowPatternSelected;
-            txtRestoreCommandArgs.Enabled = windowPatternSelected;
+            //lblTitlePatternCaption.Enabled = windowPatternSelected;
+            //txtTitlePattern.Enabled = windowPatternSelected;
+            //cmbTitlePatternType.Enabled = windowPatternSelected;
+            //chkTitleIgnoreCase.Enabled = windowPatternSelected;
+            //lblWindowClassPatternCaption.Enabled = windowPatternSelected;
+            //txtWindowClassPattern.Enabled = windowPatternSelected;
+            //cmbWindowClassPatternType.Enabled = windowPatternSelected;
+            //chkWindowClassIgnoreCase.Enabled = windowPatternSelected;
+            //lblProcessFileName.Enabled = windowPatternSelected;
+            //txtProcessFileName.Enabled = windowPatternSelected;
+            //lblRestoreCommand.Enabled = windowPatternSelected;
+            //txtRestoreCommand.Enabled = windowPatternSelected;
+            //lblRestoreCommandArgs.Enabled = windowPatternSelected;
+            //txtRestoreCommandArgs.Enabled = windowPatternSelected;
             lblRestoreWorkingDir.Enabled = windowPatternSelected;
             txtRestoreWorkingDir.Enabled = windowPatternSelected;
+            // lblAppId.Enabled = windowPatternSelected;
+            // txtAppId.Enabled = windowPatternSelected;
+            chkOverrideRestorationTimeout.Enabled = windowPatternSelected;
+            //numWindowPatternRestorationTimeout.Enabled = windowPatternSelected;
 
             var layoutSelected = workspaceAvailable && SelectedLayout != null;
             btnDuplicateLayout.Enabled = layoutSelected;
@@ -184,6 +197,9 @@ namespace Mastersign.WinMan
             lblWindowActionWindowCaption.Enabled = windowActionSelected;
             cmbWindowActionWindow.Enabled = windowActionSelected;
             lblWindowActionVirtualDesktop.Enabled = windowActionSelected;
+            //numWindowActionVirtualDesktop.Enabled = windowActionSelected;
+            //chkAllVirtualDesktops.Enabled = windowActionSelected;
+            chkOverrideDefaultVirtualDesktop.Enabled = windowActionSelected;
             lblWindowActionScreenCaption.Enabled = windowActionSelected;
             cmbWindowActionScreen.Enabled = windowActionSelected;
             lblWindowActionWindowStateCaption.Enabled = windowActionSelected;
@@ -262,7 +278,26 @@ namespace Mastersign.WinMan
 
             workspaceBindingSource.DataSource = Core?.Workspace;
             ReleaseOptions();
+            ReleaseChangeObservationTarget();
+            BindChangeObservationTarget(Core?.Workspace);
             BindOptions(Core?.Workspace?.Options);
+        }
+
+        private void ReleaseChangeObservationTarget()
+        {
+            if (_changeObservationTarget == null) return;
+            _changeObservationTarget.PropertyChanged -= GlobalChangeHandler;
+        }
+        private void BindChangeObservationTarget(Workspace w)
+        {
+            _changeObservationTarget = w;
+            if (_changeObservationTarget == null) return;
+            _changeObservationTarget.PropertyChanged += GlobalChangeHandler;
+        }
+
+        private void GlobalChangeHandler(object sender, PropertyChangedEventArgs e)
+        {
+            InitializeWindowTitle();
         }
 
         private void CoreWorkspaceFileNameChangedHandler(object sender, EventArgs e)
@@ -334,6 +369,7 @@ namespace Mastersign.WinMan
         private ListViewItem ListViewItemFromWindow(WindowWrapper w)
         {
             var selectedPattern = SelectedWindowPattern;
+            var vd = VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1;
             var item = new ListViewItem(new[]
             {
                 selectedPattern != null ? (selectedPattern.IsMatch(w) ? "Yes" : "No") : string.Empty,
@@ -341,9 +377,10 @@ namespace Mastersign.WinMan
                 w.WindowClass,
                 Path.GetFileName(w.ProcessFileName),
                 w.Screen.DeviceName,
-                (VirtualDesktopHelper.GetVirtualDesktopNumber(w.VirtualDesktop?.Id ?? Guid.Empty) + 1).ToString(),
+                vd == 0 ? "all" : vd.ToString(),
                 w.NormalPosition.ToString(),
                 w.ShowCommand.ToString(),
+                w.AppId,
             })
             {
                 Tag = w
@@ -394,6 +431,114 @@ namespace Mastersign.WinMan
             SelectedWindowPattern = newWindowPattern;
             txtWindowPatternName.Focus();
             txtWindowPatternName.SelectAll();
+        }
+
+
+        private void NewWindowPatternFromTemplateHandler(object sender, EventArgs e)
+        {
+            var btn = (Button)sender;
+            cmsWindowPatternTemplates.Show(btn, new Point(1, 1 + btn.Height), ToolStripDropDownDirection.BelowRight);
+        }
+
+        private void NewExplorerWindowPatternHandler(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select the location to open in the Explorer window.";
+            folderBrowser.ShowNewFolderButton = true;
+            if (folderBrowser.ShowDialog(this) != DialogResult.OK) return;
+            var name = Path.GetFileName(folderBrowser.SelectedPath);
+            if (string.IsNullOrWhiteSpace(name)) name = folderBrowser.SelectedPath;
+            var exe = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                "explorer.exe");
+            var pattern = new WindowPattern
+            {
+                Name = name + " - Explorer",
+                ModernApp = false,
+                TitlePattern = "*" + name,
+                TitleIgnoreCase = true,
+                TitlePatternType = StringPatternType.Wildcard,
+                WindowClassPattern = "CabinetWClass",
+                WindowClassIgnoreCase = false,
+                WindowClassPatternType = StringPatternType.Exact,
+                ProcessFileName = exe,
+                Command = exe,
+                CommandArgs = "/n, /e, \"" + folderBrowser.SelectedPath + "\"",
+                WorkingDir = folderBrowser.SelectedPath
+            };
+            Core.Workspace.WindowPatterns.Add(pattern);
+            SelectedWindowPattern = pattern;
+            txtWindowPatternName.SelectAll();
+            txtWindowPatternName.Focus();
+        }
+
+        private void NewCmdWindowPatternHandler(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select the location to open in the CMD console.";
+            folderBrowser.ShowNewFolderButton = true;
+            if (folderBrowser.ShowDialog(this) != DialogResult.OK) return;
+            var name = Path.GetFileName(folderBrowser.SelectedPath);
+            if (string.IsNullOrWhiteSpace(name)) name = folderBrowser.SelectedPath;
+            var title = StringForm.AskForString(this, "Window Title", "CMD - " + name);
+            if (title == null) return;
+            var exe = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                "System32", "cmd.exe");
+            var pattern = new WindowPattern
+            {
+                Name = name + " - CMD",
+                ModernApp = false,
+                TitlePattern = title,
+                TitleIgnoreCase = false,
+                TitlePatternType = StringPatternType.Exact,
+                WindowClassPattern = "ConsoleWindowClass",
+                WindowClassIgnoreCase = false,
+                WindowClassPatternType = StringPatternType.Exact,
+                ProcessFileName = Path.GetFileName(exe),
+                Command = exe,
+                CommandArgs = "/K \"@TITLE " + title + "\"",
+                WorkingDir = folderBrowser.SelectedPath
+            };
+            Core.Workspace.WindowPatterns.Add(pattern);
+            SelectedWindowPattern = pattern;
+            txtWindowPatternName.SelectAll();
+            txtWindowPatternName.Focus();
+        }
+
+        private void NewPowerShellWindowPatternHandler(object sender, EventArgs e)
+        {
+            var folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "Select the location to open in the Explorer window.";
+            folderBrowser.ShowNewFolderButton = true;
+            if (folderBrowser.ShowDialog(this) != DialogResult.OK) return;
+            var name = Path.GetFileName(folderBrowser.SelectedPath);
+            if (string.IsNullOrWhiteSpace(name)) name = folderBrowser.SelectedPath;
+            var title = StringForm.AskForString(this, "Window Title", "PowerShell - " + name);
+            if (title == null) return;
+            var exe = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Windows),
+                "System32", "WindowsPowerShell", "v1.0",
+                "powershell.exe");
+            var pattern = new WindowPattern
+            {
+                Name = name + " - PowerShell",
+                ModernApp = false,
+                TitlePattern = title,
+                TitleIgnoreCase = false,
+                TitlePatternType = StringPatternType.Exact,
+                WindowClassPattern = "ConsoleWindowClass",
+                WindowClassIgnoreCase = false,
+                WindowClassPatternType = StringPatternType.Exact,
+                ProcessFileName = Path.GetFileName(exe),
+                Command = exe,
+                CommandArgs = "-NoExit -ExecutionPolicy ByPass -Command \"$Host.UI.RawUI.WindowTitle = '" + title + "'\"",
+                WorkingDir = folderBrowser.SelectedPath
+            };
+            Core.Workspace.WindowPatterns.Add(pattern);
+            SelectedWindowPattern = pattern;
+            txtWindowPatternName.SelectAll();
+            txtWindowPatternName.Focus();
         }
 
         private void DuplicateWindowPatternHandler(object sender, EventArgs e)
@@ -1071,7 +1216,6 @@ namespace Mastersign.WinMan
             _options.RestorationTimeout = (int)numRestorationTimeout.Value;
         }
 
-
         #endregion
 
         #region Helper
@@ -1110,10 +1254,30 @@ namespace Mastersign.WinMan
 
         #endregion
 
-        private void cmbWindowActionLeftUnit_SelectedIndexChanged(object sender, EventArgs e)
+        private void ClosingHandler(object sender, FormClosingEventArgs e)
         {
-            var cmb = (ComboBox) sender;
-            
+            if (Core.WorkspaceFileName == null && File.Exists(Core.DefaultWorkspaceFilePath))
+            {
+                Core.ShowSaveWorkspaceFileDialog(null, "Save Workspace...");
+            }
+            else if (Core.Workspace.IsChanged)
+            {
+                var result = MessageBox.Show(
+                    "The workspace has unsaved changes.\n\nDo you want to save the workspace?",
+                    "Exit WinMan",
+                    e.CloseReason == CloseReason.UserClosing ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+                if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+
+                if (result == DialogResult.Yes)
+                {
+                    Core.WriteWorkspaceToFile();
+                }
+            }
         }
     }
 }

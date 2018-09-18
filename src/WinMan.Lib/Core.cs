@@ -58,6 +58,7 @@ namespace Mastersign.WinMan
                 Workspace = JsonConvert.DeserializeObject<Workspace>(json, CreateJsonSerializerSettings());
                 Workspace.Upgrade();
             }
+            Workspace.AcceptChanges();
             WorkspaceFileName = fileName;
         }
 
@@ -89,6 +90,7 @@ namespace Mastersign.WinMan
                 JsonConvert.SerializeObject(_workspace, CreateJsonSerializerSettings()),
                 new UTF8Encoding(false));
             WorkspaceFileName = fileName;
+            Workspace.AcceptChanges();
         }
 
         public bool ShowSaveWorkspaceFileDialog(IWin32Window owner, string title)

@@ -73,6 +73,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="StringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StringForm.Designer.cs">
+      <DependentUpon>StringForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinFormHelper.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -87,6 +93,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StringForm.resx">
+      <DependentUpon>StringForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\Workspace.datasource" />
     <None Include="Properties\Settings.settings">
@@ -128,6 +137,10 @@
     <None Include="Resources\NewItem.ico" />
     <None Include="Resources\Refresh.ico" />
     <None Include="Resources\Sort.ico" />
+    <None Include="Resources\Template.ico" />
+    <None Include="Resources\Cmd.ico" />
+    <None Include="Resources\Explorer.ico" />
+    <None Include="Resources\PowerShell.ico" />
     <Content Include="WinManGui.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

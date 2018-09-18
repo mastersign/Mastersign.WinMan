@@ -93,6 +93,16 @@ namespace Mastersign.WinMan.Gui.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
         /// </summary>
+        internal static System.Drawing.Icon Cmd {
+            get {
+                object obj = ResourceManager.GetObject("Cmd", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
         internal static System.Drawing.Icon DeleteItem {
             get {
                 object obj = ResourceManager.GetObject("DeleteItem", resourceCulture);
@@ -116,6 +126,16 @@ namespace Mastersign.WinMan.Gui.Properties {
         internal static System.Drawing.Icon DuplicateItem {
             get {
                 object obj = ResourceManager.GetObject("DuplicateItem", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon Explorer {
+            get {
+                object obj = ResourceManager.GetObject("Explorer", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }
@@ -153,6 +173,16 @@ namespace Mastersign.WinMan.Gui.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
         /// </summary>
+        internal static System.Drawing.Icon PowerShell {
+            get {
+                object obj = ResourceManager.GetObject("PowerShell", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
         internal static System.Drawing.Icon Refresh {
             get {
                 object obj = ResourceManager.GetObject("Refresh", resourceCulture);
@@ -176,6 +206,16 @@ namespace Mastersign.WinMan.Gui.Properties {
         internal static System.Drawing.Icon Sort {
             get {
                 object obj = ResourceManager.GetObject("Sort", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon Template {
+            get {
+                object obj = ResourceManager.GetObject("Template", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

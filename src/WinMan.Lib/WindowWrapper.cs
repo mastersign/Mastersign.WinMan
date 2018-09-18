@@ -51,7 +51,10 @@ namespace Mastersign.WinMan
             List<IntPtr> result = new List<IntPtr>();
             WinApi.EnumWindows((hWnd, lParam) =>
             {
-                if (WinApi.IsWindowVisible(hWnd) && VirtualDesktop.FromHwnd(hWnd) != null)
+                if (WinApi.IsWindowVisible(hWnd) && 
+                    (VirtualDesktop.FromHwnd(hWnd) != null || 
+                     VirtualDesktop.IsPinnedWindow(hWnd) || 
+                     VirtualDesktop.IsPinnedApplication(hWnd.GetAppId())))
                 {
                     result.Add(hWnd);
                 }
@@ -137,6 +140,13 @@ namespace Mastersign.WinMan
                 return _windowClass;
             }
         }
+
+        public string AppId => Handle.GetAppId();
+
+        public bool IsModernAppWindow
+            => ProcessFileName != null
+               && Path.GetFileName(ProcessFileName).ToLower() == "applicationframehost.exe"
+               && WindowClass == "ApplicationFrameWindow";
 
         private WINDOWPLACEMENT _placement = WINDOWPLACEMENT.Default;
         private bool _placementLoaded;
@@ -281,6 +291,18 @@ namespace Mastersign.WinMan
                 return true;
             }, IntPtr.Zero);
             return result.Select(ForHandle).ToList();
+        }
+
+        public void Unpin()
+        {
+            VirtualDesktop.UnpinWindow(Handle);
+            var appId = Handle.GetAppId();
+            if (appId != null) VirtualDesktop.UnpinApplication(appId);
+        }
+
+        public void Pin()
+        {
+            VirtualDesktop.PinWindow(Handle);
         }
 
         public override string ToString()

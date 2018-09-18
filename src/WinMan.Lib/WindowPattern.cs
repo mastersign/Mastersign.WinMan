@@ -11,10 +11,18 @@ namespace Mastersign.WinMan
 {
     partial class WindowPattern
     {
-        private string NormalizePath(string path) => path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+        private static string NormalizePath(string path)
+            => path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+
+        public bool ClassicApp
+        {
+            get => !ModernApp;
+            set => ModernApp = !value;
+        }
 
         public bool IsMatch(WindowWrapper window)
         {
+            if (ModernApp) return window.AppId == AppId;
             if (!StringMatching.IsMatch(TitlePattern, TitlePatternType, TitleIgnoreCase, window.Title)) return false;
             if (!StringMatching.IsMatch(WindowClassPattern, WindowClassPatternType, WindowClassIgnoreCase, window.WindowClass)) return false;
 
@@ -45,21 +53,35 @@ namespace Mastersign.WinMan
             command = null;
             commandArgs = null;
             if (commandLine == null) return;
+            commandArgs = string.Empty;
             var respectSpace = true;
-            for (int i = 0; i < commandLine.Length; i++)
+            for (var i = 0; i < commandLine.Length; i++)
             {
                 if (commandLine[i] == '"') respectSpace = !respectSpace;
                 if (commandLine[i] == ' ' && respectSpace)
                 {
-                    command = commandLine.Substring(0, i - 1).Replace("\"", "");
-                    commandArgs = commandLine.Substring(i + 1);
-                    break;
+                    command = commandLine.Substring(0, i).Replace("\"", "");
+                    if (commandLine.Length > i)
+                    {
+                        commandArgs = commandLine.Substring(i + 1).TrimStart(' ');
+                    }
+                    return;
                 }
             }
+            command = commandLine.Trim('"');
         }
 
         public static WindowPattern FromWindow(WindowWrapper w)
         {
+            if (w.IsModernAppWindow)
+            {
+                return new WindowPattern()
+                {
+                    ModernApp = true,
+                    AppId = w.AppId,
+                    WorkingDir = w.Process?.StartInfo?.WorkingDirectory,
+                };
+            }
             var process = w.Process;
             string command = null;
             string commandArgs = null;
@@ -91,6 +113,7 @@ namespace Mastersign.WinMan
 
             return new WindowPattern()
             {
+                ModernApp = false,
                 TitlePattern = w.Title,
                 WindowClassPattern = w.WindowClass,
                 ProcessFileName = w.Process?.MainModule?.FileName,
@@ -100,7 +123,10 @@ namespace Mastersign.WinMan
             };
         }
 
-        public WindowWrapper[] Discover() => WindowWrapper.AllWindows().Where(w => IsMatch(w)).ToArray();
+        public bool IsRestorable => !string.IsNullOrWhiteSpace(Command) ||
+                                    ModernApp && !string.IsNullOrWhiteSpace(AppId);
+
+        public WindowWrapper[] Discover() => WindowWrapper.AllWindows().Where(IsMatch).ToArray();
 
         public override string ToString() => Name;
 

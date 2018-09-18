@@ -10,8 +10,8 @@ namespace WindowsDesktop
 		public static bool IsPinnedWindow(IntPtr hWnd)
 		{
 			VirtualDesktopHelper.ThrowIfNotSupported();
-
-			return ComObjects.VirtualDesktopPinnedApps.IsViewPinned(hWnd.GetApplicationView());
+		    var appView = hWnd.GetApplicationView();
+			return appView != null && ComObjects.VirtualDesktopPinnedApps.IsViewPinned(appView);
 		}
 
 		public static void PinWindow(IntPtr hWnd)
@@ -19,8 +19,7 @@ namespace WindowsDesktop
 			VirtualDesktopHelper.ThrowIfNotSupported();
 
 			var view = hWnd.GetApplicationView();
-
-			if (!ComObjects.VirtualDesktopPinnedApps.IsViewPinned(view))
+			if (view != null && !ComObjects.VirtualDesktopPinnedApps.IsViewPinned(view))
 			{
 				ComObjects.VirtualDesktopPinnedApps.PinView(view);
 			}
@@ -31,8 +30,7 @@ namespace WindowsDesktop
 			VirtualDesktopHelper.ThrowIfNotSupported();
 
 			var view = hWnd.GetApplicationView();
-
-			if (ComObjects.VirtualDesktopPinnedApps.IsViewPinned(view))
+			if (view != null && ComObjects.VirtualDesktopPinnedApps.IsViewPinned(view))
 			{
 				ComObjects.VirtualDesktopPinnedApps.UnpinView(view);
 			}
@@ -42,7 +40,7 @@ namespace WindowsDesktop
 		{
 			VirtualDesktopHelper.ThrowIfNotSupported();
 
-			return ComObjects.VirtualDesktopPinnedApps.IsAppIdPinned(appId);
+			return appId != null && ComObjects.VirtualDesktopPinnedApps.IsAppIdPinned(appId);
 		}
 
 		public static void PinApplication(string appId)
