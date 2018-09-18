@@ -5,7 +5,7 @@ Mastersign WinMan
 
 ## Requirements
 
-* Since v1.5.0 _WinMan_ requires Windows 10 1804
+* Since v1.5.0 _WinMan_ requires Windows 10 1803
 * To use _WinMan_ on an earlier Windows 10 version
   download _WinMan_ v1.4.1
 
