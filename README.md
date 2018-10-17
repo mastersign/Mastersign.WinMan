@@ -55,7 +55,7 @@ Mastersign WinMan
 	To close all windows, which are part of a layout, the appropriate button in the GUI could be used.
 	But as with applying, the CLI is a good way too.
 
-	E.g. `winman.exe --layouts "My Layout" -K`
+	E.g. `winman.exe --layouts "My Layout" --kill`
 
 ## Screenshots
 
