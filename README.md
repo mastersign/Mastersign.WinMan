@@ -44,7 +44,7 @@ Mastersign WinMan
 	You can apply layouts via the GUI (graphical user interface) of _WinMan_ `WinManGui.exe`.
 	But it is more practical, to create shortcuts which are calling the CLI (command line interface) of _WinMan_ `winman.exe`.
 
-	E.g. `winman --layouts "My Layout"`
+	E.g. `winman.exe --layouts "My Layout"`
 
 	_WinMan_ is looking for a layout with the given name, which is targeting the current display configuration.
 	If it finds one or more matching layouts it applies them.
@@ -55,7 +55,7 @@ Mastersign WinMan
 	To close all windows, which are part of a layout, the appropriate button in the GUI could be used.
 	But as with applying, the CLI is a good way too.
 
-	E.g. `winman --layouts "My Layout" -K`
+	E.g. `winman.exe --layouts "My Layout" -K`
 
 ## Screenshots
 
