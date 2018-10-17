@@ -14,5 +14,6 @@ namespace Mastersign.WinMan
         VersionInfo = 2,
         ApplyWorkspace = 4,
         SwitchVirtualDesktop = 8,
+        Kill = 16,
     }
 }

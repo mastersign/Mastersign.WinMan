@@ -33,7 +33,8 @@ namespace Mastersign.WinMan.Cli
                 success = success && ApplyWorkspace(startInfo.WorkspaceFile,
                     startInfo.IsTargetingSpecificLayouts,
                     startInfo.TargetLayouts,
-                    startInfo.IncludeDefaultLayouts);
+                    startInfo.IncludeDefaultLayouts,
+                    startInfo.StartMode.HasFlag(StartMode.Kill));
             }
             return success ? 0 : -1;
         }
@@ -83,6 +84,9 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine();
             Console.WriteLine("  -d, --default-layouts");
             Console.WriteLine("      Target the default layouts when applying the workspace.");
+            Console.WriteLine();
+            Console.WriteLine("  -K, --kill");
+            Console.WriteLine("      Instead of restoring windows, close matching windows.");
         }
 
         private static bool SwitchVirtualDesktop(int targetVirtualDesktop)
@@ -111,7 +115,9 @@ namespace Mastersign.WinMan.Cli
             return true;
         }
 
-        private static bool ApplyWorkspace(string workspaceFile, bool specificLayouts, string[] layoutNames, bool includeDefaultLayout)
+        private static bool ApplyWorkspace(string workspaceFile,
+            bool specificLayouts, string[] layoutNames, bool includeDefaultLayout,
+            bool kill)
         {
             if (!File.Exists(workspaceFile))
             {
@@ -138,9 +144,12 @@ namespace Mastersign.WinMan.Cli
             bool IsMatch(Layout l) => matchingConfigurations.Contains(l.Configuration);
             if (!specificLayouts)
             {
-                PrintVerbose("Applying all default layouts:");
+                PrintVerbose((kill ? "Killing" : "Applying") + " all default layouts:");
                 foreach (var l in core.Workspace.DefaultLayouts.Where(IsMatch)) PrintVerbose("- {0}", l.Name);
-                core.ApplyWorkspace();
+                if (kill)
+                    core.KillWorkspace();
+                else
+                    core.ApplyWorkspace();
                 PrintVerbose("Finished.");
                 return true;
             }
@@ -176,17 +185,25 @@ namespace Mastersign.WinMan.Cli
                         result = false;
                     }
                 }
-                PrintVerbose("Applying layouts:");
+                PrintVerbose((kill ? "Killing" : "Applying") + " layouts:");
                 foreach (var layout in layouts)
                 {
-                    if (!layout.Apply(core.Workspace))
+                    if (kill)
                     {
-                        PrintVerbose("- {0}: {1} (failed)", layout.Configuration, layout.Name);
-                        result = false;
+                        var cnt = layout.Kill(core.Workspace);
+                        PrintVerbose("- {0}: {1} ({2})", layout.Configuration, layout.Name, cnt);
                     }
                     else
                     {
-                        PrintVerbose("- {0}: {1}", layout.Configuration, layout.Name);
+                        if (!layout.Apply(core.Workspace))
+                        {
+                            PrintVerbose("- {0}: {1} (failed)", layout.Configuration, layout.Name);
+                            result = false;
+                        }
+                        else
+                        {
+                            PrintVerbose("- {0}: {1}", layout.Configuration, layout.Name);
+                        }
                     }
                 }
                 if (result) PrintVerbose("Finished successfully");
