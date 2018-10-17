@@ -11,6 +11,7 @@ namespace Mastersign.WinMan
     {
         public const int WM_GETTEXT = 0x000D;
         public const int WM_GETTEXTLENGTH = 0x000E;
+        public const uint WM_CLOSE = 0x0010;
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern int RegisterWindowMessage(string lpString);
@@ -21,6 +22,9 @@ namespace Mastersign.WinMan
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr SendMessage(int hWnd, int Msg, int wparam, int lparam);
+
+        [DllImport("user32.Dll")]
+        public static extern int PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);

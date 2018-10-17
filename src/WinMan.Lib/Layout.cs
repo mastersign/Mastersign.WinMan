@@ -34,6 +34,16 @@ namespace Mastersign.WinMan
             return success;
         }
 
+        public int Kill(Workspace workspace)
+        {
+            var cnt = 0;
+            foreach (var windowAction in Windows)
+            {
+                cnt += windowAction.Kill(workspace);
+            }
+            return cnt;
+        }
+
         public override string ToString() => $"{Configuration}: {Name}";
 
         public Layout Clone()

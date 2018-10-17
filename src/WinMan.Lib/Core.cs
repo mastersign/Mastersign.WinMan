@@ -133,5 +133,12 @@ namespace Mastersign.WinMan
             WindowWrapper.ClearCaches();
             Workspace.Apply();
         }
+
+        public void KillWorkspace()
+        {
+            if (Workspace == null) throw new InvalidOperationException("No workspace laoded.");
+            WindowWrapper.ClearCaches();
+            Workspace.Kill();
+        }
     }
 }

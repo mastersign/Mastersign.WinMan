@@ -305,6 +305,11 @@ namespace Mastersign.WinMan
             VirtualDesktop.PinWindow(Handle);
         }
 
+        public void Close()
+        {
+            WinApi.PostMessage(Handle, WinApi.WM_CLOSE, 0, 0);
+        }
+
         public override string ToString()
         {
             return $"{Title} [{Handle}] {ShowCommand} ({Path.GetFileName(Process.MainModule.FileName)}) ";
