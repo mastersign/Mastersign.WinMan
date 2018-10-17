@@ -204,10 +204,13 @@
             this.tsbApplyWorkspace = new System.Windows.Forms.ToolStripButton();
             this.tsbApplyCurrentLayout = new System.Windows.Forms.ToolStripButton();
             this.tsbApplyWindowAction = new System.Windows.Forms.ToolStripButton();
+            this.tsbKillWindowAction = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tsslFileName = new System.Windows.Forms.ToolStripStatusLabel();
             this.windowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmsWindowPatternTemplates = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsbKillCurrentLayout = new System.Windows.Forms.ToolStripButton();
+            this.tsbKillWorkspace = new System.Windows.Forms.ToolStripButton();
             tableConfigurationPatterns = new System.Windows.Forms.TableLayoutPanel();
             tableConfigurationPatternList = new System.Windows.Forms.TableLayoutPanel();
             tableConfigurationPatternDetails = new System.Windows.Forms.TableLayoutPanel();
@@ -2644,8 +2647,11 @@
             this.tsbSaveWorkspace,
             this.tsbSaveWorkspaceAs,
             this.tsbApplyWorkspace,
+            this.tsbKillWorkspace,
             this.tsbApplyCurrentLayout,
-            this.tsbApplyWindowAction});
+            this.tsbKillCurrentLayout,
+            this.tsbApplyWindowAction,
+            this.tsbKillWindowAction});
             this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
@@ -2724,6 +2730,16 @@
             this.tsbApplyWindowAction.ToolTipText = "Apply the selected window action";
             this.tsbApplyWindowAction.Click += new System.EventHandler(this.ApplyWindowActionHandler);
             // 
+            // tsbKillWindowAction
+            // 
+            this.tsbKillWindowAction.Image = ((System.Drawing.Image)(resources.GetObject("tsbKillWindowAction.Image")));
+            this.tsbKillWindowAction.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbKillWindowAction.Name = "tsbKillWindowAction";
+            this.tsbKillWindowAction.Size = new System.Drawing.Size(128, 20);
+            this.tsbKillWindowAction.Text = "Kill Window Action";
+            this.tsbKillWindowAction.ToolTipText = "Close all matching windows.";
+            this.tsbKillWindowAction.Click += new System.EventHandler(this.KillWindowActionHandler);
+            // 
             // statusStrip
             // 
             this.statusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
@@ -2750,6 +2766,25 @@
             this.tsmiNewPowerShellWindow});
             this.cmsWindowPatternTemplates.Name = "cmsWindowPatternTemplates";
             this.cmsWindowPatternTemplates.Size = new System.Drawing.Size(133, 70);
+            // 
+            // tsbKillLayout
+            // 
+            this.tsbKillCurrentLayout.Image = ((System.Drawing.Image)(resources.GetObject("tsbKillLayout.Image")));
+            this.tsbKillCurrentLayout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbKillCurrentLayout.Name = "tsbKillLayout";
+            this.tsbKillCurrentLayout.Size = new System.Drawing.Size(82, 20);
+            this.tsbKillCurrentLayout.Text = "Kill Layout";
+            this.tsbKillCurrentLayout.ToolTipText = "Close all matching Windows from the selected layout.";
+            this.tsbKillCurrentLayout.Click += new System.EventHandler(this.KillCurrentLayoutHandler);
+            // 
+            // tsbKill
+            // 
+            this.tsbKillWorkspace.Image = ((System.Drawing.Image)(resources.GetObject("tsbKill.Image")));
+            this.tsbKillWorkspace.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbKillWorkspace.Name = "tsbKill";
+            this.tsbKillWorkspace.Size = new System.Drawing.Size(43, 20);
+            this.tsbKillWorkspace.Text = "Kill";
+            this.tsbKillWorkspace.Click += new System.EventHandler(this.KillWorkspaceHandler);
             // 
             // MainForm
             // 
@@ -2989,6 +3024,9 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiNewExplorerWindow;
         private System.Windows.Forms.ToolStripMenuItem tsmiNewCmdWindow;
         private System.Windows.Forms.ToolStripMenuItem tsmiNewPowerShellWindow;
+        private System.Windows.Forms.ToolStripButton tsbKillWindowAction;
+        private System.Windows.Forms.ToolStripButton tsbKillCurrentLayout;
+        private System.Windows.Forms.ToolStripButton tsbKillWorkspace;
     }
 }
 

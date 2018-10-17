@@ -141,6 +141,9 @@
     <None Include="Resources\Cmd.ico" />
     <None Include="Resources\Explorer.ico" />
     <None Include="Resources\PowerShell.ico" />
+    <None Include="Resources\KillLayout.ico" />
+    <None Include="Resources\KillWindow.ico" />
+    <None Include="Resources\KillWorkspace.ico" />
     <Content Include="WinManGui.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

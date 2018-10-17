@@ -65,6 +65,19 @@ namespace Mastersign.WinMan
             return false;
         }
 
+        public int Kill(Workspace workspace)
+        {
+            var windowPattern = workspace.FindWindowPattern(Window);
+            if (windowPattern == null) return 0;
+
+            var windowWrappers = windowPattern.Discover();
+            foreach (var w in windowWrappers)
+            {
+                w.Close();
+            }
+            return windowWrappers.Length;
+        }
+
         private static readonly Regex CommandArgsMetaPattern = new Regex("[()%!^\"<>&|;, ]", RegexOptions.Singleline);
 
         private static string EscapeCommandLineArguments(string commandArgs)

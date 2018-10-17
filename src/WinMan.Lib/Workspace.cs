@@ -29,6 +29,14 @@ namespace Mastersign.WinMan
             }
         }
 
+        public void Kill()
+        {
+            foreach (var layout in DefaultLayouts)
+            {
+                layout.Kill(this);
+            }
+        }
+
         public void Upgrade()
         {
             if (Options == null) Options = Options.Default();

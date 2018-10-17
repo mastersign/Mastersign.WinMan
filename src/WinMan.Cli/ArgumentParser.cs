@@ -34,6 +34,10 @@ namespace Mastersign.WinMan.Cli
                 {
                     verbose = true;
                 }
+                else if (arg == "-K" || arg == "--kill")
+                {
+                    startMode |= StartMode.Kill;
+                }
                 else if (arg == "-d" || arg == "--default-layouts")
                 {
                     startMode |= StartMode.ApplyWorkspace;
