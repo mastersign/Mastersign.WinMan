@@ -65,6 +65,42 @@ Mastersign WinMan
 
 ![Window Patterns](screenshots/window-patterns.png)
 
+## CLI Usage
+
+```
+Mastersign WinMan
+-----------------
+WinMan Library Version: 1.7.0
+WinMan CLI Version: 1.7.0
+
+Usage: winman [<workspace file>] [<options>]*
+
+If the workspace file is not specified, the default workspace file is used.
+  %USERPROFILE%\winman_workspace.json
+
+If no option is used, the default layouts are targeted.
+
+Options:
+
+  -h, --help, -?, /?
+      Does print this help text. Ignores all other options.
+
+  -v, --version
+      Prints version information. Ignores all other options.
+
+  -svd, --switch-virtual-desktop <no>
+      Switch to the specified virtual desktop before applying the workspace.
+
+  -l, --layouts <layout-name>*
+      Target a specific set of layouts when applying the workspace.
+
+  -d, --default-layouts
+      Target the default layouts when applying the workspace.
+
+  -K, --kill
+      Instead of restoring windows, close matching windows.
+```
+
 ## License
 
 This project is published under the MIT license.
