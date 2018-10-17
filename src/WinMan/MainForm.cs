@@ -62,6 +62,10 @@ namespace Mastersign.WinMan
             SetIcon(tsbApplyCurrentLayout, Resources.ApplyLayout, size);
             SetIcon(tsbApplyWindowAction, Resources.ApplyWindow, size);
 
+            SetIcon(tsbKillWorkspace, Resources.KillWorkspace, size);
+            SetIcon(tsbKillCurrentLayout, Resources.KillLayout, size);
+            SetIcon(tsbKillWindowAction, Resources.KillWindow, size);
+
             SetIcon(btnRecordConfiguration, Resources.NewItem, size);
             SetIcon(btnMoveUpConfiguration, Resources.Up, size);
             SetIcon(btnMoveDownConfiguration, Resources.Down, size);
@@ -113,8 +117,6 @@ namespace Mastersign.WinMan
             SuspendLayout();
             var workspaceAvailable = HasCore && Core.Workspace != null;
             var layoutTab = workspaceAvailable && tabMain.SelectedTab == tpLayouts;
-            tsbApplyCurrentLayout.Enabled = layoutTab;
-            tsbApplyWindowAction.Enabled = layoutTab;
 
             var configPatternSelected = workspaceAvailable && SelectedConfigurationPattern != null;
             btnDeleteConfiguration.Enabled = configPatternSelected;
@@ -146,26 +148,10 @@ namespace Mastersign.WinMan
             btnDeleteWindowPattern.Enabled = windowPatternSelected;
             lblWindowPatternName.Enabled = windowPatternSelected;
             txtWindowPatternName.Enabled = windowPatternSelected;
-            //lblTitlePatternCaption.Enabled = windowPatternSelected;
-            //txtTitlePattern.Enabled = windowPatternSelected;
-            //cmbTitlePatternType.Enabled = windowPatternSelected;
-            //chkTitleIgnoreCase.Enabled = windowPatternSelected;
-            //lblWindowClassPatternCaption.Enabled = windowPatternSelected;
-            //txtWindowClassPattern.Enabled = windowPatternSelected;
-            //cmbWindowClassPatternType.Enabled = windowPatternSelected;
-            //chkWindowClassIgnoreCase.Enabled = windowPatternSelected;
-            //lblProcessFileName.Enabled = windowPatternSelected;
-            //txtProcessFileName.Enabled = windowPatternSelected;
-            //lblRestoreCommand.Enabled = windowPatternSelected;
-            //txtRestoreCommand.Enabled = windowPatternSelected;
-            //lblRestoreCommandArgs.Enabled = windowPatternSelected;
-            //txtRestoreCommandArgs.Enabled = windowPatternSelected;
+
             lblRestoreWorkingDir.Enabled = windowPatternSelected;
             txtRestoreWorkingDir.Enabled = windowPatternSelected;
-            // lblAppId.Enabled = windowPatternSelected;
-            // txtAppId.Enabled = windowPatternSelected;
             chkOverrideRestorationTimeout.Enabled = windowPatternSelected;
-            //numWindowPatternRestorationTimeout.Enabled = windowPatternSelected;
 
             var layoutSelected = workspaceAvailable && SelectedLayout != null;
             btnDuplicateLayout.Enabled = layoutSelected;
@@ -185,6 +171,9 @@ namespace Mastersign.WinMan
             btnNewWindowAction.Enabled = layoutSelected;
             listWindowAction.Enabled = layoutSelected;
 
+            tsbApplyCurrentLayout.Enabled = layoutTab && layoutSelected;
+            tsbKillCurrentLayout.Enabled = layoutTab && layoutSelected;
+
             var windowActionSelected = workspaceAvailable && SelectedWindowAction != null;
             btnMoveUpWindowAction.Enabled
                 = windowActionSelected && windowActionsBindingSource.Position > 0;
@@ -197,8 +186,6 @@ namespace Mastersign.WinMan
             lblWindowActionWindowCaption.Enabled = windowActionSelected;
             cmbWindowActionWindow.Enabled = windowActionSelected;
             lblWindowActionVirtualDesktop.Enabled = windowActionSelected;
-            //numWindowActionVirtualDesktop.Enabled = windowActionSelected;
-            //chkAllVirtualDesktops.Enabled = windowActionSelected;
             chkOverrideDefaultVirtualDesktop.Enabled = windowActionSelected;
             lblWindowActionScreenCaption.Enabled = windowActionSelected;
             cmbWindowActionScreen.Enabled = windowActionSelected;
@@ -221,6 +208,9 @@ namespace Mastersign.WinMan
             cmbWindowActionBottomUnit.Enabled = windowActionSelected;
             chkWindowActionBottomInvert.Enabled = windowActionSelected;
             chkWindowActionCompensateOsMargin.Enabled = windowActionSelected;
+
+            tsbApplyWindowAction.Enabled = layoutTab && windowActionSelected;
+            tsbKillWindowAction.Enabled = layoutTab && windowActionSelected;
 
             ResumeLayout();
         }
@@ -362,6 +352,12 @@ namespace Mastersign.WinMan
             Core.ApplyWorkspace();
         }
 
+        private void KillWorkspaceHandler(object sender, EventArgs e)
+        {
+            if (!HasCore) return;
+            Core.KillWorkspace();
+        }
+
         #endregion
 
         #region Window List
@@ -413,7 +409,7 @@ namespace Mastersign.WinMan
 
         private WindowPattern SelectedWindowPattern
         {
-            get => windowPatternsBindingSource.Position >= 0
+            get => windowPatternsBindingSource.Position >= 0 && windowPatternsBindingSource.Count > windowPatternsBindingSource.Position
                 ? windowPatternsBindingSource.Current as WindowPattern
                 : null;
             set => windowPatternsBindingSource.Position
@@ -744,7 +740,7 @@ namespace Mastersign.WinMan
         #region Screen Pattern
 
         private ScreenPattern SelectedScreenPattern
-            => screensPatternsBindingSource.Position >= 0
+            => screensPatternsBindingSource.Position >= 0 && screensPatternsBindingSource.Count > screensPatternsBindingSource.Position
                 ? screensPatternsBindingSource.Current as ScreenPattern
                 : null;
 
@@ -801,7 +797,7 @@ namespace Mastersign.WinMan
 
         private Layout SelectedLayout
         {
-            get => layoutsBindingSource.Position >= 0
+            get => layoutsBindingSource.Position >= 0 && layoutsBindingSource.Count > layoutsBindingSource.Position
                 ? layoutsBindingSource.Current as Layout
                 : null;
             set => layoutsBindingSource.Position
@@ -857,6 +853,16 @@ namespace Mastersign.WinMan
 
             WindowWrapper.ClearCaches();
             selectedLayout.Apply(Core.Workspace);
+        }
+
+        private void KillCurrentLayoutHandler(object sender, EventArgs e)
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+
+            WindowWrapper.ClearCaches();
+            selectedLayout.Kill(Core.Workspace);
         }
 
         private void LayoutSelectionChangedHandler(object sender, EventArgs e)
@@ -917,7 +923,7 @@ namespace Mastersign.WinMan
 
         private WindowAction SelectedWindowAction
         {
-            get => windowActionsBindingSource.Position >= 0
+            get => windowActionsBindingSource.Position >= 0 && windowActionsBindingSource.Count > windowActionsBindingSource.Position
                 ? windowActionsBindingSource.Current as WindowAction
                 : null;
             set => windowActionsBindingSource.Position
@@ -977,6 +983,16 @@ namespace Mastersign.WinMan
 
             WindowWrapper.ClearCaches();
             selectedWindowAction.Apply(Core.Workspace, selectedLayout);
+        }
+
+        private void KillWindowActionHandler(object sender, EventArgs e)
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedWindowAction = SelectedWindowAction;
+            if (selectedWindowAction == null) return;
+
+            WindowWrapper.ClearCaches();
+            selectedWindowAction.Kill(Core.Workspace);
         }
 
         private void WindowActionSelectionChangedHandler(object sender, EventArgs e)

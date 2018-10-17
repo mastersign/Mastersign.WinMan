@@ -143,6 +143,36 @@ namespace Mastersign.WinMan.Gui.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
         /// </summary>
+        internal static System.Drawing.Icon KillLayout {
+            get {
+                object obj = ResourceManager.GetObject("KillLayout", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon KillWindow {
+            get {
+                object obj = ResourceManager.GetObject("KillWindow", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
+        internal static System.Drawing.Icon KillWorkspace {
+            get {
+                object obj = ResourceManager.GetObject("KillWorkspace", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Icon ähnlich wie (Symbol).
+        /// </summary>
         internal static System.Drawing.Icon New {
             get {
                 object obj = ResourceManager.GetObject("New", resourceCulture);

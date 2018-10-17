@@ -142,6 +142,15 @@
   <data name="Explorer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Explorer.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="KillLayout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KillLayout.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KillWindow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KillWindow.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="KillWorkspace" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\KillWorkspace.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="New" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\newfile.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
