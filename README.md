@@ -57,6 +57,14 @@ Mastersign WinMan
 
 	E.g. `winman --layouts "My Layout" -K`
 
+## Screenshots
+
+![Layouts](screenshots/layouts.png)
+
+![Display Configurations](screenshots/display-configurations.png)
+
+![Window Patterns](screenshots/window-patterns.png)
+
 ## License
 
 This project is published under the MIT license.
