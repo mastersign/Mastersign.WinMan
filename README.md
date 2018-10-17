@@ -1,7 +1,16 @@
 Mastersign WinMan
 =================
 
+![](src/icon/winman_48.png)
+
 > Manager for window layouts on Windows 10.
+
+## Features
+
+* Support for multiple display configurations / monitor setups
+* Define multiple window layouts targeting only some or all of the display configurations
+* Apply or kill window layouts via a graphical user interface or at the command line
+* Support for modern apps
 
 ## Requirements
 
