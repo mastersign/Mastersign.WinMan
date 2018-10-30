@@ -1500,7 +1500,6 @@
             this.previewLayout.TabIndex = 1;
             this.previewLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.PreviewLayoutPaintHandler);
             this.previewLayout.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PreviewLayoutMouseDownHandler);
-            this.previewLayout.MouseEnter += new System.EventHandler(this.PreviewLayoutMouseEnterHandler);
             this.previewLayout.MouseLeave += new System.EventHandler(this.PreviewLayoutMouseLeaveHandler);
             this.previewLayout.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PreviewLayoutMouseMoveHandler);
             this.previewLayout.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PreviewLayoutMouseUpHandler);
@@ -1659,7 +1658,7 @@
             this.chkLayoutIsDefaultLayout.AutoSize = true;
             this.chkLayoutIsDefaultLayout.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "DefaultLayout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLayoutIsDefaultLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 479);
+            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 476);
             this.chkLayoutIsDefaultLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
             this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(171, 20);
@@ -1670,7 +1669,7 @@
             // lblConfigurationPatternCaption
             // 
             this.lblConfigurationPatternCaption.AutoSize = true;
-            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 507);
+            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 504);
             this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
             this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(134, 16);
@@ -1682,7 +1681,7 @@
             this.cmbLayoutConfiguration.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Configuration", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbLayoutConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbLayoutConfiguration.FormattingEnabled = true;
-            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 531);
+            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 528);
             this.cmbLayoutConfiguration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
             this.cmbLayoutConfiguration.Size = new System.Drawing.Size(171, 24);
@@ -1699,7 +1698,7 @@
             this.listLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listLayouts.Name = "listLayouts";
             tableLayoutList.SetRowSpan(this.listLayouts, 6);
-            this.listLayouts.Size = new System.Drawing.Size(171, 375);
+            this.listLayouts.Size = new System.Drawing.Size(171, 372);
             this.listLayouts.TabIndex = 7;
             // 
             // lblLayoutDefaultVirtualDesktopCaption

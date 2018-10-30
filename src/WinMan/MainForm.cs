@@ -20,7 +20,6 @@ namespace Mastersign.WinMan.Gui
         private Core _core;
         private Workspace _changeObservationTarget;
         private readonly PreviewPainter _previewPainter;
-        private readonly LayoutPreviewState _previewState;
 
         public MainForm()
         {
@@ -914,6 +913,8 @@ namespace Mastersign.WinMan.Gui
             previewLayout.Invalidate();
         }
 
+        private readonly LayoutPreviewState _previewState;
+
         private void RasterChooserMouseEnterHandler(object sender, EventArgs e)
         {
             _previewState.ForceRaster = true;
@@ -952,11 +953,6 @@ namespace Mastersign.WinMan.Gui
                     selectedLayout, _previewState.Raster, _previewState.ScreenUnderCursor,
                     _previewState.From, _previewState.To);
             }
-        }
-
-        private void PreviewLayoutMouseEnterHandler(object sender, EventArgs e)
-        {
-
         }
 
         private void UpdateLayoutPreviewTo(Control canvas, Point pos)
@@ -1029,23 +1025,21 @@ namespace Mastersign.WinMan.Gui
             var from = _previewState.From.Value;
             var to = _previewState.To.Value;
 
+            WatchedWindowAction = null;
             selectedWindowAction.Screen = s.Name;
-
             selectedWindowAction.LeftUnit = ScreenUnit.Percent;
             selectedWindowAction.LeftInvert = false;
             selectedWindowAction.Left = (int)Math.Floor(r.X[from.X] * 100.0);
-
             selectedWindowAction.TopUnit = ScreenUnit.Percent;
             selectedWindowAction.TopInvert = false;
             selectedWindowAction.Top = (int)Math.Floor(r.Y[from.Y] * 100.0);
-
             selectedWindowAction.RightUnit = ScreenUnit.Percent;
             selectedWindowAction.RightInvert = false;
             selectedWindowAction.Right = (int)Math.Floor(r.X[to.X + 1] * 100.0);
-
             selectedWindowAction.BottomUnit = ScreenUnit.Percent;
             selectedWindowAction.BottomInvert = false;
             selectedWindowAction.Bottom = (int)Math.Floor(r.Y[to.Y + 1] * 100.0);
+            WatchedWindowAction = selectedWindowAction;
         }
 
         #endregion

@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.Label lblX;
             System.Windows.Forms.Label lblY;
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.chkEven12Y = new System.Windows.Forms.CheckBox();
             this.chkEven12X = new System.Windows.Forms.CheckBox();
             this.chkEven10Y = new System.Windows.Forms.CheckBox();
@@ -49,7 +49,7 @@
             this.chkGoldenX = new System.Windows.Forms.CheckBox();
             lblX = new System.Windows.Forms.Label();
             lblY = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayout.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblX
@@ -80,44 +80,44 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.chkEven12Y, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven12X, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven10Y, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven10X, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven8Y, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven8X, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven7Y, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven7X, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven6Y, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven6X, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven5Y, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven5X, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven4Y, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.chkEven4X, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.chkGoldenY, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(lblY, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.chkGoldenX, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(lblX, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel1.RowCount = 10;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(151, 312);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayout.ColumnCount = 2;
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayout.Controls.Add(this.chkEven12Y, 1, 8);
+            this.tableLayout.Controls.Add(this.chkEven12X, 0, 8);
+            this.tableLayout.Controls.Add(this.chkEven10Y, 1, 7);
+            this.tableLayout.Controls.Add(this.chkEven10X, 0, 7);
+            this.tableLayout.Controls.Add(this.chkEven8Y, 1, 6);
+            this.tableLayout.Controls.Add(this.chkEven8X, 0, 6);
+            this.tableLayout.Controls.Add(this.chkEven7Y, 1, 5);
+            this.tableLayout.Controls.Add(this.chkEven7X, 0, 5);
+            this.tableLayout.Controls.Add(this.chkEven6Y, 1, 4);
+            this.tableLayout.Controls.Add(this.chkEven6X, 0, 4);
+            this.tableLayout.Controls.Add(this.chkEven5Y, 1, 3);
+            this.tableLayout.Controls.Add(this.chkEven5X, 0, 3);
+            this.tableLayout.Controls.Add(this.chkEven4Y, 1, 2);
+            this.tableLayout.Controls.Add(this.chkEven4X, 0, 2);
+            this.tableLayout.Controls.Add(this.chkGoldenY, 1, 1);
+            this.tableLayout.Controls.Add(lblY, 1, 0);
+            this.tableLayout.Controls.Add(this.chkGoldenX, 0, 1);
+            this.tableLayout.Controls.Add(lblX, 0, 0);
+            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayout.Location = new System.Drawing.Point(0, 0);
+            this.tableLayout.Name = "tableLayoutPanel1";
+            this.tableLayout.Padding = new System.Windows.Forms.Padding(3);
+            this.tableLayout.RowCount = 10;
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayout.Size = new System.Drawing.Size(151, 312);
+            this.tableLayout.TabIndex = 0;
             // 
             // chkEven12Y
             // 
@@ -379,18 +379,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tableLayout);
             this.Name = "RasterChooser";
             this.Size = new System.Drawing.Size(151, 312);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayout.ResumeLayout(false);
+            this.tableLayout.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayout;
         private System.Windows.Forms.CheckBox chkGoldenX;
         private System.Windows.Forms.CheckBox chkEven12Y;
         private System.Windows.Forms.CheckBox chkEven12X;

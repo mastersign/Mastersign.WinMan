@@ -14,16 +14,42 @@ namespace Mastersign.WinMan.Gui
     {
         private CheckBox[] _xCbs;
         private CheckBox[] _yCbs;
+        private bool _mouseOver;
 
         public RasterChooser()
         {
             InitializeComponent();
+            tableLayout.MouseEnter += ChildrenMouseEnterHandler;
+            tableLayout.MouseLeave += ChildrenMouseLeaveHandler;
+            foreach (Control c in tableLayout.Controls)
+            {
+                c.MouseEnter += ChildrenMouseEnterHandler;
+                c.MouseLeave += ChildrenMouseLeaveHandler;
+            }
             InitializeCheckBoxes();
+        }
+
+        private void ChildrenMouseEnterHandler(object sender, EventArgs e)
+        {
+            if (!_mouseOver && ClientRectangle.Contains(PointToClient(MousePosition)))
+            {
+                _mouseOver = true;
+                this.OnMouseEnter(e);
+            }
+        }
+
+        private void ChildrenMouseLeaveHandler(object sender, EventArgs e)
+        {
+            if (_mouseOver && !ClientRectangle.Contains(PointToClient(MousePosition)))
+            {
+                _mouseOver = false;
+                this.OnMouseLeave(e);
+            }
         }
 
         private void InitializeCheckBoxes()
         {
-            var checkBoxes = tableLayoutPanel1.Controls.OfType<CheckBox>().ToList();
+            var checkBoxes = tableLayout.Controls.OfType<CheckBox>().ToList();
             foreach (var cb in checkBoxes)
             {
                 cb.Tag = Enum.Parse(typeof(RasterPartitioning), (string)cb.Tag);
