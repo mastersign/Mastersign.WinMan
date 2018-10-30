@@ -2441,6 +2441,8 @@ namespace Mastersign.WinMan
     {
         public Options()
         {
+            this._restorationTimeout = DEF_RESTORATIONTIMEOUT;
+            
             this.IsChanged = false;
         }
         
@@ -2563,6 +2565,9 @@ namespace Mastersign.WinMan
             this.OnPropertyChanged(@"RestorationTimeout");
         }
         
+        private const int DEF_RESTORATIONTIMEOUT = 30;
+        
+        [DefaultValue(DEF_RESTORATIONTIMEOUT)]
         public virtual int RestorationTimeout
         {
             get { return _restorationTimeout; }
