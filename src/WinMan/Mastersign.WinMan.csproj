@@ -57,6 +57,7 @@
     <Compile Include="ImprovedForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="LayoutPreviewState.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +73,13 @@
     <Compile Include="PreviewPainter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LayoutPreviewRaster.cs" />
+    <Compile Include="RasterChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RasterChooser.Designer.cs">
+      <DependentUpon>RasterChooser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="StringForm.cs">
       <SubType>Form</SubType>
@@ -93,6 +101,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RasterChooser.resx">
+      <DependentUpon>RasterChooser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StringForm.resx">
       <DependentUpon>StringForm.cs</DependentUpon>
     </EmbeddedResource>

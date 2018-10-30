@@ -9,10 +9,12 @@ namespace Mastersign.WinMan
     partial class Options
     {
         public static readonly Margin DEFAULT_OS_WINDOW_MARGIN = new Margin(6, 0, 7, 8);
+        public static readonly int DEFAULT_RESTORATION_TIMEOUT = 30;
 
         public static Options Default() => new Options
         {
-            OsWindowMargin = DEFAULT_OS_WINDOW_MARGIN
+            OsWindowMargin = DEFAULT_OS_WINDOW_MARGIN,
+            RestorationTimeout = DEFAULT_RESTORATION_TIMEOUT,
         };
     }
 }

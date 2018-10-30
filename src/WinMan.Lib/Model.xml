@@ -174,7 +174,9 @@
 
     <Class name="Options">
       <Property name="OsWindowMargin" type="Margin" />
-      <Property name="RestorationTimeout" type="int" />
+      <Property name="RestorationTimeout" type="int">
+        <DefaultValue>30</DefaultValue>
+      </Property>
     </Class>
 
     <Class name="Workspace">
