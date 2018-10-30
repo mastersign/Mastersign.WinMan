@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,17 +13,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsDesktop;
 
-namespace Mastersign.WinMan
+namespace Mastersign.WinMan.Gui
 {
     public partial class MainForm : ImprovedForm
     {
         private Core _core;
         private Workspace _changeObservationTarget;
         private readonly PreviewPainter _previewPainter;
+        private readonly LayoutPreviewState _previewState;
 
         public MainForm()
         {
             _previewPainter = new PreviewPainter();
+            _previewState = new LayoutPreviewState();
             InitializeComponent();
         }
 
@@ -30,6 +33,7 @@ namespace Mastersign.WinMan
         {
             InitializeWindowTitle();
             InitializeIcons();
+            InitializeRasterChooser();
 
             cmbTitlePatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
             cmbWindowClassPatternType.DataSource = Enum.GetValues(typeof(StringPatternType));
@@ -110,6 +114,18 @@ namespace Mastersign.WinMan
                 btn.Text = string.Empty;
             else
                 btn.TextImageRelation = TextImageRelation.ImageBeforeText;
+        }
+
+        private void InitializeRasterChooser()
+        {
+            rasterChooser.RasterChangedHandler += RasterChangedHandler;
+            rasterChooser.SetRaster(RasterPartitioning.Even6, RasterPartitioning.Even4);
+        }
+
+        private void RasterChangedHandler(object sender, EventArgs e)
+        {
+            _previewState.Raster = rasterChooser.Raster;
+            previewLayout.Invalidate();
         }
 
         private void UpdateControlActivation()
@@ -898,12 +914,24 @@ namespace Mastersign.WinMan
             previewLayout.Invalidate();
         }
 
-        private void LayoutPreviewPaintHandler(object sender, PaintEventArgs e)
+        private void RasterChooserMouseEnterHandler(object sender, EventArgs e)
+        {
+            _previewState.ForceRaster = true;
+            RefreshLayoutPreview();
+        }
+
+        private void RasterChooserMouseLeaveHandler(object sender, EventArgs e)
+        {
+            _previewState.ForceRaster = false;
+            RefreshLayoutPreview();
+        }
+
+        private void PreviewLayoutPaintHandler(object sender, PaintEventArgs e)
         {
             if (!HasCore || Core.Workspace == null) return;
-            var canvas = (Control)sender;
             var selectedLayout = SelectedLayout;
             if (selectedLayout == null) return;
+            var canvas = (Control)sender;
             var selectedWindowAction = SelectedWindowAction;
             if (selectedWindowAction != null)
             {
@@ -915,6 +943,109 @@ namespace Mastersign.WinMan
                 if (configuration == null) return;
                 _previewPainter.PaintScreenConfiguration(e.Graphics, canvas.ClientSize, configuration);
             }
+
+            var c = Core?.Workspace?.FindConfigurationPattern(selectedLayout.Configuration);
+            if (c != null && c.Screens.Count > 0 && _previewState.Raster != null 
+                && (_previewState.ScreenUnderCursor != null || _previewState.ForceRaster))
+            {
+                _previewPainter.PaintRaster(e.Graphics, canvas.ClientSize, Core.Workspace,
+                    selectedLayout, _previewState.Raster, _previewState.ScreenUnderCursor,
+                    _previewState.From, _previewState.To);
+            }
+        }
+
+        private void PreviewLayoutMouseEnterHandler(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateLayoutPreviewTo(Control canvas, Point pos)
+        {
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            if (_previewState.Raster == null) return;
+            _previewPainter.TransformFromScreen(canvas.Size, Core.Workspace, selectedLayout,
+                pos, out var screen, out var p);
+            _previewState.ScreenUnderCursor = screen;
+            if (screen != null)
+            {
+                var to = _previewState.Raster.GetPartition(
+                    (float)p.X / (float)screen.Width, (float)p.Y / (float)screen.Height);
+                _previewState.To = to;
+                RefreshLayoutPreview();
+            }
+            else
+            {
+                if (_previewState.To.HasValue)
+                {
+                    _previewState.To = null;
+                    RefreshLayoutPreview();
+                }
+            }
+        }
+
+        private void PreviewLayoutMouseMoveHandler(object sender, MouseEventArgs e)
+        {
+            UpdateLayoutPreviewTo((Control)sender, e.Location);
+        }
+
+        private void PreviewLayoutMouseLeaveHandler(object sender, EventArgs e)
+        {
+            _previewState.ScreenUnderCursor = null;
+            RefreshLayoutPreview();
+        }
+
+        private void PreviewLayoutMouseDownHandler(object sender, MouseEventArgs e)
+        {
+            UpdateLayoutPreviewTo((Control)sender, e.Location);
+            _previewState.From = _previewState.To;
+        }
+
+        private void PreviewLayoutMouseUpHandler(object sender, MouseEventArgs e)
+        {
+            UpdateLayoutPreviewTo((Control)sender, e.Location);
+            UpdateWindowActionFromPreviewState();
+            _previewState.From = null;
+            RefreshLayoutPreview();
+        }
+
+        private void UpdateWindowActionFromPreviewState()
+        {
+            Debug.WriteLine($"{_previewState.From} -> {_previewState.To}");
+            if (!HasCore || Core.Workspace == null) return;
+            var selectedLayout = SelectedLayout;
+            if (selectedLayout == null) return;
+            var selectedWindowAction = SelectedWindowAction;
+            if (selectedWindowAction == null) return;
+
+            if (_previewState.Raster == null) return;
+            if (_previewState.ScreenUnderCursor == null) return;
+            if (_previewState.From == null) return;
+            if (_previewState.To == null) return;
+
+            var s = _previewState.ScreenUnderCursor;
+            var r = _previewState.Raster;
+            var from = _previewState.From.Value;
+            var to = _previewState.To.Value;
+
+            selectedWindowAction.Screen = s.Name;
+
+            selectedWindowAction.LeftUnit = ScreenUnit.Percent;
+            selectedWindowAction.LeftInvert = false;
+            selectedWindowAction.Left = (int)Math.Floor(r.X[from.X] * 100.0);
+
+            selectedWindowAction.TopUnit = ScreenUnit.Percent;
+            selectedWindowAction.TopInvert = false;
+            selectedWindowAction.Top = (int)Math.Floor(r.Y[from.Y] * 100.0);
+
+            selectedWindowAction.RightUnit = ScreenUnit.Percent;
+            selectedWindowAction.RightInvert = false;
+            selectedWindowAction.Right = (int)Math.Floor(r.X[to.X + 1] * 100.0);
+
+            selectedWindowAction.BottomUnit = ScreenUnit.Percent;
+            selectedWindowAction.BottomInvert = false;
+            selectedWindowAction.Bottom = (int)Math.Floor(r.Y[to.Y + 1] * 100.0);
         }
 
         #endregion
@@ -1295,5 +1426,6 @@ namespace Mastersign.WinMan
                 }
             }
         }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Mastersign.WinMan
+namespace Mastersign.WinMan.Gui
 {
     internal static class Program
     {

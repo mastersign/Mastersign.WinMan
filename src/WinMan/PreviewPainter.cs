@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mastersign.WinMan
+namespace Mastersign.WinMan.Gui
 {
     class PreviewPainter
     {
@@ -27,6 +27,9 @@ namespace Mastersign.WinMan
             WindowTitleBarHeight = 40; // Screen Pixel
             MinimizedWindowWidth = 360;
             MinimizedWindowHeight = WindowTitleBarHeight + WindowBorderStrength * 2;
+            RasterWidth = 12; // Screen Pixel
+            RasterBrush = new SolidBrush(Color.FromArgb(96, SystemColors.ControlDark));
+            RasterSelectionBrush = new SolidBrush(Color.FromArgb(212, SystemColors.Highlight));
         }
 
         public int OuterMargin { get; set; }
@@ -47,9 +50,15 @@ namespace Mastersign.WinMan
         public int MinimizedWindowWidth { get; set; }
         public int MinimizedWindowHeight { get; set; }
 
-        private void TransformToConfiguration(Graphics g, Size s, ConfigurationPattern c)
+        public int RasterWidth { get; set; }
+        public Brush RasterBrush { get; set; }
+        public Brush RasterSelectionBrush { get; set; }
+
+        private Matrix TransformToConfiguration(Matrix originalT, Size s, ConfigurationPattern c)
         {
-            g.TranslateTransform(s.Width * 0.5f, s.Height * 0.5f);
+            var t = originalT.Clone();
+
+            t.Translate(s.Width * 0.5f, s.Height * 0.5f);
 
             var screens = c.Screens;
             Rectangle outerBounds = screens[0].Bounds;
@@ -62,20 +71,52 @@ namespace Mastersign.WinMan
             var factor = Math.Min(
                 (float)s.Width / (float)outerBounds.Width,
                 (float)s.Height / (float)outerBounds.Height);
-            g.ScaleTransform(factor, factor);
+            t.Scale(factor, factor);
 
-            g.TranslateTransform(-outerBounds.Left - outerBounds.Width * 0.5f, -outerBounds.Top - outerBounds.Height * 0.5f);
+            t.Translate(-outerBounds.Left - outerBounds.Width * 0.5f, -outerBounds.Top - outerBounds.Height * 0.5f);
+            
+            return t;
         }
 
-        private void TransformToScreen(Graphics g, ScreenPattern s)
+        private Matrix TransformToScreen(Matrix originalT, ScreenPattern s)
         {
+            var t = originalT.Clone();
+
             var outerBounds = s.Bounds;
             Rectangle innerBounds = outerBounds;
             innerBounds.Inflate(-ScreenBorderStrength, -ScreenBorderStrength);
-            g.TranslateTransform(innerBounds.Left, innerBounds.Top);
+            t.Translate(innerBounds.Left, innerBounds.Top);
             var sx = (float)innerBounds.Width / (float)outerBounds.Width;
             var sy = (float)innerBounds.Height / (float)outerBounds.Height;
-            g.ScaleTransform(sx, sy);
+            t.Scale(sx, sy);
+
+            return t;
+        }
+
+        public void TransformFromScreen(Size s, Workspace w, Layout l, Point p, out ScreenPattern screen, out Point screenPos)
+        {
+            var c = w.FindConfigurationPattern(l.Configuration);
+            screen = null;
+            screenPos = Point.Empty;
+            if (c == null || c.Screens.Count == 0) return;
+            var t = TransformToConfiguration(new Matrix(), s, c);
+            if (!t.IsInvertible) return;
+            t.Invert();
+            var points = new Point[] { new Point(p.X, p.Y) };
+            t.TransformPoints(points);
+            var cPos = points[0];
+
+            foreach (var scr in c.Screens)
+            {
+                var b = scr.Bounds;
+                if (cPos.X >= b.Left && cPos.Y >= b.Top && cPos.X <= b.Right && cPos.Y <= b.Bottom)
+                {
+                    screen = scr;
+                    screenPos = new Point(cPos.X - b.X, cPos.Y - b.Y);
+                    return; // found screen
+                }
+            }
+            // outside of screens
         }
 
         private void PaintScreen(Graphics g, ScreenPattern s, bool selected)
@@ -102,12 +143,12 @@ namespace Mastersign.WinMan
 
             g.SmoothingMode = SmoothingMode.HighQuality;
 
-            var transformOld = g.Transform;
-            TransformToConfiguration(g, s, c);
+            var originalTransform = g.Transform;
+            g.Transform = TransformToConfiguration(originalTransform, s, c);
 
             PaintScreens(g, c, selectedScreen);
 
-            g.Transform = transformOld;
+            g.Transform = originalTransform;
         }
 
         private void PaintWindowAction(Graphics g, ConfigurationPattern c, WindowAction a, bool selected = false)
@@ -115,8 +156,8 @@ namespace Mastersign.WinMan
             var screen = c.FindScreenPattern(a.Screen);
             if (screen == null) return;
 
-            var transformOld = g.Transform;
-            TransformToScreen(g, screen);
+            var originalTransform = g.Transform;
+            g.Transform = TransformToScreen(originalTransform, screen);
 
             var screenBounds = screen.Bounds;
             Rectangle windowBounds;
@@ -155,7 +196,7 @@ namespace Mastersign.WinMan
                     windowBounds);
             }
 
-            g.Transform = transformOld;
+            g.Transform = originalTransform;
         }
 
         public void PaintWindowAction(Graphics g, Size s, Workspace w, Layout l, WindowAction a)
@@ -167,13 +208,13 @@ namespace Mastersign.WinMan
 
             g.SmoothingMode = SmoothingMode.HighQuality;
 
-            var transformOld = g.Transform;
-            TransformToConfiguration(g, s, c);
+            var originalTransform = g.Transform;
+            g.Transform = TransformToConfiguration(originalTransform, s, c);
 
             PaintScreens(g, c);
             PaintWindowAction(g, c, a);
 
-            g.Transform = transformOld;
+            g.Transform = originalTransform;
         }
 
         public void PaintWindowActions(Graphics g, Size s, Workspace w, Layout l, WindowAction selectedWindowAction)
@@ -185,8 +226,8 @@ namespace Mastersign.WinMan
 
             g.SmoothingMode = SmoothingMode.HighQuality;
 
-            var transformOld = g.Transform;
-            TransformToConfiguration(g, s, c);
+            var originalTransform = g.Transform;
+            g.Transform = TransformToConfiguration(originalTransform, s, c);
 
             PaintScreens(g, c);
             foreach (var a in l.Windows)
@@ -197,7 +238,68 @@ namespace Mastersign.WinMan
             }
             PaintWindowAction(g, c, selectedWindowAction, true);
 
-            g.Transform = transformOld;
+            g.Transform = originalTransform;
+        }
+
+        public void PaintRaster(Graphics g, Size s, Workspace w, Layout l, LayoutPreviewRaster raster,
+            ScreenPattern selectedScreen = null, Point? from = null, Point? to = null)
+        {
+            if (raster == null) throw new ArgumentNullException(nameof(raster));
+
+            var c = w.FindConfigurationPattern(l.Configuration);
+            if (c == null || c.Screens.Count == 0) return;
+
+            g.SmoothingMode = SmoothingMode.HighQuality;
+
+            var originalTransform = g.Transform;
+            g.Transform = TransformToConfiguration(originalTransform, s, c);
+
+            if (selectedScreen != null && to.HasValue)
+            {
+                if (!from.HasValue) from = to;
+                var xA = Math.Min(from.Value.X, to.Value.X);
+                var xB = Math.Max(from.Value.X, to.Value.X) + 1;
+                var yA = Math.Min(from.Value.Y, to.Value.Y);
+                var yB = Math.Max(from.Value.Y, to.Value.Y) + 1;
+                var left = xA == 0
+                    ? selectedScreen.Left + ScreenBorderStrength
+                    : selectedScreen.Left + (int)(selectedScreen.Width * raster.X[xA]) + RasterWidth / 2;
+                var top = yA == 0
+                    ? selectedScreen.Top + ScreenBorderStrength
+                    : selectedScreen.Top + (int)(selectedScreen.Height * raster.Y[yA]) + RasterWidth / 2;
+                var right = xB >= raster.X.Length
+                    ? selectedScreen.Left + selectedScreen.Width - ScreenBorderStrength
+                    : selectedScreen.Left + (int)(selectedScreen.Width * raster.X[xB]) - RasterWidth / 2;
+                var bottom = yB >= raster.Y.Length
+                    ? selectedScreen.Top + selectedScreen.Height - ScreenBorderStrength
+                    : selectedScreen.Top + (int)(selectedScreen.Height * raster.Y[yB]) - RasterWidth / 2;
+                g.FillRectangle(RasterSelectionBrush, left, top, right - left, bottom - top);
+            }
+
+            foreach (var screen in c.Screens)
+            {
+                if (selectedScreen != null && screen != selectedScreen) continue;
+                foreach (var x in raster.X.Skip(1))
+                {
+                    var r = new Rectangle(
+                        screen.Left + (int)(x * screen.Width) - RasterWidth / 2,
+                        screen.Top + ScreenBorderStrength,
+                        RasterWidth,
+                        screen.Height - ScreenBorderStrength * 2);
+                    g.FillRectangle(RasterBrush, r);
+                }
+                foreach (var y in raster.Y.Skip(1))
+                {
+                    var r = new Rectangle(
+                        screen.Left + ScreenBorderStrength,
+                        screen.Top + (int)(y * screen.Height) - RasterWidth / 2,
+                        screen.Width - ScreenBorderStrength * 2,
+                        RasterWidth);
+                    g.FillRectangle(RasterBrush, r);
+                }
+            }
+
+            g.Transform = originalTransform;
         }
     }
 }
