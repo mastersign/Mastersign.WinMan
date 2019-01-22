@@ -15,6 +15,7 @@ Mastersign WinMan
 ## Requirements
 
 * Microsoft .NET Framework 4.6 or higher
+* Since v1.9.0 _WinMan_ requires Windows 10 1809
 * Since v1.5.0 _WinMan_ requires Windows 10 1803
 * To use _WinMan_ on an earlier Windows 10 version
   download _WinMan_ v1.4.1
@@ -70,8 +71,8 @@ Mastersign WinMan
 ```
 Mastersign WinMan
 -----------------
-WinMan Library Version: 1.7.0
-WinMan CLI Version: 1.7.0
+WinMan Library Version: 1.9.0
+WinMan CLI Version: 1.9.0
 
 Usage: winman [<workspace file>] [<options>]*
 
