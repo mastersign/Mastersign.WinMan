@@ -4,9 +4,17 @@ using System.Runtime.InteropServices;
 namespace WindowsDesktop.Interop
 {
 	[ComImport]
-	[Guid("372e1d3b-38d3-42e4-a15b-8ab2b178f513")]
+#if WIN_10_1809
+    [Guid("372e1d3b-38d3-42e4-a15b-8ab2b178f513")]
 	[InterfaceType(ComInterfaceType.InterfaceIsIInspectable)]
-	public interface IApplicationView
+#elif WIN_10_1803
+    [Guid("871F602A-2B58-42B4-8C4B-6C43D642C06F")]
+	[InterfaceType(ComInterfaceType.InterfaceIsIInspectable)]
+#else
+    [Guid("9ac0b5c8-1484-4c5b-9533-4134a0f97cea")]
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#endif
+    public interface IApplicationView
 	{
 		int SetFocus();
 
@@ -84,15 +92,25 @@ namespace WindowsDesktop.Interop
 
 		int EnumerateOwnershipTree(out IObjectArray ownershipTree);
 
-		/*** (Windows 10 Build 10584 or later?) ***/
+#if WIN_10_1809
+#elif WIN_10_1803
+#else
+        int GetPositionPriority(out IntPtr /* IShellPositionerPriority** */ priority);
 
-		int GetEnterpriseId([MarshalAs(UnmanagedType.LPWStr)] out string enterpriseId);
+        int SetPositionPriority(IntPtr /* IShellPositionerPriority* */ priority);
 
-		int IsMirrored(out bool isMirrored);
-	}
+        int QuerySizeConstraintsFromApp();
+#endif
+
+        /*** (Windows 10 Build 10584 or later?) ***/
+
+        int GetEnterpriseId([MarshalAs(UnmanagedType.LPWStr)] out string enterpriseId);
+
+        int IsMirrored(out bool isMirrored);
+    }
 
 
-	[StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
 	public struct Size
 	{
 		public int X;
