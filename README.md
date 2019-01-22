@@ -70,8 +70,8 @@ Mastersign WinMan
 ```
 Mastersign WinMan
 -----------------
-WinMan Library Version: 1.7.0
-WinMan CLI Version: 1.7.0
+WinMan Library Version: 1.9.0
+WinMan CLI Version: 1.9.0
 
 Usage: winman [<workspace file>] [<options>]*
 
