@@ -18,28 +18,29 @@ namespace Mastersign.WinMan
             return configurationPattern.IsMatch(screens, virtualDesktopCount);
         }
 
-        public bool Apply(Workspace workspace)
+        public bool Apply(Workspace workspace, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
         {
             var screens = Screen.AllScreens;
             var vdCount = VirtualDesktop.GetDesktops().Length;
             if (!IsMatch(workspace, screens, vdCount))
             {
+                statusHandler(StatusLevel.Error, $"Layout does not match current screen configuration.");
                 return false;
             }
             var success = true;
             foreach (var windowAction in Windows)
             {
-                if (!windowAction.Apply(workspace, this)) success = false;
+                if (!windowAction.Apply(workspace, this, statusHandler, stringReplacements)) success = false;
             }
             return success;
         }
 
-        public int Kill(Workspace workspace)
+        public int Kill(Workspace workspace, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
         {
             var cnt = 0;
             foreach (var windowAction in Windows)
             {
-                cnt += windowAction.Kill(workspace);
+                cnt += windowAction.Kill(workspace, statusHandler, stringReplacements);
             }
             return cnt;
         }

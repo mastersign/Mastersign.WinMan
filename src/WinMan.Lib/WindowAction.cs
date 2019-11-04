@@ -20,33 +20,66 @@ namespace Mastersign.WinMan
         public int GetVirtualDesktop(Layout layout)
             => OverrideVirtualDesktop ? VirtualDesktop : layout.DefaultVirtualDesktop;
 
-        public bool Apply(Workspace workspace, Layout layout)
+        public bool Apply(Workspace workspace, Layout layout, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
-            if (windowPattern == null) return false;
+            if (windowPattern == null)
+            {
+                statusHandler(StatusLevel.Error, $"Window pattern '{Window}' not found.");
+                return false;
+            }
             var configurationPattern = workspace.FindConfigurationPattern(layout.Configuration);
-            if (configurationPattern == null) return false;
+            if (configurationPattern == null)
+            {
+                statusHandler(StatusLevel.Error, $"Configuration pattern '{layout.Configuration}' not found.");
+                return false;
+            }
             var screen = configurationPattern.FindScreenPattern(Screen)?.Discover();
-            if (screen == null) return false;
+            if (screen == null)
+            {
+                statusHandler(StatusLevel.Error, $"Screen pattern '{Screen}' not found.");
+                return false;
+            }
             var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(GetVirtualDesktop(layout) - 1);
-            if (virtualDesktop == null) return false;
+            if (virtualDesktop == null)
+            {
+                statusHandler(StatusLevel.Error, "Virtal desktop not found.");
+                return false;
+            }
+
+            var matches = new List<Tuple<string, int>>();
+            windowPattern = windowPattern.DeriveWithStringReplacements(stringReplacements, matches);
+            foreach (var match in matches)
+            {
+                statusHandler(StatusLevel.Info, $"Replaced '{match.Item1}' -> '{stringReplacements.First(sr => sr.Pattern == match.Item1).Replacement}' {match.Item2} times");
+            }
 
             var windowWrappers = windowPattern.Discover();
             if (windowWrappers.Length > 0)
             {
+                statusHandler(StatusLevel.Info, $"Found {windowWrappers.Length} matching windows");
                 Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop, workspace.Options));
                 return true;
             }
             else if (Restore && windowPattern.IsRestorable)
             {
-                if (TryRestoreWindow(windowPattern, ref windowWrappers, workspace.Options.RestorationTimeout))
+                statusHandler(StatusLevel.Info, $"Found no matching window, restoring...");
+                if (TryRestoreWindow(windowPattern, ref windowWrappers, workspace.Options.RestorationTimeout, statusHandler))
                 {
                     Array.ForEach(windowWrappers, w => Apply(w, screen, virtualDesktop, workspace.Options));
                     return true;
                 }
-                else return false;
+                else
+                {
+                    statusHandler(StatusLevel.Error, "Restoration failed");
+                    return false;
+                }
             }
-            else return true;
+            else
+            {
+                statusHandler(StatusLevel.Info, "Found no matching window");
+                return true;
+            }
         }
 
         public bool RecordPosition(Workspace workspace, Layout layout)
@@ -65,10 +98,21 @@ namespace Mastersign.WinMan
             return false;
         }
 
-        public int Kill(Workspace workspace)
+        public int Kill(Workspace workspace, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
-            if (windowPattern == null) return 0;
+            if (windowPattern == null)
+            {
+                statusHandler(StatusLevel.Error, $"Window pattern '{Window}' not found.");
+                return 0;
+            }
+
+            var matches = new List<Tuple<string, int>>();
+            windowPattern = windowPattern.DeriveWithStringReplacements(stringReplacements, matches);
+            foreach (var match in matches)
+            {
+                statusHandler(StatusLevel.Info, $"Replaced string {match.Item1} {match.Item2} times");
+            }
 
             var windowWrappers = windowPattern.Discover();
             foreach (var w in windowWrappers)
@@ -85,7 +129,8 @@ namespace Mastersign.WinMan
                 ? commandArgs
                 : CommandArgsMetaPattern.Replace(commandArgs, "^$&");
 
-        private static bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers, int defaultTimeout)
+        private static bool TryRestoreWindow(WindowPattern windowPattern, ref WindowWrapper[] windowWrappers,
+            int defaultTimeout, StatusHandler statusHandler)
         {
             // Escaping the command line arguments is necessary, because the arguments are passed to and therefore interpreted by CMD
             var commandArgs = EscapeCommandLineArguments(windowPattern.CommandArgs);
@@ -94,12 +139,14 @@ namespace Mastersign.WinMan
                 ProcessStartInfo startInfo;
                 if (windowPattern.ModernApp)
                 {
+                    statusHandler(StatusLevel.Info, $"Starting modern app with: explorer shell:appsFolder\\{windowPattern.AppId}");
                     startInfo = new ProcessStartInfo("explorer.exe",
                         @"shell:appsFolder\" + windowPattern.AppId);
                     startInfo.UseShellExecute = false;
                 }
                 else
                 {
+                    statusHandler(StatusLevel.Info, $"Starting program with: \"{windowPattern.Command}\" {windowPattern.CommandArgs}");
                     startInfo = new ProcessStartInfo("cmd",
                         $"/C START \"WinMan Starter - {windowPattern.Name}\" \"{windowPattern.Command}\" {commandArgs}");
                     startInfo.UseShellExecute = false;
@@ -125,8 +172,9 @@ namespace Mastersign.WinMan
                 } while (windowWrappers.Length == 0 && DateTime.Now < tCancel);
                 return windowWrappers.Length > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                statusHandler(StatusLevel.Error, "Error while starting program: " + ex.Message);
                 return false;
             }
         }

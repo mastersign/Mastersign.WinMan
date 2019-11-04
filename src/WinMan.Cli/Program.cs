@@ -34,7 +34,14 @@ namespace Mastersign.WinMan.Cli
                     startInfo.IsTargetingSpecificLayouts,
                     startInfo.TargetLayouts,
                     startInfo.IncludeDefaultLayouts,
+                    startInfo.StringReplacements,
                     startInfo.StartMode.HasFlag(StartMode.Kill));
+            }
+            if (_errorCnt > 0 && startInfo.WaitForInteractionWhenError)
+            {
+                Console.Write("Press any key to continue...");
+                Console.ReadKey();
+                Console.WriteLine();
             }
             return success ? 0 : -1;
         }
@@ -103,6 +110,9 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine("  -V, --verbose");
             Console.WriteLine("      Print progress messages.");
             Console.WriteLine();
+            Console.WriteLine("  -w, --wait-on-error");
+            Console.WriteLine("      Prompts for pressing a key before exit, if an error occured.");
+            Console.WriteLine();
             Console.WriteLine("  -svd, --switch-virtual-desktop <no>");
             Console.WriteLine("      Switch to the specified virtual desktop before applying the workspace.");
             Console.WriteLine();
@@ -111,6 +121,10 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine();
             Console.WriteLine("  -d, --default-layouts");
             Console.WriteLine("      Target the default layouts when applying the workspace.");
+            Console.WriteLine();
+            Console.WriteLine("  -r, --replace <search> <replacement>");
+            Console.WriteLine("      Replace a string in the properties of window patterns.");
+            Console.WriteLine("      This option can be used multiple times.");
             Console.WriteLine();
             Console.WriteLine("  -K, --kill");
             Console.WriteLine("      Instead of restoring windows, close matching windows.");
@@ -144,6 +158,7 @@ namespace Mastersign.WinMan.Cli
 
         private static bool ApplyWorkspace(string workspaceFile,
             bool specificLayouts, string[] layoutNames, bool includeDefaultLayout,
+            StringReplacement[] stringReplacements,
             bool kill)
         {
             if (!File.Exists(workspaceFile))
@@ -174,9 +189,9 @@ namespace Mastersign.WinMan.Cli
                 PrintVerbose((kill ? "Killing" : "Applying") + " all default layouts:");
                 foreach (var l in core.Workspace.DefaultLayouts.Where(IsMatch)) PrintVerbose("- {0}", l.Name);
                 if (kill)
-                    core.KillWorkspace();
+                    core.KillWorkspace(PrintStatus, stringReplacements);
                 else
-                    core.ApplyWorkspace();
+                    core.ApplyWorkspace(PrintStatus, stringReplacements);
                 PrintVerbose("Finished.");
                 return true;
             }
@@ -218,12 +233,12 @@ namespace Mastersign.WinMan.Cli
                     PrintVerbose($"- {layout.Configuration}: {layout.Name}");
                     if (kill)
                     {
-                        var cnt = layout.Kill(core.Workspace);
+                        var cnt = layout.Kill(core.Workspace, PrintStatus, stringReplacements);
                         PrintVerbose($"    Closed windows: {cnt}");
                     }
                     else
                     {
-                        if (!layout.Apply(core.Workspace))
+                        if (!layout.Apply(core.Workspace, PrintStatus, stringReplacements))
                         {
                             PrintVerbose("    Failed");
                             result = false;

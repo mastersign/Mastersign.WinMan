@@ -59,8 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rect.cs" />
     <Compile Include="ScreenPattern.cs" />
+    <Compile Include="StatusHandler.cs" />
     <Compile Include="StringJsonConverter.cs" />
     <Compile Include="StringMatching.cs" />
+    <Compile Include="StringReplacement.cs" />
     <Compile Include="vendor\VirtualDesktop\ApplicationHelper.cs" />
     <Compile Include="vendor\VirtualDesktop\Internal\Disposable.cs" />
     <Compile Include="vendor\VirtualDesktop\Internal\RawWindow.cs" />
