@@ -1,0 +1,6 @@
+..\src\icon\winman_all.ico
+..\src\icon\winman_all_kill.ico
+..\src\icon\winman_layout.ico
+..\src\icon\winman_layout_kill.ico
+..\src\icon\winman_window.ico
+..\src\icon\winman_window_kill.ico
