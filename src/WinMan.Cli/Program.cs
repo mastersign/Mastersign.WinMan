@@ -47,6 +47,30 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine(format, args);
         }
 
+        private static int _errorCnt;
+
+        private static void PrintError(string format, params object[] args)
+        {
+            _errorCnt++;
+            var colorBackup = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Error.WriteLine(format, args);
+            Console.ForegroundColor = colorBackup;
+        }
+
+        private static void PrintStatus(StatusLevel level, string message)
+        {
+            switch (level)
+            {
+                case StatusLevel.Info:
+                    PrintVerbose("    " + message);
+                    break;
+                case StatusLevel.Error:
+                    PrintError("    " + message);
+                    break;
+            }
+        }
+
         private static void PrintVersionInfo()
         {
             var libVersion = typeof(Core).Assembly.GetName().Version.ToString(3);
@@ -97,7 +121,7 @@ namespace Mastersign.WinMan.Cli
             var vd = VirtualDesktopHelper.GetVirtualDesktop(targetVirtualDesktop - 1);
             if (vd == null)
             {
-                Console.Error.WriteLine($"Could not find the virtual desktop {targetVirtualDesktop}.");
+                PrintError($"Could not find the virtual desktop {targetVirtualDesktop}.");
                 return false;
             }
             PrintVerbose("Switching to desktop {0}...", targetVirtualDesktop);
@@ -108,9 +132,9 @@ namespace Mastersign.WinMan.Cli
             catch (Exception e)
             {
 #if DEBUG
-                Console.Error.WriteLine(e);
+                PrintError(e.ToString());
 #else
-                Console.Error.WriteLine(e.Message);
+                PrintError(e.Message);
 #endif
                 return false;
             }
@@ -124,7 +148,7 @@ namespace Mastersign.WinMan.Cli
         {
             if (!File.Exists(workspaceFile))
             {
-                Console.Error.WriteLine($"The workspace file '{workspaceFile}' does not exist.");
+                PrintError($"The workspace file '{workspaceFile}' does not exist.");
                 return false;
             }
             PrintVerbose("Loading workspace file:");
@@ -133,7 +157,7 @@ namespace Mastersign.WinMan.Cli
             core.LoadWorkspaceFromFile(workspaceFile);
             if (core.Workspace == null)
             {
-                Console.Error.WriteLine($"Failed to load the workspace file '{workspaceFile}'.");
+                PrintError($"Failed to load the workspace file '{workspaceFile}'.");
                 return false;
             }
             Core.DefaultCore = core;
@@ -184,28 +208,29 @@ namespace Mastersign.WinMan.Cli
                     }
                     if (!found)
                     {
-                        Console.Error.WriteLine($"Could not find layout '{layoutName}'.");
+                        PrintError($"Could not find layout '{layoutName}'.");
                         result = false;
                     }
                 }
                 PrintVerbose((kill ? "Killing" : "Applying") + " layouts:");
                 foreach (var layout in layouts)
                 {
+                    PrintVerbose($"- {layout.Configuration}: {layout.Name}");
                     if (kill)
                     {
                         var cnt = layout.Kill(core.Workspace);
-                        PrintVerbose("- {0}: {1} ({2})", layout.Configuration, layout.Name, cnt);
+                        PrintVerbose($"    Closed windows: {cnt}");
                     }
                     else
                     {
                         if (!layout.Apply(core.Workspace))
                         {
-                            PrintVerbose("- {0}: {1} (failed)", layout.Configuration, layout.Name);
+                            PrintVerbose("    Failed");
                             result = false;
                         }
                         else
                         {
-                            PrintVerbose("- {0}: {1}", layout.Configuration, layout.Name);
+                            PrintVerbose("    Succeeded");
                         }
                     }
                 }
@@ -213,6 +238,5 @@ namespace Mastersign.WinMan.Cli
                 return result;
             }
         }
-
     }
 }
