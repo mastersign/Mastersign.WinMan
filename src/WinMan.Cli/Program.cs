@@ -76,6 +76,9 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine("  -v, --version");
             Console.WriteLine("      Prints version information. Ignores all other options.");
             Console.WriteLine();
+            Console.WriteLine("  -V, --verbose");
+            Console.WriteLine("      Print progress messages.");
+            Console.WriteLine();
             Console.WriteLine("  -svd, --switch-virtual-desktop <no>");
             Console.WriteLine("      Switch to the specified virtual desktop before applying the workspace.");
             Console.WriteLine();
