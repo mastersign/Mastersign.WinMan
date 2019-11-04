@@ -21,19 +21,19 @@ namespace Mastersign.WinMan
         [JsonIgnore]
         public Layout[] DefaultLayouts => Layouts.Where(l => l.DefaultLayout).ToArray();
 
-        public void Apply()
+        public void Apply(StatusHandler statusHandler, StringReplacement[] stringReplacements)
         {
             foreach (var layout in DefaultLayouts)
             {
-                layout.Apply(this);
+                layout.Apply(this, statusHandler, stringReplacements);
             }
         }
 
-        public void Kill()
+        public void Kill(StatusHandler statusHandler, StringReplacement[] stringReplacements)
         {
             foreach (var layout in DefaultLayouts)
             {
-                layout.Kill(this);
+                layout.Kill(this, statusHandler, stringReplacements);
             }
         }
 

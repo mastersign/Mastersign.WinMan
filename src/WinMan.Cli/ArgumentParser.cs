@@ -13,9 +13,11 @@ namespace Mastersign.WinMan.Cli
             var startMode = StartMode.None;
             var workspaceFile = Core.DefaultWorkspaceFilePath;
             var verbose = false;
+            var waitForInteractionWhenError = false;
             var layoutNames = new List<string>();
             var includeDefaultLayouts = false;
             var targetVirtualDesktop = 0;
+            var stringReplacements = new List<StringReplacement>();
 
             for (var i = 0; i < argv.Length; i++)
             {
@@ -33,6 +35,10 @@ namespace Mastersign.WinMan.Cli
                 if (arg == "-V" || arg == "--verbose")
                 {
                     verbose = true;
+                }
+                else if (arg == "-w" || arg == "--wait-on-error")
+                {
+                    waitForInteractionWhenError = true;
                 }
                 else if (arg == "-K" || arg == "--kill")
                 {
@@ -64,6 +70,18 @@ namespace Mastersign.WinMan.Cli
                         }
                     }
                 }
+                else if (arg == "-r" || arg == "--replace")
+                {
+                    if (i + 2 < argv.Length)
+                    {
+                        stringReplacements.Add(new StringReplacement(argv[i + 1], argv[i + 2]));
+                        i += 2;
+                    }
+                    else
+                    {
+                        i = argv.Length;
+                    }
+                }
             }
 
             if (startMode == StartMode.None)
@@ -75,9 +93,11 @@ namespace Mastersign.WinMan.Cli
                 startMode,
                 workspaceFile,
                 verbose,
+                waitForInteractionWhenError,
                 layoutNames.ToArray(),
                 includeDefaultLayouts,
-                targetVirtualDesktop);
+                targetVirtualDesktop,
+                stringReplacements.ToArray());
         }
     }
 }

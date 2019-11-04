@@ -364,13 +364,13 @@ namespace Mastersign.WinMan.Gui
         private void ApplyWorkspaceHandler(object sender, EventArgs e)
         {
             if (!HasCore) return;
-            Core.ApplyWorkspace();
+            Core.ApplyWorkspace((l, m) => { });
         }
 
         private void KillWorkspaceHandler(object sender, EventArgs e)
         {
             if (!HasCore) return;
-            Core.KillWorkspace();
+            Core.KillWorkspace((l, m) => { });
         }
 
         #endregion
@@ -867,7 +867,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Apply(Core.Workspace);
+            selectedLayout.Apply(Core.Workspace, (l, m) => { });
         }
 
         private void KillCurrentLayoutHandler(object sender, EventArgs e)
@@ -877,7 +877,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Kill(Core.Workspace);
+            selectedLayout.Kill(Core.Workspace, (l, m) => { });
         }
 
         private void LayoutSelectionChangedHandler(object sender, EventArgs e)
@@ -1107,7 +1107,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Apply(Core.Workspace, selectedLayout);
+            selectedWindowAction.Apply(Core.Workspace, selectedLayout, (l, m) => { });
         }
 
         private void KillWindowActionHandler(object sender, EventArgs e)
@@ -1117,7 +1117,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Kill(Core.Workspace);
+            selectedWindowAction.Kill(Core.Workspace, (l, m) => { });
         }
 
         private void WindowActionSelectionChangedHandler(object sender, EventArgs e)

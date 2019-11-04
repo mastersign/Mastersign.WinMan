@@ -4,9 +4,14 @@ using System.Runtime.InteropServices;
 namespace WindowsDesktop.Interop
 {
 	[ComImport]
-	[Guid("1841c6d7-4f9d-42c0-af41-8747538f10e5")]
+#if WIN_10_1809
+    [Guid("1841c6d7-4f9d-42c0-af41-8747538f10e5")]
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-	public interface IApplicationViewCollection
+#else
+    [Guid("2c08adf0-a386-4b35-9250-0fe183476fcc")]
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+#endif
+    public interface IApplicationViewCollection
 	{
 		int GetViews(out IObjectArray array);
 
