@@ -82,6 +82,10 @@ namespace Mastersign.WinMan.Cli
                         i = argv.Length;
                     }
                 }
+                else
+                {
+                    workspaceFile = arg;
+                }
             }
 
             if (startMode == StartMode.None)
