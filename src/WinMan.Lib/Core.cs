@@ -42,6 +42,7 @@ namespace Mastersign.WinMan
         public void LoadWorkspaceFromFile(string fileName = null)
         {
             fileName = fileName ?? _workspaceFileName ?? DefaultWorkspaceFilePath;
+            fileName = Path.GetFullPath(fileName);
             if (!File.Exists(fileName))
             {
                 Workspace = new Workspace
@@ -85,12 +86,12 @@ namespace Mastersign.WinMan
 
         public void WriteWorkspaceToFile(string fileName = null)
         {
-            fileName = fileName ?? DefaultWorkspaceFilePath;
+            fileName = fileName ?? WorkspaceFileName ?? DefaultWorkspaceFilePath;
             File.WriteAllText(fileName,
                 JsonConvert.SerializeObject(_workspace, CreateJsonSerializerSettings()),
                 new UTF8Encoding(false));
-            WorkspaceFileName = fileName;
             Workspace.AcceptChanges();
+            WorkspaceFileName = fileName;
         }
 
         public bool ShowSaveWorkspaceFileDialog(IWin32Window owner, string title)
