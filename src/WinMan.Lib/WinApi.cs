@@ -13,10 +13,10 @@ namespace Mastersign.WinMan
         public const int WM_GETTEXTLENGTH = 0x000E;
         public const uint WM_CLOSE = 0x0010;
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int RegisterWindowMessage(string lpString);
 
-        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SendMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
 
@@ -26,7 +26,7 @@ namespace Mastersign.WinMan
         [DllImport("user32.Dll")]
         public static extern int PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
-        [DllImport("user32.dll", SetLastError = true)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
@@ -49,7 +49,7 @@ namespace Mastersign.WinMan
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindowVisible(IntPtr hWnd);
 
-        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -71,12 +71,14 @@ namespace Mastersign.WinMan
         private delegate bool EnumWindowStationsDelegate(string windowsStation, IntPtr lParam);
     }
 
+    [Serializable]
     public struct POINT
     {
         public int x;
         public int y;
     }
 
+    [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
     {
