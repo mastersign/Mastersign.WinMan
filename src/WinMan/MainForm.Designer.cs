@@ -2817,6 +2817,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WinMan";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClosingHandler);
             this.Load += new System.EventHandler(this.FormLoadHandler);
