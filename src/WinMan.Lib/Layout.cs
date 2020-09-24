@@ -18,7 +18,7 @@ namespace Mastersign.WinMan
             return configurationPattern.IsMatch(screens, virtualDesktopCount);
         }
 
-        public bool Apply(Workspace workspace, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public bool Apply(Workspace workspace, StatusHandler statusHandler, ApplyOverrides overrides)
         {
             var screens = Screen.AllScreens;
             var vdCount = VirtualDesktop.GetDesktops().Length;
@@ -30,17 +30,17 @@ namespace Mastersign.WinMan
             var success = true;
             foreach (var windowAction in Windows)
             {
-                if (!windowAction.Apply(workspace, this, statusHandler, stringReplacements)) success = false;
+                if (!windowAction.Apply(workspace, this, statusHandler, overrides)) success = false;
             }
             return success;
         }
 
-        public int Kill(Workspace workspace, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public int Kill(Workspace workspace, StatusHandler statusHandler, KillOverrides overrides)
         {
             var cnt = 0;
             foreach (var windowAction in Windows)
             {
-                cnt += windowAction.Kill(workspace, statusHandler, stringReplacements);
+                cnt += windowAction.Kill(workspace, statusHandler, overrides);
             }
             return cnt;
         }

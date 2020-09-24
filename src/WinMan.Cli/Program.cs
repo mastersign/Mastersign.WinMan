@@ -35,6 +35,7 @@ namespace Mastersign.WinMan.Cli
                     startInfo.TargetLayouts,
                     startInfo.IncludeDefaultLayouts,
                     startInfo.StringReplacements,
+                    startInfo.VirtualDesktopOverride,
                     startInfo.StartMode.HasFlag(StartMode.Kill));
             }
             if (_errorCnt > 0 && startInfo.WaitForInteractionWhenError)
@@ -113,8 +114,11 @@ namespace Mastersign.WinMan.Cli
             Console.WriteLine("  -w, --wait-on-error");
             Console.WriteLine("      Prompts for pressing a key before exit, if an error occured.");
             Console.WriteLine();
-            Console.WriteLine("  -svd, --switch-virtual-desktop <no>");
+            Console.WriteLine("  -s, -svd, --switch-virtual-desktop <no>");
             Console.WriteLine("      Switch to the specified virtual desktop before applying the workspace.");
+            Console.WriteLine();
+            Console.WriteLine("  -o, -ovd, --override-virtual-desktop <no>");
+            Console.WriteLine("      Overrides the virtual desktop of all targeted layouts.");
             Console.WriteLine();
             Console.WriteLine("  -l, --layouts <layout-name>*");
             Console.WriteLine("      Target a specific set of layouts when applying the workspace.");
@@ -158,7 +162,7 @@ namespace Mastersign.WinMan.Cli
 
         private static bool ApplyWorkspace(string workspaceFile,
             bool specificLayouts, string[] layoutNames, bool includeDefaultLayout,
-            StringReplacement[] stringReplacements,
+            StringReplacement[] stringReplacements, int? virtualDesktopOverride,
             bool kill)
         {
             if (!File.Exists(workspaceFile))
@@ -189,9 +193,13 @@ namespace Mastersign.WinMan.Cli
                 PrintVerbose((kill ? "Killing" : "Applying") + " all default layouts:");
                 foreach (var l in core.Workspace.DefaultLayouts.Where(IsMatch)) PrintVerbose("- {0}", l.Name);
                 if (kill)
-                    core.KillWorkspace(PrintStatus, stringReplacements);
+                    core.KillWorkspace(PrintStatus, new KillOverrides(stringReplacements));
                 else
-                    core.ApplyWorkspace(PrintStatus, stringReplacements);
+                {
+                    if (virtualDesktopOverride.HasValue)
+                        PrintVerbose("Overriding default virtual desktop: " + virtualDesktopOverride.Value);
+                    core.ApplyWorkspace(PrintStatus, new ApplyOverrides(stringReplacements, virtualDesktopOverride));
+                }
                 PrintVerbose("Finished.");
                 return true;
             }
@@ -233,12 +241,12 @@ namespace Mastersign.WinMan.Cli
                     PrintVerbose($"- {layout.Configuration}: {layout.Name}");
                     if (kill)
                     {
-                        var cnt = layout.Kill(core.Workspace, PrintStatus, stringReplacements);
+                        var cnt = layout.Kill(core.Workspace, PrintStatus, new KillOverrides(stringReplacements));
                         PrintVerbose($"    Closed windows: {cnt}");
                     }
                     else
                     {
-                        if (!layout.Apply(core.Workspace, PrintStatus, stringReplacements))
+                        if (!layout.Apply(core.Workspace, PrintStatus, new ApplyOverrides(stringReplacements, virtualDesktopOverride)))
                         {
                             PrintVerbose("    Failed");
                             result = false;

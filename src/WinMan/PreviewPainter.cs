@@ -233,7 +233,7 @@ namespace Mastersign.WinMan.Gui
             foreach (var a in l.Windows)
             {
                 if (a == selectedWindowAction) continue;
-                if (a.GetVirtualDesktop(l) != selectedWindowAction.GetVirtualDesktop(l)) continue;
+                if (a.GetVirtualDesktopNo(l) != selectedWindowAction.GetVirtualDesktopNo(l)) continue;
                 PaintWindowAction(g, c, a, false);
             }
             PaintWindowAction(g, c, selectedWindowAction, true);

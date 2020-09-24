@@ -16,6 +16,7 @@ namespace Mastersign.WinMan.Cli
             var waitForInteractionWhenError = false;
             var layoutNames = new List<string>();
             var includeDefaultLayouts = false;
+            var virtualDesktopOverride = (int?)null;
             var targetVirtualDesktop = 0;
             var stringReplacements = new List<StringReplacement>();
 
@@ -59,7 +60,18 @@ namespace Mastersign.WinMan.Cli
                     }
                     i--;
                 }
-                else if (arg == "-svd" || arg == "--switch-virtual-desktop")
+                else if (arg == "-o" || arg == "-ovd" || arg == "--override-virtual-desktop")
+                {
+                    i++;
+                    if (i < argv.Length && !argv[i].StartsWith("-"))
+                    {
+                        if (int.TryParse(argv[i], out int vdOverrideValue))
+                        {
+                            virtualDesktopOverride = vdOverrideValue;
+                        }
+                    }
+                }
+                else if (arg == "-s" || arg == "-svd" || arg == "--switch-virtual-desktop")
                 {
                     i++;
                     if (i < argv.Length && !argv[i].StartsWith("-"))
@@ -100,6 +112,7 @@ namespace Mastersign.WinMan.Cli
                 waitForInteractionWhenError,
                 layoutNames.ToArray(),
                 includeDefaultLayouts,
+                virtualDesktopOverride,
                 targetVirtualDesktop,
                 stringReplacements.ToArray());
         }

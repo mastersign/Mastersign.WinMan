@@ -17,10 +17,14 @@ namespace Mastersign.WinMan
     {
         public const int RESTORE_CHECK_INTERVAL_MS = 500;
 
-        public int GetVirtualDesktop(Layout layout)
-            => OverrideVirtualDesktop ? VirtualDesktop : layout.DefaultVirtualDesktop;
+        public int GetVirtualDesktopNo(Layout layout, int? virtualDesktopOverride = null)
+            => OverrideVirtualDesktop
+                ? VirtualDesktop
+                : virtualDesktopOverride.HasValue
+                    ? virtualDesktopOverride.Value
+                    : layout.DefaultVirtualDesktop;
 
-        public bool Apply(Workspace workspace, Layout layout, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public bool Apply(Workspace workspace, Layout layout, StatusHandler statusHandler, ApplyOverrides overrides)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
             if (windowPattern == null)
@@ -40,7 +44,8 @@ namespace Mastersign.WinMan
                 statusHandler(StatusLevel.Error, $"Screen pattern '{Screen}' not found.");
                 return false;
             }
-            var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(GetVirtualDesktop(layout) - 1);
+            var virtualDesktopNo = GetVirtualDesktopNo(layout, overrides.VirtualDesktopNo);
+            var virtualDesktop = VirtualDesktopHelper.GetVirtualDesktop(virtualDesktopNo - 1);
             if (virtualDesktop == null)
             {
                 statusHandler(StatusLevel.Error, "Virtal desktop not found.");
@@ -48,10 +53,10 @@ namespace Mastersign.WinMan
             }
 
             var matches = new List<Tuple<string, int>>();
-            windowPattern = windowPattern.DeriveWithStringReplacements(stringReplacements, matches);
+            windowPattern = windowPattern.DeriveWithStringReplacements(overrides.StringReplacements, matches);
             foreach (var match in matches)
             {
-                statusHandler(StatusLevel.Info, $"Replaced '{match.Item1}' -> '{stringReplacements.First(sr => sr.Pattern == match.Item1).Replacement}' {match.Item2} times");
+                statusHandler(StatusLevel.Info, $"Replaced '{match.Item1}' -> '{overrides.StringReplacements.First(sr => sr.Pattern == match.Item1).Replacement}' {match.Item2} times");
             }
 
             var windowWrappers = windowPattern.Discover();
@@ -98,7 +103,7 @@ namespace Mastersign.WinMan
             return false;
         }
 
-        public int Kill(Workspace workspace, StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public int Kill(Workspace workspace, StatusHandler statusHandler, KillOverrides overrides)
         {
             var windowPattern = workspace.FindWindowPattern(Window);
             if (windowPattern == null)
@@ -108,7 +113,7 @@ namespace Mastersign.WinMan
             }
 
             var matches = new List<Tuple<string, int>>();
-            windowPattern = windowPattern.DeriveWithStringReplacements(stringReplacements, matches);
+            windowPattern = windowPattern.DeriveWithStringReplacements(overrides.StringReplacements, matches);
             foreach (var match in matches)
             {
                 statusHandler(StatusLevel.Info, $"Replaced string {match.Item1} {match.Item2} times");

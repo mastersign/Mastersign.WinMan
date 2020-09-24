@@ -62,17 +62,17 @@ namespace Mastersign.WinMan
                     ApplyFixes(child, c is TableLayoutPanel || c is FlowLayoutPanel);
                 }
             }
-            if (c is TabControl)
+            if (c is TabControl tabControl)
             {
-                foreach (Control page in ((TabControl)c).TabPages)
+                foreach (Control page in tabControl.TabPages)
                 {
                     ApplyFixes(page, false);
                 }
             }
-            if (c is SplitContainer)
+            if (c is SplitContainer splitContainer)
             {
-                ApplyFixes(((SplitContainer)c).Panel1, false);
-                ApplyFixes(((SplitContainer)c).Panel2, false);
+                ApplyFixes(splitContainer.Panel1, false);
+                ApplyFixes(splitContainer.Panel2, false);
             }
             if (inLayoutContainer &&
                 c is TextBox ||
@@ -83,9 +83,9 @@ namespace Mastersign.WinMan
                 c.Margin = TableTextBoxMargin;
             }
             if (inLayoutContainer &&
-                c is Button)
+                c is Button button)
             {
-                ((Button)c).AutoSize = true;
+                button.AutoSize = true;
             }
         }
 

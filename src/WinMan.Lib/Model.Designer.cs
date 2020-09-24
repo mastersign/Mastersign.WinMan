@@ -9,7 +9,7 @@ namespace Mastersign.WinMan
 {
     #region Scaleton Model Designer generated code
     
-    // Scaleton Version: 0.2.7
+    // Scaleton Version: 0.3.0
     
     public enum StringPatternType
     {
@@ -2156,6 +2156,7 @@ namespace Mastersign.WinMan
             this._name = DEF_NAME;
             this._defaultLayout = DEF_DEFAULTLAYOUT;
             this._defaultVirtualDesktop = DEF_DEFAULTVIRTUALDESKTOP;
+            this._createShortcut = DEF_CREATESHORTCUT;
             this._windows = new BindingList<WindowAction>();
             
             this.IsChanged = false;
@@ -2390,6 +2391,42 @@ namespace Mastersign.WinMan
         
         #endregion
         
+        #region Property CreateShortcut
+        
+        private bool _createShortcut;
+        
+        public event EventHandler CreateShortcutChanged;
+        
+        protected virtual void OnCreateShortcutChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = CreateShortcutChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"CreateShortcut");
+        }
+        
+        private const bool DEF_CREATESHORTCUT = true;
+        
+        [DefaultValue(DEF_CREATESHORTCUT)]
+        public virtual bool CreateShortcut
+        {
+            get { return _createShortcut; }
+            set
+            {
+                if ((value == _createShortcut))
+                {
+                    return;
+                }
+                _createShortcut = value;
+                this.OnCreateShortcutChanged();
+            }
+        }
+        
+        #endregion
+        
         #region Property Windows
         
         private BindingList<WindowAction> _windows;
@@ -2442,6 +2479,9 @@ namespace Mastersign.WinMan
         public Options()
         {
             this._restorationTimeout = DEF_RESTORATIONTIMEOUT;
+            this._shortcutDirectory = DEF_SHORTCUTDIRECTORY;
+            this._shortcutApplyTerm = DEF_SHORTCUTAPPLYTERM;
+            this._shortcutKillTerm = DEF_SHORTCUTKILLTERM;
             
             this.IsChanged = false;
         }
@@ -2579,6 +2619,180 @@ namespace Mastersign.WinMan
                 }
                 _restorationTimeout = value;
                 this.OnRestorationTimeoutChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property ShortcutDirectory
+        
+        private string _shortcutDirectory;
+        
+        public event EventHandler ShortcutDirectoryChanged;
+        
+        protected virtual void OnShortcutDirectoryChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = ShortcutDirectoryChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"ShortcutDirectory");
+        }
+        
+        private const string DEF_SHORTCUTDIRECTORY = @"WinMan Layouts";
+        
+        [DefaultValue(DEF_SHORTCUTDIRECTORY)]
+        public virtual string ShortcutDirectory
+        {
+            get { return _shortcutDirectory; }
+            set
+            {
+                if (string.Equals(value, _shortcutDirectory))
+                {
+                    return;
+                }
+                _shortcutDirectory = value;
+                this.OnShortcutDirectoryChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property CreateShortcuts
+        
+        private bool _createShortcuts;
+        
+        public event EventHandler CreateShortcutsChanged;
+        
+        protected virtual void OnCreateShortcutsChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = CreateShortcutsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"CreateShortcuts");
+        }
+        
+        public virtual bool CreateShortcuts
+        {
+            get { return _createShortcuts; }
+            set
+            {
+                if ((value == _createShortcuts))
+                {
+                    return;
+                }
+                _createShortcuts = value;
+                this.OnCreateShortcutsChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property CleanUpShortcuts
+        
+        private bool _cleanUpShortcuts;
+        
+        public event EventHandler CleanUpShortcutsChanged;
+        
+        protected virtual void OnCleanUpShortcutsChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = CleanUpShortcutsChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"CleanUpShortcuts");
+        }
+        
+        public virtual bool CleanUpShortcuts
+        {
+            get { return _cleanUpShortcuts; }
+            set
+            {
+                if ((value == _cleanUpShortcuts))
+                {
+                    return;
+                }
+                _cleanUpShortcuts = value;
+                this.OnCleanUpShortcutsChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property ShortcutApplyTerm
+        
+        private string _shortcutApplyTerm;
+        
+        public event EventHandler ShortcutApplyTermChanged;
+        
+        protected virtual void OnShortcutApplyTermChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = ShortcutApplyTermChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"ShortcutApplyTerm");
+        }
+        
+        private const string DEF_SHORTCUTAPPLYTERM = @"apply";
+        
+        [DefaultValue(DEF_SHORTCUTAPPLYTERM)]
+        public virtual string ShortcutApplyTerm
+        {
+            get { return _shortcutApplyTerm; }
+            set
+            {
+                if (string.Equals(value, _shortcutApplyTerm))
+                {
+                    return;
+                }
+                _shortcutApplyTerm = value;
+                this.OnShortcutApplyTermChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property ShortcutKillTerm
+        
+        private string _shortcutKillTerm;
+        
+        public event EventHandler ShortcutKillTermChanged;
+        
+        protected virtual void OnShortcutKillTermChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = ShortcutKillTermChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"ShortcutKillTerm");
+        }
+        
+        private const string DEF_SHORTCUTKILLTERM = @"kill";
+        
+        [DefaultValue(DEF_SHORTCUTKILLTERM)]
+        public virtual string ShortcutKillTerm
+        {
+            get { return _shortcutKillTerm; }
+            set
+            {
+                if (string.Equals(value, _shortcutKillTerm))
+                {
+                    return;
+                }
+                _shortcutKillTerm = value;
+                this.OnShortcutKillTermChanged();
             }
         }
         

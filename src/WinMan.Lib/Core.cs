@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -92,6 +93,73 @@ namespace Mastersign.WinMan
                 new UTF8Encoding(false));
             Workspace.AcceptChanges();
             WorkspaceFileName = fileName;
+
+            var shortcutDir = Workspace.Options.ShortcutDirectory;
+            if (Workspace.Options.CreateShortcuts && !string.IsNullOrWhiteSpace(shortcutDir))
+            {
+                if (!Path.IsPathRooted(shortcutDir))
+                {
+                    shortcutDir = Path.Combine(Path.GetDirectoryName(WorkspaceFileName), shortcutDir);
+                }
+                if (!Directory.Exists(shortcutDir))
+                {
+                    Directory.CreateDirectory(shortcutDir);
+                }
+                WriteShortcuts(shortcutDir, Workspace.Options.CleanUpShortcuts);
+            }
+        }
+
+        private void WriteShortcuts(string targetDir, bool cleanUp)
+        {
+            if (!File.Exists(WorkspaceFileName)) return;
+            var assemlby = Assembly.GetEntryAssembly();
+            var exePath = new Uri(assemlby.GetName().CodeBase).LocalPath;
+            var winManExePath = Path.Combine(Path.GetDirectoryName(exePath), "winman.exe");
+            var winManGuiExePath = Path.Combine(Path.GetDirectoryName(exePath), "WinManGui.exe");
+
+            if (cleanUp)
+            {
+                foreach (var link in Directory.GetFiles(targetDir, "*.lnk", SearchOption.TopDirectoryOnly))
+                {
+                    File.Delete(Path.Combine(targetDir, link));
+                }
+            }
+
+            Shortcuts.Create(
+                Path.Combine(targetDir, $"All Defaults {Workspace.Options.ShortcutApplyTerm}.lnk"),
+                winManExePath,
+                $"\"{WorkspaceFileName}\" --verbose --default-layouts",
+                Path.GetDirectoryName(WorkspaceFileName),
+                $"{winManGuiExePath},1",
+                $"Apply all WinMan default layouts");
+
+            Shortcuts.Create(
+                Path.Combine(targetDir, $"All Defaults {Workspace.Options.ShortcutKillTerm}.lnk"),
+                winManExePath,
+                $"\"{WorkspaceFileName}\" --verbose --kill --default-layouts",
+                Path.GetDirectoryName(WorkspaceFileName),
+                $"{winManGuiExePath},2",
+                $"Kill all WinMan default layouts");
+
+            foreach (var layout in _workspace.Layouts)
+            {
+                if (!layout.CreateShortcut) continue;
+                Shortcuts.Create(
+                    Path.Combine(targetDir, $"{layout.Name} {Workspace.Options.ShortcutApplyTerm}.lnk"),
+                    winManExePath,
+                    $"\"{WorkspaceFileName}\" --verbose --switch-to-virtual-desktop {layout.DefaultVirtualDesktop} --layouts \"{layout.Name}\"",
+                    Path.GetDirectoryName(WorkspaceFileName),
+                    $"{winManGuiExePath},3",
+                    $"Apply WinMan layout \"{layout.Name}\"");
+
+                Shortcuts.Create(
+                    Path.Combine(targetDir, $"{layout.Name} {Workspace.Options.ShortcutKillTerm}.lnk"),
+                    winManExePath,
+                    $"\"{WorkspaceFileName}\" --verbose --switch-to-virtual-desktop {layout.DefaultVirtualDesktop} --kill --layouts \"{layout.Name}\"",
+                    Path.GetDirectoryName(WorkspaceFileName),
+                    $"{winManGuiExePath},4",
+                    $"Kill WinMan layout \"{layout.Name}\"");
+            }
         }
 
         public bool ShowSaveWorkspaceFileDialog(IWin32Window owner, string title)
@@ -128,18 +196,18 @@ namespace Mastersign.WinMan
             WorkspaceFileName = null;
         }
 
-        public void ApplyWorkspace(StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public void ApplyWorkspace(StatusHandler statusHandler, ApplyOverrides overrides)
         {
             if (Workspace == null) throw new InvalidOperationException("No workspace laoded.");
             WindowWrapper.ClearCaches();
-            Workspace.Apply(statusHandler, stringReplacements);
+            Workspace.Apply(statusHandler, overrides);
         }
 
-        public void KillWorkspace(StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public void KillWorkspace(StatusHandler statusHandler, KillOverrides overrides)
         {
             if (Workspace == null) throw new InvalidOperationException("No workspace laoded.");
             WindowWrapper.ClearCaches();
-            Workspace.Kill(statusHandler, stringReplacements);
+            Workspace.Kill(statusHandler, overrides);
         }
     }
 }
