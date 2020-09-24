@@ -14,11 +14,12 @@ Mastersign WinMan
 
 ## Requirements
 
-* Microsoft .NET Framework 4.6 or higher
-* Since v1.9.0 _WinMan_ requires Windows 10 1809
+* Since v1.11.0 _WinMan_ requires **Microsoft .NET Framework 4.7.2** or higher
+* Since v1.9.0 _WinMan_ requires **Windows 10 1809** or higher
 * Since v1.5.0 _WinMan_ requires Windows 10 1803
 * To use _WinMan_ on an earlier Windows 10 version
   download _WinMan_ v1.4.1
+* Microsoft .NET Framework 4.6 or higher
 
 ## Quick Introduction
 
