@@ -128,18 +128,18 @@ namespace Mastersign.WinMan
             WorkspaceFileName = null;
         }
 
-        public void ApplyWorkspace(StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public void ApplyWorkspace(StatusHandler statusHandler, ApplyOverrides overrides)
         {
             if (Workspace == null) throw new InvalidOperationException("No workspace laoded.");
             WindowWrapper.ClearCaches();
-            Workspace.Apply(statusHandler, stringReplacements);
+            Workspace.Apply(statusHandler, overrides);
         }
 
-        public void KillWorkspace(StatusHandler statusHandler, params StringReplacement[] stringReplacements)
+        public void KillWorkspace(StatusHandler statusHandler, KillOverrides overrides)
         {
             if (Workspace == null) throw new InvalidOperationException("No workspace laoded.");
             WindowWrapper.ClearCaches();
-            Workspace.Kill(statusHandler, stringReplacements);
+            Workspace.Kill(statusHandler, overrides);
         }
     }
 }

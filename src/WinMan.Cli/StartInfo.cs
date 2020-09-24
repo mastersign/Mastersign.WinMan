@@ -20,6 +20,8 @@ namespace Mastersign.WinMan
 
         public bool IncludeDefaultLayouts { get; }
 
+        public int? VirtualDesktopOverride { get; }
+
         public int TargetVirtualDesktop { get; }
 
         public StringReplacement[] StringReplacements { get; }
@@ -31,6 +33,7 @@ namespace Mastersign.WinMan
             bool waitForInteractionWhenError,
             string[] targetLayouts, 
             bool includeDefaultLayouts,
+            int? virtualDesktopOverride,
             int targetVirtualDesktop,
             StringReplacement[] stringReplacements
             )
@@ -41,6 +44,7 @@ namespace Mastersign.WinMan
             WaitForInteractionWhenError = waitForInteractionWhenError;
             TargetLayouts = targetLayouts;
             IncludeDefaultLayouts = includeDefaultLayouts;
+            VirtualDesktopOverride = virtualDesktopOverride;
             TargetVirtualDesktop = targetVirtualDesktop;
             StringReplacements = stringReplacements;
         }

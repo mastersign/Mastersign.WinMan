@@ -364,13 +364,13 @@ namespace Mastersign.WinMan.Gui
         private void ApplyWorkspaceHandler(object sender, EventArgs e)
         {
             if (!HasCore) return;
-            Core.ApplyWorkspace((l, m) => { });
+            Core.ApplyWorkspace((l, m) => { }, ApplyOverrides.None);
         }
 
         private void KillWorkspaceHandler(object sender, EventArgs e)
         {
             if (!HasCore) return;
-            Core.KillWorkspace((l, m) => { });
+            Core.KillWorkspace((l, m) => { }, KillOverrides.None);
         }
 
         #endregion
@@ -867,7 +867,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Apply(Core.Workspace, (l, m) => { });
+            selectedLayout.Apply(Core.Workspace, (l, m) => { }, ApplyOverrides.None);
         }
 
         private void KillCurrentLayoutHandler(object sender, EventArgs e)
@@ -877,7 +877,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Kill(Core.Workspace, (l, m) => { });
+            selectedLayout.Kill(Core.Workspace, (l, m) => { }, KillOverrides.None);
         }
 
         private void LayoutSelectionChangedHandler(object sender, EventArgs e)
@@ -1107,7 +1107,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Apply(Core.Workspace, selectedLayout, (l, m) => { });
+            selectedWindowAction.Apply(Core.Workspace, selectedLayout, (l, m) => { }, ApplyOverrides.None);
         }
 
         private void KillWindowActionHandler(object sender, EventArgs e)
@@ -1117,7 +1117,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Kill(Core.Workspace, (l, m) => { });
+            selectedWindowAction.Kill(Core.Workspace, (l, m) => { }, KillOverrides.None);
         }
 
         private void WindowActionSelectionChangedHandler(object sender, EventArgs e)
