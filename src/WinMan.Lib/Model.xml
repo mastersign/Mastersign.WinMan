@@ -169,6 +169,9 @@
       <Property name="DefaultVirtualDesktop" type="int">
         <DefaultValue>1</DefaultValue>
       </Property>
+      <Property name="CreateShortcut" type="bool">
+        <DefaultValue>true</DefaultValue>
+      </Property>
       <Property name="Windows" type="WindowAction" isCollection="true" />
     </Class>
 
@@ -176,6 +179,17 @@
       <Property name="OsWindowMargin" type="Margin" />
       <Property name="RestorationTimeout" type="int">
         <DefaultValue>30</DefaultValue>
+      </Property>
+      <Property name="ShortcutDirectory">
+        <DefaultValue>WinMan Layouts</DefaultValue>
+      </Property>
+      <Property name="CreateShortcuts" type="bool" />
+      <Property name="CleanUpShortcuts" type="bool" />
+      <Property name="ShortcutApplyTerm">
+        <DefaultValue>apply</DefaultValue>
+      </Property>
+      <Property name="ShortcutKillTerm">
+        <DefaultValue>kill</DefaultValue>
       </Property>
     </Class>
 

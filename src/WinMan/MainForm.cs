@@ -1294,11 +1294,13 @@ namespace Mastersign.WinMan.Gui
             _options.RestorationTimeoutChanged += RestorationTimeoutChangedHandler;
             numRestorationTimeout.ValueChanged += NumRestorationTimeoutValueChangedHandler;
             OsWindowMarginChangedHandler(_options, EventArgs.Empty);
+            RestorationTimeoutChangedHandler(_options, EventArgs.Empty);
         }
 
         private void ReleaseOptions()
         {
             if (_options == null) return;
+
             numRestorationTimeout.ValueChanged -= NumRestorationTimeoutValueChangedHandler;
             _options.RestorationTimeoutChanged -= RestorationTimeoutChangedHandler;
             numOsWindowMarginLeft.ValueChanged -= NumOsWindowMarginLeftValueChangedHandler;
@@ -1355,6 +1357,40 @@ namespace Mastersign.WinMan.Gui
         {
             if (_options == null) return;
             _options.RestorationTimeout = (int)numRestorationTimeout.Value;
+        }
+
+        private void BrowseShortcutDirectoryHandler(object sender, EventArgs e)
+        {
+            var workspaceDir = !string.IsNullOrWhiteSpace(_core.WorkspaceFileName)
+                ? Path.GetDirectoryName(_core.WorkspaceFileName)
+                : null;
+            var currentPath = txtShortcutDirectory.Text;
+            if (string.IsNullOrWhiteSpace(currentPath))
+            {
+                currentPath = "WinMan Shortcuts";
+            }
+            if (!Path.IsPathRooted(currentPath))
+            {
+                currentPath = Path.Combine(workspaceDir ?? Environment.CurrentDirectory, currentPath);
+            }
+            var dlg = new FolderBrowserDialog
+            {
+                Description = "Choose directory to create shortcuts in",
+                SelectedPath = Directory.Exists(currentPath) ? currentPath : Path.GetDirectoryName(currentPath),
+                ShowNewFolderButton = true,
+            };
+            if (dlg.ShowDialog(this) == DialogResult.OK)
+            {
+                currentPath = dlg.SelectedPath;
+                if (workspaceDir != null &&
+                    currentPath.ToLowerInvariant().StartsWith(
+                        workspaceDir.ToLowerInvariant()))
+                {
+                    currentPath = currentPath.Substring(workspaceDir.Length)
+                        .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                }
+                _options.ShortcutDirectory = currentPath;
+            }
         }
 
         #endregion
@@ -1420,6 +1456,5 @@ namespace Mastersign.WinMan.Gui
                 }
             }
         }
-
     }
 }
