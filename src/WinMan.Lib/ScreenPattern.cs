@@ -26,7 +26,7 @@ namespace Mastersign.WinMan
         }
 
         public bool IsMatch(Screen screen)
-            => (DeviceName == null || string.Equals(DeviceName, screen.DeviceName))
+            => (string.IsNullOrWhiteSpace(DeviceName) || string.Equals(DeviceName, screen.DeviceName))
                 && (!RespectPosition || (Bounds.X == screen.Bounds.X && Bounds.Y == screen.Bounds.Y))
                 && (!RespectSize || (Bounds.Width == screen.Bounds.Width && Bounds.Height == screen.Bounds.Height));
 
