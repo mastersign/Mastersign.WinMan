@@ -127,7 +127,7 @@ namespace Mastersign.WinMan
             return windowWrappers.Length;
         }
 
-        private static readonly Regex CommandArgsMetaPattern = new Regex("[()%!^\"<>&|;, ]", RegexOptions.Singleline);
+        private static readonly Regex CommandArgsMetaPattern = new Regex("[()!^\"<>&|;, ]", RegexOptions.Singleline);
 
         private static string EscapeCommandLineArguments(string commandArgs)
             => string.IsNullOrEmpty(commandArgs)
@@ -157,10 +157,12 @@ namespace Mastersign.WinMan
                     startInfo.UseShellExecute = false;
                     startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 }
-                if (!string.IsNullOrWhiteSpace(windowPattern.WorkingDir) &&
-                    Directory.Exists(windowPattern.WorkingDir))
+                var workingDir = !string.IsNullOrWhiteSpace(windowPattern.WorkingDir)
+                    ? Environment.ExpandEnvironmentVariables(windowPattern.WorkingDir)
+                    : null;
+                if (workingDir != null)
                 {
-                    startInfo.WorkingDirectory = Environment.ExpandEnvironmentVariables(windowPattern.WorkingDir);
+                    startInfo.WorkingDirectory = workingDir;
                 }
 
                 Process.Start(startInfo);
