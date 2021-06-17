@@ -160,7 +160,7 @@ namespace Mastersign.WinMan
                 if (!string.IsNullOrWhiteSpace(windowPattern.WorkingDir) &&
                     Directory.Exists(windowPattern.WorkingDir))
                 {
-                    startInfo.WorkingDirectory = windowPattern.WorkingDir;
+                    startInfo.WorkingDirectory = Environment.ExpandEnvironmentVariables(windowPattern.WorkingDir);
                 }
 
                 Process.Start(startInfo);
