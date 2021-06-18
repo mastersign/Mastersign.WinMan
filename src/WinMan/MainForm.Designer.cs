@@ -40,7 +40,6 @@
             System.Windows.Forms.TableLayoutPanel tblWindowActionActions;
             System.Windows.Forms.TableLayoutPanel tableLayoutOptions;
             System.Windows.Forms.Label lblRestorationCaption;
-            System.Windows.Forms.Label lblOsWindowMarginCaption;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.btnDeleteConfiguration = new System.Windows.Forms.Button();
             this.btnSortConfigurations = new System.Windows.Forms.Button();
@@ -146,7 +145,6 @@
             this.chkOverrideDefaultVirtualDesktop = new System.Windows.Forms.CheckBox();
             this.lblWindowActionsCaption = new System.Windows.Forms.Label();
             this.chkWindowActionBottomInvert = new System.Windows.Forms.CheckBox();
-            this.chkWindowActionCompensateOsMargin = new System.Windows.Forms.CheckBox();
             this.chkWindowActionRightInvert = new System.Windows.Forms.CheckBox();
             this.btnNewWindowAction = new System.Windows.Forms.Button();
             this.chkWindowActionTopInvert = new System.Windows.Forms.CheckBox();
@@ -182,15 +180,6 @@
             this.tableLayoutOptionsWindowRestore = new System.Windows.Forms.TableLayoutPanel();
             this.numRestorationTimeout = new System.Windows.Forms.NumericUpDown();
             this.lblRestorationTimeoutCaption = new System.Windows.Forms.Label();
-            this.tableLayoutOptionsOsMargins = new System.Windows.Forms.TableLayoutPanel();
-            this.numOsWindowMarginBottom = new System.Windows.Forms.NumericUpDown();
-            this.lblOsWindowMarginBottom = new System.Windows.Forms.Label();
-            this.numOsWindowMarginRight = new System.Windows.Forms.NumericUpDown();
-            this.lblOsWindowMarginRight = new System.Windows.Forms.Label();
-            this.numOsWindowMarginTop = new System.Windows.Forms.NumericUpDown();
-            this.lblOsWindowMarginTop = new System.Windows.Forms.Label();
-            this.numOsWindowMarginLeft = new System.Windows.Forms.NumericUpDown();
-            this.lblOsWindowMarginLeft = new System.Windows.Forms.Label();
             this.tableLayoutOptionsShortcuts = new System.Windows.Forms.TableLayoutPanel();
             this.txtShortcutKillVerb = new System.Windows.Forms.TextBox();
             this.optionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -237,7 +226,6 @@
             tblWindowActionActions = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutOptions = new System.Windows.Forms.TableLayoutPanel();
             lblRestorationCaption = new System.Windows.Forms.Label();
-            lblOsWindowMarginCaption = new System.Windows.Forms.Label();
             tableConfigurationPatterns.SuspendLayout();
             tableConfigurationPatternList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.configurationPatternsBindingSource)).BeginInit();
@@ -268,11 +256,6 @@
             tableLayoutOptions.SuspendLayout();
             this.tableLayoutOptionsWindowRestore.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRestorationTimeout)).BeginInit();
-            this.tableLayoutOptionsOsMargins.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginBottom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginRight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginTop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginLeft)).BeginInit();
             this.tableLayoutOptionsShortcuts.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optionsBindingSource)).BeginInit();
             this.tabMain.SuspendLayout();
@@ -1571,7 +1554,7 @@
             this.chkLayoutCreateShortcut.AutoSize = true;
             this.chkLayoutCreateShortcut.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "CreateShortcut", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLayoutCreateShortcut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkLayoutCreateShortcut.Location = new System.Drawing.Point(3, 476);
+            this.chkLayoutCreateShortcut.Location = new System.Drawing.Point(3, 479);
             this.chkLayoutCreateShortcut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkLayoutCreateShortcut.Name = "chkLayoutCreateShortcut";
             this.chkLayoutCreateShortcut.Size = new System.Drawing.Size(171, 20);
@@ -1691,7 +1674,7 @@
             this.chkLayoutIsDefaultLayout.AutoSize = true;
             this.chkLayoutIsDefaultLayout.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "DefaultLayout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLayoutIsDefaultLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 448);
+            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 451);
             this.chkLayoutIsDefaultLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
             this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(171, 20);
@@ -1702,7 +1685,7 @@
             // lblConfigurationPatternCaption
             // 
             this.lblConfigurationPatternCaption.AutoSize = true;
-            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 504);
+            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 507);
             this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
             this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(134, 16);
@@ -1714,7 +1697,7 @@
             this.cmbLayoutConfiguration.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Configuration", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbLayoutConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbLayoutConfiguration.FormattingEnabled = true;
-            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 528);
+            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 531);
             this.cmbLayoutConfiguration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
             this.cmbLayoutConfiguration.Size = new System.Drawing.Size(171, 24);
@@ -1731,7 +1714,7 @@
             this.listLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listLayouts.Name = "listLayouts";
             tableLayoutList.SetRowSpan(this.listLayouts, 6);
-            this.listLayouts.Size = new System.Drawing.Size(171, 344);
+            this.listLayouts.Size = new System.Drawing.Size(171, 347);
             this.listLayouts.TabIndex = 7;
             // 
             // lblLayoutDefaultVirtualDesktopCaption
@@ -1780,7 +1763,6 @@
             tableLayoutDetails.Controls.Add(this.chkOverrideDefaultVirtualDesktop, 5, 3);
             tableLayoutDetails.Controls.Add(this.lblWindowActionsCaption, 0, 0);
             tableLayoutDetails.Controls.Add(this.chkWindowActionBottomInvert, 5, 9);
-            tableLayoutDetails.Controls.Add(this.chkWindowActionCompensateOsMargin, 3, 10);
             tableLayoutDetails.Controls.Add(this.chkWindowActionRightInvert, 5, 8);
             tableLayoutDetails.Controls.Add(this.btnNewWindowAction, 0, 1);
             tableLayoutDetails.Controls.Add(this.chkWindowActionTopInvert, 5, 7);
@@ -1813,8 +1795,7 @@
             tableLayoutDetails.Location = new System.Drawing.Point(224, 251);
             tableLayoutDetails.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tableLayoutDetails.Name = "tableLayoutDetails";
-            tableLayoutDetails.RowCount = 12;
-            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutDetails.RowCount = 11;
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -1826,6 +1807,7 @@
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             tableLayoutDetails.Size = new System.Drawing.Size(740, 363);
             tableLayoutDetails.TabIndex = 2;
             // 
@@ -1887,20 +1869,6 @@
             this.chkWindowActionBottomInvert.TabIndex = 28;
             this.chkWindowActionBottomInvert.Text = "from Bottom";
             this.chkWindowActionBottomInvert.UseVisualStyleBackColor = true;
-            // 
-            // chkWindowActionCompensateOsMargin
-            // 
-            this.chkWindowActionCompensateOsMargin.AutoSize = true;
-            tableLayoutDetails.SetColumnSpan(this.chkWindowActionCompensateOsMargin, 2);
-            this.chkWindowActionCompensateOsMargin.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "CompensateOsMargin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkWindowActionCompensateOsMargin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkWindowActionCompensateOsMargin.Location = new System.Drawing.Point(363, 318);
-            this.chkWindowActionCompensateOsMargin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.chkWindowActionCompensateOsMargin.Name = "chkWindowActionCompensateOsMargin";
-            this.chkWindowActionCompensateOsMargin.Size = new System.Drawing.Size(204, 20);
-            this.chkWindowActionCompensateOsMargin.TabIndex = 29;
-            this.chkWindowActionCompensateOsMargin.Text = "Compensate OS Margin";
-            this.chkWindowActionCompensateOsMargin.UseVisualStyleBackColor = true;
             // 
             // chkWindowActionRightInvert
             // 
@@ -1965,7 +1933,7 @@
             this.listWindowAction.Location = new System.Drawing.Point(3, 68);
             this.listWindowAction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listWindowAction.Name = "listWindowAction";
-            tableLayoutDetails.SetRowSpan(this.listWindowAction, 10);
+            tableLayoutDetails.SetRowSpan(this.listWindowAction, 9);
             this.listWindowAction.Size = new System.Drawing.Size(190, 291);
             this.listWindowAction.TabIndex = 3;
             // 
@@ -2299,7 +2267,7 @@
             tblWindowActionActions.Margin = new System.Windows.Forms.Padding(0);
             tblWindowActionActions.Name = "tblWindowActionActions";
             tblWindowActionActions.RowCount = 6;
-            tableLayoutDetails.SetRowSpan(tblWindowActionActions, 10);
+            tableLayoutDetails.SetRowSpan(tblWindowActionActions, 9);
             tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tblWindowActionActions.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -2380,7 +2348,6 @@
             tableLayoutOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             tableLayoutOptions.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutOptions.Controls.Add(this.tableLayoutOptionsWindowRestore, 0, 0);
-            tableLayoutOptions.Controls.Add(this.tableLayoutOptionsOsMargins, 0, 1);
             tableLayoutOptions.Controls.Add(this.tableLayoutOptionsShortcuts, 1, 0);
             tableLayoutOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutOptions.Location = new System.Drawing.Point(3, 3);
@@ -2464,171 +2431,6 @@
             this.lblRestorationTimeoutCaption.TabIndex = 20;
             this.lblRestorationTimeoutCaption.Text = "Timeout (sec):";
             this.lblRestorationTimeoutCaption.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tableLayoutOptionsOsMargins
-            // 
-            this.tableLayoutOptionsOsMargins.AutoSize = true;
-            this.tableLayoutOptionsOsMargins.ColumnCount = 2;
-            this.tableLayoutOptionsOsMargins.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66F));
-            this.tableLayoutOptionsOsMargins.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.numOsWindowMarginBottom, 1, 4);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.lblOsWindowMarginBottom, 0, 4);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.numOsWindowMarginRight, 1, 3);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.lblOsWindowMarginRight, 0, 3);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.numOsWindowMarginTop, 1, 2);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.lblOsWindowMarginTop, 0, 2);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.numOsWindowMarginLeft, 1, 1);
-            this.tableLayoutOptionsOsMargins.Controls.Add(this.lblOsWindowMarginLeft, 0, 1);
-            this.tableLayoutOptionsOsMargins.Controls.Add(lblOsWindowMarginCaption, 0, 0);
-            this.tableLayoutOptionsOsMargins.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutOptionsOsMargins.Location = new System.Drawing.Point(3, 67);
-            this.tableLayoutOptionsOsMargins.Name = "tableLayoutOptionsOsMargins";
-            this.tableLayoutOptionsOsMargins.RowCount = 5;
-            this.tableLayoutOptionsOsMargins.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutOptionsOsMargins.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutOptionsOsMargins.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutOptionsOsMargins.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutOptionsOsMargins.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutOptionsOsMargins.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutOptionsOsMargins.Size = new System.Drawing.Size(276, 148);
-            this.tableLayoutOptionsOsMargins.TabIndex = 1;
-            // 
-            // numOsWindowMarginBottom
-            // 
-            this.numOsWindowMarginBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numOsWindowMarginBottom.Location = new System.Drawing.Point(185, 122);
-            this.numOsWindowMarginBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numOsWindowMarginBottom.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numOsWindowMarginBottom.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numOsWindowMarginBottom.Name = "numOsWindowMarginBottom";
-            this.numOsWindowMarginBottom.Size = new System.Drawing.Size(88, 22);
-            this.numOsWindowMarginBottom.TabIndex = 22;
-            // 
-            // lblOsWindowMarginBottom
-            // 
-            this.lblOsWindowMarginBottom.AutoSize = true;
-            this.lblOsWindowMarginBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOsWindowMarginBottom.Location = new System.Drawing.Point(3, 122);
-            this.lblOsWindowMarginBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lblOsWindowMarginBottom.Name = "lblOsWindowMarginBottom";
-            this.lblOsWindowMarginBottom.Size = new System.Drawing.Size(176, 22);
-            this.lblOsWindowMarginBottom.TabIndex = 21;
-            this.lblOsWindowMarginBottom.Text = "Bottom:";
-            this.lblOsWindowMarginBottom.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numOsWindowMarginRight
-            // 
-            this.numOsWindowMarginRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numOsWindowMarginRight.Location = new System.Drawing.Point(185, 92);
-            this.numOsWindowMarginRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numOsWindowMarginRight.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numOsWindowMarginRight.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numOsWindowMarginRight.Name = "numOsWindowMarginRight";
-            this.numOsWindowMarginRight.Size = new System.Drawing.Size(88, 22);
-            this.numOsWindowMarginRight.TabIndex = 20;
-            // 
-            // lblOsWindowMarginRight
-            // 
-            this.lblOsWindowMarginRight.AutoSize = true;
-            this.lblOsWindowMarginRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOsWindowMarginRight.Location = new System.Drawing.Point(3, 92);
-            this.lblOsWindowMarginRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lblOsWindowMarginRight.Name = "lblOsWindowMarginRight";
-            this.lblOsWindowMarginRight.Size = new System.Drawing.Size(176, 22);
-            this.lblOsWindowMarginRight.TabIndex = 19;
-            this.lblOsWindowMarginRight.Text = "Right:";
-            this.lblOsWindowMarginRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numOsWindowMarginTop
-            // 
-            this.numOsWindowMarginTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numOsWindowMarginTop.Location = new System.Drawing.Point(185, 62);
-            this.numOsWindowMarginTop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numOsWindowMarginTop.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numOsWindowMarginTop.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numOsWindowMarginTop.Name = "numOsWindowMarginTop";
-            this.numOsWindowMarginTop.Size = new System.Drawing.Size(88, 22);
-            this.numOsWindowMarginTop.TabIndex = 18;
-            // 
-            // lblOsWindowMarginTop
-            // 
-            this.lblOsWindowMarginTop.AutoSize = true;
-            this.lblOsWindowMarginTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOsWindowMarginTop.Location = new System.Drawing.Point(3, 62);
-            this.lblOsWindowMarginTop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lblOsWindowMarginTop.Name = "lblOsWindowMarginTop";
-            this.lblOsWindowMarginTop.Size = new System.Drawing.Size(176, 22);
-            this.lblOsWindowMarginTop.TabIndex = 17;
-            this.lblOsWindowMarginTop.Text = "Top:";
-            this.lblOsWindowMarginTop.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // numOsWindowMarginLeft
-            // 
-            this.numOsWindowMarginLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numOsWindowMarginLeft.Location = new System.Drawing.Point(185, 32);
-            this.numOsWindowMarginLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.numOsWindowMarginLeft.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numOsWindowMarginLeft.Minimum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            -2147483648});
-            this.numOsWindowMarginLeft.Name = "numOsWindowMarginLeft";
-            this.numOsWindowMarginLeft.Size = new System.Drawing.Size(88, 22);
-            this.numOsWindowMarginLeft.TabIndex = 16;
-            // 
-            // lblOsWindowMarginLeft
-            // 
-            this.lblOsWindowMarginLeft.AutoSize = true;
-            this.lblOsWindowMarginLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOsWindowMarginLeft.Location = new System.Drawing.Point(3, 32);
-            this.lblOsWindowMarginLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.lblOsWindowMarginLeft.Name = "lblOsWindowMarginLeft";
-            this.lblOsWindowMarginLeft.Size = new System.Drawing.Size(176, 22);
-            this.lblOsWindowMarginLeft.TabIndex = 3;
-            this.lblOsWindowMarginLeft.Text = "Left:";
-            this.lblOsWindowMarginLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblOsWindowMarginCaption
-            // 
-            lblOsWindowMarginCaption.AutoSize = true;
-            this.tableLayoutOptionsOsMargins.SetColumnSpan(lblOsWindowMarginCaption, 2);
-            lblOsWindowMarginCaption.Dock = System.Windows.Forms.DockStyle.Fill;
-            lblOsWindowMarginCaption.Location = new System.Drawing.Point(3, 4);
-            lblOsWindowMarginCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            lblOsWindowMarginCaption.Name = "lblOsWindowMarginCaption";
-            lblOsWindowMarginCaption.Padding = new System.Windows.Forms.Padding(0, 4, 0, 0);
-            lblOsWindowMarginCaption.Size = new System.Drawing.Size(270, 20);
-            lblOsWindowMarginCaption.TabIndex = 2;
-            lblOsWindowMarginCaption.Text = "OS Window Margin";
             // 
             // tableLayoutOptionsShortcuts
             // 
@@ -3063,12 +2865,6 @@
             this.tableLayoutOptionsWindowRestore.ResumeLayout(false);
             this.tableLayoutOptionsWindowRestore.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRestorationTimeout)).EndInit();
-            this.tableLayoutOptionsOsMargins.ResumeLayout(false);
-            this.tableLayoutOptionsOsMargins.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginBottom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginRight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginTop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numOsWindowMarginLeft)).EndInit();
             this.tableLayoutOptionsShortcuts.ResumeLayout(false);
             this.tableLayoutOptionsShortcuts.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.optionsBindingSource)).EndInit();
@@ -3193,7 +2989,6 @@
         private System.Windows.Forms.Label lblRestoreCommandArgs;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripButton tsbNewWorkspace;
-        private System.Windows.Forms.CheckBox chkWindowActionCompensateOsMargin;
         private System.Windows.Forms.ToolStripStatusLabel tsslFileName;
         private System.Windows.Forms.ToolStripButton tsbApplyWindowAction;
         private System.Windows.Forms.BindingSource windowsBindingSource;
@@ -3251,15 +3046,6 @@
         private System.Windows.Forms.ToolStripButton tsbKillCurrentLayout;
         private System.Windows.Forms.ToolStripButton tsbKillWorkspace;
         private RasterChooser rasterChooser;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutOptionsOsMargins;
-        private System.Windows.Forms.NumericUpDown numOsWindowMarginBottom;
-        private System.Windows.Forms.Label lblOsWindowMarginBottom;
-        private System.Windows.Forms.NumericUpDown numOsWindowMarginRight;
-        private System.Windows.Forms.Label lblOsWindowMarginRight;
-        private System.Windows.Forms.NumericUpDown numOsWindowMarginTop;
-        private System.Windows.Forms.Label lblOsWindowMarginTop;
-        private System.Windows.Forms.NumericUpDown numOsWindowMarginLeft;
-        private System.Windows.Forms.Label lblOsWindowMarginLeft;
         private System.Windows.Forms.TableLayoutPanel tableLayoutOptionsShortcuts;
         private System.Windows.Forms.Label lblShortcutCreationCaption;
         private System.Windows.Forms.Label label3;

@@ -1378,7 +1378,6 @@ namespace Mastersign.WinMan
             this._rightUnit = DEF_RIGHTUNIT;
             this._bottom = DEF_BOTTOM;
             this._bottomUnit = DEF_BOTTOMUNIT;
-            this._compensateOsMargin = DEF_COMPENSATEOSMARGIN;
             
             this.IsChanged = false;
         }
@@ -2111,42 +2110,6 @@ namespace Mastersign.WinMan
         }
         
         #endregion
-        
-        #region Property CompensateOsMargin
-        
-        private bool _compensateOsMargin;
-        
-        public event EventHandler CompensateOsMarginChanged;
-        
-        protected virtual void OnCompensateOsMarginChanged()
-        {
-            this.IsChanged = true;
-            EventHandler handler = CompensateOsMarginChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"CompensateOsMargin");
-        }
-        
-        private const bool DEF_COMPENSATEOSMARGIN = true;
-        
-        [DefaultValue(DEF_COMPENSATEOSMARGIN)]
-        public virtual bool CompensateOsMargin
-        {
-            get { return _compensateOsMargin; }
-            set
-            {
-                if ((value == _compensateOsMargin))
-                {
-                    return;
-                }
-                _compensateOsMargin = value;
-                this.OnCompensateOsMarginChanged();
-            }
-        }
-        
-        #endregion
     }
     
     public partial class Layout : IEquatable<Layout>, INotifyPropertyChanged, IChangeTracking
@@ -2551,39 +2514,6 @@ namespace Mastersign.WinMan
         public virtual void AcceptChanges()
         {
             this.IsChanged = false;
-        }
-        
-        #endregion
-        
-        #region Property OsWindowMargin
-        
-        private Margin _osWindowMargin;
-        
-        public event EventHandler OsWindowMarginChanged;
-        
-        protected virtual void OnOsWindowMarginChanged()
-        {
-            this.IsChanged = true;
-            EventHandler handler = OsWindowMarginChanged;
-            if (!ReferenceEquals(handler, null))
-            {
-                handler(this, EventArgs.Empty);
-            }
-            this.OnPropertyChanged(@"OsWindowMargin");
-        }
-        
-        public virtual Margin OsWindowMargin
-        {
-            get { return _osWindowMargin; }
-            set
-            {
-                if ((value == _osWindowMargin))
-                {
-                    return;
-                }
-                _osWindowMargin = value;
-                this.OnOsWindowMarginChanged();
-            }
         }
         
         #endregion

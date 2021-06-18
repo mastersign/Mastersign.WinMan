@@ -220,7 +220,7 @@ namespace Mastersign.WinMan
                 case WindowState.Minimized:
                     return ShowWindowCommands.ShowMinNoActive;
                 case WindowState.Normal:
-                    return ShowWindowCommands.ShowNA;
+                    return ShowWindowCommands.Restore;
                 case WindowState.Maximized:
                     return ShowWindowCommands.Maximize;
                 default:
@@ -251,15 +251,9 @@ namespace Mastersign.WinMan
             var newX = targetBounds.X + (screen.Bounds.X - screen.WorkingArea.X);
             var newY = targetBounds.Y + (screen.Bounds.Y - screen.WorkingArea.Y);
             targetBounds = new Rect(newX, newY, targetBounds.Width, targetBounds.Height);
-            if (CompensateOsMargin)
-            {
-                targetBounds = targetBounds.Expand(options.OsWindowMargin);
-            }
-            w.ShowCommand = ShowWindowCommands.ShowNoActivate;
             w.Unpin();
             virtualDesktop.MoveWindowHere(w.Handle);
-            w.NormalPosition = new RECT(targetBounds);
-            w.ShowCommand = WindowStateAsShowWindowCommand();
+            w.MoveTo(new RECT(targetBounds), WindowStateAsShowWindowCommand());
             if (OverrideVirtualDesktop && AllVirtualDesktops) w.Pin();
         }
 

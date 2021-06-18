@@ -149,11 +149,14 @@ namespace Mastersign.WinMan
                && WindowClass == "ApplicationFrameWindow";
 
         private WINDOWPLACEMENT _placement = WINDOWPLACEMENT.Default;
+        private RECT _extendedFrameBounds;
         private bool _placementLoaded;
 
         private void ReadPlacement()
         {
             WinApi.GetWindowPlacement(Handle, ref _placement);
+            WinApi.DwmGetWindowAttribute(Handle, DwmWindowAttribute.DWMWA_EXTENDED_FRAME_BOUNDS, out _extendedFrameBounds,
+                System.Runtime.InteropServices.Marshal.SizeOf(typeof(RECT)));
             _placementLoaded = true;
         }
 
@@ -210,11 +213,38 @@ namespace Mastersign.WinMan
             }
         }
 
+        public RECT CompensateBorder(RECT windowPosition)
+        {
+            ReadPlacement();
+            return new RECT(
+                windowPosition.Left + (_placement.NormalPosition.Left - _extendedFrameBounds.Left),
+                windowPosition.Top + (_placement.NormalPosition.Top - _extendedFrameBounds.Top),
+                windowPosition.Right + (_placement.NormalPosition.Right - _extendedFrameBounds.Right),
+                windowPosition.Bottom + (_placement.NormalPosition.Bottom - _extendedFrameBounds.Bottom));
+        }
+
         public void SetPlacement(RECT normalPosition, ShowWindowCommands showCmd)
         {
             ReadPlacement();
             _placement.NormalPosition = normalPosition;
             _placement.ShowCmd = showCmd;
+            _placement.Flags = WindowPlacementFlags.WPF_ASYNCWINDOWPLACEMENT;
+            WritePlacement();
+        }
+
+        public void MoveTo(RECT position, ShowWindowCommands showWindowCommand)
+        {
+            ReadPlacement();
+            if (_placement.ShowCmd != ShowWindowCommands.Normal)
+            {
+                _placement.ShowCmd = ShowWindowCommands.Restore;
+                WritePlacement();
+                ReadPlacement();
+            }
+            position = CompensateBorder(position);
+            _placement.NormalPosition = position;
+            _placement.ShowCmd = showWindowCommand;
+            _placement.Flags = WindowPlacementFlags.WPF_ASYNCWINDOWPLACEMENT;
             WritePlacement();
         }
 
