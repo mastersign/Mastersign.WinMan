@@ -28,7 +28,7 @@ namespace Mastersign.WinMan
 
             if (!string.IsNullOrWhiteSpace(ProcessFileName))
             {
-                var processPattern = NormalizePath(ProcessFileName);
+                var processPattern = Environment.ExpandEnvironmentVariables(NormalizePath(ProcessFileName));
                 var processMainModule = window.ProcessFileName;
                 if (processMainModule != null)
                 {
