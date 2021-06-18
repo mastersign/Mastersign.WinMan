@@ -153,9 +153,6 @@
         <DefaultValue>Percent</DefaultValue>
       </Property>
       <Property name="BottomInvert" type="bool" />
-      <Property name="CompensateOsMargin" type="bool">
-        <DefaultValue>true</DefaultValue>
-      </Property>
     </Class>
 
     <Class name="Layout">
@@ -176,7 +173,6 @@
     </Class>
 
     <Class name="Options">
-      <Property name="OsWindowMargin" type="Margin" />
       <Property name="RestorationTimeout" type="int">
         <DefaultValue>30</DefaultValue>
       </Property>

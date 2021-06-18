@@ -55,6 +55,9 @@ namespace Mastersign.WinMan
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmGetWindowAttribute(IntPtr hwnd, DwmWindowAttribute dwAttribute, out RECT pvAttribute, int cbAttribute);
+
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
@@ -247,6 +250,27 @@ namespace Mastersign.WinMan
         ForceMinimize = 11
     }
 
+    [Flags]
+    public enum DwmWindowAttribute : uint
+    {
+        DWMWA_NCRENDERING_ENABLED = 1,
+        DWMWA_NCRENDERING_POLICY,
+        DWMWA_TRANSITIONS_FORCEDISABLED,
+        DWMWA_ALLOW_NCPAINT,
+        DWMWA_CAPTION_BUTTON_BOUNDS,
+        DWMWA_NONCLIENT_RTL_LAYOUT,
+        DWMWA_FORCE_ICONIC_REPRESENTATION,
+        DWMWA_FLIP3D_POLICY,
+        DWMWA_EXTENDED_FRAME_BOUNDS,
+        DWMWA_HAS_ICONIC_BITMAP,
+        DWMWA_DISALLOW_PEEK,
+        DWMWA_EXCLUDED_FROM_PEEK,
+        DWMWA_CLOAK,
+        DWMWA_CLOAKED,
+        DWMWA_FREEZE_REPRESENTATION,
+        DWMWA_LAST
+    }
+
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
     internal struct WINDOWPLACEMENT
@@ -262,7 +286,7 @@ namespace Mastersign.WinMan
         /// <summary>
         /// Specifies flags that control the position of the minimized window and the method by which the window is restored.
         /// </summary>
-        public int Flags;
+        public WindowPlacementFlags Flags;
 
         /// <summary>
         /// The current show state of the window.
@@ -296,5 +320,14 @@ namespace Mastersign.WinMan
                 return result;
             }
         }
+    }
+
+    [Flags]
+    internal enum WindowPlacementFlags : uint
+    {
+        WPF_NONE = 0x0000,
+        WPF_ASYNCWINDOWPLACEMENT = 0x0004,
+        WPF_RESTORETOMAXIMIZED = 0x0002,
+        WPF_SETMINPOSITION = 0x0001,
     }
 }
