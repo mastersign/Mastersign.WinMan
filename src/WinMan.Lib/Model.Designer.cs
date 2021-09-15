@@ -1368,6 +1368,7 @@ namespace Mastersign.WinMan
         public WindowAction()
         {
             this._window = DEF_WINDOW;
+            this._activate = DEF_ACTIVATE;
             this._virtualDesktop = DEF_VIRTUALDESKTOP;
             this._windowState = DEF_WINDOWSTATE;
             this._left = DEF_LEFT;
@@ -1515,6 +1516,42 @@ namespace Mastersign.WinMan
                 }
                 _restore = value;
                 this.OnRestoreChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property Activate
+        
+        private bool _activate;
+        
+        public event EventHandler ActivateChanged;
+        
+        protected virtual void OnActivateChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = ActivateChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"Activate");
+        }
+        
+        private const bool DEF_ACTIVATE = true;
+        
+        [DefaultValue(DEF_ACTIVATE)]
+        public virtual bool Activate
+        {
+            get { return _activate; }
+            set
+            {
+                if ((value == _activate))
+                {
+                    return;
+                }
+                _activate = value;
+                this.OnActivateChanged();
             }
         }
         

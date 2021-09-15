@@ -255,6 +255,7 @@ namespace Mastersign.WinMan
             virtualDesktop.MoveWindowHere(w.Handle);
             w.MoveTo(new RECT(targetBounds), WindowStateAsShowWindowCommand());
             if (OverrideVirtualDesktop && AllVirtualDesktops) w.Pin();
+            if (Activate) w.Activate();
         }
 
         public void RecordPosition(ConfigurationPattern configurationPattern, WindowWrapper w, Options options, Layout layout)
