@@ -61,11 +61,11 @@ Mastersign WinMan
 
 ## Screenshots
 
-![Layouts](screenshots/layouts.png)
-
 ![Display Configurations](screenshots/display-configurations.png)
 
 ![Window Patterns](screenshots/window-patterns.png)
+
+![Layouts](screenshots/layouts.png)
 
 ## CLI Usage
 
