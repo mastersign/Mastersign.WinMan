@@ -223,24 +223,12 @@ namespace Mastersign.WinMan
                 windowPosition.Bottom + (_placement.NormalPosition.Bottom - _extendedFrameBounds.Bottom));
         }
 
-        public void SetPlacement(RECT normalPosition, ShowWindowCommands showCmd)
-        {
-            ReadPlacement();
-            _placement.NormalPosition = normalPosition;
-            _placement.ShowCmd = showCmd;
-            _placement.Flags = WindowPlacementFlags.WPF_ASYNCWINDOWPLACEMENT;
-            WritePlacement();
-        }
-
         public void MoveTo(RECT position, ShowWindowCommands showWindowCommand)
         {
             ReadPlacement();
-            if (_placement.ShowCmd != ShowWindowCommands.Normal)
-            {
-                _placement.ShowCmd = ShowWindowCommands.Restore;
-                WritePlacement();
-                ReadPlacement();
-            }
+            _placement.ShowCmd = ShowWindowCommands.Restore;
+            WritePlacement();
+            ReadPlacement();
             position = CompensateBorder(position);
             _placement.NormalPosition = position;
             _placement.ShowCmd = showWindowCommand;
