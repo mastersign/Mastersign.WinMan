@@ -116,6 +116,9 @@
       </Property>
 
       <Property name="Restore" type="bool" />
+			<Property name="Activate" type="bool">
+				<DefaultValue>true</DefaultValue>
+			</Property>
       <Property name="OverrideVirtualDesktop" type="bool" />
       <Property name="VirtualDesktop" type="int">
         <DefaultValue>1</DefaultValue>

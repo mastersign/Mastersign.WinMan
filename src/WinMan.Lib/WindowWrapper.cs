@@ -236,6 +236,11 @@ namespace Mastersign.WinMan
             WritePlacement();
         }
 
+        public void Activate()
+        {
+            WinApi.SetForegroundWindow(Handle);
+        }
+
         private VirtualDesktop _virtualDesktop;
         private bool _virtualDesktopLoaded;
 

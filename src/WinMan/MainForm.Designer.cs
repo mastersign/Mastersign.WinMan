@@ -215,6 +215,7 @@
             this.tsslFileName = new System.Windows.Forms.ToolStripStatusLabel();
             this.windowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmsWindowPatternTemplates = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.chkWIndowActionActivate = new System.Windows.Forms.CheckBox();
             tableConfigurationPatterns = new System.Windows.Forms.TableLayoutPanel();
             tableConfigurationPatternList = new System.Windows.Forms.TableLayoutPanel();
             tableConfigurationPatternDetails = new System.Windows.Forms.TableLayoutPanel();
@@ -1554,7 +1555,7 @@
             this.chkLayoutCreateShortcut.AutoSize = true;
             this.chkLayoutCreateShortcut.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "CreateShortcut", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLayoutCreateShortcut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkLayoutCreateShortcut.Location = new System.Drawing.Point(3, 479);
+            this.chkLayoutCreateShortcut.Location = new System.Drawing.Point(3, 476);
             this.chkLayoutCreateShortcut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkLayoutCreateShortcut.Name = "chkLayoutCreateShortcut";
             this.chkLayoutCreateShortcut.Size = new System.Drawing.Size(171, 20);
@@ -1674,7 +1675,7 @@
             this.chkLayoutIsDefaultLayout.AutoSize = true;
             this.chkLayoutIsDefaultLayout.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.layoutsBindingSource, "DefaultLayout", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLayoutIsDefaultLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 451);
+            this.chkLayoutIsDefaultLayout.Location = new System.Drawing.Point(3, 448);
             this.chkLayoutIsDefaultLayout.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chkLayoutIsDefaultLayout.Name = "chkLayoutIsDefaultLayout";
             this.chkLayoutIsDefaultLayout.Size = new System.Drawing.Size(171, 20);
@@ -1685,7 +1686,7 @@
             // lblConfigurationPatternCaption
             // 
             this.lblConfigurationPatternCaption.AutoSize = true;
-            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 507);
+            this.lblConfigurationPatternCaption.Location = new System.Drawing.Point(3, 504);
             this.lblConfigurationPatternCaption.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lblConfigurationPatternCaption.Name = "lblConfigurationPatternCaption";
             this.lblConfigurationPatternCaption.Size = new System.Drawing.Size(134, 16);
@@ -1697,7 +1698,7 @@
             this.cmbLayoutConfiguration.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.layoutsBindingSource, "Configuration", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbLayoutConfiguration.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbLayoutConfiguration.FormattingEnabled = true;
-            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 531);
+            this.cmbLayoutConfiguration.Location = new System.Drawing.Point(3, 528);
             this.cmbLayoutConfiguration.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbLayoutConfiguration.Name = "cmbLayoutConfiguration";
             this.cmbLayoutConfiguration.Size = new System.Drawing.Size(171, 24);
@@ -1714,7 +1715,7 @@
             this.listLayouts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listLayouts.Name = "listLayouts";
             tableLayoutList.SetRowSpan(this.listLayouts, 6);
-            this.listLayouts.Size = new System.Drawing.Size(171, 347);
+            this.listLayouts.Size = new System.Drawing.Size(171, 344);
             this.listLayouts.TabIndex = 7;
             // 
             // lblLayoutDefaultVirtualDesktopCaption
@@ -1759,6 +1760,7 @@
             tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             tableLayoutDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24F));
+            tableLayoutDetails.Controls.Add(this.chkWIndowActionActivate, 4, 2);
             tableLayoutDetails.Controls.Add(this.chkAllVirtualDesktops, 4, 3);
             tableLayoutDetails.Controls.Add(this.chkOverrideDefaultVirtualDesktop, 5, 3);
             tableLayoutDetails.Controls.Add(this.lblWindowActionsCaption, 0, 0);
@@ -2812,6 +2814,19 @@
             this.cmsWindowPatternTemplates.Name = "cmsWindowPatternTemplates";
             this.cmsWindowPatternTemplates.Size = new System.Drawing.Size(133, 70);
             // 
+            // chkWIndowActionActivate
+            // 
+            this.chkWIndowActionActivate.AutoSize = true;
+            this.chkWIndowActionActivate.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.windowActionsBindingSource, "Activate", true));
+            this.chkWIndowActionActivate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkWIndowActionActivate.Location = new System.Drawing.Point(468, 68);
+            this.chkWIndowActionActivate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.chkWIndowActionActivate.Name = "chkWIndowActionActivate";
+            this.chkWIndowActionActivate.Size = new System.Drawing.Size(99, 28);
+            this.chkWIndowActionActivate.TabIndex = 37;
+            this.chkWIndowActionActivate.Text = "Activate";
+            this.chkWIndowActionActivate.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3059,6 +3074,7 @@
         private System.Windows.Forms.TextBox txtShortcutKillVerb;
         private System.Windows.Forms.Label lblShortcutKillVerb;
         private System.Windows.Forms.CheckBox chkLayoutCreateShortcut;
+        private System.Windows.Forms.CheckBox chkWIndowActionActivate;
     }
 }
 
