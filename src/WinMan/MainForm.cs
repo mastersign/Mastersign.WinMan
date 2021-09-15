@@ -234,6 +234,15 @@ namespace Mastersign.WinMan.Gui
             UpdateControlActivation();
         }
 
+        private void StatusMessageHandler(StatusLevel level, string message)
+        {
+            if (level == StatusLevel.Error)
+            {
+                MessageBox.Show(this, message, "WinMan Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         #region Core
 
         public Core Core
@@ -363,13 +372,13 @@ namespace Mastersign.WinMan.Gui
         private void ApplyWorkspaceHandler(object sender, EventArgs e)
         {
             if (!HasCore) return;
-            Core.ApplyWorkspace((l, m) => { }, ApplyOverrides.None);
+            Core.ApplyWorkspace(StatusMessageHandler, ApplyOverrides.None);
         }
 
         private void KillWorkspaceHandler(object sender, EventArgs e)
         {
             if (!HasCore) return;
-            Core.KillWorkspace((l, m) => { }, KillOverrides.None);
+            Core.KillWorkspace(StatusMessageHandler, KillOverrides.None);
         }
 
         #endregion
@@ -866,7 +875,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Apply(Core.Workspace, (l, m) => { }, ApplyOverrides.None);
+            selectedLayout.Apply(Core.Workspace, StatusMessageHandler, ApplyOverrides.None);
         }
 
         private void KillCurrentLayoutHandler(object sender, EventArgs e)
@@ -876,7 +885,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedLayout == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedLayout.Kill(Core.Workspace, (l, m) => { }, KillOverrides.None);
+            selectedLayout.Kill(Core.Workspace, StatusMessageHandler, KillOverrides.None);
         }
 
         private void LayoutSelectionChangedHandler(object sender, EventArgs e)
@@ -1106,7 +1115,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Apply(Core.Workspace, selectedLayout, (l, m) => { }, ApplyOverrides.None);
+            selectedWindowAction.Apply(Core.Workspace, selectedLayout, StatusMessageHandler, ApplyOverrides.None);
         }
 
         private void KillWindowActionHandler(object sender, EventArgs e)
@@ -1116,7 +1125,7 @@ namespace Mastersign.WinMan.Gui
             if (selectedWindowAction == null) return;
 
             WindowWrapper.ClearCaches();
-            selectedWindowAction.Kill(Core.Workspace, (l, m) => { }, KillOverrides.None);
+            selectedWindowAction.Kill(Core.Workspace, StatusMessageHandler, KillOverrides.None);
         }
 
         private void WindowActionSelectionChangedHandler(object sender, EventArgs e)
