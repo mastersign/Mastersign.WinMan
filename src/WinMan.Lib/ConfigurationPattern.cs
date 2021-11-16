@@ -12,9 +12,10 @@ namespace Mastersign.WinMan
     partial class ConfigurationPattern
     {
         public bool IsMatch(Screen[] screens, int virtualDesktopCount)
-            => screens.Length == Screens.Count
-               && Screens.All(p => screens.Any(p.IsMatch))
-               && (!RespectVirtualDesktopCount || VirtualDesktopCount == virtualDesktopCount);
+            => screens.Length >= Screens.Count &&
+               (!RespectScreenCount || screens.Length == Screens.Count) &&
+               Screens.All(p => screens.Any(p.IsMatch)) &&
+               (!RespectVirtualDesktopCount || VirtualDesktopCount == virtualDesktopCount);
 
         public bool Matches => IsMatch(Screen.AllScreens, VirtualDesktop.GetDesktops().Length);
 

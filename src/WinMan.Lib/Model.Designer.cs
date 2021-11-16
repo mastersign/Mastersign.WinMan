@@ -1116,6 +1116,7 @@ namespace Mastersign.WinMan
             this._screens = new BindingList<ScreenPattern>();
             this._virtualDesktopCount = DEF_VIRTUALDESKTOPCOUNT;
             this._respectVirtualDesktopCount = DEF_RESPECTVIRTUALDESKTOPCOUNT;
+            this._respectScreenCount = DEF_RESPECTSCREENCOUNT;
             
             this.IsChanged = false;
         }
@@ -1357,6 +1358,42 @@ namespace Mastersign.WinMan
                 }
                 _respectVirtualDesktopCount = value;
                 this.OnRespectVirtualDesktopCountChanged();
+            }
+        }
+        
+        #endregion
+        
+        #region Property RespectScreenCount
+        
+        private bool _respectScreenCount;
+        
+        public event EventHandler RespectScreenCountChanged;
+        
+        protected virtual void OnRespectScreenCountChanged()
+        {
+            this.IsChanged = true;
+            EventHandler handler = RespectScreenCountChanged;
+            if (!ReferenceEquals(handler, null))
+            {
+                handler(this, EventArgs.Empty);
+            }
+            this.OnPropertyChanged(@"RespectScreenCount");
+        }
+        
+        private const bool DEF_RESPECTSCREENCOUNT = true;
+        
+        [DefaultValue(DEF_RESPECTSCREENCOUNT)]
+        public virtual bool RespectScreenCount
+        {
+            get { return _respectScreenCount; }
+            set
+            {
+                if ((value == _respectScreenCount))
+                {
+                    return;
+                }
+                _respectScreenCount = value;
+                this.OnRespectScreenCountChanged();
             }
         }
         
