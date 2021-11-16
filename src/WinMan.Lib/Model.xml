@@ -97,6 +97,9 @@
       <Property name="RespectVirtualDesktopCount" type="bool">
         <DefaultValue>false</DefaultValue>
       </Property>
+      <Property name="RespectScreenCount" type="bool">
+        <DefaultValue>true</DefaultValue>	
+      </Property>
     </Class>
 
     <Enum name="WindowState">
