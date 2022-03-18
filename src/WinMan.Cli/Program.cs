@@ -182,6 +182,8 @@ namespace Mastersign.WinMan.Cli
             Core.DefaultCore = core;
 
             PrintVerbose("Matching screen configurations:");
+            // loading virtual desktops, fixes unmatched screen configuration
+            VirtualDesktopHelper.LoadVirtualDesktops();
             var matchingConfigurations = new List<string>(
                 core.Workspace.ConfigurationPatterns
                     .Where(cp => cp.Matches)
