@@ -50,7 +50,7 @@ namespace Mastersign.WinMan.Cli
                     startMode |= StartMode.ApplyWorkspace;
                     includeDefaultLayouts = true;
                 }
-                else if (arg == "-l" || arg == "--layouts")
+                else if (arg == "-l" || arg == "--layout" || arg == "--layouts")
                 {
                     i++;
                     for (; i < argv.Length && !argv[i].StartsWith("-"); i++)
