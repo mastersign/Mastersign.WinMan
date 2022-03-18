@@ -9,6 +9,8 @@ namespace Mastersign.WinMan
 {
     public static class VirtualDesktopHelper
     {
+        public static void LoadVirtualDesktops() => VirtualDesktop.GetDesktops();
+
         public static int GetVirtualDesktopNumber(Guid id)
         {
             var desktops = VirtualDesktop.GetDesktops();
