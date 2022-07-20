@@ -239,6 +239,8 @@ namespace Mastersign.WinMan
         public void Activate()
         {
             WinApi.SetForegroundWindow(Handle);
+            WinApi.BringWindowToTop(Handle);
+            WinApi.SetCapture(Handle);
         }
 
         private VirtualDesktop _virtualDesktop;
