@@ -8,7 +8,6 @@ namespace WindowsDesktop.Interop
 {
 	public static class ComObjects
 	{
-		private static IDisposable _listener;
 		private static ExplorerRestartListenerWindow _listenerWindow;
 		private static readonly ConcurrentDictionary<Guid, IVirtualDesktop> _virtualDesktops = new ConcurrentDictionary<Guid, IVirtualDesktop>();
 
@@ -33,7 +32,6 @@ namespace WindowsDesktop.Interop
 			ApplicationViewCollection = GetApplicationViewCollection();
 
 			_virtualDesktops.Clear();
-			_listener = VirtualDesktop.RegisterListener();
 		}
 
 		internal static void Register(IVirtualDesktop vd)
@@ -48,7 +46,6 @@ namespace WindowsDesktop.Interop
 
 		internal static void Terminate()
 		{
-			_listener?.Dispose();
 			_listenerWindow?.Close();
 		}
 

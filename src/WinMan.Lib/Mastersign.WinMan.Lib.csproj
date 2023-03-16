@@ -87,7 +87,6 @@
     <Compile Include="vendor\VirtualDesktop\Interop\VirtualDesktopManagerInternal.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktop.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktop.static.cs" />
-    <Compile Include="vendor\VirtualDesktop\VirtualDesktop.static.notification.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktop.static.pin.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktopChangedEventArgs.cs" />
     <Compile Include="vendor\VirtualDesktop\VirtualDesktopDestroyEventArgs.cs" />
