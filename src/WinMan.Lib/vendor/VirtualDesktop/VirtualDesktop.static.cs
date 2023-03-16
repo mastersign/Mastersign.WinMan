@@ -8,150 +8,157 @@ using WindowsDesktop.Interop;
 
 namespace WindowsDesktop
 {
-	partial class VirtualDesktop
-	{
-		private static readonly bool _isSupportedInternal = true;
-		private static readonly ConcurrentDictionary<Guid, VirtualDesktop> _wrappers = new ConcurrentDictionary<Guid, VirtualDesktop>();
+    partial class VirtualDesktop
+    {
+        private static readonly bool _isSupportedInternal = true;
+        private static readonly ConcurrentDictionary<Guid, VirtualDesktop> _wrappers = new ConcurrentDictionary<Guid, VirtualDesktop>();
 
-		/// <summary>
-		/// Gets a value indicating whether the operating system is support virtual desktop.
-		/// </summary>
-		public static bool IsSupported =>
+        /// <summary>
+        /// Gets a value indicating whether the operating system is support virtual desktop.
+        /// </summary>
+        public static bool IsSupported =>
 #if DEBUG
-			_isSupportedInternal;
+            _isSupportedInternal;
 #else
 			Environment.OSVersion.Version.Major >= 10 && _isSupportedInternal;
 #endif
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static Exception InitializationException { get; }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static Exception InitializationException { get; }
 
-		/// <summary>
-		/// Gets the virtual desktop that is currently displayed.
-		/// </summary>
-		public static VirtualDesktop Current
-		{
-			get
-			{
-				VirtualDesktopHelper.ThrowIfNotSupported();
+        /// <summary>
+        /// Gets the virtual desktop that is currently displayed.
+        /// </summary>
+        public static VirtualDesktop Current
+        {
+            get
+            {
+                VirtualDesktopHelper.ThrowIfNotSupported();
 
-				var current = ComObjects.VirtualDesktopManagerInternal.GetCurrentDesktop();
-				var wrapper = _wrappers.GetOrAdd(current.GetID(), _ => new VirtualDesktop(current));
+                var current = ComObjects.VirtualDesktopManagerInternal.GetCurrentDesktop();
+                var wrapper = _wrappers.GetOrAdd(current.GetID(), _ => new VirtualDesktop(current));
 
-				return wrapper;
-			}
-		}
+                return wrapper;
+            }
+        }
 
-		static VirtualDesktop()
-		{
-			if (!IsSupported) return;
+        static VirtualDesktop()
+        {
+            if (!IsSupported) return;
 
-			try
-			{
-				ComObjects.Initialize();
-			}
-			catch (Exception ex)
-			{
-				InitializationException = ex;
-				_isSupportedInternal = false;
-			}
+            try
+            {
+                ComObjects.Initialize();
+            }
+            catch (Exception ex)
+            {
+                InitializationException = ex;
+                _isSupportedInternal = false;
+            }
 
-			AppDomain.CurrentDomain.ProcessExit += (sender, args) => ComObjects.Terminate();
-		}
+            AppDomain.CurrentDomain.ProcessExit += (sender, args) => ComObjects.Terminate();
+        }
 
-		/// <summary>
-		/// Returns all the virtual desktops of currently valid.
-		/// </summary>
-		/// <returns></returns>
-		public static VirtualDesktop[] GetDesktops()
-		{
-			VirtualDesktopHelper.ThrowIfNotSupported();
+        /// <summary>
+        /// Returns all the virtual desktops of currently valid.
+        /// </summary>
+        /// <returns></returns>
+        public static VirtualDesktop[] GetDesktops()
+        {
+            VirtualDesktopHelper.ThrowIfNotSupported();
+            return GetDesktopsInternal().ToArray();
+        }
 
-			return GetDesktopsInternal().ToArray();
-		}
+        internal static IEnumerable<VirtualDesktop> GetDesktopsInternal()
+        {
+            var desktops = ComObjects.VirtualDesktopManagerInternal.GetDesktops();
+            var count = desktops.GetCount();
 
-		internal static IEnumerable<VirtualDesktop> GetDesktopsInternal()
-		{
-			var desktops = ComObjects.VirtualDesktopManagerInternal.GetDesktops();
-			var count = desktops.GetCount();
+            for (var i = 0u; i < count; i++)
+            {
+                VirtualDesktopHandle handle;
+                try
+                {
+                    desktops.GetAt(i, typeof(IVirtualDesktop22000).GUID, out var ppvObject);
+                    handle = new VirtualDesktopHandle((IVirtualDesktop22000)ppvObject);
+                } 
+                catch(InvalidCastException)
+                {
+                    desktops.GetAt(i, typeof(IVirtualDesktop).GUID, out var ppvObject);
+                    handle = new VirtualDesktopHandle((IVirtualDesktop)ppvObject);
+                }
 
-			for (var i = 0u; i < count; i++)
-			{
-				object ppvObject;
-				desktops.GetAt(i, typeof(IVirtualDesktop).GUID, out ppvObject);
+                var wrapper = _wrappers.GetOrAdd(handle.GetID(), _ => new VirtualDesktop(handle));
 
-				var desktop = (IVirtualDesktop)ppvObject;
-				var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
+                yield return wrapper;
+            }
+        }
 
-				yield return wrapper;
-			}
-		}
+        /// <summary>
+        /// Creates a virtual desktop.
+        /// </summary>
+        public static VirtualDesktop Create()
+        {
+            VirtualDesktopHelper.ThrowIfNotSupported();
 
-		/// <summary>
-		/// Creates a virtual desktop.
-		/// </summary>
-		public static VirtualDesktop Create()
-		{
-			VirtualDesktopHelper.ThrowIfNotSupported();
+            var desktop = ComObjects.VirtualDesktopManagerInternal.CreateDesktopW();
+            var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
 
-			var desktop = ComObjects.VirtualDesktopManagerInternal.CreateDesktopW();
-			var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
+            return wrapper;
+        }
 
-			return wrapper;
-		}
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public static VirtualDesktop FromComObject(VirtualDesktopHandle desktop)
+        {
+            VirtualDesktopHelper.ThrowIfNotSupported();
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public static VirtualDesktop FromComObject(IVirtualDesktop desktop)
-		{
-			VirtualDesktopHelper.ThrowIfNotSupported();
+            var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
+            return wrapper;
+        }
 
-			var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
-			return wrapper;
-		}
+        /// <summary>
+        /// Returns the virtual desktop of the specified identifier.
+        /// </summary>
+        public static VirtualDesktop FromId(Guid desktopId)
+        {
+            VirtualDesktopHelper.ThrowIfNotSupported();
 
-		/// <summary>
-		/// Returns the virtual desktop of the specified identifier.
-		/// </summary>
-		public static VirtualDesktop FromId(Guid desktopId)
-		{
-			VirtualDesktopHelper.ThrowIfNotSupported();
+            VirtualDesktopHandle desktop;
+            try
+            {
+                desktop = ComObjects.VirtualDesktopManagerInternal.FindDesktop(ref desktopId);
+            }
+            catch (COMException ex) when (ex.Match(HResult.TYPE_E_ELEMENTNOTFOUND))
+            {
+                return null;
+            }
+            var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
 
-			IVirtualDesktop desktop;
-			try
-			{
-				desktop = ComObjects.VirtualDesktopManagerInternal.FindDesktop(ref desktopId);
-			}
-			catch (COMException ex) when (ex.Match(HResult.TYPE_E_ELEMENTNOTFOUND))
-			{
-				return null;
-			}
-			var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
+            return wrapper;
+        }
 
-			return wrapper;
-		}
+        /// <summary>
+        /// Returns the virtual desktop that the specified window is located.
+        /// </summary>
+        public static VirtualDesktop FromHwnd(IntPtr hwnd)
+        {
+            VirtualDesktopHelper.ThrowIfNotSupported();
 
-		/// <summary>
-		/// Returns the virtual desktop that the specified window is located.
-		/// </summary>
-		public static VirtualDesktop FromHwnd(IntPtr hwnd)
-		{
-			VirtualDesktopHelper.ThrowIfNotSupported();
+            if (hwnd == IntPtr.Zero) return null;
 
-			if (hwnd == IntPtr.Zero) return null;
+            VirtualDesktopHandle desktop;
+            try
+            {
+                var desktopId = ComObjects.VirtualDesktopManager.GetWindowDesktopId(hwnd);
+                desktop = ComObjects.VirtualDesktopManagerInternal.FindDesktop(ref desktopId);
+            }
+            catch (COMException ex) when (ex.Match(HResult.REGDB_E_CLASSNOTREG, HResult.TYPE_E_ELEMENTNOTFOUND))
+            {
+                return null;
+            }
+            var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
 
-			IVirtualDesktop desktop;
-			try
-			{
-				var desktopId = ComObjects.VirtualDesktopManager.GetWindowDesktopId(hwnd);
-				desktop = ComObjects.VirtualDesktopManagerInternal.FindDesktop(ref desktopId);
-			}
-			catch (COMException ex) when (ex.Match(HResult.REGDB_E_CLASSNOTREG, HResult.TYPE_E_ELEMENTNOTFOUND))
-			{
-				return null;
-			}
-			var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
-
-			return wrapper;
-		}
-	}
+            return wrapper;
+        }
+    }
 }

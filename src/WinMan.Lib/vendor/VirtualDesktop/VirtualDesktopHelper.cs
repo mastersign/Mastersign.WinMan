@@ -37,7 +37,7 @@ namespace WindowsDesktop
 			{
 				IApplicationView view;
 				ComObjects.ApplicationViewCollection.GetViewForHwnd(hWnd, out view);
-				ComObjects.VirtualDesktopManagerInternal.MoveViewToDesktop(view, virtualDesktop.ComObject);
+				ComObjects.VirtualDesktopManagerInternal.MoveViewToDesktop(view, virtualDesktop.Handle);
 			}
 		}
 	}

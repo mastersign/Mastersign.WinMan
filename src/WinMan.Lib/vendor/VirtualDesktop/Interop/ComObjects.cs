@@ -8,9 +8,8 @@ namespace WindowsDesktop.Interop
 {
 	public static class ComObjects
 	{
-		private static IDisposable _listener;
 		private static ExplorerRestartListenerWindow _listenerWindow;
-		private static readonly ConcurrentDictionary<Guid, IVirtualDesktop> _virtualDesktops = new ConcurrentDictionary<Guid, IVirtualDesktop>();
+		private static readonly ConcurrentDictionary<Guid, VirtualDesktopHandle> _virtualDesktops = new ConcurrentDictionary<Guid, VirtualDesktopHandle>();
 
 		internal static IVirtualDesktopManager VirtualDesktopManager { get; private set; }
 		internal static VirtualDesktopManagerInternal VirtualDesktopManagerInternal { get; private set; }
@@ -33,22 +32,20 @@ namespace WindowsDesktop.Interop
 			ApplicationViewCollection = GetApplicationViewCollection();
 
 			_virtualDesktops.Clear();
-			_listener = VirtualDesktop.RegisterListener();
 		}
 
-		internal static void Register(IVirtualDesktop vd)
+		internal static void Register(VirtualDesktopHandle vd)
 		{
 			_virtualDesktops.AddOrUpdate(vd.GetID(), vd, (guid, desktop) => vd);
 		}
 
-		internal static IVirtualDesktop GetVirtualDesktop(Guid id)
+		internal static VirtualDesktopHandle GetVirtualDesktop(Guid id)
 		{
 			return _virtualDesktops.GetOrAdd(id, x => VirtualDesktopManagerInternal.FindDesktop(ref x));
 		}
 
 		internal static void Terminate()
 		{
-			_listener?.Dispose();
 			_listenerWindow?.Close();
 		}
 

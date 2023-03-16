@@ -20,12 +20,12 @@ namespace WindowsDesktop
 		public Guid Id { get; }
 
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public IVirtualDesktop ComObject => ComObjects.GetVirtualDesktop(this.Id);
+		public VirtualDesktopHandle Handle => ComObjects.GetVirtualDesktop(this.Id);
 
-		private VirtualDesktop(IVirtualDesktop comObject)
+		private VirtualDesktop(VirtualDesktopHandle handle)
 		{
-			ComObjects.Register(comObject);
-			this.Id = comObject.GetID();
+			ComObjects.Register(handle);
+			this.Id = handle.GetID();
 		}
 
 
@@ -34,7 +34,7 @@ namespace WindowsDesktop
 		/// </summary>
 		public void Switch()
 		{
-			ComObjects.VirtualDesktopManagerInternal.SwitchDesktop(this.ComObject);
+			ComObjects.VirtualDesktopManagerInternal.SwitchDesktop(this.Handle);
 		}
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace WindowsDesktop
 		{
 			if (fallbackDesktop == null) throw new ArgumentNullException(nameof(fallbackDesktop));
 
-			ComObjects.VirtualDesktopManagerInternal.RemoveDesktop(this.ComObject, fallbackDesktop.ComObject);
+			ComObjects.VirtualDesktopManagerInternal.RemoveDesktop(this.Handle, fallbackDesktop.Handle);
 		}
 
 		/// <summary>
@@ -60,10 +60,10 @@ namespace WindowsDesktop
 		/// </summary>
 		public VirtualDesktop GetLeft()
 		{
-			IVirtualDesktop desktop;
+			VirtualDesktopHandle desktop;
 			try
 			{
-				desktop = ComObjects.VirtualDesktopManagerInternal.GetAdjacentDesktop(this.ComObject, AdjacentDesktop.LeftDirection);
+				desktop = ComObjects.VirtualDesktopManagerInternal.GetAdjacentDesktop(this.Handle, AdjacentDesktop.LeftDirection);
 			}
 			catch (COMException ex) when (ex.Match(HResult.TYPE_E_OUTOFBOUNDS))
 			{
@@ -79,10 +79,10 @@ namespace WindowsDesktop
 		/// </summary>
 		public VirtualDesktop GetRight()
 		{
-			IVirtualDesktop desktop;
+			VirtualDesktopHandle desktop;
 			try
 			{
-				desktop = ComObjects.VirtualDesktopManagerInternal.GetAdjacentDesktop(this.ComObject, AdjacentDesktop.RightDirection);
+				desktop = ComObjects.VirtualDesktopManagerInternal.GetAdjacentDesktop(this.Handle, AdjacentDesktop.RightDirection);
 			}
 			catch (COMException ex) when (ex.Match(HResult.TYPE_E_OUTOFBOUNDS))
 			{
@@ -97,7 +97,7 @@ namespace WindowsDesktop
         {
             IApplicationView appView = ApplicationHelper.GetApplicationView(hWnd);
             if (!ComObjects.VirtualDesktopManagerInternal.CanViewMoveDesktops(appView)) return false;
-            ComObjects.VirtualDesktopManagerInternal.MoveViewToDesktop(appView, ComObject);
+            ComObjects.VirtualDesktopManagerInternal.MoveViewToDesktop(appView, Handle);
             return true;
         }
 

@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tobias Kiertscher")]
 [assembly: AssemblyProduct("Mastersign WinMan")]
-[assembly: AssemblyCopyright("Copyright © Tobias Kiertscher 2021")]
+[assembly: AssemblyCopyright("Copyright © Tobias Kiertscher 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Sie können alle Werte angeben oder Standardwerte für die Build- und Revisionsnummern verwenden,
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.16.2.0")]
-[assembly: AssemblyFileVersion("1.16.2.0")]
+[assembly: AssemblyVersion("1.17.0.0")]
+[assembly: AssemblyFileVersion("1.17.0.0")]
