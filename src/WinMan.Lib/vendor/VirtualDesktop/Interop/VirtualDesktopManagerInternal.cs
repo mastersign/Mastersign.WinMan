@@ -3,17 +3,18 @@
 namespace WindowsDesktop.Interop
 {
 	internal class VirtualDesktopManagerInternal
-		: IVirtualDesktopManagerInternal10130
-		, IVirtualDesktopManagerInternal10240
-		, IVirtualDesktopManagerInternal14328
 	{
 		private IVirtualDesktopManagerInternal10130 _manager10130;
 		private IVirtualDesktopManagerInternal10240 _manager10240;
 		private IVirtualDesktopManagerInternal14328 _manager14328;
+		private IVirtualDesktopManagerInternal22000 _manager22000;
 
 		public static VirtualDesktopManagerInternal GetInstance()
 		{
-			var v14328 = GetInstanceCore<IVirtualDesktopManagerInternal14328>();
+			var v22000 = GetInstanceCore<IVirtualDesktopManagerInternal22000>();
+			if (v22000 != null) return new VirtualDesktopManagerInternal() { _manager22000 = v22000 };
+
+            var v14328 = GetInstanceCore<IVirtualDesktopManagerInternal14328>();
 			if (v14328 != null) return new VirtualDesktopManagerInternal() { _manager14328 = v14328, };
 
 			var v10240 = GetInstanceCore<IVirtualDesktopManagerInternal10240>();
@@ -22,7 +23,7 @@ namespace WindowsDesktop.Interop
 			var v10130 = GetInstanceCore<IVirtualDesktopManagerInternal10130>();
 			if (v10130 != null) return new VirtualDesktopManagerInternal() { _manager10130 = v10130, };
 
-			throw new NotSupportedException();
+            throw new NotSupportedException();
 		}
 
 		private static T GetInstanceCore<T>()
@@ -36,44 +37,23 @@ namespace WindowsDesktop.Interop
 			return (T)ppvObject;
 		}
 
-		public int GetCount()
+		public void MoveViewToDesktop(IApplicationView pView, VirtualDesktopHandle desktop)
 		{
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                this._manager22000?.MoveViewToDesktop(pView, desktop.VirtualDesktop22000);
+                return;
+            }
+
+            if (this._manager10240 != null)
 			{
-				return this._manager14328.GetCount();
-			}
-
-			if (this._manager10240 != null)
-			{
-				return this._manager10240.GetCount();
-			}
-
-			if (this._manager10130 != null)
-			{
-				return this._manager10130.GetCount();
-			}
-
-			throw new NotSupportedException();
-		}
-
-
-		public void MoveViewToDesktop(IApplicationView pView, IVirtualDesktop desktop)
-		{
-			if (this._manager14328 != null)
-			{
-				this._manager14328?.MoveViewToDesktop(pView, desktop);
-				return;
-			}
-
-			if (this._manager10240 != null)
-			{
-				this._manager10240?.MoveViewToDesktop(pView, desktop);
+				this._manager10240?.MoveViewToDesktop(pView, desktop.VirtualDesktop);
 				return;
 			}
 
 			if (this._manager10130 != null)
 			{
-				this._manager10130.MoveViewToDesktop(pView, desktop);
+				this._manager10130.MoveViewToDesktop(pView, desktop.VirtualDesktop);
 				return;
 			}
 
@@ -82,12 +62,17 @@ namespace WindowsDesktop.Interop
 
 		public bool CanViewMoveDesktops(IApplicationView pView)
 		{
-			if (this._manager14328 != null)
-			{
-				return this._manager14328.CanViewMoveDesktops(pView);
-			}
+            if (this._manager22000 != null)
+            {
+                return this._manager22000.CanViewMoveDesktops(pView);
+            }
 
-			if (this._manager10240 != null)
+            if (this._manager14328 != null)
+            {
+                return this._manager14328.CanViewMoveDesktops(pView);
+            }
+
+            if (this._manager10240 != null)
 			{
 				return this._manager10240.CanViewMoveDesktops(pView);
 			}
@@ -100,21 +85,26 @@ namespace WindowsDesktop.Interop
 			throw new NotSupportedException();
 		}
 
-		public IVirtualDesktop GetCurrentDesktop()
+		public VirtualDesktopHandle GetCurrentDesktop()
 		{
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                return new VirtualDesktopHandle(this._manager22000.GetCurrentDesktop(IntPtr.Zero));
+            }
+
+            if (this._manager14328 != null)
 			{
-				return this._manager14328.GetCurrentDesktop();
+				return new VirtualDesktopHandle(this._manager14328.GetCurrentDesktop());
 			}
 
 			if (this._manager10240 != null)
 			{
-				return this._manager10240.GetCurrentDesktop();
+				return new VirtualDesktopHandle(this._manager10240.GetCurrentDesktop());
 			}
 
 			if (this._manager10130 != null)
 			{
-				return this._manager10130.GetCurrentDesktop();
+				return new VirtualDesktopHandle(this._manager10130.GetCurrentDesktop());
 			}
 
 			throw new NotSupportedException();
@@ -122,6 +112,12 @@ namespace WindowsDesktop.Interop
 
 		public IObjectArray GetDesktops()
 		{
+			if (this._manager22000 != null)
+			{
+				this._manager22000.GetDesktops(IntPtr.Zero, out var result);
+				return result;
+			}
+
 			if (this._manager14328 != null)
 			{
 				return this._manager14328.GetDesktops();
@@ -140,110 +136,141 @@ namespace WindowsDesktop.Interop
 			throw new NotSupportedException();
 		}
 
-		public IVirtualDesktop GetAdjacentDesktop(IVirtualDesktop pDesktopReference, AdjacentDesktop uDirection)
+		public VirtualDesktopHandle GetAdjacentDesktop(VirtualDesktopHandle desktopReference, AdjacentDesktop uDirection)
 		{
+			if (this._manager22000 != null)
+			{
+				this._manager22000.GetAdjacentDesktop(desktopReference.VirtualDesktop22000, uDirection, out var result);
+				return new VirtualDesktopHandle(result);
+			}
+
 			if (this._manager14328 != null)
 			{
-				return this._manager14328.GetAdjacentDesktop(pDesktopReference, uDirection);
+				return new VirtualDesktopHandle(
+					this._manager14328.GetAdjacentDesktop(desktopReference.VirtualDesktop, uDirection));
 			}
 
 			if (this._manager10240 != null)
 			{
-				return this._manager10240.GetAdjacentDesktop(pDesktopReference, uDirection);
+				return new VirtualDesktopHandle(
+                    this._manager10240.GetAdjacentDesktop(desktopReference.VirtualDesktop, uDirection));
 			}
 
 			if (this._manager10130 != null)
 			{
-				return this._manager10130.GetAdjacentDesktop(pDesktopReference, uDirection);
+				return new VirtualDesktopHandle(
+                    this._manager10130.GetAdjacentDesktop(desktopReference.VirtualDesktop, uDirection));
 			}
 
 			throw new NotSupportedException();
 		}
 
-		public void SwitchDesktop(IVirtualDesktop desktop)
+		public void SwitchDesktop(VirtualDesktopHandle desktop)
 		{
-			if (this._manager14328 != null)
+			if (this._manager22000 != null)
 			{
-				this._manager14328?.SwitchDesktop(desktop);
+                this._manager22000?.SwitchDesktop(IntPtr.Zero, desktop.VirtualDesktop22000);
+                return;
+            }
+
+            if (this._manager14328 != null)
+			{
+				this._manager14328?.SwitchDesktop(desktop.VirtualDesktop);
 				return;
 			}
 
 			if (this._manager10240 != null)
 			{
-				this._manager10240?.SwitchDesktop(desktop);
+				this._manager10240?.SwitchDesktop(desktop.VirtualDesktop);
 				return;
 			}
 
 			if (this._manager10130 != null)
 			{
-				this._manager10130.SwitchDesktop(desktop);
-				return;
-			}
-
-			throw new NotSupportedException();
-		}
-
-		public IVirtualDesktop CreateDesktopW()
-		{
-			if (this._manager14328 != null)
-			{
-				return this._manager14328.CreateDesktopW();
-			}
-
-			if (this._manager10240 != null)
-			{
-				return this._manager10240.CreateDesktopW();
-			}
-
-			if (this._manager10130 != null)
-			{
-				return this._manager10130.CreateDesktopW();
-			}
-
-			throw new NotSupportedException();
-		}
-
-		public void RemoveDesktop(IVirtualDesktop pRemove, IVirtualDesktop pFallbackDesktop)
-		{
-			if (this._manager14328 != null)
-			{
-				this._manager14328.RemoveDesktop(pRemove, pFallbackDesktop);
-				return;
-			}
-
-			if (this._manager10240 != null)
-			{
-				this._manager10240.RemoveDesktop(pRemove, pFallbackDesktop);
-				return;
-			}
-
-			if (this._manager10130 != null)
-			{
-				this._manager10130.RemoveDesktop(pRemove, pFallbackDesktop);
+				this._manager10130.SwitchDesktop(desktop.VirtualDesktop);
 				return;
 			}
 
 			throw new NotSupportedException();
 		}
 
-		public IVirtualDesktop FindDesktop(ref Guid desktopId)
+		public VirtualDesktopHandle CreateDesktopW()
 		{
+			if (this._manager22000 != null)
+			{
+				return new VirtualDesktopHandle(this._manager22000.CreateDesktop(IntPtr.Zero));
+			}
+
 			if (this._manager14328 != null)
 			{
-				return this._manager14328.FindDesktop(ref desktopId);
+				return new VirtualDesktopHandle(this._manager14328.CreateDesktopW());
 			}
 
 			if (this._manager10240 != null)
 			{
-				return this._manager10240.FindDesktop(ref desktopId);
+				return new VirtualDesktopHandle(this._manager10240.CreateDesktopW());
 			}
 
 			if (this._manager10130 != null)
 			{
-				return this._manager10130.FindDesktop(ref desktopId);
+				return new VirtualDesktopHandle(this._manager10130.CreateDesktopW());
 			}
 
 			throw new NotSupportedException();
 		}
-	}
+
+		public void RemoveDesktop(VirtualDesktopHandle pRemove, VirtualDesktopHandle pFallbackDesktop)
+		{
+			if (this._manager22000 != null)
+			{
+				this._manager22000.RemoveDesktop(pRemove.VirtualDesktop22000, pFallbackDesktop.VirtualDesktop22000);
+				return;
+			}
+
+			if (this._manager14328 != null)
+			{
+				this._manager14328.RemoveDesktop(pRemove.VirtualDesktop, pFallbackDesktop.VirtualDesktop);
+				return;
+			}
+
+			if (this._manager10240 != null)
+			{
+				this._manager10240.RemoveDesktop(pRemove.VirtualDesktop, pFallbackDesktop.VirtualDesktop);
+				return;
+			}
+
+			if (this._manager10130 != null)
+			{
+				this._manager10130.RemoveDesktop(pRemove.VirtualDesktop, pFallbackDesktop.VirtualDesktop);
+				return;
+			}
+
+			throw new NotSupportedException();
+		}
+
+		public VirtualDesktopHandle FindDesktop(ref Guid desktopId)
+		{
+			if (this._manager22000 != null)
+			{
+				return new VirtualDesktopHandle(this._manager22000.FindDesktop(ref desktopId));
+			}
+
+			if (this._manager14328 != null)
+			{
+				return new VirtualDesktopHandle(this._manager14328.FindDesktop(ref desktopId));
+			}
+
+			if (this._manager10240 != null)
+			{
+				return new VirtualDesktopHandle(this._manager10240.FindDesktop(ref desktopId));
+			}
+
+			if (this._manager10130 != null)
+			{
+				return new VirtualDesktopHandle(this._manager10130.FindDesktop(ref desktopId));
+			}
+
+			throw new NotSupportedException();
+		}
+    }
 }
