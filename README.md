@@ -3,7 +3,7 @@ Mastersign WinMan
 
 ![](src/icon/winman_48.png)
 
-> Manager for window layouts on Windows 10.
+> Manager for window layouts on Windows 10/11.
 
 ## Features
 
@@ -14,6 +14,7 @@ Mastersign WinMan
 
 ## Requirements
 
+* Since v1.17.0 _WinMan_ is compatible with Windows 11
 * Since v1.11.0 _WinMan_ requires **Microsoft .NET Framework 4.7.2** or higher
 * Since v1.9.0 _WinMan_ requires **Windows 10 1809** or higher
 * Since v1.5.0 _WinMan_ requires Windows 10 1803
