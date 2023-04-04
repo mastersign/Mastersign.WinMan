@@ -147,7 +147,7 @@ namespace Mastersign.WinMan
                 Shortcuts.Create(
                     Path.Combine(targetDir, $"{layout.Name} {Workspace.Options.ShortcutApplyTerm}.lnk"),
                     winManExePath,
-                    $"\"{WorkspaceFileName}\" --verbose --switch-to-virtual-desktop {layout.DefaultVirtualDesktop} --layouts \"{layout.Name}\"",
+                    $"\"{WorkspaceFileName}\" --verbose --switch-virtual-desktop {layout.DefaultVirtualDesktop} --layouts \"{layout.Name}\"",
                     Path.GetDirectoryName(WorkspaceFileName),
                     $"{winManGuiExePath},3",
                     $"Apply WinMan layout \"{layout.Name}\"");
@@ -155,7 +155,7 @@ namespace Mastersign.WinMan
                 Shortcuts.Create(
                     Path.Combine(targetDir, $"{layout.Name} {Workspace.Options.ShortcutKillTerm}.lnk"),
                     winManExePath,
-                    $"\"{WorkspaceFileName}\" --verbose --switch-to-virtual-desktop {layout.DefaultVirtualDesktop} --kill --layouts \"{layout.Name}\"",
+                    $"\"{WorkspaceFileName}\" --verbose --switch-virtual-desktop {layout.DefaultVirtualDesktop} --kill --layouts \"{layout.Name}\"",
                     Path.GetDirectoryName(WorkspaceFileName),
                     $"{winManGuiExePath},4",
                     $"Kill WinMan layout \"{layout.Name}\"");

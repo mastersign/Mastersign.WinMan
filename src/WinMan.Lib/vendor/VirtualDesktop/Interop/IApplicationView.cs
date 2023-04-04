@@ -6,10 +6,10 @@ namespace WindowsDesktop.Interop
 	[ComImport]
 #if WIN_10_1809
     [Guid("372e1d3b-38d3-42e4-a15b-8ab2b178f513")]
-	[InterfaceType(ComInterfaceType.InterfaceIsIInspectable)]
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 #elif WIN_10_1803
     [Guid("871F602A-2B58-42B4-8C4B-6C43D642C06F")]
-	[InterfaceType(ComInterfaceType.InterfaceIsIInspectable)]
+	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
 #else
     [Guid("9ac0b5c8-1484-4c5b-9533-4134a0f97cea")]
 	[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
