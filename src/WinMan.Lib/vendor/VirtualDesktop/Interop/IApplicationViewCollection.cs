@@ -27,7 +27,7 @@ namespace WindowsDesktop.Interop
 
 		int GetViewInFocus(out IntPtr view);
 
-		void outreshCollection();
+        void RefreshCollection();
 
 		int RegisterForApplicationViewChanges(object listener, out int cookie);
 
