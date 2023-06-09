@@ -4,10 +4,8 @@ param (
     $NamePattern = "AssemblyInfo.cs"
 )
 
-$myDir = [IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
-
 if (!$RootDir) {
-    $RootDir = Resolve-Path "$myDir\..\src"
+    $RootDir = Resolve-Path "$PSScriptRoot\..\src"
 }
 
 $files = Get-ChildItem -Path $RootDir -Directory -Recurse | Get-ChildItem -File -Filter $NamePattern
