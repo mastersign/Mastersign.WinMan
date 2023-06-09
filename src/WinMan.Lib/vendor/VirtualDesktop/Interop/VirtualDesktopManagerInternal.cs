@@ -45,6 +45,12 @@ namespace WindowsDesktop.Interop
                 return;
             }
 
+            if (this._manager14328 != null)
+            {
+                this._manager14328?.MoveViewToDesktop(pView, desktop.VirtualDesktop);
+                return;
+            }
+
             if (this._manager10240 != null)
 			{
 				this._manager10240?.MoveViewToDesktop(pView, desktop.VirtualDesktop);
