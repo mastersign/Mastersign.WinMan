@@ -7,12 +7,16 @@ namespace WindowsDesktop.Interop
 		private IVirtualDesktopManagerInternal10130 _manager10130;
 		private IVirtualDesktopManagerInternal10240 _manager10240;
 		private IVirtualDesktopManagerInternal14328 _manager14328;
-		private IVirtualDesktopManagerInternal22000 _manager22000;
+        private IVirtualDesktopManagerInternal22000 _manager22000;
+        private IVirtualDesktopManagerInternal22631 _manager22621;
 
-		public static VirtualDesktopManagerInternal GetInstance()
+        public static VirtualDesktopManagerInternal GetInstance()
 		{
-			var v22000 = GetInstanceCore<IVirtualDesktopManagerInternal22000>();
-			if (v22000 != null) return new VirtualDesktopManagerInternal() { _manager22000 = v22000 };
+            var v22622 = GetInstanceCore<IVirtualDesktopManagerInternal22631>();
+            if (v22622 != null) return new VirtualDesktopManagerInternal() { _manager22621 = v22622 };
+
+            var v22000 = GetInstanceCore<IVirtualDesktopManagerInternal22000>();
+            if (v22000 != null) return new VirtualDesktopManagerInternal() { _manager22000 = v22000 };
 
             var v14328 = GetInstanceCore<IVirtualDesktopManagerInternal14328>();
 			if (v14328 != null) return new VirtualDesktopManagerInternal() { _manager14328 = v14328, };
@@ -39,6 +43,12 @@ namespace WindowsDesktop.Interop
 
 		public void MoveViewToDesktop(IApplicationView pView, VirtualDesktopHandle desktop)
 		{
+            if (this._manager22621 != null)
+            {
+                this._manager22621?.MoveViewToDesktop(pView, desktop.VirtualDesktop22631);
+                return;
+            }
+
             if (this._manager22000 != null)
             {
                 this._manager22000?.MoveViewToDesktop(pView, desktop.VirtualDesktop22000);
@@ -68,6 +78,11 @@ namespace WindowsDesktop.Interop
 
 		public bool CanViewMoveDesktops(IApplicationView pView)
 		{
+            if (this._manager22621 != null)
+            {
+                return this._manager22621.CanViewMoveDesktops(pView);
+            }
+
             if (this._manager22000 != null)
             {
                 return this._manager22000.CanViewMoveDesktops(pView);
@@ -93,6 +108,11 @@ namespace WindowsDesktop.Interop
 
 		public VirtualDesktopHandle GetCurrentDesktop()
 		{
+            if (this._manager22621 != null)
+            {
+                return new VirtualDesktopHandle(this._manager22621.GetCurrentDesktop());
+            }
+
             if (this._manager22000 != null)
             {
                 return new VirtualDesktopHandle(this._manager22000.GetCurrentDesktop(IntPtr.Zero));
@@ -118,13 +138,17 @@ namespace WindowsDesktop.Interop
 
 		public IObjectArray GetDesktops()
 		{
-			if (this._manager22000 != null)
-			{
-				this._manager22000.GetDesktops(IntPtr.Zero, out var result);
-				return result;
-			}
+            if (this._manager22621 != null)
+            {
+                return this._manager22621.GetDesktops();
+            }
 
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                return this._manager22000.GetDesktops(IntPtr.Zero);
+            }
+
+            if (this._manager14328 != null)
 			{
 				return this._manager14328.GetDesktops();
 			}
@@ -144,13 +168,19 @@ namespace WindowsDesktop.Interop
 
 		public VirtualDesktopHandle GetAdjacentDesktop(VirtualDesktopHandle desktopReference, AdjacentDesktop uDirection)
 		{
-			if (this._manager22000 != null)
-			{
-				this._manager22000.GetAdjacentDesktop(desktopReference.VirtualDesktop22000, uDirection, out var result);
-				return new VirtualDesktopHandle(result);
-			}
+            if (this._manager22621 != null)
+            {
+                return new VirtualDesktopHandle(
+					this._manager22621.GetAdjacentDesktop(desktopReference.VirtualDesktop22631, uDirection));
+            }
 
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                return new VirtualDesktopHandle(
+                    this._manager22000.GetAdjacentDesktop(desktopReference.VirtualDesktop22000, uDirection));
+            }
+
+            if (this._manager14328 != null)
 			{
 				return new VirtualDesktopHandle(
 					this._manager14328.GetAdjacentDesktop(desktopReference.VirtualDesktop, uDirection));
@@ -173,8 +203,14 @@ namespace WindowsDesktop.Interop
 
 		public void SwitchDesktop(VirtualDesktopHandle desktop)
 		{
-			if (this._manager22000 != null)
-			{
+            if (this._manager22621 != null)
+            {
+                this._manager22621?.SwitchDesktop(desktop.VirtualDesktop22631);
+                return;
+            }
+
+            if (this._manager22000 != null)
+            {
                 this._manager22000?.SwitchDesktop(IntPtr.Zero, desktop.VirtualDesktop22000);
                 return;
             }
@@ -202,12 +238,17 @@ namespace WindowsDesktop.Interop
 
 		public VirtualDesktopHandle CreateDesktopW()
 		{
-			if (this._manager22000 != null)
-			{
-				return new VirtualDesktopHandle(this._manager22000.CreateDesktop(IntPtr.Zero));
-			}
+            if (this._manager22621 != null)
+            {
+                return new VirtualDesktopHandle(this._manager22621.CreateDesktopW());
+            }
 
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                return new VirtualDesktopHandle(this._manager22000.CreateDesktop(IntPtr.Zero));
+            }
+
+            if (this._manager14328 != null)
 			{
 				return new VirtualDesktopHandle(this._manager14328.CreateDesktopW());
 			}
@@ -227,13 +268,19 @@ namespace WindowsDesktop.Interop
 
 		public void RemoveDesktop(VirtualDesktopHandle pRemove, VirtualDesktopHandle pFallbackDesktop)
 		{
-			if (this._manager22000 != null)
-			{
-				this._manager22000.RemoveDesktop(pRemove.VirtualDesktop22000, pFallbackDesktop.VirtualDesktop22000);
-				return;
-			}
+            if (this._manager22621 != null)
+            {
+                this._manager22621.RemoveDesktop(pRemove.VirtualDesktop22631, pFallbackDesktop.VirtualDesktop22631);
+                return;
+            }
 
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                this._manager22000.RemoveDesktop(pRemove.VirtualDesktop22000, pFallbackDesktop.VirtualDesktop22000);
+                return;
+            }
+
+            if (this._manager14328 != null)
 			{
 				this._manager14328.RemoveDesktop(pRemove.VirtualDesktop, pFallbackDesktop.VirtualDesktop);
 				return;
@@ -256,12 +303,17 @@ namespace WindowsDesktop.Interop
 
 		public VirtualDesktopHandle FindDesktop(ref Guid desktopId)
 		{
-			if (this._manager22000 != null)
-			{
-				return new VirtualDesktopHandle(this._manager22000.FindDesktop(ref desktopId));
-			}
+            if (this._manager22621 != null)
+            {
+                return new VirtualDesktopHandle(this._manager22621.FindDesktop(ref desktopId));
+            }
 
-			if (this._manager14328 != null)
+            if (this._manager22000 != null)
+            {
+                return new VirtualDesktopHandle(this._manager22000.FindDesktop(ref desktopId));
+            }
+
+            if (this._manager14328 != null)
 			{
 				return new VirtualDesktopHandle(this._manager14328.FindDesktop(ref desktopId));
 			}

@@ -76,21 +76,43 @@ namespace WindowsDesktop
 
             for (var i = 0u; i < count; i++)
             {
-                VirtualDesktopHandle handle;
-                try
+                VirtualDesktopHandle? handle = null;
+                if (!handle.HasValue)
                 {
-                    desktops.GetAt(i, typeof(IVirtualDesktop22000).GUID, out var ppvObject);
-                    handle = new VirtualDesktopHandle((IVirtualDesktop22000)ppvObject);
-                } 
-                catch(InvalidCastException)
+                    try
+                    {
+                        desktops.GetAt(i, typeof(IVirtualDesktop22631).GUID, out var ppvObject);
+                        handle = new VirtualDesktopHandle((IVirtualDesktop22631)ppvObject);
+                    }
+                    catch (InvalidCastException) { }
+                }
+                if (!handle.HasValue)
                 {
-                    desktops.GetAt(i, typeof(IVirtualDesktop).GUID, out var ppvObject);
-                    handle = new VirtualDesktopHandle((IVirtualDesktop)ppvObject);
+                    try
+                    {
+                        desktops.GetAt(i, typeof(IVirtualDesktop22000).GUID, out var ppvObject);
+                        handle = new VirtualDesktopHandle((IVirtualDesktop22000)ppvObject);
+                    }
+                    catch (InvalidCastException) { }
+                }
+                if (!handle.HasValue) {
+                    try
+                    {
+                        desktops.GetAt(i, typeof(IVirtualDesktop).GUID, out var ppvObject);
+                        handle = new VirtualDesktopHandle((IVirtualDesktop)ppvObject);
+                    }
+                    catch (InvalidCastException) { }
                 }
 
-                var wrapper = _wrappers.GetOrAdd(handle.GetID(), _ => new VirtualDesktop(handle));
-
-                yield return wrapper;
+                if (handle.HasValue)
+                {
+                    var wrapper = _wrappers.GetOrAdd(handle.Value.GetID(), _ => new VirtualDesktop(handle.Value));
+                    yield return wrapper;
+                }
+                else
+                {
+                    throw new InvalidCastException("The virtual desktop could not be casted into a known interface");
+                }
             }
         }
 
@@ -122,19 +144,10 @@ namespace WindowsDesktop
         public static VirtualDesktop FromId(Guid desktopId)
         {
             VirtualDesktopHelper.ThrowIfNotSupported();
-
-            VirtualDesktopHandle desktop;
-            try
-            {
-                desktop = ComObjects.VirtualDesktopManagerInternal.FindDesktop(ref desktopId);
-            }
-            catch (COMException ex) when (ex.Match(HResult.TYPE_E_ELEMENTNOTFOUND))
-            {
-                return null;
-            }
-            var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
-
-            return wrapper;
+            // prime the cache
+            GetDesktopsInternal();
+            // lookup from cache
+            return _wrappers.TryGetValue(desktopId, out var vd) ? vd : null;
         }
 
         /// <summary>
@@ -146,19 +159,17 @@ namespace WindowsDesktop
 
             if (hwnd == IntPtr.Zero) return null;
 
-            VirtualDesktopHandle desktop;
             try
             {
                 var desktopId = ComObjects.VirtualDesktopManager.GetWindowDesktopId(hwnd);
-                desktop = ComObjects.VirtualDesktopManagerInternal.FindDesktop(ref desktopId);
+                return FromId(desktopId);
             }
-            catch (COMException ex) when (ex.Match(HResult.REGDB_E_CLASSNOTREG, HResult.TYPE_E_ELEMENTNOTFOUND))
+            catch (COMException ex) when (ex.Match(
+                HResult.REGDB_E_CLASSNOTREG,
+                HResult.TYPE_E_ELEMENTNOTFOUND))
             {
                 return null;
             }
-            var wrapper = _wrappers.GetOrAdd(desktop.GetID(), _ => new VirtualDesktop(desktop));
-
-            return wrapper;
         }
     }
 }

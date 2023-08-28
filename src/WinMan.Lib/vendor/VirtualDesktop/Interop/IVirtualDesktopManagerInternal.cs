@@ -129,10 +129,10 @@ namespace WindowsDesktop.Interop
 
         IObjectArray GetAllCurrentDesktops();
 
-        void GetDesktops(IntPtr hWndOrMon, out IObjectArray desktops);
+        IObjectArray GetDesktops(IntPtr hWndOrMon);
 
         [PreserveSig]
-        int GetAdjacentDesktop(IVirtualDesktop22000 from, AdjacentDesktop uDirection, out IVirtualDesktop22000 desktop);
+        IVirtualDesktop22000 GetAdjacentDesktop(IVirtualDesktop22000 from, AdjacentDesktop uDirection);
 
         void SwitchDesktop(IntPtr hWndOrMon, IVirtualDesktop22000 desktop);
 
@@ -157,6 +157,58 @@ namespace WindowsDesktop.Interop
         int GetDesktopIsPerMonitor();
 
         void SetDesktopIsPerMonitor(bool state);
+    }
+
+    [ComImport]
+    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+    [Guid("4970ba3d-fd4e-4647-bea3-d89076ef4b9c")]
+    //[Guid("a3175f2d-239c-4bd2-8aa0-eeba8b0b138e")]
+    internal interface IVirtualDesktopManagerInternal22631
+    {
+        int GetCount();
+
+        void MoveViewToDesktop(IApplicationView view, IVirtualDesktop22631 desktop);
+
+        bool CanViewMoveDesktops(IApplicationView view);
+
+        IVirtualDesktop22631 GetCurrentDesktop();
+
+        IObjectArray GetDesktops();
+
+        [PreserveSig]
+        IVirtualDesktop22631 GetAdjacentDesktop(IVirtualDesktop22631 from, AdjacentDesktop uDirection);
+
+        void SwitchDesktop(IVirtualDesktop22631 desktop);
+
+        void SwitchDesktopAndMoveForegroundView(IVirtualDesktop22631 desktop);
+
+        IVirtualDesktop22631 CreateDesktopW();
+
+        void MoveDesktop(IVirtualDesktop22631 desktop, int nIndex);
+
+        void RemoveDesktop(IVirtualDesktop22631 desktop, IVirtualDesktop22631 fallback);
+
+        IVirtualDesktop22631 FindDesktop(ref Guid desktopid);
+
+        void GetDesktopSwitchIncludeExcludeViews(IVirtualDesktop22631 desktop, out IObjectArray unknown1, out IObjectArray unknown2);
+
+        void SetDesktopName(IVirtualDesktop22631 desktop, [MarshalAs(UnmanagedType.HString)] string name);
+
+        void SetDesktopWallpaper(IVirtualDesktop22631 desktop, [MarshalAs(UnmanagedType.HString)] string path);
+
+        void UpdateWallpaperPathForAllDesktops([MarshalAs(UnmanagedType.HString)] string path);
+
+        void CopyDesktopState(IApplicationView pView0, IApplicationView pView1);
+
+        IVirtualDesktop22631 CreateRemoteDesktop([MarshalAs(UnmanagedType.HString)] string path);
+
+        void SwitchRemoteDesktop(IVirtualDesktop22631 desktop);
+
+        void SwitchDesktopWithAnimation(IVirtualDesktop22631 desktop);
+
+        IVirtualDesktop22631 GetLastActiveDesktop();
+
+        void WaitForAnimationToComplete();
     }
 
     public enum AdjacentDesktop
